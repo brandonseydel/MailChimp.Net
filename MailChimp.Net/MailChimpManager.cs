@@ -9,25 +9,34 @@ namespace MailChimp.Net
 {
     public class MailChimpManager : MailManagerBase, IMailChimpManager
     {
-        public MailChimpManager(string apiKey) : base(apiKey) { }
-        
-        public MailChimpManager() { }
+        private readonly IListLogic _listLogic;
+        private readonly IMemberLogic _memberLogic;
+
+        public MailChimpManager(string apiKey) : base(apiKey)
+        {
+            _listLogic = new ListLogic(ApiKey);
+            _memberLogic = new MemberLogic(ApiKey);
+        }
+
+        public MailChimpManager()
+        {
+            _listLogic = new ListLogic(ApiKey);
+            _memberLogic = new MemberLogic(ApiKey);
+        }
 
         public async Task<IEnumerable<List>> GetListsAsync()
         {
-            var list = new ListLogic(ApiKey);
-            return await list.GetAll();
+            return await _listLogic.GetAll();
         }
 
         public async Task<List> GetListAsync(string id)
         {
-            var list = new ListLogic(ApiKey);
-            return await list.GetAsync(id);
+            return await _listLogic.GetAsync(id);
         }
 
         public async Task<IEnumerable<Member>> GetListMembersAsync(string listId)
         {
-            var memberLogic = new MemberLogic(ApiKey);
+            
             return await memberLogic.GetAllByListIdAsync(listId);
         }
         public async Task<Member> GetListMemberAsync(string listId, string emailAddress)

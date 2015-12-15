@@ -19,5 +19,13 @@ namespace MailChimp.Net.Tests
             var lists = await _mailChimpManager.GetListAsync("72dcc9fa45");
             Assert.IsNotNull(lists);
         }
+
+        [TestMethod]
+        public async Task Test_Configuration_Key()
+        {
+            _mailChimpManager = new MailChimpManager();
+            var lists = await _mailChimpManager.GetListAsync("72dcc9fa45");
+            Assert.IsNotNull(lists);
+        }
     }
 }
