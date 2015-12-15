@@ -50,7 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper.cs" />
+    <Compile Include="Interfaces\IMailChimpManager.cs" />
     <Compile Include="Logic\BaseLogic.cs" />
+    <Compile Include="Interfaces\IListLogic.cs" />
+    <Compile Include="Interfaces\IMemberLogic.cs" />
     <Compile Include="Logic\ListRequest.cs" />
     <Compile Include="Logic\MemberLogic.cs" />
     <Compile Include="Logic\ListLogic.cs" />
@@ -89,7 +92,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
     <Folder Include="Requests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

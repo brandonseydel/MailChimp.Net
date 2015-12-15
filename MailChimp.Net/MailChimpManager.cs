@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net
 {
-    public class MailChimpManager : MonkeyBase
+    public class MailChimpManager : MailManagerBase, IMailChimpManager
     {
         public MailChimpManager(string apiKey) : base(apiKey) { }
         

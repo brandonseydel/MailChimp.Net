@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 using MailChimp.Net.Responses;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Logic
 {
-    internal class MemberLogic : BaseLogic
+    internal class MemberLogic : BaseLogic, IMemberLogic
     {
         public MemberLogic(string apiKey): base(apiKey){}
         

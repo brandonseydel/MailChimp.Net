@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 using MailChimp.Net.Responses;
 
 namespace MailChimp.Net.Logic
 {
-    internal class ListLogic : BaseLogic
+    internal class ListLogic : BaseLogic, IListLogic
     {
         public ListLogic(string apiKey): base(apiKey){}
         

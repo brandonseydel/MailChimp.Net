@@ -2,20 +2,20 @@
 
 namespace MailChimp.Net
 {
-    public abstract class MonkeyBase
+    public abstract class MailManagerBase
     {
-        protected MonkeyBase(string apiKey)
+        protected MailManagerBase(string apiKey)
         {
             _apiKey = apiKey;
         }
 
-        protected MonkeyBase() { }
+        protected MailManagerBase() { }
 
         private static string _apiKey;
 
         protected static string ApiKey
         {
-            get { return _apiKey ?? ConfigurationManager.AppSettings["MailChimpApiKey"] ?? _apiKey; }
+            get { return _apiKey ?? ConfigurationManager.AppSettings["MailChimpApiKey"]; }
             set { _apiKey = value; }
         }
     }
