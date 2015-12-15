@@ -2,7 +2,7 @@ using System;
 using System.Net.Http;
 using System.Security.Cryptography;
 
-namespace MailChimp.Net.Logic
+namespace MailChimp.Net.Core
 {
     public class BaseLogic
     {
@@ -17,7 +17,7 @@ namespace MailChimp.Net.Logic
 
         public HttpClient CreateMailClient(string resource)
         {
-            var client = new HttpClient {BaseAddress = new Uri($"https://{_dataCenter}.api.mailchimp.com/3.0/{resource}/")};
+            var client = new HttpClient {BaseAddress = new Uri($"https://{_dataCenter}.api.mailchimp.com/3.0/{resource}")};
             client.DefaultRequestHeaders.Add("Authorization", $"apikey {_apiKey}");
             return client;
         }

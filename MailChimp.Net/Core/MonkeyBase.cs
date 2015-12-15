@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace MailChimp.Net
+namespace MailChimp.Net.Core
 {
     public abstract class MailManagerBase
     {

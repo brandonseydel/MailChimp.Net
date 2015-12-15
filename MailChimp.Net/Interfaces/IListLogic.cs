@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MailChimp.Net.Logic;
 using MailChimp.Net.Models;
+using MailChimp.Net.Requests;
 
 namespace MailChimp.Net.Interfaces
 {

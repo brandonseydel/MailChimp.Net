@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace MailChimp.Net
+namespace MailChimp.Net.Core
 {
     public static class Helper
     {

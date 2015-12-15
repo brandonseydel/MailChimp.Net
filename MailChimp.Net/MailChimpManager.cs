@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
 using MailChimp.Net.Models;
@@ -37,7 +38,7 @@ namespace MailChimp.Net
         public async Task<IEnumerable<Member>> GetListMembersAsync(string listId)
         {
             
-            return await memberLogic.GetAllByListIdAsync(listId);
+            return await _memberLogic.GetAllByListIdAsync(listId);
         }
         public async Task<Member> GetListMemberAsync(string listId, string emailAddress)
         {

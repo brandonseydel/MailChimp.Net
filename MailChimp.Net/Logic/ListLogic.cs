@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using MailChimp.Net.Requests;
 using MailChimp.Net.Responses;
 
 namespace MailChimp.Net.Logic
@@ -15,11 +15,13 @@ namespace MailChimp.Net.Logic
         
         public async Task<IEnumerable<List>> GetAll(ListRequest request = null)
         {
+            request = new ListRequest();
             try
             {
+                request.Limit = 2;
                 using (var client = CreateMailClient("lists"))
                 {
-                    var response = await client.GetAsync("");
+                    var response = await client.GetAsync(request?.ToQueryString());
                     response.EnsureSuccessStatusCode();
 
                     var listResponse = await response.Content.ReadAsAsync<ListResponse>();
@@ -38,7 +40,7 @@ namespace MailChimp.Net.Logic
         {
             try
             {
-                using (var client = CreateMailClient("lists"))
+                using (var client = CreateMailClient("lists/"))
                 {
                     var response = await client.GetAsync($"{id}");
                     response.EnsureSuccessStatusCode();
@@ -51,10 +53,5 @@ namespace MailChimp.Net.Logic
             }
             return null;
         }
-    }
-
-    public abstract class BaseRequest
-    {
-        public abstract string ToQueryString();
     }
 }

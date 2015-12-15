@@ -17,7 +17,7 @@ namespace MailChimp.Net.Logic
         {
             try
             {
-                using (var client = CreateMailClient("lists"))
+                using (var client = CreateMailClient("lists/"))
                 {
                     var response = await client.GetAsync($"{listId}/members");
                     response.EnsureSuccessStatusCode();
@@ -38,7 +38,7 @@ namespace MailChimp.Net.Logic
         {
             try
             {
-                using (var client = CreateMailClient("lists"))
+                using (var client = CreateMailClient("lists/"))
                 {
                     var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress)}");
                     response.EnsureSuccessStatusCode();
@@ -56,7 +56,7 @@ namespace MailChimp.Net.Logic
         {
             try
             {
-                using (var client = CreateMailClient("lists"))
+                using (var client = CreateMailClient("lists/"))
                 {
                     var response = await client.PutAsJsonAsync($"{listId}/members/{Hash(member.EmailAddress)}", member);
                     response.EnsureSuccessStatusCode();
