@@ -49,7 +49,6 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Unsubscribe_User_From_List()
         {
-
             var member = new Member
             {
                 EmailAddress = "test@test.com",
