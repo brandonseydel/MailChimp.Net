@@ -6,10 +6,10 @@ namespace MailChimp.Net.Models
     {
 
         [JsonProperty("latitude")]
-        public int Latitude { get; set; }
+        public decimal Latitude { get; set; }
 
         [JsonProperty("longitude")]
-        public int Longitude { get; set; }
+        public decimal Longitude { get; set; }
 
         [JsonProperty("gmtoff")]
         public int Gmtoff { get; set; }
