@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -25,14 +27,14 @@ namespace MailChimp.Net.Models
         public string EmailType { get; set; }
 
         [JsonProperty("status")]
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof (StringEnumDescriptionConverter))]
         public Status Status { get; set; }
 
         [JsonProperty("status_if_new")]
         public string StatusIfNew { get; set; }
 
         [JsonProperty("merge_fields")]
-        public Dictionary<string,string> MergeFields { get; set; }
+        public Dictionary<string, string> MergeFields { get; set; }
 
         [JsonProperty("stats")]
         public Stats Stats { get; set; }

@@ -20,7 +20,7 @@ namespace MailChimp.Net.Tests
         {
             await
                 _mailChimpManager.AddOrUpdateListMemberAsync("72dcc9fa45",
-                    new Member { EmailAddress = "test@test.com", Status = Status.subscribed });
+                    new Member { EmailAddress = "test@test.com", Status = Status.Subscribed });
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace MailChimp.Net.Tests
             var member = new Member
             {
                 EmailAddress = "test@test.com",
-                Status = Status.unsubscribed
+                Status = Status.Unsubscribed
             };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
@@ -43,7 +43,7 @@ namespace MailChimp.Net.Tests
             var member = new Member
             {
                 EmailAddress = "test@test.com",
-                Status = Status.subscribed
+                Status = Status.Subscribed
             };
 
             member.MergeFields.Add("FNAME", "HOLY COW");

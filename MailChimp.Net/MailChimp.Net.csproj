@@ -55,6 +55,10 @@
     <Compile Include="Interfaces\IListLogic.cs" />
     <Compile Include="Interfaces\IMemberLogic.cs" />
     <Compile Include="Core\BaseRequest.cs" />
+    <Compile Include="Core\StringEnumDescriptionConverter.cs" />
+    <Compile Include="Requests\CampaignRequest.cs" />
+    <Compile Include="Core\CampaignStatus.cs" />
+    <Compile Include="Core\CampaignType.cs" />
     <Compile Include="Requests\ListRequest.cs" />
     <Compile Include="Logic\MemberLogic.cs" />
     <Compile Include="Logic\ListLogic.cs" />
