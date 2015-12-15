@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MailChimp.Net")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A .NET Wrapper for Mail Chimp v3.0 API")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Brandon Seydel")]
 [assembly: AssemblyProduct("MailChimp.Net")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]

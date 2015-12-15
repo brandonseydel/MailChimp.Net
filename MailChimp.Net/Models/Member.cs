@@ -73,14 +73,5 @@ namespace MailChimp.Net.Models
         [JsonProperty("_links")]
         public IEnumerable<Link> Links { get; set; }
     }
-
-    public enum Status
-    {
-        //todo change this and make my own converted for serialization
-        subscribed,
-        unsubscribed,
-        cleaned,
-        pending
-    }
 }
 
