@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MailChimp.Net</RootNamespace>
-    <AssemblyName>MailChimp.Net</AssemblyName>
+    <AssemblyName>MailChimp.Net.V3</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -112,11 +112,11 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Import Project="$(MSBuildProjectDirectory)\..\.build\MSBuild.Community.Tasks.targets" />
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
+    <!-- Only download a new copy of nuget.exe if we don't have a copy available -->
+    <WebDownload Condition="!Exists('nuget.exe')" Filename="nuget.exe" FileUri="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" />
+    <Exec Command="nuget pack MailChimp.Net.csproj -Prop Configuration=Release">
+    </Exec>
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
