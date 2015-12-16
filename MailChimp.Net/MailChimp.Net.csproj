@@ -50,26 +50,43 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Helper.cs" />
+    <Compile Include="Core\Requests\MessageRequest.cs" />
+    <Compile Include="Core\Responses\MessageResponse.cs" />
     <Compile Include="Interfaces\IMailChimpManager.cs" />
     <Compile Include="Core\BaseLogic.cs" />
     <Compile Include="Interfaces\IListLogic.cs" />
+    <Compile Include="Interfaces\IContentLogic.cs" />
+    <Compile Include="Interfaces\IFeedbackLogic.cs" />
+    <Compile Include="Interfaces\IInterestCategoryLogic.cs" />
+    <Compile Include="Interfaces\IMergeFieldLogic.cs" />
+    <Compile Include="Interfaces\ISegmentLogic.cs" />
+    <Compile Include="Interfaces\ISendChecklist.cs" />
+    <Compile Include="Interfaces\IConversationLogic.cs" />
+    <Compile Include="Interfaces\IMessageLogic.cs" />
+    <Compile Include="Interfaces\IAbuseReportLogic.cs" />
+    <Compile Include="Interfaces\IActivityLogic.cs" />
+    <Compile Include="Interfaces\IClientLogic.cs" />
+    <Compile Include="Interfaces\IGrowthHistoryLogic.cs" />
     <Compile Include="Interfaces\IMemberLogic.cs" />
     <Compile Include="Core\BaseRequest.cs" />
     <Compile Include="Core\StringEnumDescriptionConverter.cs" />
     <Compile Include="Logic\ApiLogic.cs" />
     <Compile Include="Interfaces\IApiLogic.cs" />
+    <Compile Include="Logic\ConversationLogic.cs" />
     <Compile Include="Logic\CampaignLogic.cs" />
     <Compile Include="Interfaces\ICampaignLogic.cs" />
+    <Compile Include="Logic\MessageLogic.cs" />
     <Compile Include="Models\ApiInfo.cs" />
     <Compile Include="Models\Condition.cs" />
     <Compile Include="Models\ReportSummary.cs" />
     <Compile Include="Models\SegmentOpts.cs" />
-    <Compile Include="Requests\MemberRequest.cs" />
-    <Compile Include="Requests\ReportRequest.cs" />
-    <Compile Include="Requests\CampaignRequest.cs" />
+    <Compile Include="Core\Requests\ConversationRequest.cs" />
+    <Compile Include="Core\Requests\MemberRequest.cs" />
+    <Compile Include="Core\Requests\ReportRequest.cs" />
+    <Compile Include="Core\Requests\CampaignRequest.cs" />
     <Compile Include="Core\CampaignStatus.cs" />
     <Compile Include="Core\CampaignType.cs" />
-    <Compile Include="Requests\ListRequest.cs" />
+    <Compile Include="Core\Requests\ListRequest.cs" />
     <Compile Include="Logic\MemberLogic.cs" />
     <Compile Include="Logic\ListLogic.cs" />
     <Compile Include="MailChimpManager.cs" />
@@ -101,10 +118,11 @@
     <Compile Include="Core\MonkeyBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\QueryStringAttribute.cs" />
-    <Compile Include="Responses\ApiResponse.cs" />
-    <Compile Include="Responses\CampaignResponse.cs" />
-    <Compile Include="Responses\MemberResponse.cs" />
-    <Compile Include="Responses\ListResponse.cs" />
+    <Compile Include="Core\Responses\ApiResponse.cs" />
+    <Compile Include="Core\Responses\CampaignResponse.cs" />
+    <Compile Include="Core\Responses\ConversationResponse.cs" />
+    <Compile Include="Core\Responses\MemberResponse.cs" />
+    <Compile Include="Core\Responses\ListResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

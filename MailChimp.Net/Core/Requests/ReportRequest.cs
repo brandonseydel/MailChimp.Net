@@ -1,8 +1,4 @@
-﻿using System;
-using MailChimp.Net.Core;
-using Newtonsoft.Json;
-
-namespace MailChimp.Net.Requests
+﻿namespace MailChimp.Net.Core
 {
     public class ReportRequest : BaseRequest
     {        

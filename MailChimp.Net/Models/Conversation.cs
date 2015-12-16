@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Conversation
+    public class Conversation
     {
 
         [JsonProperty("id")]

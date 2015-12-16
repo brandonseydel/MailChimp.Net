@@ -11,7 +11,7 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_Members_From_List()
         {
-            var members = await _mailChimpManager.GetListMembersAsync("72dcc9fa45");
+            var members = await _mailChimpManager.Members.GetAllAsync("72dcc9fa45");
             Assert.IsTrue(members.Any());
         }
 
@@ -19,7 +19,7 @@ namespace MailChimp.Net.Tests
         public async Task Add_User_To_List()
         {
             await
-                _mailChimpManager.AddOrUpdateListMemberAsync("72dcc9fa45",
+                _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45",
                     new Member { EmailAddress = "test@test.com", Status = Status.Subscribed });
         }
 
@@ -33,7 +33,7 @@ namespace MailChimp.Net.Tests
             };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
-            await _mailChimpManager.AddOrUpdateListMemberAsync("72dcc9fa45", member);
+            await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
         }
 
         [TestMethod]
@@ -47,39 +47,31 @@ namespace MailChimp.Net.Tests
             };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
-            await _mailChimpManager.AddOrUpdateListMemberAsync("72dcc9fa45", member);
+            await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
         }
 
         [TestMethod]
         public async Task Should_Return_One_Unsubscribed_Member()
         {
-            var members = await _mailChimpManager.GetListMembersAsync("72dcc9fa45");
+            var members = await _mailChimpManager.Members.GetAllAsync("72dcc9fa45");
             members.ToList().ForEach(async x =>
             {
                 x.Status = Status.Subscribed;
-                await _mailChimpManager.AddOrUpdateListMemberAsync("72dcc9fa45", x);
+                await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", x);
             });
 
             Assert.IsTrue(members.Count(x => x.Status == Status.Unsubscribed) == 0);
 
             var memberToUnsubscribe = members.FirstOrDefault();
             memberToUnsubscribe.Status = Status.Unsubscribed;
-            await _mailChimpManager.AddOrUpdateListMemberAsync("72dcc9fa45", memberToUnsubscribe);
+            await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", memberToUnsubscribe);
 
 
-            members = await _mailChimpManager.GetListMembersAsync("72dcc9fa45");
+            members = await _mailChimpManager.Members.GetAllAsync("72dcc9fa45");
 
 
             Assert.IsTrue(members.Count(x => x.Status == Status.Unsubscribed) == 1);
 
-
-        }
-
-
-        [TestMethod]
-        public async Task Should_Return_Seven_Members()
-        {
-            var members = await _mailChimpManager.GetListMemberAsync("72dcc9fa45", "test@test.com");
 
         }
     }

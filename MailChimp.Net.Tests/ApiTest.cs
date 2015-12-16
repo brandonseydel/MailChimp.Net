@@ -9,7 +9,7 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_API_Information()
         {
-            var apiInfo = await _mailChimpManager.GetApiInfoAsync();
+            var apiInfo = await _mailChimpManager.Api.GetInfo();
             Assert.IsNotNull(apiInfo);
         }
     }

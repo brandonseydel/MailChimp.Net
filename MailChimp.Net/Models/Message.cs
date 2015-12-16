@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Message
+    public class Message
     {
 
         [JsonProperty("from_label")]

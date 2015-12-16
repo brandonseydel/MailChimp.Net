@@ -4,7 +4,7 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    public interface IMemberLogic
+    public interface IContentLogic
     {
         Task<Member> AddOrUpdateAsync(string listId, Member member);
         Task<IEnumerable<Member>> GetAllAsync(string listId);

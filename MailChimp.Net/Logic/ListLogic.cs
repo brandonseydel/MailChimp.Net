@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using MailChimp.Net.Requests;
-using MailChimp.Net.Responses;
 
 namespace MailChimp.Net.Logic
 {
@@ -14,7 +12,7 @@ namespace MailChimp.Net.Logic
     {
         public ListLogic(string apiKey): base(apiKey){}
         
-        public async Task<IEnumerable<List>> GetAll(ListRequest request = null)
+        public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null)
         {
             try
             {
