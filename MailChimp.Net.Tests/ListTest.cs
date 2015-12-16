@@ -7,7 +7,7 @@ namespace MailChimp.Net.Tests
     public class ListTest : MailChimpTest
     {
         [TestMethod]
-        public async Task TestMethod1()
+        public async Task Should_Return_Lists()
         {
             var lists = await _mailChimpManager.GetListsAsync();
             Assert.IsNotNull(lists);

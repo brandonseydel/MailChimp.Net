@@ -8,8 +8,8 @@ namespace MailChimp.Net.Requests
     {
         
         [QueryString("type")]
-        public CampaignType Type { get; set; }
+        public CampaignType? Type { get; set; }
         [QueryString("status")]
-        public CampaignStatus Status { get; set; }
+        public CampaignStatus? Status { get; set; }
     }
 }

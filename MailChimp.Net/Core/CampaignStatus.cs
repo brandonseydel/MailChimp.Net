@@ -1,18 +1,20 @@
+using System;
 using System.ComponentModel;
 
 namespace MailChimp.Net.Core
 {
+    [Flags]
     public enum CampaignStatus
     {
         [Description("save")]
-        Save,
+        Save = 1,
         [Description("paused")]
-        Paused,
+        Paused = 2,
         [Description("schedule")]
-        Schedule,
+        Schedule = 4,
         [Description("sending")]
-        Sending,
+        Sending = 8,
         [Description("sent")]
-        Sent
+        Sent = 16
     }
 }

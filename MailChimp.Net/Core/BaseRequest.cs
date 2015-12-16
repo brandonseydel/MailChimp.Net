@@ -45,7 +45,7 @@ namespace MailChimp.Net.Core
                 if (value == null || propertyName == null) return;
 
                 if (prop.PropertyType.IsEnum)
-                {
+                {                    
                     value =
                         prop.GetCustomAttributes<DescriptionAttribute>().Select(x => x.Description).FirstOrDefault() ??
                         value;

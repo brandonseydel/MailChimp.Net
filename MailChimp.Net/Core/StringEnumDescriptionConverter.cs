@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
+
     public class StringEnumDescriptionConverter : JsonConverter
     {
         public bool CamelCaseText { get; set; }
@@ -55,7 +56,13 @@ namespace MailChimp.Net.Core
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var eTypeVal = objectType.GetMembers()
+                        .Where(x => x.GetCustomAttributes(typeof(DescriptionAttribute)).Any())
+                        .FirstOrDefault(x => ((DescriptionAttribute)x.GetCustomAttribute(typeof(DescriptionAttribute))).Description == (string)reader.Value);
+
+            if (eTypeVal == null) return Enum.Parse(objectType, (string)reader.Value);
+
+            return Enum.Parse(objectType, eTypeVal.Name);
         }
 
         public override bool CanConvert(Type objectType)

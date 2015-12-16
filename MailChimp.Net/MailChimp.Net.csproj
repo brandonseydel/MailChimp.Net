@@ -56,6 +56,16 @@
     <Compile Include="Interfaces\IMemberLogic.cs" />
     <Compile Include="Core\BaseRequest.cs" />
     <Compile Include="Core\StringEnumDescriptionConverter.cs" />
+    <Compile Include="Logic\ApiLogic.cs" />
+    <Compile Include="Interfaces\IApiLogic.cs" />
+    <Compile Include="Logic\CampaignLogic.cs" />
+    <Compile Include="Interfaces\ICampaignLogic.cs" />
+    <Compile Include="Models\ApiInfo.cs" />
+    <Compile Include="Models\Condition.cs" />
+    <Compile Include="Models\ReportSummary.cs" />
+    <Compile Include="Models\SegmentOpts.cs" />
+    <Compile Include="Requests\MemberRequest.cs" />
+    <Compile Include="Requests\ReportRequest.cs" />
     <Compile Include="Requests\CampaignRequest.cs" />
     <Compile Include="Core\CampaignStatus.cs" />
     <Compile Include="Core\CampaignType.cs" />
@@ -91,6 +101,8 @@
     <Compile Include="Core\MonkeyBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\QueryStringAttribute.cs" />
+    <Compile Include="Responses\ApiResponse.cs" />
+    <Compile Include="Responses\CampaignResponse.cs" />
     <Compile Include="Responses\MemberResponse.cs" />
     <Compile Include="Responses\ListResponse.cs" />
   </ItemGroup>

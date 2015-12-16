@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MailChimp.Net.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MailChimp.Net.Tests
 {
     public abstract class MailChimpTest
     {
-        protected MailChimpManager _mailChimpManager;
+        protected IMailChimpManager _mailChimpManager;
 
         [TestInitialize]
         public void Initialize()

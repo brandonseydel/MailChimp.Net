@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Tracking
+    public class Tracking
     {
 
         [JsonProperty("opens")]
@@ -21,7 +21,7 @@ namespace MailChimp.Net.Models
         public bool Ecomm360 { get; set; }
 
         [JsonProperty("google_analytics")]
-        public bool GoogleAnalytics { get; set; }
+        public bool? GoogleAnalytics { get; set; }
 
         [JsonProperty("clicktale")]
         public string Clicktale { get; set; }

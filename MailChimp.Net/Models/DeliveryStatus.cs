@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class DeliveryStatus
+    public class DeliveryStatus
     {
 
         [JsonProperty("enabled")]

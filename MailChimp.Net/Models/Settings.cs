@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Settings
+    public class Setting
     {
 
         [JsonProperty("subject_line")]
@@ -24,7 +24,7 @@ namespace MailChimp.Net.Models
         public string ToName { get; set; }
 
         [JsonProperty("folder_id")]
-        public int FolderId { get; set; }
+        public string FolderId { get; set; }
 
         [JsonProperty("authenticate")]
         public bool Authenticate { get; set; }

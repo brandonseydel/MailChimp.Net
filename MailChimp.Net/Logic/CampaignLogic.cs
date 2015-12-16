@@ -10,21 +10,21 @@ using MailChimp.Net.Responses;
 
 namespace MailChimp.Net.Logic
 {
-    internal class ListLogic : BaseLogic, IListLogic
+    internal class CampaignLogic : BaseLogic, ICampaignLogic
     {
-        public ListLogic(string apiKey): base(apiKey){}
+        public CampaignLogic(string apiKey): base(apiKey){}
         
-        public async Task<IEnumerable<List>> GetAll(ListRequest request = null)
+        public async Task<IEnumerable<Campaign>> GetAll(CampaignRequest request = null)
         {
             try
             {
-                using (var client = CreateMailClient("lists"))
+                using (var client = CreateMailClient("campaigns"))
                 {
                     var response = await client.GetAsync(request?.ToQueryString());
                     response.EnsureSuccessStatusCode();
 
-                    var listResponse = await response.Content.ReadAsAsync<ListResponse>();
-                    return listResponse.Lists;
+                    var campaignResponse = await response.Content.ReadAsAsync<CampaignResponse>();
+                    return campaignResponse.Campaigns;
                 }
             }
             catch (Exception ex)
@@ -35,15 +35,15 @@ namespace MailChimp.Net.Logic
             return null;
         }
 
-        public async Task<List> GetAsync(string id)
+        public async Task<Campaign> GetAsync(string id)
         {
             try
             {
-                using (var client = CreateMailClient("lists/"))
+                using (var client = CreateMailClient("campaigns/"))
                 {
                     var response = await client.GetAsync($"{id}");
                     response.EnsureSuccessStatusCode();
-                    return await response.Content.ReadAsAsync<List>();
+                    return await response.Content.ReadAsAsync<Campaign>();
                 }
             }
             catch (Exception ex)
