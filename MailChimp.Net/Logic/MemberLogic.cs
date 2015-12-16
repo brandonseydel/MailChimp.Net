@@ -14,7 +14,7 @@ namespace MailChimp.Net.Logic
     {
         public MemberLogic(string apiKey): base(apiKey){}
         
-        public async Task<IEnumerable<Member>> GetAllByListIdAsync(string listId)
+        public async Task<IEnumerable<Member>> GetAllAsync(string listId)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace MailChimp.Net.Logic
             return null;
         }
 
-        public async Task<Member> GetListMemberAsync(string listId, string emailAddress)
+        public async Task<Member> GetAsync(string listId, string emailAddress)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace MailChimp.Net.Logic
             return null;
         }
 
-        public async Task<Member> AddOrUpdateMemberAsync(string listId, Member member)
+        public async Task<Member> AddOrUpdateAsync(string listId, Member member)
         {
             try
             {

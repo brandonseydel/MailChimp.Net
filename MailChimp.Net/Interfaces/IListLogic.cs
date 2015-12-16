@@ -8,7 +8,7 @@ namespace MailChimp.Net.Interfaces
 {
     public interface IListLogic
     {
-        Task<IEnumerable<List>> GetAll(ListRequest request = null);
+        Task<IEnumerable<List>> GetAllAsync(ListRequest request = null);
         Task<List> GetAsync(string id);
     }
 }

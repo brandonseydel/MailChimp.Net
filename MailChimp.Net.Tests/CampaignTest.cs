@@ -10,24 +10,24 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_Campaigns()
         {
-            var campaigns = await _mailChimpManager.GetCampaignsAsync();
+            var campaigns = await _mailChimpManager.Campaigns.GetAll();
             Assert.IsNotNull(campaigns);
         }
 
         [TestMethod]
         public async Task Should_Return_One_Campaign()
         {
-            var campaigns = await _mailChimpManager.GetCampaignsAsync(new Requests.CampaignRequest { Limit = 1 });
+            var campaigns = await _mailChimpManager.Campaigns.GetAll(new Requests.CampaignRequest { Limit = 1 });
             Assert.IsTrue(campaigns.Count() == 1);
         }
 
         [TestMethod]
         public async Task Should_Get_One_Campain_Id_And_Get_Campaign()
         {
-            var campaigns = await _mailChimpManager.GetCampaignsAsync(new Requests.CampaignRequest { Limit = 1 });
+            var campaigns = await _mailChimpManager.Campaigns.GetAll(new Requests.CampaignRequest { Limit = 1 });
             Assert.IsTrue(campaigns.Count() == 1);
 
-            var campaign = await _mailChimpManager.GetCampaignAsync(campaigns.FirstOrDefault().Id);
+            var campaign = await _mailChimpManager.Campaigns.GetAsync(campaigns.FirstOrDefault().Id);
 
             Assert.IsNotNull(campaign);
 

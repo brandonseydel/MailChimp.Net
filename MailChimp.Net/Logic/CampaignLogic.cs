@@ -37,20 +37,50 @@ namespace MailChimp.Net.Logic
 
         public async Task<Campaign> GetAsync(string id)
         {
-            try
+            using (var client = CreateMailClient("campaigns/"))
             {
-                using (var client = CreateMailClient("campaigns/"))
-                {
-                    var response = await client.GetAsync($"{id}");
-                    response.EnsureSuccessStatusCode();
-                    return await response.Content.ReadAsAsync<Campaign>();
-                }
+                var response = await client.GetAsync($"{id}");
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<Campaign>();
             }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
         }
+
+        public async Task CancelAsync(string campaignId)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.PostAsync($"{campaignId}/actions/cancel-send", null);
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        public async Task SendAsync(string campaignId)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.PostAsync($"{campaignId}/actions/send", null);
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        public async Task DeleteAsync(string campaignId)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.DeleteAsync($"{campaignId}");
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        public async Task<Campaign> AddOrUpdateAsync(string campaignId, Campaign campaign)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.PutAsJsonAsync($"{campaignId}", campaign);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<Campaign>();
+            }
+        }
+
     }
 }

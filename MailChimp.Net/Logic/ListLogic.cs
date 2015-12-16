@@ -14,7 +14,7 @@ namespace MailChimp.Net.Logic
     {
         public ListLogic(string apiKey): base(apiKey){}
         
-        public async Task<IEnumerable<List>> GetAll(ListRequest request = null)
+        public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null)
         {
             try
             {
