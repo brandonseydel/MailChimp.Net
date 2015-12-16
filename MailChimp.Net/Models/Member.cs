@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using MailChimp.Net.Core;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace MailChimp.Net.Models
 {

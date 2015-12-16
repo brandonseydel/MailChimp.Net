@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MailChimp.Net.Core;
+﻿using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
-using MailChimp.Net.Models;
-using MailChimp.Net.Requests;
 
 namespace MailChimp.Net
 {
@@ -15,6 +10,7 @@ namespace MailChimp.Net
         public  IMemberLogic Members { get; }
         public  IApiLogic Api { get; }
         public  ICampaignLogic Campaigns { get; }
+        public  IConversationLogic Conversations { get; }
 
         public MailChimpManager(string apiKey) : base(apiKey)
         {
@@ -22,6 +18,7 @@ namespace MailChimp.Net
             Api = new ApiLogic(ApiKey);
             Members = new MemberLogic(ApiKey);
             Campaigns = new CampaignLogic(ApiKey);
+            Conversations = new ConversationLogic(ApiKey);
         }
 
         public MailChimpManager()
@@ -30,6 +27,7 @@ namespace MailChimp.Net
             Members = new MemberLogic(ApiKey);
             Campaigns = new CampaignLogic(ApiKey);
             Api = new ApiLogic(ApiKey);
+            Conversations = new ConversationLogic(ApiKey);
         }
 
     }

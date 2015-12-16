@@ -1,9 +1,7 @@
-using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using MailChimp.Net.Logic;
 
 namespace MailChimp.Net.Core
 {
@@ -18,16 +16,6 @@ namespace MailChimp.Net.Core
         public string FieldsToInclude { get; set; }
         [QueryString("exclude_fields")]
         public string FieldsToExclude { get; set; }
-
-        [QueryString("before_date_created")]
-        public DateTime? CreatedBefore { get; set; }
-        [QueryString("before_campaign_last_sent")]
-        public DateTime? CampaignSentBefore { get; set; }
-        [QueryString("since_campaign_last_sent")]
-        public DateTime? CampaignSentSince { get; set; }
-        [QueryString("since_date_created")]
-        public DateTime? CreatedSince { get; set; }
-
 
         public virtual string ToQueryString()
         {
