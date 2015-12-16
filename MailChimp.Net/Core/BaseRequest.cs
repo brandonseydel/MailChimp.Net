@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MailChimp.Net.Core
 {
-    public abstract class BaseRequest
+    public abstract class QueryableBaseRequest : BaseRequest
     {
         [QueryString("count")]
         public int Limit { get; set; }
@@ -15,8 +15,11 @@ namespace MailChimp.Net.Core
         [QueryString("fields")]
         public string FieldsToInclude { get; set; }
         [QueryString("exclude_fields")]
-        public string FieldsToExclude { get; set; }
+        public string FieldsToExclude { get; set; }        
+    }
 
+    public abstract class BaseRequest
+    {
         public virtual string ToQueryString()
         {
             var properties = GetType().GetProperties();
@@ -33,7 +36,7 @@ namespace MailChimp.Net.Core
                 if (value == null || propertyName == null) return;
 
                 if (prop.PropertyType.IsEnum)
-                {                    
+                {
                     value =
                         prop.GetCustomAttributes<DescriptionAttribute>().Select(x => x.Description).FirstOrDefault() ??
                         value;

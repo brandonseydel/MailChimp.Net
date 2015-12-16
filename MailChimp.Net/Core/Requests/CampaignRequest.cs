@@ -1,6 +1,6 @@
 ﻿namespace MailChimp.Net.Core
 {
-    public class CampaignRequest : BaseRequest
+    public class CampaignRequest : QueryableBaseRequest
     {
         
         [QueryString("type")]

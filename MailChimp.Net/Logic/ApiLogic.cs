@@ -11,31 +11,18 @@ namespace MailChimp.Net.Logic
 {
     internal class ApiLogic : BaseLogic, IApiLogic
     {
-        public ApiLogic(string apiKey): base(apiKey){}
-        
+        public ApiLogic(string apiKey) : base(apiKey) { }
+
         public async Task<ApiInfo> GetInfo()
         {
-            try
+            using (var client = CreateMailClient(""))
             {
-                using (var client = CreateMailClient(""))
-                {
-                    var response = await client.GetAsync($"");
-                    response.EnsureSuccessStatusCode();
+                var response = await client.GetAsync($"");
+                response.EnsureSuccessStatusCode();
 
-                    return await response.Content.ReadAsAsync<ApiInfo>();
-                }
-            }
-            catch (WebException ex)
-            {
-
-                
-                using (var sr = new StreamReader(ex.Response.GetResponseStream()))
-                {
-                   // throw Task.Factory.StartNew<MailChimpException>(() => {});
-                }                
+                return await response.Content.ReadAsAsync<ApiInfo>();
             }
 
-            return null;
         }
 
     }
