@@ -8,7 +8,7 @@
 <h5>Current Functionality</h5>
 <ul>
 <li>API</li>
-<li>Auhtorized Apps</li>
+<li>Authorized Apps</li>
 <li>Campaigns</li>
 <li>Campaign Content</li>
 <li>Campaing Feedback</li>
@@ -22,3 +22,22 @@
 
 #TODO
 -Looking to add additional functionality pending contributors.
+<ul>
+<li>Automations</li>
+<li>Batch Operations</li>
+<li>Campaign Folders</li>
+<li>Campaing Send Checklist</li>
+<li>File Manager Files</li>
+<li>File Manager Folders</li>
+<li>List Abuse Reports</li>
+<li>List Activity</li>
+<li>List Clients</li>
+<li>List Growth History</li>
+<li>List Interest Categories</li>
+<li>List Merge Fields</li>
+<li>List Segments</li>
+<li>Reports</li>
+<li>Reports</li>
+<li>Reports</li>
+
+</ul>
