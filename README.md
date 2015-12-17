@@ -3,6 +3,14 @@
 #Nuget
 <h5>Install-Package MailChimp.Net.V3</h5>
 
+#Example
+
+IMailChimpManager manager = new MailChimpManager(apiKey); //if you have it in code
+
+<add key="MailChimpApiKey" value="apiKEY" />
+IMailChimpManager manager = new MailChimpManager(); //if you have it in config
+
+
 #About
 -Used to access all of the Mail Chimp V3.0 REST API <br>
 <h5>Current Functionality</h5>
