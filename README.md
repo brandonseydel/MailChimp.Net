@@ -37,7 +37,16 @@
 <li>List Merge Fields</li>
 <li>List Segments</li>
 <li>Reports</li>
-<li>Reports</li>
-<li>Reports</li>
+<li>Report Click Reports</li>
+<li>Report Domain Performance</li>
+<li>Report EepURL Reports</li>
+<li>Report Email Activity</li>
+<li>Report Location</li>
+<li>Report Sent To</li>
+<li>Report Sub-Reports</li>
+<li>Report Unsubscribes</li>
+<li>Template Folders</li>
+<li>Templates</li>
+<li>Template Default Content</li>
 
 </ul>
