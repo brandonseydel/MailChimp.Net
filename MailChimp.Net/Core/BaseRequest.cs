@@ -1,25 +1,18 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
 namespace MailChimp.Net.Core
 {
-    public abstract class QueryableBaseRequest : BaseRequest
+    public class BaseRequest
     {
-        [QueryString("count")]
-        public int Limit { get; set; }
-        [QueryString("offset")]
-        public int Offset { get; set; }
 
         [QueryString("fields")]
         public string FieldsToInclude { get; set; }
         [QueryString("exclude_fields")]
-        public string FieldsToExclude { get; set; }        
-    }
+        public string FieldsToExclude { get; set; }
 
-    public abstract class BaseRequest
-    {
         public virtual string ToQueryString()
         {
             var properties = GetType().GetProperties();

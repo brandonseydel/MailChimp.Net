@@ -50,8 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AuthorizedAppTest.cs" />
     <Compile Include="ConversationTest.cs" />
     <Compile Include="CampaignTest.cs" />
+    <Compile Include="FeedbackTest.cs" />
     <Compile Include="ListMemberTest.cs" />
     <Compile Include="ApiTest.cs" />
     <Compile Include="MailChimpTest.cs" />

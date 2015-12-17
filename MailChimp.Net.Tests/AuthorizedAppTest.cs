@@ -4,12 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MailChimp.Net.Tests
 {
     [TestClass]
-    public class AuthorizedAppTest : MailChimpTest
+    public class ApiTest : MailChimpTest
     {
         [TestMethod]
-        public async Task Should_Return_App_Information()
+        public async Task Should_Return_API_Information()
         {
-            var apiInfo = await _mailChimpManager.Apps.GetAllAsync();
+            var apiInfo = await _mailChimpManager.Api.GetInfo();
             Assert.IsNotNull(apiInfo);
         }
     }

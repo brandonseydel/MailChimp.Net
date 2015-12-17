@@ -7,5 +7,7 @@
         IApiLogic Api { get; }
         ICampaignLogic Campaigns { get; }
         IConversationLogic Conversations { get; }
+        IContentLogic Content { get; }
+        IAuthorizedAppLogic Apps { get; }
     }
 }

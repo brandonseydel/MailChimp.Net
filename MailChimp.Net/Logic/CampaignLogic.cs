@@ -10,7 +10,9 @@ namespace MailChimp.Net.Logic
 {
     internal class CampaignLogic : BaseLogic, ICampaignLogic
     {
-        public CampaignLogic(string apiKey): base(apiKey){}
+        public CampaignLogic(string apiKey) : base(apiKey)
+        {
+        }
         
         public async Task<IEnumerable<Campaign>> GetAll(CampaignRequest request = null)
         {
