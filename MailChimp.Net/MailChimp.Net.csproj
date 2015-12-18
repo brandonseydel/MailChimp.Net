@@ -72,6 +72,9 @@
     <Compile Include="Models\App.cs" />
     <Compile Include="Models\Archive.cs" />
     <Compile Include="Models\Feedback.cs" />
+    <Compile Include="Models\Interest.cs" />
+    <Compile Include="Models\InterestCategory.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Template.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Core\Responses\MessageResponse.cs" />

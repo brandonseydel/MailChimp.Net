@@ -10,6 +10,7 @@ namespace MailChimp.Net.Models
         {
             Links = new HashSet<Link>();
             MergeFields = new Dictionary<string, string>();
+            Interests = new HashSet<Interest>();
         }
 
         [JsonProperty("id")]
@@ -28,11 +29,11 @@ namespace MailChimp.Net.Models
         [JsonConverter(typeof (StringEnumDescriptionConverter))]
         public Status Status { get; set; }
 
-        [JsonProperty("status_if_new")]
-        public string StatusIfNew { get; set; }
-
         [JsonProperty("merge_fields")]
         public Dictionary<string, string> MergeFields { get; set; }
+
+        [JsonProperty("interests")]
+        public IEnumerable<Interest> Interests { get; set; }
 
         [JsonProperty("stats")]
         public Stats Stats { get; set; }
@@ -65,7 +66,10 @@ namespace MailChimp.Net.Models
         public string EmailClient { get; set; }
 
         [JsonProperty("location")]
-        public Location Location { get; set; }
+        public Location Location { get; }
+
+        [JsonProperty("last_note")]
+        public IEnumerable<object> Notes { get; set; }
 
         [JsonProperty("list_id")]
         public string ListId { get; set; }
