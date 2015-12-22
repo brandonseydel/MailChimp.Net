@@ -51,13 +51,16 @@ namespace MailChimp.Net.Logic
             return null;
         }
 
-        public async Task<Member> AddOrUpdateAsync(string listId, Member member)
+        public async Task<Member> AddOrUpdateAsync(string listId, Member member, string targetEmailAddress = null)
         {
             try
             {
                 using (var client = CreateMailClient("lists/"))
                 {
-                    var response = await client.PutAsJsonAsync($"{listId}/members/{Hash(member.EmailAddress)}", member);
+                    var hashedEmailAddress = string.IsNullOrWhiteSpace(targetEmailAddress)
+                        ? Hash(member.EmailAddress)
+                        : Hash(targetEmailAddress);
+                    var response = await client.PutAsJsonAsync($"{listId}/members/{hashedEmailAddress}", member);
                     response.EnsureSuccessStatusCode();
                     return await response.Content.ReadAsAsync<Member>();
                 }

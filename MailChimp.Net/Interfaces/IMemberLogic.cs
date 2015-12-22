@@ -6,7 +6,7 @@ namespace MailChimp.Net.Interfaces
 {
     public interface IMemberLogic
     {
-        Task<Member> AddOrUpdateAsync(string listId, Member member);
+        Task<Member> AddOrUpdateAsync(string listId, Member member, string targetEmailAddress = null);
         Task<IEnumerable<Member>> GetAllAsync(string listId);
         Task<Member> GetAsync(string listId, string emailAddress);
     }
