@@ -24,6 +24,14 @@ namespace MailChimp.Net.Tests
         }
 
         [TestMethod]
+        public async Task Get_User_By_Hashed_Email()
+        {
+            await Add_User_To_List();
+            Assert.IsNotNull(await _mailChimpManager.Members.GetAsync("72dcc9fa45", Hash("test@test.com"), true));
+        }
+
+
+        [TestMethod]
         public async Task Unsubscribe_User_From_List()
         {
             var member = new Member
@@ -37,7 +45,7 @@ namespace MailChimp.Net.Tests
         }
 
         [TestMethod]
-        public async Task Subscribed_User_From_List()
+        public async Task Subscribe_User_From_List()
         {
 
             var member = new Member

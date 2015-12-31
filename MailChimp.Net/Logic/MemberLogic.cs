@@ -33,13 +33,14 @@ namespace MailChimp.Net.Logic
             return null;
         }
 
-        public async Task<Member> GetAsync(string listId, string emailAddress)
+        public async Task<Member> GetAsync(string listId, string emailAddress, bool isHashed = false)
         {
             try
             {
                 using (var client = CreateMailClient("lists/"))
                 {
-                    var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress)}");
+                    var hashedEmailAddress = isHashed ? emailAddress : Hash(emailAddress);
+                    var response = await client.GetAsync($"{listId}/members/{hashedEmailAddress}");
                     response.EnsureSuccessStatusCode();
                     return await response.Content.ReadAsAsync<Member>();
                 }
