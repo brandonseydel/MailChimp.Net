@@ -13,68 +13,68 @@ namespace MailChimp.Net.Models
             Interests = new HashSet<Interest>();
         }
 
-        [JsonProperty("id")]
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
-        [JsonProperty("email_address")]
+        [JsonProperty("email_address", NullValueHandling = NullValueHandling.Ignore)]
         public string EmailAddress { get; set; }
 
-        [JsonProperty("unique_email_id")]
+        [JsonProperty("unique_email_id", NullValueHandling = NullValueHandling.Ignore)]
         public string UniqueEmailId { get; set; }
 
-        [JsonProperty("email_type")]
+        [JsonProperty("email_type", NullValueHandling = NullValueHandling.Ignore)]
         public string EmailType { get; set; }
 
-        [JsonProperty("status")]
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof (StringEnumDescriptionConverter))]
         public Status Status { get; set; }
 
-        [JsonProperty("merge_fields")]
+        [JsonProperty("merge_fields", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, string> MergeFields { get; set; }
 
-        [JsonProperty("interests")]
+        [JsonProperty("interests", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<Interest> Interests { get; set; }
 
-        [JsonProperty("stats")]
+        [JsonProperty("stats", NullValueHandling = NullValueHandling.Ignore)]
         public Stats Stats { get; set; }
 
-        [JsonProperty("ip_signup")]
+        [JsonProperty("ip_signup", NullValueHandling = NullValueHandling.Ignore)]
         public string IpSignup { get; set; }
 
-        [JsonProperty("timestamp_signup")]
+        [JsonProperty("timestamp_signup", NullValueHandling = NullValueHandling.Ignore)]
         public string TimestampSignup { get; set; }
 
-        [JsonProperty("ip_opt")]
+        [JsonProperty("ip_opt", NullValueHandling = NullValueHandling.Ignore)]
         public string IpOpt { get; set; }
 
-        [JsonProperty("timestamp_opt")]
+        [JsonProperty("timestamp_opt", NullValueHandling = NullValueHandling.Ignore)]
         public string TimestampOpt { get; set; }
 
-        [JsonProperty("member_rating")]
+        [JsonProperty("member_rating", NullValueHandling = NullValueHandling.Ignore)]
         public int MemberRating { get; set; }
 
-        [JsonProperty("last_changed")]
+        [JsonProperty("last_changed", NullValueHandling = NullValueHandling.Ignore)]
         public string LastChanged { get; set; }
 
-        [JsonProperty("language")]
+        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public string Language { get; set; }
 
-        [JsonProperty("vip")]
+        [JsonProperty("vip", NullValueHandling = NullValueHandling.Ignore)]
         public bool Vip { get; set; }
 
-        [JsonProperty("email_client")]
+        [JsonProperty("email_client", NullValueHandling = NullValueHandling.Ignore)]
         public string EmailClient { get; set; }
 
-        [JsonProperty("location")]
+        [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
         public Location Location { get; }
 
-        [JsonProperty("last_note")]
+        [JsonProperty("last_note", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<object> Notes { get; set; }
 
-        [JsonProperty("list_id")]
+        [JsonProperty("list_id", NullValueHandling = NullValueHandling.Ignore)]
         public string ListId { get; set; }
 
-        [JsonProperty("_links")]
+        [JsonProperty("_links", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<Link> Links { get; set; }
     }
 }

@@ -56,6 +56,21 @@ namespace MailChimp.Net.Logic
         {
             try
             {
+                // Reset the list-members to null that were initialized in the constructor and are actually empty, because the API doesn't like empty lists.
+                if(member.Links != null && ((HashSet<Link>)member.Links).Count == 0)
+                {
+                    member.Links = null;
+                }
+                if(member.Interests != null && ((HashSet<Interest>)member.Interests).Count == 0)
+                {
+                    member.Interests = null;
+                }
+                if(member.MergeFields != null && member.MergeFields.Count == 0)
+                {
+                    member.MergeFields = null;
+                }
+
+
                 using (var client = CreateMailClient("lists/"))
                 {
                     var hashedEmailAddress = string.IsNullOrWhiteSpace(targetEmailAddress)
