@@ -1,15 +1,20 @@
 ﻿using System.Configuration;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
     public abstract class MailManagerBase
     {
-        protected MailManagerBase(string apiKey)
+        protected MailManagerBase(string apiKey) : this()
         {
             _apiKey = apiKey;
         }
 
-        protected MailManagerBase() { }
+        protected MailManagerBase()
+        {
+            JsonConvert.DefaultSettings = ()
+             => new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore};
+        }
 
         private static string _apiKey;
 
