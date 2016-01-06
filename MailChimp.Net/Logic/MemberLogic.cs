@@ -24,28 +24,25 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<Member> GetAsync(string listId, string emailAddress, bool isHashed = false)
+        public async Task<Member> GetAsync(string listId, string emailAddress)
         {
             using (var client = CreateMailClient("lists/"))
             {
-                var hashedEmailAddress = isHashed ? emailAddress : Hash(emailAddress);
-                var response = await client.GetAsync($"{listId}/members/{hashedEmailAddress}");
+                var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress)}");
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<Member>();
             }
 
         }
 
-        public async Task<Member> AddOrUpdateAsync(string listId, Member member, string targetEmailAddress = null)
+        public async Task<Member> AddOrUpdateAsync(string listId, Member member)
         {
+            HttpResponseMessage response;   
             using (var client = CreateMailClient("lists/"))
             {
-                var hashedEmailAddress = string.IsNullOrWhiteSpace(targetEmailAddress)
-                    ? Hash(member.EmailAddress)
-                    : Hash(targetEmailAddress);
+                response = await client.PutAsJsonAsync($"{listId}/members/{Hash(member.EmailAddress)}", member, null);
+                response.EnsureSuccessStatusCode();                
 
-                var response = await client.PutAsJsonAsync($"{listId}/members/{hashedEmailAddress}", member, null);
-                response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<Member>();
             }
 

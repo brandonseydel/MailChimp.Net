@@ -37,18 +37,40 @@ namespace MailChimp.Net.Tests
             await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
         }
 
+        private static long _ticks = DateTime.Now.Ticks;
+
         [TestMethod]
         public async Task Add_New_User_To_List()
         {
-            
+            await AddNewMember();
+        }
+
+        private async Task AddNewMember()
+        {
             var member = new Member
             {
-                EmailAddress = $"{DateTime.Now.Ticks}@test.com",
-                Status = Status.Unsubscribed
+                EmailAddress = $"{_ticks}@test.com",
+                Status = Status.Subscribed
             };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
             await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
+        }
+
+        [TestMethod]
+        public async Task Update_Existing_Member_From_List()
+        {
+            await AddNewMember();
+
+            var member = new Member
+            {
+                Status = Status.Subscribed,
+                EmailAddress = $"{_ticks}@test.com"          
+            };
+
+            member.MergeFields.Add("FNAME", "HOLY COW");
+            var updateMember = await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
+            
         }
 
 
