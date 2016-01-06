@@ -4,13 +4,14 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
+    
     public class Member
     {
         public Member()
         {
             Links = new HashSet<Link>();
             MergeFields = new Dictionary<string, string>();
-            Interests = new HashSet<Interest>();
+            Interests = new Dictionary<string, bool>();
         }
 
         [JsonProperty("id")]
@@ -33,7 +34,7 @@ namespace MailChimp.Net.Models
         public Dictionary<string, string> MergeFields { get; set; }
 
         [JsonProperty("interests")]
-        public IEnumerable<Interest> Interests { get; set; }
+        public Dictionary<string, bool> Interests { get; set; }
 
         [JsonProperty("stats")]
         public Stats Stats { get; set; }
