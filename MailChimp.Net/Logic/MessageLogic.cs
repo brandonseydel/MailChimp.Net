@@ -39,7 +39,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("conversations/"))
             {
-                var response = await client.PutAsJsonAsync($"{conversationId}", message);
+                var response = await client.PutAsJsonAsync($"{conversationId}", message, null);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<Message>();
             }

@@ -14,38 +14,25 @@ namespace MailChimp.Net.Logic
 
         public async Task<Content> GetAsync(string campaignId)
         {
-            try
-            {
                 using (var client = CreateMailClient("campaigns/"))
                 {
                     var response = await client.GetAsync($"{campaignId}/contents");
                     response.EnsureSuccessStatusCode();
                     return await response.Content.ReadAsAsync<Content>();
                 }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
+            
         }
 
         public async Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest content)
         {
-            try
-            {
+            
                 using (var client = CreateMailClient("campaigns/"))
                 {
-                    var response = await client.PutAsJsonAsync($"{campaignId}/contents", content);
+                    var response = await client.PutAsJsonAsync($"{campaignId}/contents", content, null);
                     response.EnsureSuccessStatusCode();
                     return await response.Content.ReadAsAsync<Content>();
                 }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
+            
         }
 
     }

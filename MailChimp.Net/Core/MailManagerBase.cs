@@ -5,15 +5,13 @@ namespace MailChimp.Net.Core
 {
     public abstract class MailManagerBase
     {
-        protected MailManagerBase(string apiKey) : this()
+        protected MailManagerBase(string apiKey)
         {
             _apiKey = apiKey;
         }
 
         protected MailManagerBase()
         {
-            JsonConvert.DefaultSettings = ()
-             => new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore};
         }
 
         private static string _apiKey;

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
+
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Net.Http;
 
 namespace MailChimp.Net.Logic
 {
@@ -16,8 +17,6 @@ namespace MailChimp.Net.Logic
         
         public async Task<IEnumerable<Campaign>> GetAll(CampaignRequest request = null)
         {
-            try
-            {
                 using (var client = CreateMailClient("campaigns"))
                 {
                     var response = await client.GetAsync(request?.ToQueryString());
@@ -26,13 +25,7 @@ namespace MailChimp.Net.Logic
                     var campaignResponse = await response.Content.ReadAsAsync<CampaignResponse>();
                     return campaignResponse.Campaigns;
                 }
-            }
-            catch (Exception ex)
-            {
-                
-            }
-
-            return null;
+            
         }
 
         public async Task<Campaign> GetAsync(string id)
@@ -57,7 +50,7 @@ namespace MailChimp.Net.Logic
         public async Task SendAsync(string campaignId)
         {
             using (var client = CreateMailClient("campaigns/"))
-            {
+            {                
                 var response = await client.PostAsync($"{campaignId}/actions/send", null);
                 response.EnsureSuccessStatusCode();
             }
@@ -76,7 +69,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("campaigns/"))
             {
-                var response = await client.PutAsJsonAsync($"{campaignId}", campaign);
+                var response = await client.PutAsJsonAsync($"{campaignId}", campaign, null);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<Campaign>();
             }

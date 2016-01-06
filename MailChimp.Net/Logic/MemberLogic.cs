@@ -10,67 +10,45 @@ namespace MailChimp.Net.Logic
 {
     internal class MemberLogic : BaseLogic, IMemberLogic
     {
-        public MemberLogic(string apiKey): base(apiKey){}
-        
+        public MemberLogic(string apiKey) : base(apiKey) { }
+
         public async Task<IEnumerable<Member>> GetAllAsync(string listId)
         {
-            try
+            using (var client = CreateMailClient("lists/"))
             {
-                using (var client = CreateMailClient("lists/"))
-                {
-                    var response = await client.GetAsync($"{listId}/members");
-                    response.EnsureSuccessStatusCode();
+                var response = await client.GetAsync($"{listId}/members");
+                response.EnsureSuccessStatusCode();
 
-                    var listResponse = await response.Content.ReadAsAsync<MemberResponse>();
-                    return listResponse.Members;
-                }
+                var listResponse = await response.Content.ReadAsAsync<MemberResponse>();
+                return listResponse.Members;
             }
-            catch (Exception ex)
-            {
-                
-            }
-
-            return null;
         }
 
         public async Task<Member> GetAsync(string listId, string emailAddress, bool isHashed = false)
         {
-            try
+            using (var client = CreateMailClient("lists/"))
             {
-                using (var client = CreateMailClient("lists/"))
-                {
-                    var hashedEmailAddress = isHashed ? emailAddress : Hash(emailAddress);
-                    var response = await client.GetAsync($"{listId}/members/{hashedEmailAddress}");
-                    response.EnsureSuccessStatusCode();
-                    return await response.Content.ReadAsAsync<Member>();
-                }
+                var hashedEmailAddress = isHashed ? emailAddress : Hash(emailAddress);
+                var response = await client.GetAsync($"{listId}/members/{hashedEmailAddress}");
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<Member>();
             }
-            catch (Exception ex)
-            {
 
-            }
-            return null;
         }
 
         public async Task<Member> AddOrUpdateAsync(string listId, Member member, string targetEmailAddress = null)
         {
-            try
+            using (var client = CreateMailClient("lists/"))
             {
-                using (var client = CreateMailClient("lists/"))
-                {
-                    var hashedEmailAddress = string.IsNullOrWhiteSpace(targetEmailAddress)
-                        ? Hash(member.EmailAddress)
-                        : Hash(targetEmailAddress);
-                    var response = await client.PutAsJsonAsync($"{listId}/members/{hashedEmailAddress}", member);
-                    response.EnsureSuccessStatusCode();
-                    return await response.Content.ReadAsAsync<Member>();
-                }
-            }
-            catch (Exception ex)
-            {
+                var hashedEmailAddress = string.IsNullOrWhiteSpace(targetEmailAddress)
+                    ? Hash(member.EmailAddress)
+                    : Hash(targetEmailAddress);
 
+                var response = await client.PutAsJsonAsync($"{listId}/members/{hashedEmailAddress}", member, null);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<Member>();
             }
-            return null;
+
         }
 
     }

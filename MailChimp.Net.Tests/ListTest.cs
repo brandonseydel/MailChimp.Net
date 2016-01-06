@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MailChimp.Net.Interfaces;
 
 namespace MailChimp.Net.Tests
 {
@@ -28,4 +29,7 @@ namespace MailChimp.Net.Tests
             Assert.IsNotNull(lists);
         }
     }
+   
+    
+
 }

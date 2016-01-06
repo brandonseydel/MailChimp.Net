@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Core\BaseRequest.cs" />
     <Compile Include="Core\Helper.cs" />
+    <Compile Include="Core\HttpRequestExtensions.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
     <Compile Include="Core\Requests\ContentRequest.cs" />
     <Compile Include="Core\Requests\ListRequest.cs" />
