@@ -26,5 +26,3 @@ namespace MailChimp.Net.Models
         public IEnumerable<Link> Links { get; set; }
     }
 }
-
-}
