@@ -37,7 +37,7 @@ namespace MailChimp.Net.Tests
             await _mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
         }
 
-        private static long _ticks = DateTime.Now.Ticks;
+        private static readonly long _ticks = DateTime.Now.Ticks;
 
         [TestMethod]
         public async Task Add_New_User_To_List()

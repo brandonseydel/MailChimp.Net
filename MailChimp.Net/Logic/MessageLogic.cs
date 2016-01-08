@@ -13,12 +13,15 @@ namespace MailChimp.Net.Logic
         {
         }
 
-        public async Task<IEnumerable<Message>> GetAllAsync(string conversationId)
+        public async Task<IEnumerable<Message>> GetAllAsync(string conversationId, MessageRequest request = null)
         {
-            using (var client = CreateMailClient("conversations/"))
+            using (var client = CreateMailClient($"conversations/{request?.ToQueryString()}"))
             {
-                var response = await client.GetAsync($"{conversationId}/members");
-                response.EnsureSuccessStatusCode();
+                var response = await client.GetAsync($"{conversationId}/messages");
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
 
                 var listResponse = await response.Content.ReadAsAsync<MessageResponse>();
                 return listResponse.Messages;
@@ -30,7 +33,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.GetAsync($"{conversationId}/messages/{messageId}");
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
                 return await response.Content.ReadAsAsync<Message>();
             }
         }
@@ -40,7 +46,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.PutAsJsonAsync($"{conversationId}", message, null);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
                 return await response.Content.ReadAsAsync<Message>();
             }
         }

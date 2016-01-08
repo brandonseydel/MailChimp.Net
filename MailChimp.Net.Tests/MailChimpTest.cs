@@ -12,7 +12,7 @@ namespace MailChimp.Net.Tests
         [TestInitialize]
         public void Initialize()
         {
-            _mailChimpManager = new MailChimpManager();
+            _mailChimpManager = new MailChimpManager("92959022783b0bdf7cefe5b56d770269-us10");
         }
 
         internal string Hash(string emailAddress)

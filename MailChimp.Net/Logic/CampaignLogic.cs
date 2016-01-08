@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using System.Net.Http;
 
 namespace MailChimp.Net.Logic
 {
@@ -14,18 +12,30 @@ namespace MailChimp.Net.Logic
         public CampaignLogic(string apiKey) : base(apiKey)
         {
         }
-        
+
         public async Task<IEnumerable<Campaign>> GetAll(CampaignRequest request = null)
         {
-                using (var client = CreateMailClient("campaigns"))
+            using (var client = CreateMailClient("campaigns"))
+            {
+                var response = await client.GetAsync(request?.ToQueryString());
+                if (!response.IsSuccessStatusCode)
                 {
-                    var response = await client.GetAsync(request?.ToQueryString());
-                    response.EnsureSuccessStatusCode();
-
-                    var campaignResponse = await response.Content.ReadAsAsync<CampaignResponse>();
-                    return campaignResponse.Campaigns;
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
                 }
-            
+
+                var campaignResponse = await response.Content.ReadAsAsync<CampaignResponse>();
+                return campaignResponse.Campaigns;
+            }
+        }
+
+        public async Task<SendChecklistResponse> SendChecklistAsync(string id)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.GetAsync($"{id}/send-checklist");
+                await response.EnsureSuccessMailChimpAsync();
+                return await response.Content.ReadAsAsync<SendChecklistResponse>();
+            }
         }
 
         public async Task<Campaign> GetAsync(string id)
@@ -33,7 +43,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{id}");
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
                 return await response.Content.ReadAsAsync<Campaign>();
             }
         }
@@ -43,16 +56,22 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PostAsync($"{campaignId}/actions/cancel-send", null);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
             }
         }
 
         public async Task SendAsync(string campaignId)
         {
             using (var client = CreateMailClient("campaigns/"))
-            {                
+            {
                 var response = await client.PostAsync($"{campaignId}/actions/send", null);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
             }
         }
 
@@ -61,7 +80,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.DeleteAsync($"{campaignId}");
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
             }
         }
 
@@ -70,10 +92,12 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PutAsJsonAsync($"{campaignId}", campaign, null);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
                 return await response.Content.ReadAsAsync<Campaign>();
             }
         }
-
     }
 }

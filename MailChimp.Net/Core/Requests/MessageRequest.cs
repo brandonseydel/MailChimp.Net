@@ -6,7 +6,11 @@ namespace MailChimp.Net.Core
     {
         [QueryString("before_timestamp")]
         public DateTime? BeforeTimestamp { get; set; }
+
         [QueryString("since_timestamp")]
         public DateTime? SinceTimestamp { get; set; }
+
+        [QueryString("is_read")]
+        public bool Read { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace MailChimp.Net.Interfaces
 {
     public interface IAuthorizedAppLogic
     {
-        Task<App> AddAsync(string clientId, string clientSecret);
+        Task<AuthorizedAppCreatedResponse> AddAsync(string clientId, string clientSecret);
         Task<IEnumerable<App>> GetAllAsync(AuthorizedAppRequest request = null);
         Task<App> GetAsync(string appId, BaseRequest request = null);
     }

@@ -18,7 +18,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}");
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
 
                 var listResponse = await response.Content.ReadAsAsync<FeedBackResponse>();
                 return listResponse.Feedback;
@@ -30,7 +33,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback/{feedBackId}");
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
                 return await response.Content.ReadAsAsync<Feedback>();
             }
         }
@@ -40,16 +46,23 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PostAsJsonAsync($"{campaignId}/feedback/{feedback?.FeedbackId}", feedback);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
                 return await response.Content.ReadAsAsync<Feedback>();
             }
         }
+
         public async Task DeleteAsync(string campaignId, string feedbackId)
         {
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.DeleteAsync($"{campaignId}/feedback/{feedbackId}");
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
             }
         }
     }

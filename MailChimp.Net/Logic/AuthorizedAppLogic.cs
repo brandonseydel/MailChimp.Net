@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Core.Requests;
@@ -13,11 +11,18 @@ namespace MailChimp.Net.Logic
 {
     public class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
     {
-        public AuthorizedAppLogic(string apiKey) : base(apiKey) { }
-
-        public Task<App> AddAsync(string clientId, string clientSecret)
+        public AuthorizedAppLogic(string apiKey) : base(apiKey)
         {
-            throw new NotImplementedException();
+        }
+
+        public async Task<AuthorizedAppCreatedResponse> AddAsync(string clientId, string clientSecret)
+        {
+            using (var client = CreateMailClient("authorized-apps"))
+            {
+                var response = await client.PostAsJsonAsync("", new { ClientId = clientId, ClientSecret = clientSecret });
+                await response.EnsureSuccessMailChimpAsync();
+                return await response.Content.ReadAsAsync<AuthorizedAppCreatedResponse>();
+            }
         }
 
         public async Task<IEnumerable<App>> GetAllAsync(AuthorizedAppRequest request = null)
@@ -25,7 +30,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("authorized-apps"))
             {
                 var response = await client.GetAsync(request?.ToQueryString());
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
 
                 var appResponse = await response.Content.ReadAsAsync<AuthorizedAppResponse>();
                 return appResponse.Apps;
@@ -37,7 +45,10 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("authorized-apps/"))
             {
                 var response = await client.GetAsync($"{appId}{request?.ToQueryString()}");
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
+                }
 
                 return await response.Content.ReadAsAsync<App>();
             }

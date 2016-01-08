@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MailChimp.Net.Interfaces
+namespace MailChimp.Net.Models
 {
     public class Archive
     {

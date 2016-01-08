@@ -1,26 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    class Note
+    public class Note
     {
-        [JsonProperty("note_id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
 
         [JsonProperty("created_at")]
-        [JsonConverter(typeof(JavaScriptDateTimeConverter))]
-        public DateTime CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
         public string CreatedBy { get; set; }
 
+        [JsonProperty("updated_at")]
+        public string UpdatedAt { get; set; }
+
         [JsonProperty("note")]
         public string Body { get; set; }
+
+        [JsonProperty("list_id")]
+        public string ListId { get; set; }
+
+        [JsonProperty("email_id")]
+        public string EmailId { get; set; }
+
+        [JsonProperty("_links")]
+        public Link[] Links { get; set; }
     }
 }

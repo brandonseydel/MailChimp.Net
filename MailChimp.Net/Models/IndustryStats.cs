@@ -2,11 +2,10 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class IndustryStats
+    public class IndustryStats
     {
-
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string Result { get; set; }
 
         [JsonProperty("open_rate")]
         public double OpenRate { get; set; }
