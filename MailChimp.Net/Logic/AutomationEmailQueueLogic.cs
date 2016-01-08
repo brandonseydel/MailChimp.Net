@@ -29,7 +29,7 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("automations/"))
             {
                 var response =
-                    await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{Hash(emailAddress)}");
+                    await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{Hash(emailAddress.ToLower())}");
                 await response.EnsureSuccessMailChimpAsync();
                 return await response.Content.ReadAsAsync<Queue>();
             }

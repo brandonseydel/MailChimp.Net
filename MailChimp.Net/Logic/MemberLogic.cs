@@ -30,7 +30,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress)}");
+                var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress.ToLower())}");
                 await response.EnsureSuccessMailChimpAsync();
 
                 return await response.Content.ReadAsAsync<Member>();
@@ -42,7 +42,7 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("lists/"))
             {
                 var response =
-                    await client.PutAsJsonAsync($"{listId}/members/{Hash(member.EmailAddress)}", member, null);
+                    await client.PutAsJsonAsync($"{listId}/members/{Hash(member.EmailAddress.ToLower())}", member, null);
 
                 await response.EnsureSuccessMailChimpAsync();
 
@@ -54,7 +54,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("lists/"))
             {
-                var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddress)}");
+                var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddress.ToLower())}");
                 await response.EnsureSuccessMailChimpAsync();
             }
         }
