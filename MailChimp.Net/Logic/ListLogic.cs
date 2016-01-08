@@ -18,10 +18,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("lists"))
             {
                 var response = await client.GetAsync(request?.ToQueryString());
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
 
                 var listResponse = await response.Content.ReadAsAsync<ListResponse>();
                 return listResponse.Lists;
@@ -33,10 +31,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{id}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
                 return await response.Content.ReadAsAsync<List>();
             }
         }

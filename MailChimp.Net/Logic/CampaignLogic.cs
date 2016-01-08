@@ -18,13 +18,59 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns"))
             {
                 var response = await client.GetAsync(request?.ToQueryString());
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
 
                 var campaignResponse = await response.Content.ReadAsAsync<CampaignResponse>();
                 return campaignResponse.Campaigns;
+            }
+        }
+
+        public async Task<Campaign> GetAsync(string id)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.GetAsync($"{id}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                return await response.Content.ReadAsAsync<Campaign>();
+            }
+        }
+
+        public async Task CancelAsync(string campaignId)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.PostAsync($"{campaignId}/actions/cancel-send", null);
+                await response.EnsureSuccessMailChimpAsync();
+            }
+        }
+
+        public async Task SendAsync(string campaignId)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.PostAsync($"{campaignId}/actions/send", null);
+                await response.EnsureSuccessMailChimpAsync();
+            }
+        }
+
+        public async Task DeleteAsync(string campaignId)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.DeleteAsync($"{campaignId}");
+                await response.EnsureSuccessMailChimpAsync();
+            }
+        }
+
+        public async Task<Campaign> AddOrUpdateAsync(string campaignId, Campaign campaign)
+        {
+            using (var client = CreateMailClient("campaigns/"))
+            {
+                var response = await client.PutAsJsonAsync($"{campaignId}", campaign, null);
+                await response.EnsureSuccessMailChimpAsync();
+
+                return await response.Content.ReadAsAsync<Campaign>();
             }
         }
 
@@ -35,68 +81,6 @@ namespace MailChimp.Net.Logic
                 var response = await client.GetAsync($"{id}/send-checklist");
                 await response.EnsureSuccessMailChimpAsync();
                 return await response.Content.ReadAsAsync<SendChecklistResponse>();
-            }
-        }
-
-        public async Task<Campaign> GetAsync(string id)
-        {
-            using (var client = CreateMailClient("campaigns/"))
-            {
-                var response = await client.GetAsync($"{id}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
-                return await response.Content.ReadAsAsync<Campaign>();
-            }
-        }
-
-        public async Task CancelAsync(string campaignId)
-        {
-            using (var client = CreateMailClient("campaigns/"))
-            {
-                var response = await client.PostAsync($"{campaignId}/actions/cancel-send", null);
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
-            }
-        }
-
-        public async Task SendAsync(string campaignId)
-        {
-            using (var client = CreateMailClient("campaigns/"))
-            {
-                var response = await client.PostAsync($"{campaignId}/actions/send", null);
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
-            }
-        }
-
-        public async Task DeleteAsync(string campaignId)
-        {
-            using (var client = CreateMailClient("campaigns/"))
-            {
-                var response = await client.DeleteAsync($"{campaignId}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
-            }
-        }
-
-        public async Task<Campaign> AddOrUpdateAsync(string campaignId, Campaign campaign)
-        {
-            using (var client = CreateMailClient("campaigns/"))
-            {
-                var response = await client.PutAsJsonAsync($"{campaignId}", campaign, null);
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
-                return await response.Content.ReadAsAsync<Campaign>();
             }
         }
     }

@@ -17,10 +17,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/contents");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
                 return await response.Content.ReadAsAsync<Content>();
             }
         }
@@ -30,10 +28,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PutAsJsonAsync($"{campaignId}/contents", content, null);
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
                 return await response.Content.ReadAsAsync<Content>();
             }
         }

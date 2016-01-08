@@ -28,7 +28,8 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("automations/"))
             {
-                var response = await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{Hash(emailAddress)}");
+                var response =
+                    await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{Hash(emailAddress)}");
                 await response.EnsureSuccessMailChimpAsync();
                 return await response.Content.ReadAsAsync<Queue>();
             }
@@ -38,11 +39,13 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("automations/"))
             {
-                var response = await client.PostAsJsonAsync($"{workflowId}/emails/{workflowEmailId}/queue", new {email_address= emailAddress});
+                var response =
+                    await
+                        client.PostAsJsonAsync($"{workflowId}/emails/{workflowEmailId}/queue",
+                            new {email_address = emailAddress});
                 await response.EnsureSuccessMailChimpAsync();
                 return await response.Content.ReadAsAsync<Queue>();
             }
         }
     }
-    
 }

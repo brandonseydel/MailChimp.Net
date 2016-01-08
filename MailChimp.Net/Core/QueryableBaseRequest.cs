@@ -6,7 +6,5 @@ namespace MailChimp.Net.Core
         public int Limit { get; set; }
         [QueryString("offset")]
         public int Offset { get; set; }
-
-   
     }
 }

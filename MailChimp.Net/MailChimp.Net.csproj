@@ -62,6 +62,7 @@
     <Compile Include="Core\HttpRequestExtensions.cs" />
     <Compile Include="Core\MailChimpException.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
+    <Compile Include="Core\Responses\TemplateFolderResponse.cs" />
     <Compile Include="Core\Requests\ContentRequest.cs" />
     <Compile Include="Core\Requests\ListRequest.cs" />
     <Compile Include="Core\Requests\FeedBackRequest.cs" />
@@ -72,10 +73,12 @@
     <Compile Include="Core\Responses\AuthorizedAppCreatedResponse.cs" />
     <Compile Include="Core\Responses\AutomationResponse.cs" />
     <Compile Include="Core\Responses\AutomationSubscriberResponse.cs" />
+    <Compile Include="Models\Folder.cs" />
     <Compile Include="Core\Responses\SendChecklistResponse.cs" />
     <Compile Include="Core\Responses\TemplateResponse.cs" />
     <Compile Include="Interfaces\IAutomationEmailQueueLogic.cs" />
     <Compile Include="Interfaces\ITemplateLogic.cs" />
+    <Compile Include="Logic\TemplateFolderLogic.cs" />
     <Compile Include="Logic\TemplateLogic.cs" />
     <Compile Include="Logic\AutomationSubscriberLogic.cs" />
     <Compile Include="Interfaces\IAutomationSubscriberLogic.cs" />

@@ -18,10 +18,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{listId}/members");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
 
                 var listResponse = await response.Content.ReadAsAsync<MemberResponse>();
                 return listResponse.Members;
@@ -33,10 +31,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress)}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
                 return await response.Content.ReadAsAsync<Member>();
             }
         }
@@ -48,10 +44,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await client.PutAsJsonAsync($"{listId}/members/{Hash(member.EmailAddress)}", member, null);
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
 
                 return await response.Content.ReadAsAsync<Member>();
             }
@@ -62,10 +55,7 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddress)}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
             }
         }
     }

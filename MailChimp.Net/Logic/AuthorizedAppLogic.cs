@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
@@ -19,7 +18,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("authorized-apps"))
             {
-                var response = await client.PostAsJsonAsync("", new { ClientId = clientId, ClientSecret = clientSecret });
+                var response = await client.PostAsJsonAsync("", new {ClientId = clientId, ClientSecret = clientSecret});
                 await response.EnsureSuccessMailChimpAsync();
                 return await response.Content.ReadAsAsync<AuthorizedAppCreatedResponse>();
             }
@@ -30,10 +29,7 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("authorized-apps"))
             {
                 var response = await client.GetAsync(request?.ToQueryString());
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
 
                 var appResponse = await response.Content.ReadAsAsync<AuthorizedAppResponse>();
                 return appResponse.Apps;
@@ -45,10 +41,7 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("authorized-apps/"))
             {
                 var response = await client.GetAsync($"{appId}{request?.ToQueryString()}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
 
                 return await response.Content.ReadAsAsync<App>();
             }

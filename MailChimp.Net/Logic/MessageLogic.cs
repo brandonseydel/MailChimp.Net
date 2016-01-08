@@ -18,10 +18,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient($"conversations/{request?.ToQueryString()}"))
             {
                 var response = await client.GetAsync($"{conversationId}/messages");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
 
                 var listResponse = await response.Content.ReadAsAsync<MessageResponse>();
                 return listResponse.Messages;
@@ -33,10 +31,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.GetAsync($"{conversationId}/messages/{messageId}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
                 return await response.Content.ReadAsAsync<Message>();
             }
         }
@@ -46,10 +42,8 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.PutAsJsonAsync($"{conversationId}", message, null);
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw (await response.Content.ReadAsStreamAsync()).Deserialize<MailChimpException>();
-                }
+                await response.EnsureSuccessMailChimpAsync();
+
                 return await response.Content.ReadAsAsync<Message>();
             }
         }

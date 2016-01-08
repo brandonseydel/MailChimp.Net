@@ -38,7 +38,6 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("automations/"))
             {
-                
                 var response = await client.PostAsync($"{workflowId}/emails/{workflowEmailId}/actions/pause", null);
                 await response.EnsureSuccessMailChimpAsync();
             }
@@ -53,5 +52,4 @@ namespace MailChimp.Net.Logic
             }
         }
     }
-    
 }
