@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class FacebookLikes
+    public class FacebookLikes
     {
 
         [JsonProperty("recipient_likes")]

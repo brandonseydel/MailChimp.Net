@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class ListStats
+    public class ListStats
     {
 
         [JsonProperty("sub_rate")]

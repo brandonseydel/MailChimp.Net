@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Clicks
+    public class Clicks
     {
 
         [JsonProperty("clicks_total")]

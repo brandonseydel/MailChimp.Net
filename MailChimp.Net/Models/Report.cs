@@ -1,9 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    internal class Report
+    public class Report
     {
+        public Report()
+        {
+            Timeseries = new HashSet<Timesery>();
+            Links = new HashSet<Link>();
+        }
 
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -48,7 +54,7 @@ namespace MailChimp.Net.Models
         public ListStats ListStats { get; set; }
 
         [JsonProperty("timeseries")]
-        public Timesery[] Timeseries { get; set; }
+        public IEnumerable<Timesery> Timeseries { get; set; }
 
         [JsonProperty("share_report")]
         public ShareReport ShareReport { get; set; }
@@ -57,7 +63,6 @@ namespace MailChimp.Net.Models
         public DeliveryStatus DeliveryStatus { get; set; }
 
         [JsonProperty("_links")]
-        public Link[] Links { get; set; }
+        public IEnumerable<Link> Links { get; set; }
     }
-
 }

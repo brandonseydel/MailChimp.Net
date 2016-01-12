@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Opens
+    public class Opens
     {
 
         [JsonProperty("opens_total")]

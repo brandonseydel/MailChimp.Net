@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class ShareReport
+    public class ShareReport
     {
 
         [JsonProperty("share_url")]

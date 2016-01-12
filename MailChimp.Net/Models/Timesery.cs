@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Timesery
+    public class Timesery
     {
 
         [JsonProperty("timestamp")]

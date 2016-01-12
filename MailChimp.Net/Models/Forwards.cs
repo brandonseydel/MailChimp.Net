@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    internal class Forwards
+    public class Forwards
     {
 
         [JsonProperty("forwards_count")]

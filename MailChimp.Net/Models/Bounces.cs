@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    internal class Bounces
+    public class Bounces
     {
 
         [JsonProperty("hard_bounces")]
