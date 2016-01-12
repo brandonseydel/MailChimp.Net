@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Core
 {
     public enum Result
     {
