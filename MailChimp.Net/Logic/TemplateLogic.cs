@@ -35,5 +35,15 @@ namespace MailChimp.Net.Logic
                 return await response.Content.ReadAsAsync<Template>();
             }
         }
+        public async Task DeleteAsync(string templateId)
+        {
+            using (var client = CreateMailClient("templates/"))
+            {
+                var response = await client.DeleteAsync($"{templateId}");
+                await response.EnsureSuccessMailChimpAsync();
+            }
+        }
+
+       
     }
 }

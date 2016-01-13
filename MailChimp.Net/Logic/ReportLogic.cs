@@ -2,11 +2,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
+using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-    internal class ReportLogic : BaseLogic
+    internal class ReportLogic : BaseLogic, IReportLogic
     {
         public ReportLogic(string apiKey) : base(apiKey)
         {
@@ -69,11 +70,13 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<IEnumerable<ClickMember>> GetClickReportMembersAsync(QueryableBaseRequest request, string campaignId, string linkId)
+        public async Task<IEnumerable<ClickMember>> GetClickReportMembersAsync(QueryableBaseRequest request,
+            string campaignId, string linkId)
         {
             using (var client = CreateMailClient("reports/"))
             {
-                var response = await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request.ToQueryString()}");
+                var response =
+                    await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request.ToQueryString()}");
                 await response.EnsureSuccessMailChimpAsync();
 
                 var clickReportMemberResponse = await response.Content.ReadAsAsync<ClickReportMemberResponse>();
@@ -81,11 +84,15 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<ClickMember> GetClickReportMemberAsync(BaseRequest request, string campaignId, string linkId, string emailAddress)
+        public async Task<ClickMember> GetClickReportMemberAsync(BaseRequest request, string campaignId, string linkId,
+            string emailAddress)
         {
             using (var client = CreateMailClient("reports/"))
             {
-                var response = await client.GetAsync($"{campaignId}/click-details/{linkId}/members/{Hash(emailAddress)}{request.ToQueryString()}");
+                var response =
+                    await
+                        client.GetAsync(
+                            $"{campaignId}/click-details/{linkId}/members/{Hash(emailAddress)}{request.ToQueryString()}");
                 await response.EnsureSuccessMailChimpAsync();
 
                 return await response.Content.ReadAsAsync<ClickMember>();
@@ -99,45 +106,116 @@ namespace MailChimp.Net.Logic
                 var response = await client.GetAsync($"{campaignId}/domain-performance{request.ToQueryString()}");
                 await response.EnsureSuccessMailChimpAsync();
 
-                var clickReportMemberResponse = await response.Content.ReadAsAsync<DomainPerformanceResponse>();
-                return clickReportMemberResponse.Domains;
+                var domainPerformanceResponse = await response.Content.ReadAsAsync<DomainPerformanceResponse>();
+                return domainPerformanceResponse.Domains;
             }
         }
 
-        public async Task GetEepUrlReportAsync(BaseRequest request, string campaignId)
+        public async Task<EepUrlActivity> GetEepUrlReportAsync(BaseRequest request, string campaignId)
         {
+            using (var client = CreateMailClient("reports/"))
+            {
+                var response = await client.GetAsync($"{campaignId}/click-details/eepurl{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                return await response.Content.ReadAsAsync<EepUrlActivity>();
+            }
         }
 
-        public async Task GetEmailActivitiesAsync(QueryableBaseRequest request, string campaignId)
+        public async Task<IEnumerable<EmailActivity>> GetEmailActivitiesAsync(QueryableBaseRequest request,
+            string campaignId)
         {
+            using (var client = CreateMailClient("reports/"))
+            {
+                var response = await client.GetAsync($"{campaignId}/email-activity{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                var emailActivityResponse = await response.Content.ReadAsAsync<EmailResponse>();
+                return emailActivityResponse.EmailActivities;
+            }
         }
 
-        public async Task GetEmailActivityAsync(BaseRequest request, string campaignId, string emailAddress)
+        public async Task<EmailActivity> GetEmailActivityAsync(BaseRequest request, string campaignId,
+            string emailAddress)
         {
+            using (var client = CreateMailClient("reports/"))
+            {
+                var response =
+                    await client.GetAsync($"{campaignId}/email-activity/{Hash(emailAddress)}{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                return await response.Content.ReadAsAsync<EmailActivity>();
+            }
         }
 
-        public async Task GetLocationsAsync(BaseRequest request, string campaignId)
+        public async Task<IEnumerable<OpenLocation>> GetLocationsAsync(BaseRequest request, string campaignId)
         {
+            using (var client = CreateMailClient("reports/"))
+            {
+                var response = await client.GetAsync($"{campaignId}/locations{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                var openLocationResponse = await response.Content.ReadAsAsync<OpenLocationResponse>();
+                return openLocationResponse.Locations;
+            }
         }
 
-        public async Task GetSentToRecipientsAsync(QueryableBaseRequest request, string campaignId)
+        public async Task<IEnumerable<SentTo>> GetSentToRecipientsAsync(QueryableBaseRequest request, string campaignId)
         {
+            using (var client = CreateMailClient("reports/"))
+            {
+                var response = await client.GetAsync($"{campaignId}/sent-to{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                var sendToResponse = await response.Content.ReadAsAsync<SentToResponse>();
+                return sendToResponse.Recipients;
+            }
         }
 
-        public async Task GetSentToRecipientAsync(BaseRequest request, string campaignId)
+        public async Task<SentTo> GetSentToRecipientAsync(QueryableBaseRequest request, string campaignId,
+            string emailAddress)
         {
+            using (var client = CreateMailClient("reports/"))
+            {
+                var response =
+                    await client.GetAsync($"{campaignId}/sent-to/{Hash(emailAddress)}{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                return await response.Content.ReadAsAsync<SentTo>();
+            }
         }
 
-        public async Task GetSubReportAsync(BaseRequest request, string campaignId)
+        public async Task<IEnumerable<Report>> GetSubReportAsync(BaseRequest request, string campaignId)
         {
+            using (var client = CreateMailClient("reports"))
+            {
+                var response = await client.GetAsync($"{campaignId}/sub-reports{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+                var reportResponse = await response.Content.ReadAsAsync<ReportResponse>();
+                return reportResponse.Reports;
+            }
         }
 
-        public async Task GetUnsubscribesAsync(QueryableBaseRequest request, string campaignId)
+        public async Task<IEnumerable<Unsubscribe>> GetUnsubscribesAsync(QueryableBaseRequest request, string campaignId)
         {
+            using (var client = CreateMailClient("reports"))
+            {
+                var response = await client.GetAsync($"{campaignId}/unsubscribed{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+                var reportResponse = await response.Content.ReadAsAsync<UnsubscribeReportResponse>();
+                return reportResponse.Unsubscribes;
+            }
         }
 
-        public async Task GetUnsubscriberAsync(BaseRequest request, string campaignId, string emailAddress)
+        public async Task<Unsubscribe> GetUnsubscriberAsync(BaseRequest request, string campaignId, string emailAddress)
         {
+            using (var client = CreateMailClient("reports"))
+            {
+                var response =
+                    await client.GetAsync($"{campaignId}/unsubscribed/{Hash(emailAddress)}{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+                return await response.Content.ReadAsAsync<Unsubscribe>();
+            }
         }
     }
 }

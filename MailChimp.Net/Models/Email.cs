@@ -1,9 +1,14 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
     public class Email
     {
+        public Email()
+        {
+            Links = new HashSet<Link>();
+        }
 
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -51,6 +56,6 @@ namespace MailChimp.Net.Models
         public ReportSummary ReportSummary { get; set; }
 
         [JsonProperty("_links")]
-        public Link[] Links { get; set; }
+        public IEnumerable<Link> Links { get; set; }
     }
 }

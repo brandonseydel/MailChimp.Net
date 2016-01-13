@@ -8,7 +8,7 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-    public class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
+    internal class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
     {
         public AuthorizedAppLogic(string apiKey) : base(apiKey)
         {

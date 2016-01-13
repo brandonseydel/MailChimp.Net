@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
@@ -41,6 +42,6 @@ namespace MailChimp.Net.Models
         public string ShareUrl { get; set; }
 
         [JsonProperty("_links")]
-        public Link[] Links { get; set; }
+        public IEnumerable<Link> Links { get; set; }
     }
 }

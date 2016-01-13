@@ -7,7 +7,7 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-    public class AutomationLogic : BaseLogic, IAutomationLogic
+    internal class AutomationLogic : BaseLogic, IAutomationLogic
     {
         public AutomationLogic(string apiKey) : base(apiKey)
         {

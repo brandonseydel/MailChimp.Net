@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
-    public class AutomationEmailQueueResponse
+    public class AutomationEmailQueueResponse : BaseResponse
     {
         public AutomationEmailQueueResponse()
         {
@@ -20,10 +20,5 @@ namespace MailChimp.Net.Core
         [JsonProperty("queue")]
         public IEnumerable<Queue> Queues { get; set; }
 
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
-
-        [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
-    public class ClickReportMemberResponse
+    public class ClickReportMemberResponse : BaseResponse
     {
         public ClickReportMemberResponse()
         {
@@ -17,11 +17,6 @@ namespace MailChimp.Net.Core
 
         [JsonProperty("campaign_id")]
         public string CampaignId { get; set; }
-
-        [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; set; }
-
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
+        
     }
 }

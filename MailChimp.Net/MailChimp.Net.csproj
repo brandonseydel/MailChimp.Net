@@ -58,17 +58,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BaseRequest.cs" />
+    <Compile Include="Core\BaseResponse.cs" />
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\HttpRequestExtensions.cs" />
     <Compile Include="Core\MailChimpException.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
-    <Compile Include="Core\Responses\EepUrlActivity.cs" />
+    <Compile Include="Core\Responses\EmailResponse.cs" />
+    <Compile Include="Interfaces\IReportLogic.cs" />
+    <Compile Include="Interfaces\ITemplateFolderLogic.cs" />
+    <Compile Include="Models\EepUrlActivity.cs" />
+    <Compile Include="Models\Unsubscribe.cs" />
+    <Compile Include="Core\Responses\UnsubscribeReportResponse.cs" />
+    <Compile Include="Models\SentTo.cs" />
+    <Compile Include="Core\Responses\SentToResponse.cs" />
+    <Compile Include="Models\OpenLocation.cs" />
+    <Compile Include="Core\Responses\OpenLocationResponse.cs" />
     <Compile Include="Models\Domain.cs" />
     <Compile Include="Core\Responses\DomainPerformanceResponse.cs" />
-    <Compile Include="Core\Responses\Link.cs" />
     <Compile Include="Models\ClickMember.cs" />
     <Compile Include="Core\Responses\ClickReportMemberResponse.cs" />
     <Compile Include="Core\Responses\ClickReportResponse.cs" />
+    <Compile Include="Models\EepClick.cs" />
+    <Compile Include="Models\EepLocation.cs" />
+    <Compile Include="Models\EmailActivity.cs" />
+    <Compile Include="Models\Referrer.cs" />
+    <Compile Include="Models\Twitter.cs" />
     <Compile Include="Models\UrlsClicked.cs" />
     <Compile Include="Models\Advice.cs" />
     <Compile Include="Core\Responses\ApiResponse.cs" />

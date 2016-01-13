@@ -1,17 +1,18 @@
-﻿using MailChimp.Net.Models;
+﻿using System.Collections.Generic;
+using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
-    internal class ListResponse
+    internal class ListResponse : BaseResponse
     {
+        public ListResponse()
+        {
+            Lists = new HashSet<List>();
+        }
+
         [JsonProperty("lists")]
-        public List[] Lists { get; set; }
+        public IEnumerable<List> Lists { get; set; }
 
-        [JsonProperty("_links")]
-        public Models.Link[] Links { get; set; }
-
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
     }
 }

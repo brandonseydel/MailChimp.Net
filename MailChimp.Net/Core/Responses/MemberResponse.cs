@@ -4,8 +4,12 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
-    internal class MemberResponse
+    public class MemberResponse : BaseResponse
     {
+        public MemberResponse()
+        {
+            Members = new HashSet<Member>();
+        }
 
         [JsonProperty("members")]
         public IEnumerable<Member> Members { get; set; }
@@ -13,11 +17,6 @@ namespace MailChimp.Net.Core
         [JsonProperty("list_id")]
         public string ListId { get; set; }
 
-        [JsonProperty("_links")]
-        public IEnumerable<Models.Link> Links { get; set; }
-
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
     }
 }
 

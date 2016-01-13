@@ -5,7 +5,7 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    internal interface ITemplateLogic
+    public interface ITemplateLogic
     {
         Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request);
         Task<Template> GetAsync(string templateId);

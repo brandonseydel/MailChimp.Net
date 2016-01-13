@@ -4,11 +4,10 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
-    public class AutomationEmailResponse
+    public class AutomationEmailResponse : BaseResponse
     {
         public AutomationEmailResponse()
         {
-            Links = new HashSet<Link>();
             Emails = new HashSet<Email>();
         }
 
@@ -17,11 +16,5 @@ namespace MailChimp.Net.Core
 
         [JsonProperty("emails")]
         public IEnumerable<Email> Emails { get; set; }
-
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
-
-        [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; set; }
     }
 }

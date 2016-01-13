@@ -2,11 +2,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
+using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-    internal class TemplateFolderLogic : BaseLogic
+    internal class TemplateFolderLogic : BaseLogic, ITemplateFolderLogic
     {
         public TemplateFolderLogic(string apiKey) : base(apiKey)
         {

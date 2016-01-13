@@ -6,6 +6,10 @@ namespace MailChimp.Net.Core
 {
     public class AutomationSubscriberResponse
     {
+        public AutomationSubscriberResponse()
+        {
+            Subscribers = new HashSet<Subscriber>();
+        }
         [JsonProperty("workflow_id")]
         public string WorkflowId { get; set; }
 

@@ -4,19 +4,17 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
-    public class CampaignAdviceReport : BaseResponse
+    public class SentToResponse : BaseResponse
     {
-        public CampaignAdviceReport()
+        public SentToResponse()
         {
-            Advice = new HashSet<Advice>();
+            Recipients = new HashSet<SentTo>();
         }
 
-
-        [JsonProperty("advice")]
-        public IEnumerable<Advice> Advice { get; set; }
+        [JsonProperty("sent_to")]
+        public IEnumerable<SentTo> Recipients { get; set; }
 
         [JsonProperty("campaign_id")]
         public string CampaignId { get; set; }
-
     }
 }
