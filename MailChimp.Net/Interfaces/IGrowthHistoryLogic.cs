@@ -6,8 +6,7 @@ namespace MailChimp.Net.Interfaces
 {
     public interface IGrowthHistoryLogic
     {
-        Task<Member> AddOrUpdateAsync(string listId, Member member);
-        Task<IEnumerable<Member>> GetAllAsync(string listId);
-        Task<Member> GetAsync(string listId, string emailAddress);
+        Task GetAllAsync(string listId);
+        Task GetAsync(string listId, string month);
     }
 }

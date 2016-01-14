@@ -4,9 +4,8 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    public interface IAbuseReportLogic
+    public interface IListActivityLogic
     {
-        Task GetAllAsync(string listId);
-        Task GetAsync(string listId, string reportId);
+        Task GetAllRecentAsync(string listId);
     }
 }
