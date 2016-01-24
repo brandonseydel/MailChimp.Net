@@ -9,6 +9,6 @@ namespace MailChimp.Net.Core
     public class InterestCategoryRequest : QueryableBaseRequest
     {
         [QueryString("type")]
-        public int Type { get; set; }
+        public string Type { get; set; }
     }
 }

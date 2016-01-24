@@ -54,7 +54,7 @@ namespace MailChimp.Net
         public IAutomationSubscriberLogic AutomationSubscribers { get; set; }
         public IClientLogic Clients { get; }
         public IAbuseReportLogic AbuseReports { get; }
-        public IActivityLogic Activities { get; }
+        public IListActivityLogic Activities { get; }
         public IFeedbackLogic Feedback { get; }
         public IGrowthHistoryLogic GrowthHistories { get; }
         public IInterestCategoryLogic InterestCategories { get; }
