@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -7,22 +10,22 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-    internal class ListLogic : BaseLogic, IListLogic
+    public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     {
-        public ListLogic(string apiKey) : base(apiKey)
+        public InterestCategoryLogic(string apiKey) : base(apiKey)
         {
         }
 
-        public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null)
+        public async Task<IEnumerable<InterestCategory>> GetAllAsync(string listId, InterestCategoryRequest request = null)
         {
-            using (var client = CreateMailClient("lists"))
+            using (var client = CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync(request?.ToQueryString());
+                var response = await client.GetAsync($"{listId}{request?.ToQueryString()}");
                 await response.EnsureSuccessMailChimpAsync();
 
 
-                var listResponse = await response.Content.ReadAsAsync<ListResponse>();
-                return listResponse.Lists;
+                var listResponse = await response.Content.ReadAsAsync<InterestCategoryResponse>();
+                return listResponse.Categories;
             }
         }
 

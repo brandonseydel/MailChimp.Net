@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net.Models
 {
-    class InterestCategory
+    public class InterestCategory
     {
         [JsonProperty("list_id")]
         public string ListId { get; }

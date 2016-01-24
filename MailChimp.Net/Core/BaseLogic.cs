@@ -4,9 +4,9 @@ using System.Security.Cryptography;
 
 namespace MailChimp.Net.Core
 {
-    public class BaseLogic
+    public abstract class BaseLogic
     {
-        public BaseLogic(string apiKey)
+        protected BaseLogic(string apiKey)
         {
             _apiKey = apiKey;
         }

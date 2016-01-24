@@ -11,13 +11,13 @@ namespace MailChimp.Net.Models
         }
 
         [JsonProperty("category_id")]
-        public string InterestCategoryId { get; }
+        public string InterestCategoryId { get; set; }
 
         [JsonProperty("list_id")]
         public string ListId { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; }
+        public string Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

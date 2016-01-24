@@ -9,5 +9,7 @@ namespace MailChimp.Net.Interfaces
     {
         Task<IEnumerable<List>> GetAllAsync(ListRequest request = null);
         Task<List> GetAsync(string id);
+        Task DeleteAsync(string listId);
+        Task<List> AddOrUpdateAsync(List list);
     }
 }

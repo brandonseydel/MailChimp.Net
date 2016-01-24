@@ -58,5 +58,28 @@ namespace MailChimp.Net.Logic
                 await response.EnsureSuccessMailChimpAsync();
             }
         }
+
+        public async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddress, BaseRequest request)
+        {
+            using (var client = CreateMailClient("lists/"))
+            {
+                var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress.ToLower())}/goals{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+                var goalResponse = await response.Content.ReadAsAsync<GoalResponse>();
+                return goalResponse.Goals;
+            }
+        }
+
+        public async Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddress, BaseRequest request)
+        {
+            using (var client = CreateMailClient("lists/"))
+            {
+                var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress.ToLower())}/activity{request.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+                var goalResponse = await response.Content.ReadAsAsync<ActivityResponse>();
+                return goalResponse.Activities;
+            }
+        }
+
     }
 }

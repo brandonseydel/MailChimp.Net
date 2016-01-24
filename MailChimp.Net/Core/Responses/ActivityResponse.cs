@@ -8,11 +8,11 @@ namespace MailChimp.Net.Core
     {
         public ActivityResponse()
         {
-            Activity = new HashSet<Activity>();
+            Activities = new HashSet<Activity>();
         }
 
         [JsonProperty("activity")]
-        public IEnumerable<Activity> Activity { get; set; }
+        public IEnumerable<Activity> Activities { get; set; }
 
         [JsonProperty("email_id")]
         public string EmailId { get; set; }

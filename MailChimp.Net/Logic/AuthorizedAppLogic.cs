@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
-using MailChimp.Net.Core.Requests;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 
