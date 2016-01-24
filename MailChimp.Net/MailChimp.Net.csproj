@@ -68,6 +68,7 @@
     <Compile Include="Core\Responses\InterestCategoryResponse.cs" />
     <Compile Include="Core\Responses\InterestResponse.cs" />
     <Compile Include="Interfaces\IActivityLogic.cs" />
+    <Compile Include="Interfaces\INoteLogic.cs" />
     <Compile Include="Logic\InterestLogic.cs" />
     <Compile Include="Logic\NoteLogic.cs" />
     <Compile Include="Models\History.cs" />
@@ -81,8 +82,6 @@
     <Compile Include="Interfaces\IFileManagerFileLogic.cs" />
     <Compile Include="Interfaces\IFileManagerFolderLogic.cs" />
     <Compile Include="Interfaces\IInterestLogic.cs" />
-    <Compile Include="Interfaces\IMemberActivityLogic.cs" />
-    <Compile Include="Interfaces\IMemberGoalLogic.cs" />
     <Compile Include="Interfaces\IMemberNoteLogic.cs" />
     <Compile Include="Interfaces\IReportLogic.cs" />
     <Compile Include="Interfaces\ITemplateFolderLogic.cs" />
@@ -187,7 +186,6 @@
     <Compile Include="Interfaces\IConversationLogic.cs" />
     <Compile Include="Interfaces\IMessageLogic.cs" />
     <Compile Include="Interfaces\IAbuseReportLogic.cs" />
-    <Compile Include="Interfaces\IListActivityLogic.cs" />
     <Compile Include="Interfaces\IClientLogic.cs" />
     <Compile Include="Interfaces\IGrowthHistoryLogic.cs" />
     <Compile Include="Interfaces\IMemberLogic.cs" />

@@ -2,11 +2,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
+using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-    public class NoteLogic : BaseLogic
+    public class NoteLogic : BaseLogic, INoteLogic
     {
         public NoteLogic(string apiKey) : base(apiKey)
         {
