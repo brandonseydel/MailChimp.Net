@@ -24,26 +24,15 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>Conversations Messages</li>
 <li>Lists</li>
 <li>List Members</li>
-
-
-</ul>
-
-#TODO
--Looking to add additional functionality pending contributors.
-<ul>
 <li>Automations</li>
-<li>Batch Operations</li>
-<li>Campaign Folders</li>
-<li>Campaing Send Checklist</li>
-<li>File Manager Files</li>
-<li>File Manager Folders</li>
 <li>List Abuse Reports</li>
 <li>List Activity</li>
 <li>List Clients</li>
 <li>List Growth History</li>
 <li>List Interest Categories</li>
-<li>List Merge Fields</li>
-<li>List Segments</li>
+<li>Template Folders</li>
+<li>Templates</li>
+<li>Template Default Content</li>
 <li>Reports</li>
 <li>Report Click Reports</li>
 <li>Report Domain Performance</li>
@@ -53,8 +42,20 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>Report Sent To</li>
 <li>Report Sub-Reports</li>
 <li>Report Unsubscribes</li>
-<li>Template Folders</li>
-<li>Templates</li>
-<li>Template Default Content</li>
+
+</ul>
+
+#TODO
+-Looking to add additional functionality pending contributors.
+<ul>
+
+<li>Batch Operations</li>
+<li>Campaign Folders</li>
+<li>Campaing Send Checklist</li>
+<li>File Manager Files</li>
+<li>File Manager Folders</li>
+<li>List Merge Fields</li>
+<li>List Segments</li>
+
 
 </ul>
