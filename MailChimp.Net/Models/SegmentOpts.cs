@@ -1,17 +1,34 @@
-﻿using Newtonsoft.Json;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SegmentOpts.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
+    /// <summary>
+    /// The segment opts.
+    /// </summary>
     public class SegmentOpts
     {
+        /// <summary>
+        /// Gets or sets the conditions.
+        /// </summary>
+        [JsonProperty("conditions")]
+        public Condition[] Conditions { get; set; }
 
-        [JsonProperty("saved_segment_id")]
-        public int SavedSegmentId { get; set; }
-
+        /// <summary>
+        /// Gets or sets the match.
+        /// </summary>
         [JsonProperty("match")]
         public string Match { get; set; }
 
-        [JsonProperty("conditions")]
-        public Condition[] Conditions { get; set; }
+        /// <summary>
+        /// Gets or sets the saved segment id.
+        /// </summary>
+        [JsonProperty("saved_segment_id")]
+        public int SavedSegmentId { get; set; }
     }
 }

@@ -1,93 +1,213 @@
-﻿using MailChimp.Net.Core;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MailChimpManager.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
 
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 namespace MailChimp.Net
 {
+    /// <summary>
+    /// The mail chimp manager.
+    /// </summary>
     public class MailChimpManager : MailManagerBase, IMailChimpManager
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailChimpManager"/> class.
+        /// </summary>
+        /// <param name="apiKey">
+        /// The api key.
+        /// </param>
         public MailChimpManager(string apiKey) : base(apiKey)
         {
-            Activities = new ActivityLogic(ApiKey);
-            AbuseReports = new AbuseReportLogic(ApiKey);
-            Api = new ApiLogic(ApiKey);
-            Apps = new AuthorizedAppLogic(ApiKey);
-            AutomationEmails = new AutomationEmailLogic(ApiKey);
-            AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
-            Automations = new AutomationLogic(ApiKey);
-            AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
-            Campaigns = new CampaignLogic(ApiKey);
-            Clients = new ClientLogic(ApiKey);
-            Content = new ContentLogic(ApiKey);
-            Conversations = new ConversationLogic(ApiKey);
-            Feedback = new FeedBackLogic(ApiKey);
-            GrowthHistories = new GrowthHistoryLogic(ApiKey);
-            InterestCategories = new InterestCategoryLogic(ApiKey);
-            Interests = new InterestLogic(ApiKey);
-            Lists = new ListLogic(ApiKey);
-            Members = new MemberLogic(ApiKey);
-            Messages = new MessageLogic(ApiKey);
-            Notes = new NoteLogic(ApiKey);
-            Reports = new ReportLogic(ApiKey);
-            TemplateFolders = new TemplateFolderLogic(ApiKey);
-            Templates = new TemplateLogic(ApiKey);
+            this.Activities = new ActivityLogic(ApiKey);
+            this.AbuseReports = new AbuseReportLogic(ApiKey);
+            this.Api = new ApiLogic(ApiKey);
+            this.Apps = new AuthorizedAppLogic(ApiKey);
+            this.AutomationEmails = new AutomationEmailLogic(ApiKey);
+            this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
+            this.Automations = new AutomationLogic(ApiKey);
+            this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
+            this.Campaigns = new CampaignLogic(ApiKey);
+            this.Clients = new ClientLogic(ApiKey);
+            this.Content = new ContentLogic(ApiKey);
+            this.Conversations = new ConversationLogic(ApiKey);
+            this.Feedback = new FeedBackLogic(ApiKey);
+            this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
+            this.InterestCategories = new InterestCategoryLogic(ApiKey);
+            this.Interests = new InterestLogic(ApiKey);
+            this.Lists = new ListLogic(ApiKey);
+            this.Members = new MemberLogic(ApiKey);
+            this.Messages = new MessageLogic(ApiKey);
+            this.Notes = new NoteLogic(ApiKey);
+            this.Reports = new ReportLogic(ApiKey);
+            this.TemplateFolders = new TemplateFolderLogic(ApiKey);
+            this.Templates = new TemplateLogic(ApiKey);
         }
 
-        public INoteLogic Notes { get; set; }
-
-        public IInterestLogic Interests { get; set; }
-
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailChimpManager"/> class.
+        /// </summary>
         public MailChimpManager()
         {
-            Activities = new ActivityLogic(ApiKey);
-            AbuseReports = new AbuseReportLogic(ApiKey);
-            Api = new ApiLogic(ApiKey);
-            Apps = new AuthorizedAppLogic(ApiKey);
-            AutomationEmails = new AutomationEmailLogic(ApiKey);
-            AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
-            Automations = new AutomationLogic(ApiKey);
-            AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
-            Campaigns = new CampaignLogic(ApiKey);
-            Clients = new ClientLogic(ApiKey);
-            Content = new ContentLogic(ApiKey);
-            Conversations = new ConversationLogic(ApiKey);
-            Feedback = new FeedBackLogic(ApiKey);
-            GrowthHistories = new GrowthHistoryLogic(ApiKey);
-            InterestCategories = new InterestCategoryLogic(ApiKey);
-            Interests = new InterestLogic(ApiKey);
-            Lists = new ListLogic(ApiKey);
-            Members = new MemberLogic(ApiKey);
-            Messages = new MessageLogic(ApiKey);
-            Notes = new NoteLogic(ApiKey);
-            Reports = new ReportLogic(ApiKey);
-            TemplateFolders = new TemplateFolderLogic(ApiKey);
-            Templates = new TemplateLogic(ApiKey);
+            this.Activities = new ActivityLogic(ApiKey);
+            this.AbuseReports = new AbuseReportLogic(ApiKey);
+            this.Api = new ApiLogic(ApiKey);
+            this.Apps = new AuthorizedAppLogic(ApiKey);
+            this.AutomationEmails = new AutomationEmailLogic(ApiKey);
+            this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
+            this.Automations = new AutomationLogic(ApiKey);
+            this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
+            this.Campaigns = new CampaignLogic(ApiKey);
+            this.Clients = new ClientLogic(ApiKey);
+            this.Content = new ContentLogic(ApiKey);
+            this.Conversations = new ConversationLogic(ApiKey);
+            this.Feedback = new FeedBackLogic(ApiKey);
+            this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
+            this.InterestCategories = new InterestCategoryLogic(ApiKey);
+            this.Interests = new InterestLogic(ApiKey);
+            this.Lists = new ListLogic(ApiKey);
+            this.Members = new MemberLogic(ApiKey);
+            this.Messages = new MessageLogic(ApiKey);
+            this.Notes = new NoteLogic(ApiKey);
+            this.Reports = new ReportLogic(ApiKey);
+            this.TemplateFolders = new TemplateFolderLogic(ApiKey);
+            this.Templates = new TemplateLogic(ApiKey);
         }
 
-        public IReportLogic Reports { get; set; }
-        public IMessageLogic Messages { get; set; }
-        public IAutomationEmailLogic AutomationEmails { get; set; }
-        public IAutomationEmailQueueLogic AutomationEmailQueues { get; set; }
-        public IAutomationLogic Automations { get; set; }
-        public IAutomationSubscriberLogic AutomationSubscribers { get; set; }
-        public IClientLogic Clients { get; }
+        /// <summary>
+        /// Gets the abuse reports.
+        /// </summary>
         public IAbuseReportLogic AbuseReports { get; }
+
+        /// <summary>
+        /// Gets the activities.
+        /// </summary>
         public IActivityLogic Activities { get; }
-        public IFeedbackLogic Feedback { get; }
-        public IGrowthHistoryLogic GrowthHistories { get; }
-        public IInterestCategoryLogic InterestCategories { get; }
-        public ISegmentLogic Segments { get; }
-        public IMergeFieldLogic MergeFields { get; }
-        public ISendChecklist SendChecklists { get; }
-        public IListLogic Lists { get; }
-        public IMemberLogic Members { get; }
+
+        /// <summary>
+        /// Gets the api.
+        /// </summary>
         public IApiLogic Api { get; }
-        public ICampaignLogic Campaigns { get; }
-        public IConversationLogic Conversations { get; }
-        public IContentLogic Content { get; }
+
+        /// <summary>
+        /// Gets the apps.
+        /// </summary>
         public IAuthorizedAppLogic Apps { get; }
-        public ITemplateLogic Templates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the automation email queues.
+        /// </summary>
+        public IAutomationEmailQueueLogic AutomationEmailQueues { get; set; }
+
+        /// <summary>
+        /// Gets or sets the automation emails.
+        /// </summary>
+        public IAutomationEmailLogic AutomationEmails { get; set; }
+
+        /// <summary>
+        /// Gets or sets the automations.
+        /// </summary>
+        public IAutomationLogic Automations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the automation subscribers.
+        /// </summary>
+        public IAutomationSubscriberLogic AutomationSubscribers { get; set; }
+
+        /// <summary>
+        /// Gets the campaigns.
+        /// </summary>
+        public ICampaignLogic Campaigns { get; }
+
+        /// <summary>
+        /// Gets the clients.
+        /// </summary>
+        public IClientLogic Clients { get; }
+
+        /// <summary>
+        /// Gets the content.
+        /// </summary>
+        public IContentLogic Content { get; }
+
+        /// <summary>
+        /// Gets the conversations.
+        /// </summary>
+        public IConversationLogic Conversations { get; }
+
+        /// <summary>
+        /// Gets the feedback.
+        /// </summary>
+        public IFeedbackLogic Feedback { get; }
+
+        /// <summary>
+        /// Gets the growth histories.
+        /// </summary>
+        public IGrowthHistoryLogic GrowthHistories { get; }
+
+        /// <summary>
+        /// Gets the interest categories.
+        /// </summary>
+        public IInterestCategoryLogic InterestCategories { get; }
+
+        /// <summary>
+        /// Gets or sets the interests.
+        /// </summary>
+        public IInterestLogic Interests { get; set; }
+
+        /// <summary>
+        /// Gets the lists.
+        /// </summary>
+        public IListLogic Lists { get; }
+
+        /// <summary>
+        /// Gets the members.
+        /// </summary>
+        public IMemberLogic Members { get; }
+
+        /// <summary>
+        /// Gets the merge fields.
+        /// </summary>
+        public IMergeFieldLogic MergeFields { get; }
+
+        /// <summary>
+        /// Gets or sets the messages.
+        /// </summary>
+        public IMessageLogic Messages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the notes.
+        /// </summary>
+        public INoteLogic Notes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reports.
+        /// </summary>
+        public IReportLogic Reports { get; set; }
+
+        /// <summary>
+        /// Gets the segments.
+        /// </summary>
+        public ISegmentLogic Segments { get; }
+
+        /// <summary>
+        /// Gets the send checklists.
+        /// </summary>
+        public ISendChecklist SendChecklists { get; }
+
+        /// <summary>
+        /// Gets or sets the template folders.
+        /// </summary>
         public ITemplateFolderLogic TemplateFolders { get; set; }
+
+        /// <summary>
+        /// Gets or sets the templates.
+        /// </summary>
+        public ITemplateLogic Templates { get; set; }
     }
 }

@@ -1,47 +1,81 @@
-﻿using System.ComponentModel;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BaseRequest.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+#pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Core
 {
+    /// <summary>
+    /// The base request.
+    /// </summary>
     public class BaseRequest
     {
-
-        [QueryString("fields")]
-        public string FieldsToInclude { get; set; }
+        /// <summary>
+        /// Gets or sets the fields to exclude.
+        /// </summary>
         [QueryString("exclude_fields")]
         public string FieldsToExclude { get; set; }
 
+        /// <summary>
+        /// Gets or sets the fields to include.
+        /// </summary>
+        [QueryString("fields")]
+        public string FieldsToInclude { get; set; }
+
+        /// <summary>
+        /// The to query string.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="action" /> is null.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public virtual string ToQueryString()
         {
-            var properties = GetType().GetProperties();
+            var properties = this.GetType().GetProperties();
 
             var sb = new StringBuilder();
             sb.Append("?");
             var secondProperty = false;
 
-            properties.ToList().ForEach(prop =>
-            {
-                var value = prop.GetValue(this);
-                var propertyName = prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault();
+            properties.ToList().ForEach(
+                prop =>
+                    {
+                        var value = prop.GetValue(this);
+                        var propertyName =
+                            prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault();
 
-                if (value == null || propertyName == null) return;
+                        if (value == null || propertyName == null)
+                        {
+                            return;
+                        }
 
-                if (prop.PropertyType.IsEnum)
-                {
-                    value =
-                        prop.GetCustomAttributes<DescriptionAttribute>().Select(x => x.Description).FirstOrDefault() ??
-                        value;
-                }
+                        if (prop.PropertyType.IsEnum)
+                        {
+                            value =
+                                prop.GetCustomAttributes<DescriptionAttribute>()
+                                    .Select(x => x.Description)
+                                    .FirstOrDefault() ?? value;
+                        }
 
-                if (secondProperty)
-                {
-                    sb.Append("&");
-                }
-                sb.Append($"{propertyName}={value}");
-                secondProperty = true;
-            });
+                        if (secondProperty)
+                        {
+                            sb.Append("&");
+                        }
+
+                        sb.Append($"{propertyName}={value}");
+                        secondProperty = true;
+                    });
 
             return sb.ToString();
         }

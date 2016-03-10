@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CampaignFolderLogic.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 
 namespace MailChimp.Net.Logic
 {
-    class CampaignFolderLogic
-    {
-    }
+    /// <summary>
+    /// The campaign folder logic.
+    /// </summary>
+    internal class CampaignFolderLogic
+    {}
 }

@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -67,6 +69,7 @@
     <Compile Include="Core\Responses\GrowthHistoryResponse.cs" />
     <Compile Include="Core\Responses\InterestCategoryResponse.cs" />
     <Compile Include="Core\Responses\InterestResponse.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IActivityLogic.cs" />
     <Compile Include="Interfaces\INoteLogic.cs" />
     <Compile Include="Logic\InterestLogic.cs" />

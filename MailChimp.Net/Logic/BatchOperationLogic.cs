@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BatchOperationLogic.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 
 namespace MailChimp.Net.Logic
 {
-    class BatchOperationLogic
-    {
-    }
+    /// <summary>
+    /// The batch operation logic.
+    /// </summary>
+    internal class BatchOperationLogic
+    {}
 }

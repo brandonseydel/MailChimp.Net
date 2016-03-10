@@ -1,29 +1,58 @@
-﻿using Newtonsoft.Json;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Tracking.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
+    /// <summary>
+    /// The tracking.
+    /// </summary>
     public class Tracking
     {
+        /// <summary>
+        /// Gets or sets the clicktale.
+        /// </summary>
+        [JsonProperty("clicktale")]
+        public string Clicktale { get; set; }
 
-        [JsonProperty("opens")]
-        public bool Opens { get; set; }
-
-        [JsonProperty("html_clicks")]
-        public bool HtmlClicks { get; set; }
-
-        [JsonProperty("text_clicks")]
-        public bool TextClicks { get; set; }
-
-        [JsonProperty("goal_tracking")]
-        public bool GoalTracking { get; set; }
-
+        /// <summary>
+        /// Gets or sets a value indicating whether ecomm 360.
+        /// </summary>
         [JsonProperty("ecomm360")]
         public bool Ecomm360 { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether goal tracking.
+        /// </summary>
+        [JsonProperty("goal_tracking")]
+        public bool GoalTracking { get; set; }
+
+        /// <summary>
+        /// Gets or sets the google analytics.
+        /// </summary>
         [JsonProperty("google_analytics")]
         public bool? GoogleAnalytics { get; set; }
 
-        [JsonProperty("clicktale")]
-        public string Clicktale { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether html clicks.
+        /// </summary>
+        [JsonProperty("html_clicks")]
+        public bool HtmlClicks { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether opens.
+        /// </summary>
+        [JsonProperty("opens")]
+        public bool Opens { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether text clicks.
+        /// </summary>
+        [JsonProperty("text_clicks")]
+        public bool TextClicks { get; set; }
     }
 }

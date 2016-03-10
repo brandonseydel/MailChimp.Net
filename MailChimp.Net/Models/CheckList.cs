@@ -1,18 +1,36 @@
-﻿using MailChimp.Net.Core;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CheckList.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using MailChimp.Net.Core;
+
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
+    /// <summary>
+    /// The check list.
+    /// </summary>
     public class CheckList
     {
+        /// <summary>
+        /// Gets or sets the details.
+        /// </summary>
+        [JsonProperty("details")]
+        public string Details { get; set; }
 
-        [JsonProperty("type")]
-        public Result Type { get; set; }
-
+        /// <summary>
+        /// Gets or sets the heading.
+        /// </summary>
         [JsonProperty("heading")]
         public string Heading { get; set; }
 
-        [JsonProperty("details")]
-        public string Details { get; set; }
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        [JsonProperty("type")]
+        public Result Type { get; set; }
     }
 }

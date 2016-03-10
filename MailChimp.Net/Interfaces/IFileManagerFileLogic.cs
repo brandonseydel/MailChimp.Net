@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IFileManagerFileLogic.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 
 namespace MailChimp.Net.Interfaces
 {
+    /// <summary>
+    /// The FileManagerFileLogic interface.
+    /// </summary>
     public interface IFileManagerFileLogic
-    {
-    }
+    {}
 }

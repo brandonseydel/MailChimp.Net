@@ -1,27 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MailChimp.Net.Interfaces;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ContentRequest.cs" company="Brandon Seydel">
+//   N/A
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
+
 using MailChimp.Net.Models;
+
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
+    /// <summary>
+    /// The content request.
+    /// </summary>
     public class ContentRequest
     {
-        [JsonProperty("plain_text")]
-        public string PlainText { get; set; }
+        /// <summary>
+        /// Gets or sets the archive.
+        /// </summary>
+        public Archive Archive { get; set; }
 
+        /// <summary>
+        /// Gets or sets the html.
+        /// </summary>
         [JsonProperty("html")]
         public string Html { get; set; }
 
+        /// <summary>
+        /// Gets or sets the links.
+        /// </summary>
         [JsonProperty("_links")]
         public Link[] Links { get; set; }
 
-        public Template Template { get; set; }
-        public Archive Archive { get; set; }
+        /// <summary>
+        /// Gets or sets the plain text.
+        /// </summary>
+        [JsonProperty("plain_text")]
+        public string PlainText { get; set; }
 
+        /// <summary>
+        /// Gets or sets the template.
+        /// </summary>
+        public Template Template { get; set; }
     }
 }
