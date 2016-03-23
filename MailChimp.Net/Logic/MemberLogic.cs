@@ -183,6 +183,7 @@ namespace MailChimp.Net.Logic
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="memberRequest"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
@@ -194,11 +195,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<IEnumerable<Member>> GetAllAsync(string listId)
+        public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/members").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/members{memberRequest?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
@@ -215,6 +216,7 @@ namespace MailChimp.Net.Logic
         /// <param name="emailAddress">
         /// The email address.
         /// </param>
+        /// <param name="request"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
@@ -242,11 +244,11 @@ namespace MailChimp.Net.Logic
         ///     </paramref>
         /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
         /// </exception>
-        public async Task<Member> GetAsync(string listId, string emailAddress)
+        public async Task<Member> GetAsync(string listId, string emailAddress, BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddress.ToLower())}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
