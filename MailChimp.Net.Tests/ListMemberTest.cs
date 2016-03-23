@@ -65,6 +65,20 @@ namespace MailChimp.Net.Tests
             Assert.IsTrue(members.Any());
         }
 
+
+        /// <summary>
+        /// The should_ return_ members_ from_ list.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_Members_With_Specified_Count_From_List()
+        {
+            var members = await this._mailChimpManager.Members.GetAllAsync("72dcc9fa45", 0, 20);
+            Assert.IsTrue(members.Count() == 20);
+        }
+
         /// <summary>
         /// The should_ return_ one_ unsubscribed_ member.
         /// </summary>

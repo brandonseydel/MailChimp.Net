@@ -50,10 +50,16 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="offset">
+        /// The number of records from a collection to skip. Iterating over large collections with this parameter can be slow.
+        /// </param>
+        /// <param name="count">
+        /// The number of records to return.
+        /// </param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Member>> GetAllAsync(string listId);
+        Task<IEnumerable<Member>> GetAllAsync(string listId, int offset = 0, int count = 10);
 
         /// <summary>
         /// The get async.
