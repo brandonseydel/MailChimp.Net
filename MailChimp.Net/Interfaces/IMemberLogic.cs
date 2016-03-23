@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using MailChimp.Net.Core;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
@@ -50,10 +50,11 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="memberRequest"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Member>> GetAllAsync(string listId);
+        Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
 
         /// <summary>
         /// The get async.
@@ -64,9 +65,10 @@ namespace MailChimp.Net.Interfaces
         /// <param name="emailAddress">
         /// The email address.
         /// </param>
+        /// <param name="request"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Member> GetAsync(string listId, string emailAddress);
+        Task<Member> GetAsync(string listId, string emailAddress, BaseRequest request = null);
     }
 }
