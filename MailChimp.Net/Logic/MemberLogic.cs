@@ -207,6 +207,27 @@ namespace MailChimp.Net.Logic
             }
         }
 
+
+        /// <summary>
+        /// Get the total number of members in the list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public async Task<int> GetTotalItems(string listId, Status? status)
+        {
+            using (var client = this.CreateMailClient("lists/"))
+            {
+                var memberRequest = new MemberRequest { Status = status, FieldsToInclude = "total_items" };
+
+                var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
+                return listResponse.TotalItems;
+            }
+        }
+
         /// <summary>
         /// The get async.
         /// </summary>

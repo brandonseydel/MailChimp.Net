@@ -3,6 +3,9 @@
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
+using MailChimp.Net.Models;
+
 namespace MailChimp.Net.Core
 {
     /// <summary>
@@ -14,7 +17,7 @@ namespace MailChimp.Net.Core
         public string EmailType { get; set; }
 
         [QueryString("status")]
-        public bool Status { get; set; }
+        public Status? Status { get; set; }
 
         [QueryString("since_timestamp_opt")]
         public string SinceTimestamp { get; set; }

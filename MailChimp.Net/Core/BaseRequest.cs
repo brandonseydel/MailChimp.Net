@@ -60,12 +60,13 @@ namespace MailChimp.Net.Core
                             return;
                         }
 
-                        if (prop.PropertyType.IsEnum)
+                    var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+
+                    if (type.IsEnum)
                         {
-                            value =
-                                prop.GetCustomAttributes<DescriptionAttribute>()
-                                    .Select(x => x.Description)
-                                    .FirstOrDefault() ?? value;
+                        var member = type.GetMember(value.ToString());
+                        var attr = member.FirstOrDefault()?.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                        value = ((DescriptionAttribute)attr[0]).Description ?? value;
                         }
 
                         if (secondProperty)
