@@ -15,7 +15,7 @@ namespace MailChimp.Net.Core
     /// <summary>
     /// The list response.
     /// </summary>
-    internal class ListResponse : BaseResponse
+    public class ListResponse : BaseResponse
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ListResponse"/> class.
