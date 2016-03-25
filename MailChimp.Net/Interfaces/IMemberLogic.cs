@@ -57,6 +57,14 @@ namespace MailChimp.Net.Interfaces
         Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
 
         /// <summary>
+        /// Get the total number of members in the list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        Task<int> GetTotalItems(string listId, Status? status);
+
+        /// <summary>
         /// The get async.
         /// </summary>
         /// <param name="listId">
