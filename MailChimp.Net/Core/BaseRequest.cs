@@ -50,32 +50,33 @@ namespace MailChimp.Net.Core
 
             properties.ToList().ForEach(
                 prop =>
+                {
+                    var value = prop.GetValue(this);
+                    var propertyName =
+                        prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault();
+
+                    if (value == null || propertyName == null)
                     {
-                        var value = prop.GetValue(this);
-                        var propertyName =
-                            prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault();
+                        return;
+                    }
 
-                        if (value == null || propertyName == null)
-                        {
-                            return;
-                        }
+                    var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 
-                        if (prop.PropertyType.IsEnum)
-                        {
-                            value =
-                                prop.GetCustomAttributes<DescriptionAttribute>()
-                                    .Select(x => x.Description)
-                                    .FirstOrDefault() ?? value;
-                        }
+                    if (type.IsEnum)
+                    {
+                        var member = type.GetMember(value.ToString());
+                        var attr = member.FirstOrDefault()?.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                        value = ((DescriptionAttribute)attr[0]).Description ?? value;
+                    }
 
-                        if (secondProperty)
-                        {
-                            sb.Append("&");
-                        }
+                    if (secondProperty)
+                    {
+                        sb.Append("&");
+                    }
 
-                        sb.Append($"{propertyName}={value}");
-                        secondProperty = true;
-                    });
+                    sb.Append($"{propertyName}={value}");
+                    secondProperty = true;
+                });
 
             return sb.ToString();
         }
