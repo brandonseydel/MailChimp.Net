@@ -8,6 +8,7 @@ using System;
 
 namespace MailChimp.Net.Interfaces
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using MailChimp.Net.Core;
@@ -38,7 +39,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<CampaignFolderResponse> GetAllAsync(QueryableBaseRequest request = null);
+        Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -79,6 +80,6 @@ namespace MailChimp.Net.Interfaces
         /// </returns>
         Task<Folder> UpdateAsync(string folderId, string name);
 
-
+        Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null);
     }
 }

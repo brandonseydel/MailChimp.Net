@@ -50,9 +50,26 @@ namespace MailChimp.Net.Logic
                         client.GetAsync(request?.ToQueryString() ?? string.Empty)
                             .ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<IEnumerable<Batch>>().ConfigureAwait(false);
+                var batchResponse = await response.Content.ReadAsAsync<BatchResponse>().ConfigureAwait(false);
+                return batchResponse.Batches;
             }
         }
+
+        public async Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null)
+        {
+            using (var client = this.CreateMailClient("batches"))
+            {
+                var response =
+                    await
+                        client.GetAsync(request?.ToQueryString() ?? string.Empty)
+                            .ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                var batchResponse = await response.Content.ReadAsAsync<BatchResponse>().ConfigureAwait(false);
+                return batchResponse;
+            }
+        }
+
+
 
     }
 }

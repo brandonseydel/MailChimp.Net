@@ -125,8 +125,8 @@ namespace MailChimp.Net.Logic
         /// The <see cref="Task"/>.
         /// </returns>
         public async Task<IEnumerable<Note>> GetAllAsync(
-            string listId, 
-            string emailAddress, 
+            string listId,
+            string emailAddress,
             QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists"))
@@ -141,6 +141,40 @@ namespace MailChimp.Net.Logic
                 return noteResponse.Notes;
             }
         }
+
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddress">
+        /// The email address.
+        /// </param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task<NoteResponse> GetResponseAsync(
+            string listId,
+            string emailAddress,
+            QueryableBaseRequest request = null)
+        {
+            using (var client = this.CreateMailClient("lists"))
+            {
+                var response =
+                    await
+                    client.GetAsync(
+                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/notes{request?.ToQueryString()}");
+                await response.EnsureSuccessMailChimpAsync();
+
+                var noteResponse = await response.Content.ReadAsAsync<NoteResponse>();
+                return noteResponse;
+            }
+        }
+
 
         /// <summary>
         /// The get async.

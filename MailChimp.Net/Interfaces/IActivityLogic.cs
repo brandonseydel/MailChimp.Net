@@ -31,5 +31,22 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request);
+
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list Id.
+        /// </param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// The <paramref name="requestUri"/> was null.
+        /// </exception>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request);
     }
 }

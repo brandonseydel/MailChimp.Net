@@ -13,6 +13,8 @@ using MailChimp.Net.Interfaces;
 
 namespace MailChimp.Net.Logic
 {
+    using System.Collections.Generic;
+
     using MailChimp.Net.Models;
 
     /// <summary>
@@ -42,7 +44,19 @@ namespace MailChimp.Net.Logic
         }
 
 
-        public async Task<CampaignFolderResponse> GetAllAsync(QueryableBaseRequest request = null)
+        public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
+        {
+            using (var client = this.CreateMailClient(BaseUrl))
+            {
+                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var campaignFolderResponse = await response.Content.ReadAsAsync<CampaignFolderResponse>().ConfigureAwait(false);
+                return campaignFolderResponse.Folders;
+            }
+        }
+
+        public async Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient(BaseUrl))
             {
@@ -53,6 +67,8 @@ namespace MailChimp.Net.Logic
                 return campaignFolderResponse;
             }
         }
+
+
 
         public async Task<Folder> GetAsync(string folderId, BaseRequest request = null)
         {

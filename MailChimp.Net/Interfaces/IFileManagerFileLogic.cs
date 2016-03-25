@@ -8,6 +8,7 @@ using System;
 
 namespace MailChimp.Net.Interfaces
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
 
@@ -79,7 +80,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<FileManagerFileResponse> GetAllAsync(FileManagerFileRequest request = null);
+        Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerFileRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -165,5 +166,7 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream);
+
+        Task<FileManagerFileResponse> GetResponseAsync(FileManagerFileRequest request = null);
     }
 }

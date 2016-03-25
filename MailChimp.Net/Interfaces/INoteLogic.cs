@@ -90,5 +90,25 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task<Note> GetAsync(string listId, string emailAddress, string noteId);
+
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddress">
+        /// The email address.
+        /// </param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<NoteResponse> GetResponseAsync(
+            string listId,
+            string emailAddress,
+            QueryableBaseRequest request = null);
     }
 }

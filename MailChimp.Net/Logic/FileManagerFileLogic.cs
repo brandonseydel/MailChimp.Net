@@ -13,6 +13,7 @@ using MailChimp.Net.Interfaces;
 
 namespace MailChimp.Net.Logic
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
 
@@ -85,7 +86,19 @@ namespace MailChimp.Net.Logic
 
 
 
-        public async Task<FileManagerFileResponse> GetAllAsync(FileManagerFileRequest request = null)
+        public async Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerFileRequest request = null)
+        {
+            using (var client = this.CreateMailClient(BaseUrl))
+            {
+                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var fileManagerFileResponse = await response.Content.ReadAsAsync<FileManagerFileResponse>().ConfigureAwait(false);
+                return fileManagerFileResponse.Files;
+            }
+        }
+
+        public async Task<FileManagerFileResponse> GetResponseAsync(FileManagerFileRequest request = null)
         {
             using (var client = this.CreateMailClient(BaseUrl))
             {
@@ -96,6 +109,9 @@ namespace MailChimp.Net.Logic
                 return fileManagerFileResponse;
             }
         }
+
+
+
 
         public async Task<FileManagerFile> GetAsync(string fileId, BaseRequest request = null)
         {

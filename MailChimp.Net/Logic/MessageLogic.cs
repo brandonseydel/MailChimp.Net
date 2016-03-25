@@ -81,6 +81,31 @@ namespace MailChimp.Net.Logic
         }
 
         /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="conversationId">
+        /// The conversation id.
+        /// </param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task<MessageResponse> GetResponseAsync(string conversationId, MessageRequest request = null)
+        {
+            using (var client = this.CreateMailClient($"conversations/{request?.ToQueryString()}"))
+            {
+                var response = await client.GetAsync($"{conversationId}/messages");
+                await response.EnsureSuccessMailChimpAsync();
+
+                var listResponse = await response.Content.ReadAsAsync<MessageResponse>();
+                return listResponse;
+            }
+        }
+
+
+        /// <summary>
         /// The get async.
         /// </summary>
         /// <param name="conversationId">

@@ -67,8 +67,12 @@
     <Compile Include="Core\Operation.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
     <Compile Include="Core\Requests\BatchRequest.cs" />
+    <Compile Include="Core\Requests\FileManagerFileRequest.cs" />
     <Compile Include="Core\Requests\InterestCategoryRequest.cs" />
     <Compile Include="Core\Batch.cs" />
+    <Compile Include="Core\Responses\BatchResponse.cs" />
+    <Compile Include="Core\Responses\CampaignFolderResponse.cs" />
+    <Compile Include="Core\Responses\FileManagerFileResponse.cs" />
     <Compile Include="Core\Responses\GrowthHistoryResponse.cs" />
     <Compile Include="Core\Responses\InterestCategoryResponse.cs" />
     <Compile Include="Core\Responses\InterestResponse.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="Interfaces\INoteLogic.cs" />
     <Compile Include="Logic\InterestLogic.cs" />
     <Compile Include="Logic\NoteLogic.cs" />
+    <Compile Include="Models\FileManagerFile.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Core\Responses\ClientResponse.cs" />

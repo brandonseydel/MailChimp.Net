@@ -56,5 +56,33 @@ namespace MailChimp.Net.Logic
                 return appResponse.Activities;
             }
         }
+
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list Id.
+        /// </param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// The <paramref name="requestUri"/> was null.
+        /// </exception>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request)
+        {
+            using (var client = this.CreateMailClient("lists/"))
+            {
+                var response = await client.GetAsync($"{listId}/activity{request.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var appResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
+                return appResponse;
+            }
+        }
+
     }
 }

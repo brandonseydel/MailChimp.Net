@@ -19,5 +19,7 @@ namespace MailChimp.Net.Interfaces
         Task<Batch> AddAsync(BatchRequest request);
 
         Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null);
+
+        Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null);
     }
 }
