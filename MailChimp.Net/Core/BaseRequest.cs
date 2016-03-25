@@ -40,6 +40,7 @@ namespace MailChimp.Net.Core
         /// <exception cref="ArgumentNullException"><paramref name="action" /> is null.</exception>
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+        /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
         public virtual string ToQueryString()
         {
             var properties = this.GetType().GetProperties();
@@ -59,14 +60,16 @@ namespace MailChimp.Net.Core
                         {
                             return;
                         }
+                        var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 
-                    var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-
-                    if (type.IsEnum)
+                        if (type.IsEnum)
                         {
-                        var member = type.GetMember(value.ToString());
-                        var attr = member.FirstOrDefault()?.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                        value = ((DescriptionAttribute)attr[0]).Description ?? value;
+                            var member = type.GetMember(value.ToString());
+                            value =
+                                member.FirstOrDefault()?
+                                      .GetCustomAttributes(typeof(DescriptionAttribute), false)
+                                      .OfType<DescriptionAttribute>()
+                                      .FirstOrDefault()?.Description ?? value;
                         }
 
                         if (secondProperty)
