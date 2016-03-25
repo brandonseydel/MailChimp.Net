@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using MailChimp.Net.Core;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
@@ -17,7 +18,7 @@ namespace MailChimp.Net.Interfaces
     public interface IMergeFieldLogic
     {
         /// <summary>
-        /// The add or update async.
+        /// The add async.
         /// </summary>
         /// <param name="listId">
         /// The list id.
@@ -28,7 +29,21 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Member> AddOrUpdateAsync(string listId, Member member);
+        Task<MergeField> AddAsync(string listId, MergeField member);
+
+        /// <summary>
+        /// The delete async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="mergeId">
+        /// The merge id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task DeleteAsync(string listId, int mergeId);
 
         /// <summary>
         /// The get all async.
@@ -39,7 +54,19 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Member>> GetAllAsync(string listId);
+        Task<IEnumerable<MergeField>> GetAllAsync(string listId);
+
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<MergeFieldResponse> GetResponseAsync(string listId);
+
 
         /// <summary>
         /// The get async.
@@ -47,12 +74,26 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
-        /// <param name="emailAddress">
-        /// The email address.
+        /// <param name="mergeId">
+        /// The merge id.
         /// </param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Member> GetAsync(string listId, string emailAddress);
+        Task<MergeField> GetAsync(string listId, int mergeId);
+
+        /// <summary>
+        /// The update async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="mergeId">
+        /// The merge id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null);
     }
 }

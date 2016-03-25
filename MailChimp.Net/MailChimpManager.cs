@@ -46,6 +46,7 @@ namespace MailChimp.Net
             this.Lists = new ListLogic(ApiKey);
             this.Members = new MemberLogic(ApiKey);
             this.Messages = new MessageLogic(ApiKey);
+            this.MergeFields = new MergeFieldLogic(ApiKey);
             this.Notes = new NoteLogic(ApiKey);
             this.Reports = new ReportLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
@@ -78,6 +79,7 @@ namespace MailChimp.Net
             this.Lists = new ListLogic(ApiKey);
             this.Members = new MemberLogic(ApiKey);
             this.Messages = new MessageLogic(ApiKey);
+            this.MergeFields = new MergeFieldLogic(ApiKey);
             this.Notes = new NoteLogic(ApiKey);
             this.Reports = new ReportLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
