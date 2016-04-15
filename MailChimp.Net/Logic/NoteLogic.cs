@@ -129,7 +129,7 @@ namespace MailChimp.Net.Logic
             string emailAddress,
             QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists"))
+            using (var client = this.CreateMailClient("lists/"))
             {
                 var response =
                     await
@@ -162,7 +162,7 @@ namespace MailChimp.Net.Logic
             string emailAddress,
             QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists"))
+            using (var client = this.CreateMailClient("lists/"))
             {
                 var response =
                     await
