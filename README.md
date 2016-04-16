@@ -53,6 +53,6 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 #TODO
 -Looking to add additional functionality pending contributors.
 <ul>
-<li>List Merge Fields</li>
 <li>List Segments</li>
+<li>List Web Hooks</li>
 </ul>
