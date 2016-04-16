@@ -20,26 +20,20 @@ namespace MailChimp.Net.Interfaces
     public interface IInterestCategoryLogic
     {
         /// <summary>
-        /// The add or update async.
+        /// Adds or updates a category for a list
         /// </summary>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task<List> AddOrUpdateAsync(List list);
+        /// <param name="category"></param>
+        /// <param name="listId"></param>
+        /// <returns></returns>
+        Task<InterestCategory> AddOrUpdateAsync(InterestCategory category, string listId);
 
         /// <summary>
-        /// The delete async.
+        /// Deletes a cateogry for a list
         /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task DeleteAsync(string listId);
+        /// <param name="listId"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        Task DeleteAsync(string listId, string categoryId);
 
         /// <summary>
         /// The get all async.
@@ -56,15 +50,12 @@ namespace MailChimp.Net.Interfaces
         Task<IEnumerable<InterestCategory>> GetAllAsync(string listId, InterestCategoryRequest request = null);
 
         /// <summary>
-        /// The get async.
+        /// Gets a specific category for a list.
         /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task<List> GetAsync(string id);
+        /// <param name="listId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<InterestCategory> GetAsync(string listId, string id);
 
         /// <summary>
         /// The get all async.

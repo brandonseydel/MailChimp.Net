@@ -35,9 +35,8 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The add or update async.
         /// </summary>
-        /// <param name="list">
-        /// The list.
-        /// </param>
+        /// <param name="category"></param>
+        /// <param name="listId"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
@@ -49,23 +48,23 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<List> AddOrUpdateAsync(List list)
+        public async Task<InterestCategory> AddOrUpdateAsync(InterestCategory category, string listId)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories/"))
             {
                 HttpResponseMessage response;
-                if (string.IsNullOrWhiteSpace(list.Id))
+                if (string.IsNullOrWhiteSpace(category.Id))
                 {
-                    response = await client.PostAsJsonAsync(string.Empty, list).ConfigureAwait(false);
+                    response = await client.PostAsJsonAsync(string.Empty, category).ConfigureAwait(false);
                 }
                 else
                 {
-                    response = await client.PatchAsJsonAsync(list.Id, list).ConfigureAwait(false);
+                    response = await client.PatchAsJsonAsync(category.Id, category).ConfigureAwait(false);
                 }
 
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<InterestCategory>().ConfigureAwait(false);
             }
         }
 
@@ -75,6 +74,7 @@ namespace MailChimp.Net.Logic
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="categoryId"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
@@ -87,11 +87,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task DeleteAsync(string listId)
+        public async Task DeleteAsync(string listId, string categoryId)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories/"))
             {
-                var response = await client.DeleteAsync(listId).ConfigureAwait(false);
+                var response = await client.DeleteAsync(categoryId).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }
@@ -123,9 +123,9 @@ namespace MailChimp.Net.Logic
             string listId,
             InterestCategoryRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories"))
             {
-                var response = await client.GetAsync($"{listId}{request?.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var listResponse = await response.Content.ReadAsAsync<InterestCategoryResponse>().ConfigureAwait(false);
@@ -160,9 +160,9 @@ namespace MailChimp.Net.Logic
             string listId,
             InterestCategoryRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories"))
             {
-                var response = await client.GetAsync($"{listId}{request?.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var listResponse = await response.Content.ReadAsAsync<InterestCategoryResponse>().ConfigureAwait(false);
@@ -174,6 +174,7 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The get async.
         /// </summary>
+        /// <param name="listId"></param>
         /// <param name="id">
         /// The id.
         /// </param>
@@ -188,14 +189,14 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<List> GetAsync(string id)
+        public async Task<InterestCategory> GetAsync(string listId, string id)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories/"))
             {
                 var response = await client.GetAsync($"{id}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<InterestCategory>().ConfigureAwait(false);
             }
         }
     }
