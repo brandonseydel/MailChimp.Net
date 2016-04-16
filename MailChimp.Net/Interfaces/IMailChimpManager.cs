@@ -44,5 +44,10 @@ namespace MailChimp.Net.Interfaces
         /// Gets the members.
         /// </summary>
         IMemberLogic Members { get; }
+
+        /// <summary>
+        /// Gets the members.
+        /// </summary>
+        INoteLogic Notes { get; }
     }
 }

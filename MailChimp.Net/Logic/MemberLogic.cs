@@ -315,7 +315,6 @@ namespace MailChimp.Net.Logic
             {
                 var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
                 return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
             }
         }

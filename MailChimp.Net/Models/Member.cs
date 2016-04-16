@@ -112,10 +112,10 @@ namespace MailChimp.Net.Models
         public Dictionary<string, string> MergeFields { get; set; }
 
         /// <summary>
-        /// Gets or sets the notes.
+        /// Gets or sets the last Note.
         /// </summary>
         [JsonProperty("last_note")]
-        public IEnumerable<object> Notes { get; set; }
+        public MemberLastNote LastNote { get; set; }
 
         /// <summary>
         /// Gets or sets the stats.

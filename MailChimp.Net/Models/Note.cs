@@ -61,4 +61,32 @@ namespace MailChimp.Net.Models
         [JsonProperty("updated_at")]
         public string UpdatedAt { get; set; }
     }
+
+    public class MemberLastNote
+    {
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        [JsonProperty("note_id")]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        [JsonProperty("note")]
+        public string Body { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created at.
+        /// </summary>
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created by.
+        /// </summary>
+        [JsonProperty("created_by")]
+        public string CreatedBy { get; set; }
+
+    }
 }
