@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("A .NET Wrapper for Mail Chimp v3.0 API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Brandon Seydel")]
-[assembly: AssemblyProduct("MailChimp.Net")]
+[assembly: AssemblyProduct("MailChimp.Net.V3")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -37,5 +37,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.0")]
+[assembly: AssemblyVersion("1.3.1")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

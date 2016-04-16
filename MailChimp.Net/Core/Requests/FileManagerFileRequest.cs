@@ -11,7 +11,7 @@ namespace MailChimp.Net.Core
     /// <summary>
     /// The file manager file request.
     /// </summary>
-    public class FileManagerFileRequest : QueryableBaseRequest
+    public class FileManagerRequest : QueryableBaseRequest
     {
         public string Type { get; set; }
         [QueryString("created_by")]

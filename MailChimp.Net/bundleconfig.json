@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "Logic/",
+    "inputFiles": [
+      "Logic/"
+    ]
+  },
+  {
+    "outputFileName": "Core/Requests/",
+    "inputFiles": [
+      "Core/Requests/"
+    ]
+  }
+]

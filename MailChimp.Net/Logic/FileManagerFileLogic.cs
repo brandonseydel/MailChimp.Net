@@ -86,7 +86,7 @@ namespace MailChimp.Net.Logic
 
 
 
-        public async Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerFileRequest request = null)
+        public async Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerRequest request = null)
         {
             using (var client = this.CreateMailClient(BaseUrl))
             {
@@ -98,7 +98,7 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<FileManagerFileResponse> GetResponseAsync(FileManagerFileRequest request = null)
+        public async Task<FileManagerFileResponse> GetResponseAsync(FileManagerRequest request = null)
         {
             using (var client = this.CreateMailClient(BaseUrl))
             {
@@ -176,10 +176,5 @@ namespace MailChimp.Net.Logic
 
             }
         }
-
-
-
-
-
     }
 }

@@ -51,10 +51,11 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="request"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<MergeField>> GetAllAsync(string listId);
+        Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request);
 
         /// <summary>
         /// The get all async.
@@ -62,10 +63,11 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="request"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<MergeFieldResponse> GetResponseAsync(string listId);
+        Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request);
 
 
         /// <summary>
@@ -77,10 +79,11 @@ namespace MailChimp.Net.Interfaces
         /// <param name="mergeId">
         /// The merge id.
         /// </param>
+        /// <param name="request"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<MergeField> GetAsync(string listId, int mergeId);
+        Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request);
 
         /// <summary>
         /// The update async.

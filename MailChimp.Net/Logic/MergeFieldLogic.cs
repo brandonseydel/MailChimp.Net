@@ -90,11 +90,11 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<IEnumerable<MergeField>> GetAllAsync(string listId)
+        public async Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
             {
-                var response = await client.GetAsync(string.Empty).ConfigureAwait(false);
+                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var mergeResponse = await response.Content.ReadAsAsync<MergeFieldResponse>().ConfigureAwait(false);
@@ -111,14 +111,15 @@ namespace MailChimp.Net.Logic
         /// <param name="mergeId">
         /// The merge id.
         /// </param>
+        /// <param name="request"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<MergeField> GetAsync(string listId, int mergeId)
+        public async Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.GetAsync(mergeId.ToString()).ConfigureAwait(false);
+                var response = await client.GetAsync(mergeId + request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var mergeResponse = await response.Content.ReadAsAsync<MergeField>().ConfigureAwait(false);
@@ -135,11 +136,11 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<MergeFieldResponse> GetResponseAsync(string listId)
+        public async Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
             {
-                var response = await client.GetAsync(string.Empty).ConfigureAwait(false);
+                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var mergeResponse = await response.Content.ReadAsAsync<MergeFieldResponse>().ConfigureAwait(false);

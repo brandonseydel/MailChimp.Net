@@ -70,9 +70,11 @@
     <Compile Include="Core\Requests\FileManagerFileRequest.cs" />
     <Compile Include="Core\Requests\InterestCategoryRequest.cs" />
     <Compile Include="Core\Batch.cs" />
+    <Compile Include="Core\Requests\MergeFieldRequest.cs" />
     <Compile Include="Core\Responses\BatchResponse.cs" />
     <Compile Include="Core\Responses\CampaignFolderResponse.cs" />
     <Compile Include="Core\Responses\FileManagerFileResponse.cs" />
+    <Compile Include="Core\Responses\FileManagerFolderResponse.cs" />
     <Compile Include="Core\Responses\GrowthHistoryResponse.cs" />
     <Compile Include="Core\Responses\InterestCategoryResponse.cs" />
     <Compile Include="Core\Responses\InterestResponse.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Logic\InterestLogic.cs" />
     <Compile Include="Logic\NoteLogic.cs" />
     <Compile Include="Models\FileManagerFile.cs" />
+    <Compile Include="Models\FileManagerFolder.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Core\Responses\ClientResponse.cs" />
@@ -259,6 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bundleconfig.json" />
     <None Include="MailChimp.Key.snk" />
     <None Include="packages.config" />
   </ItemGroup>

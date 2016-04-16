@@ -39,6 +39,7 @@ namespace MailChimp.Net
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
+            this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
             this.Feedback = new FeedBackLogic(ApiKey);
             this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
             this.InterestCategories = new InterestCategoryLogic(ApiKey);
@@ -52,7 +53,8 @@ namespace MailChimp.Net
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
             this.Templates = new TemplateLogic(ApiKey);
         }
-        
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MailChimpManager"/> class.
         /// </summary>
@@ -72,6 +74,7 @@ namespace MailChimp.Net
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
+            this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
             this.Feedback = new FeedBackLogic(ApiKey);
             this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
             this.InterestCategories = new InterestCategoryLogic(ApiKey);
@@ -157,6 +160,9 @@ namespace MailChimp.Net
         public IFeedbackLogic Feedback { get; }
 
         public IFileManagerFileLogic FileManagerFiles { get; }
+
+        public IFileManagerFolderLogic FileManagerFolders { get; set; }
+
 
         /// <summary>
         /// Gets the growth histories.
