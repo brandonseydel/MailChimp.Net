@@ -50,6 +50,7 @@ namespace MailChimp.Net
             this.MergeFields = new MergeFieldLogic(ApiKey);
             this.Notes = new NoteLogic(ApiKey);
             this.Reports = new ReportLogic(ApiKey);
+            this.Segments = new ListSegmentLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
             this.Templates = new TemplateLogic(ApiKey);
         }
@@ -85,6 +86,7 @@ namespace MailChimp.Net
             this.MergeFields = new MergeFieldLogic(ApiKey);
             this.Notes = new NoteLogic(ApiKey);
             this.Reports = new ReportLogic(ApiKey);
+            this.Segments = new ListSegmentLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
             this.Templates = new TemplateLogic(ApiKey);
         }
@@ -112,22 +114,22 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets or sets the automation email queues.
         /// </summary>
-        public IAutomationEmailQueueLogic AutomationEmailQueues { get; set; }
+        public IAutomationEmailQueueLogic AutomationEmailQueues { get; }
 
         /// <summary>
         /// Gets or sets the automation emails.
         /// </summary>
-        public IAutomationEmailLogic AutomationEmails { get; set; }
+        public IAutomationEmailLogic AutomationEmails { get; }
 
         /// <summary>
         /// Gets or sets the automations.
         /// </summary>
-        public IAutomationLogic Automations { get; set; }
+        public IAutomationLogic Automations { get; }
 
         /// <summary>
         /// Gets or sets the automation subscribers.
         /// </summary>
-        public IAutomationSubscriberLogic AutomationSubscribers { get; set; }
+        public IAutomationSubscriberLogic AutomationSubscribers { get; }
 
         /// <summary>
         /// Gets the campaigns.
@@ -137,7 +139,7 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets or sets the campaign folders.
         /// </summary>
-        public ICampaignFolderLogic CampaignFolders { get; set; }
+        public ICampaignFolderLogic CampaignFolders { get; }
 
         /// <summary>
         /// Gets the clients.
@@ -161,7 +163,7 @@ namespace MailChimp.Net
 
         public IFileManagerFileLogic FileManagerFiles { get; }
 
-        public IFileManagerFolderLogic FileManagerFolders { get; set; }
+        public IFileManagerFolderLogic FileManagerFolders { get; }
 
 
         /// <summary>
@@ -177,7 +179,7 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets or sets the interests.
         /// </summary>
-        public IInterestLogic Interests { get; set; }
+        public IInterestLogic Interests { get; }
 
         /// <summary>
         /// Gets the lists.
@@ -197,22 +199,22 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets or sets the messages.
         /// </summary>
-        public IMessageLogic Messages { get; set; }
+        public IMessageLogic Messages { get; }
 
         /// <summary>
         /// Gets or sets the notes.
         /// </summary>
-        public INoteLogic Notes { get; set; }
+        public INoteLogic Notes { get; }
 
         /// <summary>
         /// Gets or sets the reports.
         /// </summary>
-        public IReportLogic Reports { get; set; }
+        public IReportLogic Reports { get; }
 
         /// <summary>
         /// Gets the segments.
         /// </summary>
-        public ISegmentLogic Segments { get; }
+        public IListSegmentLogic Segments { get; }
 
         /// <summary>
         /// Gets the send checklists.
@@ -222,11 +224,11 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets or sets the template folders.
         /// </summary>
-        public ITemplateFolderLogic TemplateFolders { get; set; }
+        public ITemplateFolderLogic TemplateFolders { get; }
 
         /// <summary>
         /// Gets or sets the templates.
         /// </summary>
-        public ITemplateLogic Templates { get; set; }
+        public ITemplateLogic Templates { get; }
     }
 }

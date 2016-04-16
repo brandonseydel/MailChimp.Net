@@ -31,7 +31,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request);
+        Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -48,7 +48,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request);
+        Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null);
 
         /// <summary>
         /// The get all async.
@@ -73,6 +73,6 @@ namespace MailChimp.Net.Interfaces
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request);
+        Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null);
     }
 }

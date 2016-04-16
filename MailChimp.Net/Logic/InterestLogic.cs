@@ -96,7 +96,7 @@ namespace MailChimp.Net.Logic
         public async Task<IEnumerable<Interest>> GetAllAsync(
             string listId,
             string interestCategoryId,
-            QueryableBaseRequest request)
+            QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {
@@ -141,7 +141,7 @@ namespace MailChimp.Net.Logic
         public async Task<InterestResponse> GetResponseAsync(
             string listId,
             string interestCategoryId,
-            QueryableBaseRequest request)
+            QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {
@@ -190,7 +190,7 @@ namespace MailChimp.Net.Logic
             string listId, 
             string interestCategoryId, 
             string interestId, 
-            BaseRequest request)
+            BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {

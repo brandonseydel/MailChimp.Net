@@ -165,7 +165,7 @@ namespace MailChimp.Net.Logic
         private async Task<IEnumerable<Activity>> GetActivitiesAsync(
             string listId, 
             string emailAddress, 
-            BaseRequest request)
+            BaseRequest request = null)
         {
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {
@@ -343,7 +343,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddress, BaseRequest request)
+        private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddress, BaseRequest request = null)
         {
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {

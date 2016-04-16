@@ -28,7 +28,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request);
+        Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null);
 
         /// <summary>
         /// The get campaign advice async.
@@ -302,6 +302,6 @@ namespace MailChimp.Net.Interfaces
         /// </exception>
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        Task<ReportResponse> GetResponseAsync(ReportRequest request);
+        Task<ReportResponse> GetResponseAsync(ReportRequest request = null);
     }
 }

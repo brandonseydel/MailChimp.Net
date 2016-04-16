@@ -45,7 +45,7 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request)
+        public async Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {
@@ -72,7 +72,7 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request)
+        public async Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {

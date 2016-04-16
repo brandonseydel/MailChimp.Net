@@ -28,7 +28,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest request);
+        Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest request = null);
 
         /// <summary>
         /// The get async.

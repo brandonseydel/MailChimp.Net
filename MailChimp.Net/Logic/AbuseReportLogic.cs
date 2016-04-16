@@ -54,7 +54,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request)
+        public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {
@@ -90,7 +90,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request)
+        public async Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {
@@ -129,7 +129,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request)
+        public async Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {

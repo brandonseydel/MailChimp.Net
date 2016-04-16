@@ -55,7 +55,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request)
+        public async Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null)
         {
             using (var client = this.CreateMailClient("reports"))
             {
@@ -86,7 +86,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<ReportResponse> GetResponseAsync(ReportRequest request)
+        public async Task<ReportResponse> GetResponseAsync(ReportRequest request = null)
         {
             using (var client = this.CreateMailClient("reports"))
             {

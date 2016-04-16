@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -11,13 +12,19 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The segment opts.
     /// </summary>
-    public class SegmentOpts
+    public class SegmentOptions
     {
+
+        public SegmentOptions()
+        {
+            Conditions = new HashSet<Condition>();
+        }
+
         /// <summary>
         /// Gets or sets the conditions.
         /// </summary>
         [JsonProperty("conditions")]
-        public Condition[] Conditions { get; set; }
+        public IEnumerable<Condition> Conditions { get; set; }
 
         /// <summary>
         /// Gets or sets the match.

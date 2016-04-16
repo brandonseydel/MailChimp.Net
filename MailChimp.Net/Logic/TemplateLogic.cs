@@ -81,7 +81,7 @@ namespace MailChimp.Net.Logic
         /// Custom Mail Chimp Exception
         /// </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request)
+        public async Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null)
         {
             using (var client = this.CreateMailClient("templates"))
             {
@@ -113,7 +113,7 @@ namespace MailChimp.Net.Logic
         /// Custom Mail Chimp Exception
         /// </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<TemplateResponse> GetResponseAsync(TemplateRequest request)
+        public async Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null)
         {
             using (var client = this.CreateMailClient("templates"))
             {

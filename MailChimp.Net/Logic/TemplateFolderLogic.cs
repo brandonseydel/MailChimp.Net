@@ -113,7 +113,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request)
+        public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("template-folders"))
             {
@@ -145,7 +145,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<TemplateFolderResponse> GetResponseAsync(QueryableBaseRequest request)
+        public async Task<TemplateFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("template-folders"))
             {
@@ -181,7 +181,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<Folder> GetAsync(string folderId, BaseRequest request)
+        public async Task<Folder> GetAsync(string folderId, BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("templates-folders/"))
             {

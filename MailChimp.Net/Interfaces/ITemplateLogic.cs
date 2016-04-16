@@ -28,7 +28,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request);
+        Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -61,6 +61,6 @@ namespace MailChimp.Net.Interfaces
         /// Custom Mail Chimp Exception
         /// </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        Task<TemplateResponse> GetResponseAsync(TemplateRequest request);
+        Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null);
     }
 }

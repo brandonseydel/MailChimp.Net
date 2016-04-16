@@ -90,7 +90,7 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request)
+        public async Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request = null)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
             {
@@ -115,7 +115,7 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request)
+        public async Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request = null)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
@@ -136,7 +136,7 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request)
+        public async Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request = null)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
             {

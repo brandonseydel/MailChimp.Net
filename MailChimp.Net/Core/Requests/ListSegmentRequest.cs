@@ -4,14 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MailChimp.Net.Core;
-
 namespace MailChimp.Net.Core
 {
-    /// <summary>
-    /// The file manager file request.
-    /// </summary>
-    public class FileManagerRequest : QueryableBaseRequest
+    public class ListSegmentRequest : QueryableBaseRequest
     {
         [QueryString("type")]
         public string Type { get; set; }
@@ -21,6 +16,11 @@ namespace MailChimp.Net.Core
         public string BeforeCreatedAt { get; set; }
         [QueryString("since_created_at")]
         public string SinceCreatedAt { get; set; }
+
+        [QueryString("before_updated_at")]
+        public string BeforeUpdatedAt { get; set; }
+        [QueryString("since_updated_at")]
+        public string SinceUpdatedAt { get; set; }
 
     }
 }

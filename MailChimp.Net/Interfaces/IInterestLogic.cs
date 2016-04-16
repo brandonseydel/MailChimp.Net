@@ -51,7 +51,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Interest>> GetAllAsync(string listId, string interestCategoryId, QueryableBaseRequest request);
+        Task<IEnumerable<Interest>> GetAllAsync(string listId, string interestCategoryId, QueryableBaseRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -71,7 +71,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Interest> GetAsync(string listId, string interestCategoryId, string interestId, BaseRequest request);
+        Task<Interest> GetAsync(string listId, string interestCategoryId, string interestId, BaseRequest request = null);
 
         /// <summary>
         /// The update async.
@@ -113,6 +113,6 @@ namespace MailChimp.Net.Interfaces
         Task<InterestResponse> GetResponseAsync(
             string listId,
             string interestCategoryId,
-            QueryableBaseRequest request);
+            QueryableBaseRequest request = null);
     }
 }

@@ -16,7 +16,7 @@ namespace MailChimp.Net.Interfaces
     /// </summary>
     public interface IBatchLogic
     {
-        Task<Batch> AddAsync(BatchRequest request);
+        Task<Batch> AddAsync(BatchRequest request = null);
 
         Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null);
 

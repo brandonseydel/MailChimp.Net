@@ -30,7 +30,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request);
+        Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request = null);
 
         /// <summary>
         /// The get all async.
@@ -47,6 +47,6 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request);
+        Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request = null);
     }
 }

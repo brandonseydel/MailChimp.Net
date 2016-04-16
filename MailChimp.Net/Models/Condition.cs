@@ -19,12 +19,15 @@ namespace MailChimp.Net.Models
         [JsonProperty("field")]
         public string Field { get; set; }
 
-        /// <summary>
-        /// Gets or sets the op.
-        /// </summary>
-        [JsonProperty("op")]
-        public string Op { get; set; }
 
+        [JsonProperty("condition_type")]
+        public string Type { get; set; }
+
+        [JsonProperty("op")]
+        public string Operator { get; set; }
+
+        [JsonProperty("extra")]
+        public string Extra { get; set; }
         /// <summary>
         /// Gets or sets the value.
         /// </summary>

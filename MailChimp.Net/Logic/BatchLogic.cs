@@ -28,13 +28,13 @@ namespace MailChimp.Net.Logic
         {
         }
 
-        public async Task<Batch> AddAsync(BatchRequest request)
+        public async Task<Batch> AddAsync(BatchRequest request = null)
         {
             using (var client = this.CreateMailClient("batches"))
             {
                 var response =
                     await
-                        client.PostAsJsonAsync(string.Empty, request)
+                        client.PostAsJsonAsync(string.Empty, request = null)
                             .ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Batch>().ConfigureAwait(false);

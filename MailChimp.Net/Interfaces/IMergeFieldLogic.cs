@@ -55,7 +55,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request);
+        Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request = null);
 
         /// <summary>
         /// The get all async.
@@ -67,7 +67,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request);
+        Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request = null);
 
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request);
+        Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request = null);
 
         /// <summary>
         /// The update async.

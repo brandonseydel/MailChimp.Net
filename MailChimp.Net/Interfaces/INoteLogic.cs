@@ -55,7 +55,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task DeleteAsync(string listId, string emailAddress, string noteId, BaseRequest request);
+        Task DeleteAsync(string listId, string emailAddress, string noteId, BaseRequest request = null);
 
         /// <summary>
         /// The get all async.

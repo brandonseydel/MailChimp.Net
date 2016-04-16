@@ -53,7 +53,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request);
+        Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -67,7 +67,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Folder> GetAsync(string folderId, BaseRequest request);
+        Task<Folder> GetAsync(string folderId, BaseRequest request = null);
 
         /// <summary>
         /// The update async.
@@ -103,6 +103,6 @@ namespace MailChimp.Net.Interfaces
         /// </exception>
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        Task<TemplateFolderResponse> GetResponseAsync(QueryableBaseRequest request);
+        Task<TemplateFolderResponse> GetResponseAsync(QueryableBaseRequest request = null);
     }
 }

@@ -97,7 +97,7 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task DeleteAsync(string listId, string emailAddress, string noteId, BaseRequest request)
+        public async Task DeleteAsync(string listId, string emailAddress, string noteId, BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("lists/"))
             {

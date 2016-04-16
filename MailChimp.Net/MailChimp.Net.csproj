@@ -70,6 +70,8 @@
     <Compile Include="Core\Requests\FileManagerFileRequest.cs" />
     <Compile Include="Core\Requests\InterestCategoryRequest.cs" />
     <Compile Include="Core\Batch.cs" />
+    <Compile Include="Core\Requests\ListSegmentRequest.cs" />
+    <Compile Include="Core\Requests\Segment.cs" />
     <Compile Include="Core\Requests\MergeFieldRequest.cs" />
     <Compile Include="Core\Responses\BatchResponse.cs" />
     <Compile Include="Core\Responses\CampaignFolderResponse.cs" />
@@ -78,11 +80,14 @@
     <Compile Include="Core\Responses\GrowthHistoryResponse.cs" />
     <Compile Include="Core\Responses\InterestCategoryResponse.cs" />
     <Compile Include="Core\Responses\InterestResponse.cs" />
+    <Compile Include="Core\Responses\ListSegmentResponse.cs" />
     <Compile Include="Core\Responses\MergeFieldResponse.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IActivityLogic.cs" />
+    <Compile Include="Interfaces\IListSegmentLogic.cs" />
     <Compile Include="Interfaces\INoteLogic.cs" />
     <Compile Include="Logic\InterestLogic.cs" />
+    <Compile Include="Logic\ListSegmentLogic.cs" />
     <Compile Include="Logic\NoteLogic.cs" />
     <Compile Include="Models\FileManagerFile.cs" />
     <Compile Include="Models\FileManagerFolder.cs" />
@@ -112,8 +117,10 @@
     <Compile Include="Logic\MergeFieldLogic.cs" />
     <Compile Include="Logic\SegmentLogic.cs" />
     <Compile Include="Models\EepUrlActivity.cs" />
+    <Compile Include="Models\ListSegment.cs" />
     <Compile Include="Models\MergeField.cs" />
     <Compile Include="Models\Options.cs" />
+    <Compile Include="Models\SegmentCondition.cs" />
     <Compile Include="Models\Unsubscribe.cs" />
     <Compile Include="Core\Responses\UnsubscribeReportResponse.cs" />
     <Compile Include="Models\SentTo.cs" />
