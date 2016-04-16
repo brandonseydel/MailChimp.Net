@@ -35,6 +35,7 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>List Growth History</li>
 <li>List Interest Categories</li>
 <li>List Members</li>
+<li>List Segments</li>
 <li>Template Folders</li>
 <li>Templates</li>
 <li>Template Default Content</li>
@@ -53,6 +54,6 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 #TODO
 -Looking to add additional functionality pending contributors.
 <ul>
-<li>List Segments</li>
+
 <li>List Web Hooks</li>
 </ul>
