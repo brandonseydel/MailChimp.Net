@@ -8,7 +8,7 @@ namespace MailChimp.Net.Core
     /// <summary>
     /// The list request.
     /// </summary>
-    public class ListRequest : BaseRequest
+    public class ListRequest : QueryableBaseRequest
     {
         /// <summary>
         /// Gets or sets the email type.
