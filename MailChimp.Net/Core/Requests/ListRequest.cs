@@ -10,46 +10,21 @@ namespace MailChimp.Net.Core
     /// </summary>
     public class ListRequest : QueryableBaseRequest
     {
-        /// <summary>
-        /// Gets or sets the email type.
-        /// </summary>
-        [QueryString("email_type_option")]
-        public bool? EmailType { get; set; }
+        
+        [QueryString("before_date_created")]
+        public string BeforeDateCreated { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [QueryString("name")]
-        public string Name { get; set; }
+        [QueryString("since_date_created")]
+        public string SinceDateCreated { get; set; }
 
-        /// <summary>
-        /// Gets or sets the notify on subscrbe.
-        /// </summary>
-        [QueryString("notify_on_subscribe")]
-        public string NotifyOnSubscrbe { get; set; }
+        [QueryString("before_campaign_last_sent")]
+        public string  BeforeCampaignLastSent { get; set; }
 
-        /// <summary>
-        /// Gets or sets the notify on unsubscrbibe.
-        /// </summary>
-        [QueryString("notify_on_unsubscribe")]
-        public string NotifyOnUnsubscrbibe { get; set; }
+        [QueryString("since_campaign_last_sent")]
+        public string SinceCampaignLastSent { get; set; }
 
-        /// <summary>
-        /// Gets or sets the permission reminder.
-        /// </summary>
-        [QueryString("permission_reminder")]
-        public string PermissionReminder { get; set; }
+        [QueryString("email")]
+        public string Email { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user archive bar.
-        /// </summary>
-        [QueryString("use_archive_bar")]
-        public bool? UserArchiveBar { get; set; }
-
-        /// <summary>
-        /// Gets or sets the visibility.
-        /// </summary>
-        [QueryString("visibility")]
-        public string Visibility { get; set; }
     }
 }
