@@ -38,6 +38,7 @@ namespace MailChimp.Net
             this.Clients = new ClientLogic(ApiKey);
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
+            this.ECommerceStores = new ECommerceLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
             this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
             this.Feedback = new FeedBackLogic(ApiKey);
@@ -53,8 +54,8 @@ namespace MailChimp.Net
             this.Segments = new ListSegmentLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
             this.Templates = new TemplateLogic(ApiKey);
+            this.WebHooks = new WebHookLogic(ApiKey);
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailChimpManager"/> class.
@@ -74,6 +75,7 @@ namespace MailChimp.Net
             this.Clients = new ClientLogic(ApiKey);
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
+            this.ECommerceStores = new ECommerceLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
             this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
             this.Feedback = new FeedBackLogic(ApiKey);
@@ -89,6 +91,7 @@ namespace MailChimp.Net
             this.Segments = new ListSegmentLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
             this.Templates = new TemplateLogic(ApiKey);
+            this.WebHooks = new WebHookLogic(ApiKey);
         }
 
         /// <summary>
@@ -132,14 +135,14 @@ namespace MailChimp.Net
         public IAutomationSubscriberLogic AutomationSubscribers { get; }
 
         /// <summary>
-        /// Gets the campaigns.
-        /// </summary>
-        public ICampaignLogic Campaigns { get; }
-
-        /// <summary>
         /// Gets or sets the campaign folders.
         /// </summary>
         public ICampaignFolderLogic CampaignFolders { get; }
+
+        /// <summary>
+        /// Gets the campaigns.
+        /// </summary>
+        public ICampaignLogic Campaigns { get; }
 
         /// <summary>
         /// Gets the clients.
@@ -157,14 +160,24 @@ namespace MailChimp.Net
         public IConversationLogic Conversations { get; }
 
         /// <summary>
+        /// Gets or sets the e commerce stores.
+        /// </summary>
+        public IECommerceLogic ECommerceStores { get; set; }
+
+        /// <summary>
         /// Gets the feedback.
         /// </summary>
         public IFeedbackLogic Feedback { get; }
 
+        /// <summary>
+        /// Gets the file manager files.
+        /// </summary>
         public IFileManagerFileLogic FileManagerFiles { get; }
 
+        /// <summary>
+        /// Gets the file manager folders.
+        /// </summary>
         public IFileManagerFolderLogic FileManagerFolders { get; }
-
 
         /// <summary>
         /// Gets the growth histories.
@@ -230,5 +243,10 @@ namespace MailChimp.Net
         /// Gets or sets the templates.
         /// </summary>
         public ITemplateLogic Templates { get; }
+
+        /// <summary>
+        /// Gets the logic to access mail chimp web hooks
+        /// </summary>
+        public IWebHookLogic WebHooks { get; set; }
     }
 }
