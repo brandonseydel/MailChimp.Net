@@ -26,6 +26,7 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>Campaing Send Checklist</li>
 <li>Conversations</li>
 <li>Conversations Messages</li>
+<li>ECommerce Stores</li>
 <li>File Manager Files</li>
 <li>File Manager Folders</li>
 <li>Lists</li>
@@ -36,6 +37,7 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>List Interest Categories</li>
 <li>List Members</li>
 <li>List Segments</li>
+<li>List Web Hooks</li>
 <li>Template Folders</li>
 <li>Templates</li>
 <li>Template Default Content</li>
@@ -54,6 +56,5 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 #TODO
 -Looking to add additional functionality pending contributors.
 <ul>
-
-<li>List Web Hooks</li>
+<li>None until mail chimp adds more</li>
 </ul>
