@@ -125,7 +125,6 @@
     <Compile Include="Logic\ClientLogic.cs" />
     <Compile Include="Logic\GrowthHistoryLogic.cs" />
     <Compile Include="Logic\MergeFieldLogic.cs" />
-    <Compile Include="Logic\SegmentLogic.cs" />
     <Compile Include="Models\EepUrlActivity.cs" />
     <Compile Include="Models\ListSegment.cs" />
     <Compile Include="Models\MergeField.cs" />
@@ -216,8 +215,6 @@
     <Compile Include="Interfaces\IFeedbackLogic.cs" />
     <Compile Include="Interfaces\IInterestCategoryLogic.cs" />
     <Compile Include="Interfaces\IMergeFieldLogic.cs" />
-    <Compile Include="Interfaces\ISegmentLogic.cs" />
-    <Compile Include="Interfaces\ISendChecklist.cs" />
     <Compile Include="Interfaces\IConversationLogic.cs" />
     <Compile Include="Interfaces\IMessageLogic.cs" />
     <Compile Include="Interfaces\IAbuseReportLogic.cs" />

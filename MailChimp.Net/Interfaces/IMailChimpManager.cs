@@ -93,7 +93,7 @@ namespace MailChimp.Net.Interfaces
         /// <summary>
         /// Gets or sets the e commerce stores.
         /// </summary>
-        IECommerceLogic ECommerceStores { get; set; }
+        IECommerceLogic ECommerceStores { get;  }
 
         /// <summary>
         /// Gets the feedback.
@@ -144,12 +144,7 @@ namespace MailChimp.Net.Interfaces
         /// <summary>
         /// Gets the segments.
         /// </summary>
-        IListSegmentLogic Segments { get; }
-
-        /// <summary>
-        /// Gets the send checklists.
-        /// </summary>
-        ISendChecklist SendChecklists { get; }
+        IListSegmentLogic ListSegments { get; }
 
         /// <summary>
         /// Gets or sets the template folders.
@@ -164,6 +159,6 @@ namespace MailChimp.Net.Interfaces
         /// <summary>
         /// Gets the logic to access mail chimp web hooks
         /// </summary>
-        IWebHookLogic WebHooks { get; set; }
+        IWebHookLogic WebHooks { get;  }
     }
 }

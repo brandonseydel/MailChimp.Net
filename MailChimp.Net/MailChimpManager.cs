@@ -33,25 +33,26 @@ namespace MailChimp.Net
             this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
             this.Automations = new AutomationLogic(ApiKey);
             this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
+            this.Batches = new BatchLogic(ApiKey);
             this.Campaigns = new CampaignLogic(ApiKey);
             this.CampaignFolders = new CampaignFolderLogic(ApiKey);
             this.Clients = new ClientLogic(ApiKey);
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
             this.ECommerceStores = new ECommerceLogic(ApiKey);
+            this.Feedback = new FeedBackLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
             this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
-            this.Feedback = new FeedBackLogic(ApiKey);
             this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
             this.InterestCategories = new InterestCategoryLogic(ApiKey);
             this.Interests = new InterestLogic(ApiKey);
             this.Lists = new ListLogic(ApiKey);
+            this.ListSegments = new ListSegmentLogic(ApiKey);
             this.Members = new MemberLogic(ApiKey);
-            this.Messages = new MessageLogic(ApiKey);
             this.MergeFields = new MergeFieldLogic(ApiKey);
+            this.Messages = new MessageLogic(ApiKey);
             this.Notes = new NoteLogic(ApiKey);
             this.Reports = new ReportLogic(ApiKey);
-            this.Segments = new ListSegmentLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
             this.Templates = new TemplateLogic(ApiKey);
             this.WebHooks = new WebHookLogic(ApiKey);
@@ -70,25 +71,26 @@ namespace MailChimp.Net
             this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
             this.Automations = new AutomationLogic(ApiKey);
             this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
+            this.Batches = new BatchLogic(ApiKey);
             this.Campaigns = new CampaignLogic(ApiKey);
             this.CampaignFolders = new CampaignFolderLogic(ApiKey);
             this.Clients = new ClientLogic(ApiKey);
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
             this.ECommerceStores = new ECommerceLogic(ApiKey);
+            this.Feedback = new FeedBackLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
             this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
-            this.Feedback = new FeedBackLogic(ApiKey);
             this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
             this.InterestCategories = new InterestCategoryLogic(ApiKey);
             this.Interests = new InterestLogic(ApiKey);
             this.Lists = new ListLogic(ApiKey);
+            this.ListSegments = new ListSegmentLogic(ApiKey);
             this.Members = new MemberLogic(ApiKey);
-            this.Messages = new MessageLogic(ApiKey);
             this.MergeFields = new MergeFieldLogic(ApiKey);
+            this.Messages = new MessageLogic(ApiKey);
             this.Notes = new NoteLogic(ApiKey);
             this.Reports = new ReportLogic(ApiKey);
-            this.Segments = new ListSegmentLogic(ApiKey);
             this.TemplateFolders = new TemplateFolderLogic(ApiKey);
             this.Templates = new TemplateLogic(ApiKey);
             this.WebHooks = new WebHookLogic(ApiKey);
@@ -135,6 +137,11 @@ namespace MailChimp.Net
         public IAutomationSubscriberLogic AutomationSubscribers { get; }
 
         /// <summary>
+        /// Gets othe batch logic layer to talk to Mail Chimp
+        /// </summary>
+        public IBatchLogic Batches { get; }
+
+        /// <summary>
         /// Gets or sets the campaign folders.
         /// </summary>
         public ICampaignFolderLogic CampaignFolders { get; }
@@ -162,7 +169,7 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets or sets the e commerce stores.
         /// </summary>
-        public IECommerceLogic ECommerceStores { get; set; }
+        public IECommerceLogic ECommerceStores { get;  }
 
         /// <summary>
         /// Gets the feedback.
@@ -227,12 +234,7 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets the segments.
         /// </summary>
-        public IListSegmentLogic Segments { get; }
-
-        /// <summary>
-        /// Gets the send checklists.
-        /// </summary>
-        public ISendChecklist SendChecklists { get; }
+        public IListSegmentLogic ListSegments { get; }
 
         /// <summary>
         /// Gets or sets the template folders.
@@ -247,6 +249,6 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets the logic to access mail chimp web hooks
         /// </summary>
-        public IWebHookLogic WebHooks { get; set; }
-    }
+        public IWebHookLogic WebHooks { get;  }
+    
 }
