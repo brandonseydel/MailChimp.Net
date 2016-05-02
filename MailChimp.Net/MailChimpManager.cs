@@ -169,7 +169,7 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets or sets the e commerce stores.
         /// </summary>
-        public IECommerceLogic ECommerceStores { get;  }
+        public IECommerceLogic ECommerceStores { get; }
 
         /// <summary>
         /// Gets the feedback.
@@ -249,6 +249,7 @@ namespace MailChimp.Net
         /// <summary>
         /// Gets the logic to access mail chimp web hooks
         /// </summary>
-        public IWebHookLogic WebHooks { get;  }
-    
+        public IWebHookLogic WebHooks { get; }
+
+    }
 }
