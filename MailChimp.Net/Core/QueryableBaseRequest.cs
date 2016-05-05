@@ -8,7 +8,7 @@ namespace MailChimp.Net.Core
     /// <summary>
     /// The queryable base request.
     /// </summary>
-    public abstract class QueryableBaseRequest : BaseRequest
+    public class QueryableBaseRequest : BaseRequest
     {
         /// <summary>
         /// Gets or sets the limit.
