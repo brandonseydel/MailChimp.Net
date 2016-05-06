@@ -11,15 +11,17 @@ using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Interfaces
 {
-    /// <summary>
-    /// The BatchOperationLogic interface.
-    /// </summary>
-    public interface IBatchLogic
-    {
-        Task<Batch> AddAsync(BatchRequest request = null);
+	/// <summary>
+	/// The BatchOperationLogic interface.
+	/// </summary>
+	public interface IBatchLogic
+	{
+		Task<Batch> AddAsync(BatchRequest request = null);
 
-        Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null);
+		Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null);
 
-        Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null);
-    }
+		Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null);
+
+		Task<Batch> GetBatchStatus(string batchId);
+	}
 }

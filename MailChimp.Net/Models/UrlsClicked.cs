@@ -33,7 +33,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the click percentage.
         /// </summary>
         [JsonProperty("click_percentage")]
-        public int ClickPercentage { get; set; }
+        public double ClickPercentage { get; set; }
 
         /// <summary>
         /// Gets or sets the id.
@@ -63,7 +63,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the unique click percentage.
         /// </summary>
         [JsonProperty("unique_click_percentage")]
-        public int UniqueClickPercentage { get; set; }
+        public double UniqueClickPercentage { get; set; }
 
         /// <summary>
         /// Gets or sets the unique clicks.

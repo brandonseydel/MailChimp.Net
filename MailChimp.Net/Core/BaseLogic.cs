@@ -101,7 +101,7 @@ namespace MailChimp.Net.Core
         /// </exception>
         public string Hash(string emailAddress)
         {
-            using (var md5 = MD5.Create()) return md5.GetHash(emailAddress);
+            using (var md5 = MD5.Create()) return md5.GetHash(emailAddress.ToLower());
         }
     }
 }
