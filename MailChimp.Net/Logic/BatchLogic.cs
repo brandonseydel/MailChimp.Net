@@ -34,7 +34,7 @@ namespace MailChimp.Net.Logic
             {
                 var response =
                     await
-                        client.PostAsJsonAsync(string.Empty, request = null)
+                        client.PostAsJsonAsync(string.Empty, request)
                             .ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Batch>().ConfigureAwait(false);
