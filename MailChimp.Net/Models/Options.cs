@@ -19,7 +19,7 @@ namespace MailChimp.Net.Models
         public int Size { get; set; }
 
         [JsonProperty("default_country")]
-        public string DefaultCountry { get; set; }
+        public int DefaultCountry { get; set; }
 
         [JsonProperty("phone_format")]
         public string PhoneFormat { get; set; }

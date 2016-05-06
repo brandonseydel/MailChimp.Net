@@ -99,7 +99,7 @@ namespace MailChimp.Net.Core
         ///     </paramref>
         /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
         /// </exception>
-        internal string Hash(string emailAddress)
+        public string Hash(string emailAddress)
         {
             using (var md5 = MD5.Create()) return md5.GetHash(emailAddress);
         }
