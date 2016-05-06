@@ -28,10 +28,14 @@ namespace MailChimp.Net.Core
 		[JsonProperty("total_operations")]
 		public int TotalOperations { get; set; }
 
-		[System.ComponentModel.Browsable(false), Obsolete("Spelling corrected to FinishedOperations")]
-		public string FinishedOperpations { get; set; }
+	    [System.ComponentModel.Browsable(false), Obsolete("Spelling corrected to FinishedOperations")]
+	    public string FinishedOperpations
+	    {
+	        get { return this.FinishedOperations; }
+	        set { this.FinishedOperations = value; }
+	    }
 
-		/// <summary>
+	    /// <summary>
 		/// The number of completed operations. This includes operations that returned an error.
 		/// </summary>
 		[JsonProperty("finished_operations")]
