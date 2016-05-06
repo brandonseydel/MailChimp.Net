@@ -5,7 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
@@ -40,12 +42,29 @@ namespace MailChimp.Net.Core
             this.Type = info?.GetString("type");
             this.Status = info?.GetInt32("status") ?? 0;
             this.Instance = info?.GetString("instance");
-        }
+			try
+			{
+				this.Errors = (List<Error>)info?.GetValue("errors", typeof(List<Error>));
+			}
+			catch
+			{ }
+		}
 
-        /// <summary>
-        /// Gets or Sets a human-readable explanation specific to this occurrence of the problem. Learn more about errors.
-        /// </summary>
-        public string Detail { get; set; }
+		public List<Error> Errors { get; set; }
+
+		public class Error
+		{
+			[JsonProperty("field")]
+			public string Field { get; set; }
+			[JsonProperty("message")]
+			public string Message { get; set; }
+		}
+
+
+		/// <summary>
+		/// Gets or Sets a human-readable explanation specific to this occurrence of the problem. Learn more about errors.
+		/// </summary>
+		public string Detail { get; set; }
 
         /// <summary>
         /// Gets or sets a string that identifies this specific occurrence of the problem. Please provide this ID when contacting support.
@@ -90,6 +109,7 @@ namespace MailChimp.Net.Core
             info.AddValue("type", this.Type);
             info.AddValue("status", this.Status);
             info.AddValue("instance", this.Instance);
-        }
+			info.AddValue("errors", this.Errors);
+		}
     }
 }
