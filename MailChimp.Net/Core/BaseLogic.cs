@@ -63,7 +63,7 @@ namespace MailChimp.Net.Core
                              {
                                  BaseAddress =
                                      new Uri($"https://{this.DataCenter}.api.mailchimp.com/3.0/{resource}")
-                             };
+                             };            
             client.DefaultRequestHeaders.Add("Authorization", $"apikey {this._apiKey}");
             return client;
         }

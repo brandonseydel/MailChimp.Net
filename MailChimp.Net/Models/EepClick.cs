@@ -18,6 +18,7 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the clicks.
         /// </summary>
+        [JsonProperty("clicks")]
         public int Clicks { get; set; }
 
         /// <summary>
@@ -35,6 +36,7 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the locations.
         /// </summary>
+        [JsonProperty("locations")]
         public IEnumerable<EepLocation> Locations { get; set; }
     }
 }

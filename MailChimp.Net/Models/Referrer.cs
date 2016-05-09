@@ -16,6 +16,7 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the clicks.
         /// </summary>
+        [JsonProperty("clicks")]
         public int Clicks { get; set; }
 
         /// <summary>
