@@ -172,7 +172,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.GetAsync(
-                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/activity{request.ToQueryString()}").ConfigureAwait(false);
+                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/activity{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var goalResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
                 return goalResponse.Activities;
@@ -350,7 +350,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.GetAsync(
-                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/goals{request.ToQueryString()}").ConfigureAwait(false);
+                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/goals{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var goalResponse = await response.Content.ReadAsAsync<GoalResponse>().ConfigureAwait(false);
                 return goalResponse.Goals;
