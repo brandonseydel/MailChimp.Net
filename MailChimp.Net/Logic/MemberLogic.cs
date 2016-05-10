@@ -162,7 +162,7 @@ namespace MailChimp.Net.Logic
         /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-        private async Task<IEnumerable<Activity>> GetActivitiesAsync(
+        public async Task<IEnumerable<Activity>> GetActivitiesAsync(
             string listId, 
             string emailAddress, 
             BaseRequest request = null)

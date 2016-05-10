@@ -46,17 +46,27 @@ namespace MailChimp.Net.Interfaces
 		/// </returns>
 		Task DeleteAsync(string listId, string emailAddress);
 
-		/// <summary>
-		/// The get all async.
-		/// </summary>
-		/// <param name="listId">
-		/// The list id.
-		/// </param>
-		/// <param name="memberRequest"></param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
+
+        /// <summary>
+        /// Gets the activities for a specific list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="emailAddress"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+	    Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddress, BaseRequest request = null);
+
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="memberRequest"></param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
 
 		/// <summary>
 		/// Get the total number of members in the list
