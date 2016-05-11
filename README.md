@@ -59,5 +59,7 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>ECommerce Carts</li>
 <li>ECommerce Customers</li>
 <li>ECommerce Orders</li>
+<li>ECommerce Order Lines</li>
 <li>ECommerce Products</li>
+<li>ECommerce Product Variants</li>
 </ul>
