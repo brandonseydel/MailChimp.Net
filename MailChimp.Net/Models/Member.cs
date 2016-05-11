@@ -133,7 +133,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the stats.
 		/// </summary>
 		[JsonProperty("stats")]
-		public Stats Stats { get; set; }
+		public MemberStats Stats { get; set; }
 
 		/// <summary>
 		/// Gets or sets the status.

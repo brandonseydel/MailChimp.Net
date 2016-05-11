@@ -87,6 +87,7 @@
     <Compile Include="Interfaces\IECommerceLogic.cs" />
     <Compile Include="Logic\ECommerceLogic.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\MemberStats.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\WebHookResponse.cs" />
     <Compile Include="GlobalSuppressions.cs" />
