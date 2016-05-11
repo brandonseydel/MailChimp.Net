@@ -33,7 +33,7 @@ namespace MailChimp.Net.Models
 			this.IpSignup = string.Empty;
 			this.LastChanged = string.Empty;
 			this.LastNote = new MemberLastNote();
-			this.Stats = new Stats();
+			this.Stats = new MemberStats();
 			this.TimestampOpt = string.Empty;
 			this.TimestampSignup = string.Empty;
 			this.UniqueEmailId = string.Empty;
