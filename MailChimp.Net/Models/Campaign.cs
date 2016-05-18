@@ -16,25 +16,25 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the archive url.
         /// </summary>
-        [JsonProperty("archive_url")]
+        [JsonProperty("archive_url", NullValueHandling = NullValueHandling.Ignore)]
         public string ArchiveUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the content type.
         /// </summary>
-        [JsonProperty("content_type")]
+        [JsonProperty("content_type", NullValueHandling = NullValueHandling.Ignore)]
         public string ContentType { get; set; }
 
         /// <summary>
         /// Gets or sets the create time.
         /// </summary>
-        [JsonProperty("create_time")]
+        [JsonProperty("create_time", NullValueHandling = NullValueHandling.Ignore)]
         public string CreateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the delivery status.
         /// </summary>
-        [JsonProperty("delivery_status")]
+        [JsonProperty("delivery_status", NullValueHandling = NullValueHandling.Ignore)]
         public DeliveryStatus DeliveryStatus { get; set; }
 
         /// <summary>
@@ -46,25 +46,25 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
-        [JsonProperty("id")]
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
         /// <summary>
         /// Gets or sets the links.
         /// </summary>
-        [JsonProperty("_links")]
+        [JsonProperty("_links", NullValueHandling = NullValueHandling.Ignore)]
         public Link[] Links { get; set; }
 
         /// <summary>
         /// Gets or sets the recipients.
         /// </summary>
-        [JsonProperty("recipients")]
+        [JsonProperty("recipients", NullValueHandling = NullValueHandling.Ignore)]
         public Recipient Recipients { get; set; }
 
         /// <summary>
         /// Gets or sets the send time.
         /// </summary>
-        [JsonProperty("send_time")]
+        [JsonProperty("send_time", NullValueHandling = NullValueHandling.Ignore)]
         public string SendTime { get; set; }
 
         /// <summary>
@@ -76,13 +76,13 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the status.
         /// </summary>
-        [JsonProperty("status")]
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public string Status { get; set; }
 
         /// <summary>
         /// Gets or sets the tracking.
         /// </summary>
-        [JsonProperty("tracking")]
+        [JsonProperty("tracking", NullValueHandling = NullValueHandling.Ignore)]
         public Tracking Tracking { get; set; }
 
         /// <summary>

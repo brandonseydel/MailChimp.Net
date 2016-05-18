@@ -8,9 +8,9 @@ namespace MailChimp.Net.Core
     {
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("static_segment")]
+        [JsonProperty("static_segment", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> EmailAddresses { get; set; }
-        [JsonProperty("options")]
-        public IEnumerable<SegmentOptions> Options { get; set; }
+        [JsonProperty("options", NullValueHandling = NullValueHandling.Ignore)]
+		public SegmentOptions Options { get; set; }
     }
 }

@@ -20,27 +20,13 @@ namespace MailChimp.Net.Models
 		/// </summary>
 		public List()
 		{
-			this.Links = new HashSet<Link>();
-			BeamerAddress = string.Empty;
-			DateCreated = string.Empty;
-			Id = string.Empty;
-			NotifyOnSubscribe = string.Empty;
-			NotifyOnUnsubscribe = string.Empty;
-			Stats = new Stats()
-			{
-				CampaignLastSent = string.Empty,
-				LastSubDate = string.Empty,
-				LastUnsubDate = string.Empty
-			};
-			SubscribeUrlLong = string.Empty;
-			SubscribeUrlShort = string.Empty;
 			Visibility = "prv";
 		}
 
 		/// <summary>
 		/// Gets or sets the beamer address.
 		/// </summary>
-		[JsonProperty("beamer_address")]
+		[JsonProperty("beamer_address", NullValueHandling = NullValueHandling.Ignore)]
 		public string BeamerAddress { get; set; }
 
 		/// <summary>
@@ -58,7 +44,7 @@ namespace MailChimp.Net.Models
 		/// <summary>
 		/// Gets or sets the date created.
 		/// </summary>
-		[JsonProperty("date_created")]
+		[JsonProperty("date_created", NullValueHandling = NullValueHandling.Ignore)]
 		public string DateCreated { get; set; }
 
 		/// <summary>
@@ -70,25 +56,25 @@ namespace MailChimp.Net.Models
 		/// <summary>
 		/// Gets or sets the id.
 		/// </summary>
-		[JsonProperty("id")]
+		[JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
 		public string Id { get; set; }
 
 		/// <summary>
 		/// Gets or sets the links.
 		/// </summary>
-		[JsonProperty("_links")]
+		[JsonProperty("_links", NullValueHandling = NullValueHandling.Ignore)]
 		public IEnumerable<Link> Links { get; set; }
 
 		/// <summary>
 		/// Gets or sets the list rating.
 		/// </summary>
-		[JsonProperty("list_rating")]
+		[JsonProperty("list_rating", NullValueHandling = NullValueHandling.Ignore)]
 		public int ListRating { get; set; }
 
 		/// <summary>
 		/// Gets or sets the modules.
 		/// </summary>
-		[JsonProperty("modules")]
+		[JsonProperty("modules", NullValueHandling = NullValueHandling.Ignore)]
 		public object[] Modules { get; set; }
 
 		/// <summary>
@@ -100,13 +86,13 @@ namespace MailChimp.Net.Models
 		/// <summary>
 		/// Gets or sets the notify on subscribe.
 		/// </summary>
-		[JsonProperty("notify_on_subscribe")]
+		[JsonProperty("notify_on_subscribe", NullValueHandling = NullValueHandling.Ignore)]
 		public string NotifyOnSubscribe { get; set; }
 
 		/// <summary>
 		/// Gets or sets the notify on unsubscribe.
 		/// </summary>
-		[JsonProperty("notify_on_unsubscribe")]
+		[JsonProperty("notify_on_unsubscribe", NullValueHandling = NullValueHandling.Ignore)]
 		public string NotifyOnUnsubscribe { get; set; }
 
 		/// <summary>
@@ -118,19 +104,19 @@ namespace MailChimp.Net.Models
 		/// <summary>
 		/// Gets or sets the stats.
 		/// </summary>
-		[JsonProperty("stats")]
+		[JsonProperty("stats", NullValueHandling = NullValueHandling.Ignore)]
 		public Stats Stats { get; set; }
 
 		/// <summary>
 		/// Gets or sets the subscribe url long.
 		/// </summary>
-		[JsonProperty("subscribe_url_long")]
+		[JsonProperty("subscribe_url_long", NullValueHandling = NullValueHandling.Ignore)]
 		public string SubscribeUrlLong { get; set; }
 
 		/// <summary>
 		/// Gets or sets the subscribe url short.
 		/// </summary>
-		[JsonProperty("subscribe_url_short")]
+		[JsonProperty("subscribe_url_short", NullValueHandling = NullValueHandling.Ignore)]
 		public string SubscribeUrlShort { get; set; }
 
 		/// <summary>

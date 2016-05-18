@@ -34,7 +34,8 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets a value indicating whether drag and drop.
         /// </summary>
-        [JsonProperty("drag_and_drop")]
+        //[JsonProperty("drag_and_drop")]
+		[JsonIgnore]
         public bool DragAndDrop { get; set; }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the folder id.
         /// </summary>
-        [JsonProperty("folder_id")]
+        [JsonProperty("folder_id", NullValueHandling = NullValueHandling.Ignore)]
         public string FolderId { get; set; }
 
         /// <summary>
@@ -76,25 +77,27 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the template id.
         /// </summary>
-        [JsonProperty("template_id")]
+        //[JsonProperty("template_id")]
+		[JsonIgnore]
         public int TemplateId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether timewarp.
         /// </summary>
-        [JsonProperty("timewarp")]
+        //[JsonProperty("timewarp")]
+		[JsonIgnore]
         public bool Timewarp { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
-        [JsonProperty("title")]
+        [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the to name.
         /// </summary>
-        [JsonProperty("to_name")]
+        [JsonProperty("to_name", NullValueHandling = NullValueHandling.Ignore)]
         public string ToName { get; set; }
 
         /// <summary>

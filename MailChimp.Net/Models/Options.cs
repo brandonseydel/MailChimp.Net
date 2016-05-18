@@ -21,10 +21,10 @@ namespace MailChimp.Net.Models
         [JsonProperty("default_country")]
         public int DefaultCountry { get; set; }
 
-        [JsonProperty("phone_format")]
+        [JsonProperty("phone_format", NullValueHandling = NullValueHandling.Ignore)]
         public string PhoneFormat { get; set; }
 
-        [JsonProperty("date_format")]
+        [JsonProperty("date_format", NullValueHandling = NullValueHandling.Ignore)]
         public string DateFormat { get; set; }
 
         [JsonProperty("choices")]

@@ -23,13 +23,13 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the conditions.
         /// </summary>
-        [JsonProperty("conditions")]
+        [JsonProperty("conditions", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<Condition> Conditions { get; set; }
 
         /// <summary>
         /// Gets or sets the match.
         /// </summary>
-        [JsonProperty("match")]
+        [JsonProperty("match", NullValueHandling = NullValueHandling.Ignore)]
         public string Match { get; set; }
 
         /// <summary>

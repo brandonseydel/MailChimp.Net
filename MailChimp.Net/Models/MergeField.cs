@@ -21,7 +21,7 @@ namespace MailChimp.Net.Models
 		[JsonProperty("merge_id")]
 		public int MergeId { get; set; }
 
-		[JsonProperty("tag")]
+		[JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
 		public string Tag { get; set; }
 
 		[JsonProperty("name")]
@@ -33,7 +33,7 @@ namespace MailChimp.Net.Models
 		[JsonProperty("required")]
 		public bool Required { get; set; }
 
-		[JsonProperty("default_value")]
+		[JsonProperty("default_value", NullValueHandling = NullValueHandling.Ignore)]
 		public string DefaultValue { get; set; }
 
 		[JsonProperty("public")]
@@ -42,16 +42,16 @@ namespace MailChimp.Net.Models
 		[JsonProperty("display_order")]
 		public int DisplayOrder { get; set; }
 
-		[JsonProperty("options")]
+		[JsonProperty("options", NullValueHandling = NullValueHandling.Ignore)]
 		public Options Options { get; set; }
 
-		[JsonProperty("help_text")]
+		[JsonProperty("help_text", NullValueHandling = NullValueHandling.Ignore)]
 		public string HelpText { get; set; }
 
 		[JsonProperty("list_id")]
 		public string ListId { get; set; }
 
-		[JsonProperty("_links")]
+		[JsonProperty("_links", NullValueHandling = NullValueHandling.Ignore)]
 		public IEnumerable<Link> Links { get; set; }
 	}
 }

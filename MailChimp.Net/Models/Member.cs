@@ -22,21 +22,6 @@ namespace MailChimp.Net.Models
 		/// </summary>
 		public Member()
 		{
-			this.Links = new HashSet<Link>();
-			this.MergeFields = new Dictionary<string, string>();
-			this.Interests = new Dictionary<string, bool>();
-			this.Location = new Location();
-			this.EmailClient = string.Empty;
-			this.EmailType = string.Empty;
-			this.Id = string.Empty;
-			this.IpOpt = string.Empty;
-			this.IpSignup = string.Empty;
-			this.LastChanged = string.Empty;
-			this.LastNote = new MemberLastNote();
-			this.Stats = new Stats();
-			this.TimestampOpt = string.Empty;
-			this.TimestampSignup = string.Empty;
-			this.UniqueEmailId = string.Empty;
 		}
 
 		/// <summary>
@@ -48,116 +33,123 @@ namespace MailChimp.Net.Models
 		/// <summary>
 		/// Gets or sets the email client.
 		/// </summary>
-		[JsonProperty("email_client")]
+		[JsonProperty("email_client", NullValueHandling = NullValueHandling.Ignore)]
 		public string EmailClient { get; set; }
 
 		/// <summary>
 		/// Gets or sets the email type.
 		/// </summary>
-		[JsonProperty("email_type")]
+		[JsonProperty("email_type", NullValueHandling = NullValueHandling.Ignore)]
 		public string EmailType { get; set; }
 
 		/// <summary>
 		/// Gets or sets the id.
 		/// </summary>
-		[JsonProperty("id")]
+		[JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
 		public string Id { get; set; }
 
 		/// <summary>
 		/// Gets or sets the interests.
 		/// </summary>
-		[JsonProperty("interests")]
+		[JsonProperty("interests", NullValueHandling = NullValueHandling.Ignore)]
 		public Dictionary<string, bool> Interests { get; set; }
 
 		/// <summary>
 		/// Gets or sets the ip opt.
 		/// </summary>
-		[JsonProperty("ip_opt")]
+		[JsonProperty("ip_opt", NullValueHandling = NullValueHandling.Ignore)]
 		public string IpOpt { get; set; }
 
 		/// <summary>
 		/// Gets or sets the ip signup.
 		/// </summary>
-		[JsonProperty("ip_signup")]
+		[JsonProperty("ip_signup", NullValueHandling = NullValueHandling.Ignore)]
 		public string IpSignup { get; set; }
 
 		/// <summary>
 		/// Gets or sets the language.
 		/// </summary>
-		[JsonProperty("language")]
+		[JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
 		public string Language { get; set; }
 
 		/// <summary>
 		/// Gets or sets the last changed.
 		/// </summary>
-		[JsonProperty("last_changed")]
+		[JsonProperty("last_changed", NullValueHandling = NullValueHandling.Ignore)]
 		public string LastChanged { get; set; }
 
 		/// <summary>
 		/// Gets or sets the links.
 		/// </summary>
-		[JsonProperty("_links")]
+		[JsonProperty("_links", NullValueHandling = NullValueHandling.Ignore)]
 		public IEnumerable<Link> Links { get; set; }
 
 		/// <summary>
 		/// Gets or sets the list id.
 		/// </summary>
-		[JsonProperty("list_id")]
+		[JsonProperty("list_id", NullValueHandling = NullValueHandling.Ignore)]
 		public string ListId { get; set; }
 
 		/// <summary>
 		/// Gets the location.
 		/// </summary>
-		[JsonProperty("location")]
+		[JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
 		public Location Location { get; set; }
 
 		/// <summary>
 		/// Gets or sets the member rating.
 		/// </summary>
-		[JsonProperty("member_rating")]
+		[JsonProperty("member_rating", NullValueHandling = NullValueHandling.Ignore)]
 		public int MemberRating { get; set; }
 
 		/// <summary>
 		/// Gets or sets the merge fields.
 		/// </summary>
-		[JsonProperty("merge_fields")]
+		[JsonProperty("merge_fields", NullValueHandling = NullValueHandling.Ignore)]
 		public Dictionary<string, string> MergeFields { get; set; }
 
 		/// <summary>
 		/// Gets or sets the last Note.
 		/// </summary>
-		[JsonProperty("last_note")]
+		[JsonProperty("last_note", NullValueHandling = NullValueHandling.Ignore)]
 		public MemberLastNote LastNote { get; set; }
 
 		/// <summary>
 		/// Gets or sets the stats.
 		/// </summary>
-		[JsonProperty("stats")]
+		[JsonProperty("stats", NullValueHandling = NullValueHandling.Ignore)]
 		public Stats Stats { get; set; }
 
 		/// <summary>
 		/// Gets or sets the status.
 		/// </summary>
-		[JsonProperty("status")]
+		[JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
 		[JsonConverter(typeof(StringEnumDescriptionConverter))]
 		public Status Status { get; set; }
 
 		/// <summary>
+		/// Gets or sets the status for a new contact when using PUT.
+		/// </summary>
+		[JsonProperty("status_if_new", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+		public Status StatusIfNew { get; set; }
+
+		/// <summary>
 		/// Gets or sets the timestamp opt.
 		/// </summary>
-		[JsonProperty("timestamp_opt")]
+		[JsonProperty("timestamp_opt", NullValueHandling = NullValueHandling.Ignore)]
 		public string TimestampOpt { get; set; }
 
 		/// <summary>
 		/// Gets or sets the timestamp signup.
 		/// </summary>
-		[JsonProperty("timestamp_signup")]
+		[JsonProperty("timestamp_signup", NullValueHandling = NullValueHandling.Ignore)]
 		public string TimestampSignup { get; set; }
 
 		/// <summary>
 		/// Gets or sets the unique email id.
 		/// </summary>
-		[JsonProperty("unique_email_id")]
+		[JsonProperty("unique_email_id", NullValueHandling = NullValueHandling.Ignore)]
 		public string UniqueEmailId { get; set; }
 
 		/// <summary>
