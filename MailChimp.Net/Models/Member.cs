@@ -143,6 +143,13 @@ namespace MailChimp.Net.Models
 		public Status Status { get; set; }
 
 		/// <summary>
+		/// Gets or sets the status for a new contact when using PUT.
+		/// </summary>
+		[JsonProperty("status_if_new")]
+		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+		public Status StatusIfNew { get; set; }
+
+		/// <summary>
 		/// Gets or sets the timestamp opt.
 		/// </summary>
 		[JsonProperty("timestamp_opt")]
