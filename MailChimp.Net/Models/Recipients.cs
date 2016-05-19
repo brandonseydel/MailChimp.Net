@@ -24,5 +24,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("segment_text")]
         public string SegmentText { get; set; }
+
+        /// <summary>
+ 		/// Gets or sets the segment options.
+ 		/// </summary>
+ 		[JsonProperty("segment_opts")]
+        public SegmentOptions SegmentOptions { get; set; }
+
     }
 }

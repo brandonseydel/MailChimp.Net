@@ -6,9 +6,7 @@
 
 using System;
 using System.Net.Http;
-using System.Reflection;
 using System.Security.Cryptography;
-using System.Text;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Core

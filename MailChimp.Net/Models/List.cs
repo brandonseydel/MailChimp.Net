@@ -21,19 +21,6 @@ namespace MailChimp.Net.Models
 		public List()
 		{
 			this.Links = new HashSet<Link>();
-			BeamerAddress = string.Empty;
-			DateCreated = string.Empty;
-			Id = string.Empty;
-			NotifyOnSubscribe = string.Empty;
-			NotifyOnUnsubscribe = string.Empty;
-			Stats = new Stats()
-			{
-				CampaignLastSent = string.Empty,
-				LastSubDate = string.Empty,
-				LastUnsubDate = string.Empty
-			};
-			SubscribeUrlLong = string.Empty;
-			SubscribeUrlShort = string.Empty;
 			Visibility = "prv";
 		}
 

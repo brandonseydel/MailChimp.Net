@@ -107,22 +107,62 @@ namespace MailChimp.Net.Core
         /// The <see cref="Task"/>.
         /// </returns>
         public static async Task<HttpResponseMessage> PutAsJsonAsync<T>(
-            this HttpClient client, 
-            string requestUri, 
-            T value, 
+            this HttpClient client,
+            string requestUri,
+            T value,
             JsonMediaTypeFormatter formatter = null)
         {
             var jsonFormatter = formatter
                                 ?? new JsonMediaTypeFormatter
-                                       {
-                                           SerializerSettings =
+                                {
+                                    SerializerSettings =
                                                {
                                                    NullValueHandling =
                                                        NullValueHandling.Ignore
                                                }
-                                       };
+                                };
             var content = new ObjectContent<T>(value, jsonFormatter);
             return await client.PutAsync(requestUri, content);
         }
+
+        /// <summary>
+        /// PostAsJsonAsync
+        /// </summary>
+        /// <param name="client">
+        /// The client.
+        /// </param>
+        /// <param name="requestUri">
+        /// The request uri.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="formatter">
+        /// The formatter.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public static async Task<HttpResponseMessage> PostAsJsonAsync<T>(
+            this HttpClient client,
+            string requestUri,
+            T value,
+            JsonMediaTypeFormatter formatter = null)
+        {
+            var jsonFormatter = formatter
+                                ?? new JsonMediaTypeFormatter
+                                {
+                                    SerializerSettings =
+                                               {
+                                                   NullValueHandling =
+                                                       NullValueHandling.Ignore
+                                               }
+                                };
+            var content = new ObjectContent<T>(value, jsonFormatter);
+            return await client.PostAsync(requestUri, content);
+        }
+
     }
 }

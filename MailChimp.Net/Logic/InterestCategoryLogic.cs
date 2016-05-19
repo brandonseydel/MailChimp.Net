@@ -6,7 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
+using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -52,7 +52,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient($"lists/{listId}/interest-categories/"))
             {
-                HttpResponseMessage response;
+                System.Net.Http.HttpResponseMessage response;
                 if (string.IsNullOrWhiteSpace(category.Id))
                 {
                     response = await client.PostAsJsonAsync(string.Empty, category).ConfigureAwait(false);
