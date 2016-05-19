@@ -83,7 +83,7 @@ namespace MailChimp.Net.Core
                                   Content = content
                               };
 
-            return await client.SendAsync(request = null);
+            return await client.SendAsync(request);
         }
 
         /// <summary>
