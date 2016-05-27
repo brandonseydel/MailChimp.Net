@@ -35,6 +35,6 @@ namespace MailChimp.Net.Models
         /// Gets or sets the value.
         /// </summary>
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public object Value { get; set; }
     }
 }
