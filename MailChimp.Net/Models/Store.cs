@@ -20,7 +20,7 @@ namespace MailChimp.Net.Models
     {
         public Store()
         {
-            this.ListId
+            this.Links = new HashSet<Link>();
         }
 
         /// <summary>

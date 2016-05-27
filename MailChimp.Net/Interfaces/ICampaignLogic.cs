@@ -106,7 +106,7 @@ namespace MailChimp.Net.Interfaces
         /// <param name="campaignId"></param>
         /// <param name="campaignAction"></param>
         /// <returns></returns>
-        Task ExcecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction)
+        Task ExecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction);
 
 
         /// <summary>

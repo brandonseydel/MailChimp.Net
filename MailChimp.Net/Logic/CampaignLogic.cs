@@ -344,7 +344,7 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task ExcecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction)
+        public async Task ExecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction)
         {
 
             var member = typeof(CampaignAction).GetMember(campaignAction.ToString());

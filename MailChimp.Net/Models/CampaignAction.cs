@@ -10,7 +10,7 @@ namespace MailChimp.Net.Models
     public enum CampaignAction
     {
         [Description("cancel-send")]
-        Cancel-Send,
+        CancelSend,
         Pause,
         Replicate,
         Resume,
