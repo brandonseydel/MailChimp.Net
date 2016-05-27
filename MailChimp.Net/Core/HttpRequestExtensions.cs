@@ -82,7 +82,7 @@ namespace MailChimp.Net.Core
                                   RequestUri = new Uri(client.BaseAddress + requestUri), 
                                   Content = content
                               };
-
+			client.DefaultRequestHeaders.ExpectContinue = false;
             return await client.SendAsync(request);
         }
 

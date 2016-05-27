@@ -50,7 +50,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the emails sent.
         /// </summary>
         [JsonProperty("emails_sent")]
-        public int EmailsSent { get; set; }
+        public int? EmailsSent { get; set; }
 
         /// <summary>
         /// Gets or sets the id.
