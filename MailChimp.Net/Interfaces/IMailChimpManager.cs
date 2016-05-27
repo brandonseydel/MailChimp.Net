@@ -160,5 +160,10 @@ namespace MailChimp.Net.Interfaces
         /// Gets the logic to access mail chimp web hooks
         /// </summary>
         IWebHookLogic WebHooks { get;  }
+
+        /// <summary>
+        /// Gets othe batch logic layer to talk to Mail Chimp
+        /// </summary>
+        IBatchLogic Batches { get; }
     }
 }
