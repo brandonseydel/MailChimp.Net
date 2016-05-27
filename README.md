@@ -56,5 +56,10 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 #TODO
 -Looking to add additional functionality pending contributors.
 <ul>
-<li>None until mail chimp adds more</li>
+<li>ECommerce Carts</li>
+<li>ECommerce Customers</li>
+<li>ECommerce Orders</li>
+<li>ECommerce Order Lines</li>
+<li>ECommerce Products</li>
+<li>ECommerce Product Variants</li>
 </ul>

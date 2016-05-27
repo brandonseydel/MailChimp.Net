@@ -5,20 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Net.Http;
+using System.Collections.Generic;
+using System.IO;
+using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
+using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
-
-    using MailChimp.Net.Models;
-
     /// <summary>
     /// The campaign folder logic.
     /// </summary>

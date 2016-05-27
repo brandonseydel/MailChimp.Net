@@ -6,14 +6,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
+
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-#pragma warning disable 1584,1711,1572,1581,1580
+using static System.Net.Http.HttpContentExtensions;
 
+#pragma warning disable 1584, 1711, 1572, 1581, 1580
 namespace MailChimp.Net.Logic
 {
     /// <summary>

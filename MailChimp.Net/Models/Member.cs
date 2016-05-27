@@ -18,28 +18,6 @@ namespace MailChimp.Net.Models
 	public class Member
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Member"/> class.
-		/// </summary>
-		public Member()
-		{
-			this.Links = new HashSet<Link>();
-			this.MergeFields = new Dictionary<string, string>();
-			this.Interests = new Dictionary<string, bool>();
-			this.Location = new Location();
-			this.EmailClient = string.Empty;
-			this.EmailType = string.Empty;
-			this.Id = string.Empty;
-			this.IpOpt = string.Empty;
-			this.IpSignup = string.Empty;
-			this.LastChanged = string.Empty;
-			this.LastNote = new MemberLastNote();
-			this.Stats = new MemberStats();
-			this.TimestampOpt = string.Empty;
-			this.TimestampSignup = string.Empty;
-			this.UniqueEmailId = string.Empty;
-		}
-
-		/// <summary>
 		/// Gets or sets the email address.
 		/// </summary>
 		[JsonProperty("email_address")]
@@ -142,10 +120,14 @@ namespace MailChimp.Net.Models
 		[JsonConverter(typeof(StringEnumDescriptionConverter))]
 		public Status Status { get; set; }
 
-		/// <summary>
-		/// Gets or sets the timestamp opt.
-		/// </summary>
-		[JsonProperty("timestamp_opt")]
+        [JsonProperty("status_if_new")]
+ 		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+ 		public Status StatusIfNew { get; set; }
+
+        /// <summary>
+        /// Gets or sets the timestamp opt.
+        /// </summary>
+        [JsonProperty("timestamp_opt")]
 		public string TimestampOpt { get; set; }
 
 		/// <summary>
