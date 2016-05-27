@@ -11,7 +11,6 @@ namespace MailChimp.Net.Models
     {
         public ListSegment()
         {
-            Options = new HashSet<SegmentOptions>();
             Links = new HashSet<Link>();
         }
 
@@ -40,6 +39,6 @@ namespace MailChimp.Net.Models
         public IEnumerable<Link> Links { get; set; }
 
         [JsonProperty("options")]
-        public IEnumerable<SegmentOptions> Options { get; set; }
+        public SegmentOptions Options { get; set; }
     }
 }
