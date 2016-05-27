@@ -101,6 +101,15 @@ namespace MailChimp.Net.Interfaces
         Task SendAsync(string campaignId);
 
         /// <summary>
+        /// Executes a given action on the specified campaign.
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <param name="campaignAction"></param>
+        /// <returns></returns>
+        Task ExcecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction)
+
+
+        /// <summary>
         /// The get all.
         /// </summary>
         /// <param name="request">

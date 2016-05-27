@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -23,7 +24,8 @@ namespace MailChimp.Net.Models
         /// Gets or sets the method.
         /// </summary>
         [JsonProperty("method")]
-        public string Method { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public Method Method { get; set; }
 
         /// <summary>
         /// Gets or sets the rel.

@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-#pragma warning disable 1584,1711,1572,1581,1580
+using System.ComponentModel;
+using System.Linq;
+#pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 namespace MailChimp.Net.Logic
 {
@@ -341,6 +343,24 @@ namespace MailChimp.Net.Logic
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }
+
+        public async Task ExcecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction)
+        {
+
+            var member = typeof(CampaignAction).GetMember(campaignAction.ToString());
+            var action =
+                member.FirstOrDefault()?
+                      .GetCustomAttributes(typeof(DescriptionAttribute), false)
+                      .OfType<DescriptionAttribute>()
+                      .FirstOrDefault()?.Description ?? campaignAction.ToString().ToLower();
+
+            using (var client = this.CreateMailClient("campaigns/"))
+            {
+                var response = await client.PostAsync($"{campaignId}/actions/${action}", null).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            }
+        }
+
 
         /// <summary>
         /// The send checklist async.

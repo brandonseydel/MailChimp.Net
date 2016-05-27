@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -19,15 +20,17 @@ namespace MailChimp.Net.Models
         [JsonProperty("field")]
         public string Field { get; set; }
 
-
         [JsonProperty("condition_type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public ConditionType Type { get; set; }
 
         [JsonProperty("op")]
-        public string Operator { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public Operator Operator { get; set; }
 
         [JsonProperty("extra")]
         public string Extra { get; set; }
+
         /// <summary>
         /// Gets or sets the value.
         /// </summary>

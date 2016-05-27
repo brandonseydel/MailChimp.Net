@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -34,7 +35,7 @@ namespace MailChimp.Net.Models
 			};
 			SubscribeUrlLong = string.Empty;
 			SubscribeUrlShort = string.Empty;
-			Visibility = "prv";
+            Visibility = Visibility.Private;
 		}
 
 		/// <summary>
@@ -143,6 +144,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the visibility.
 		/// </summary>
 		[JsonProperty("visibility")]
-		public string Visibility { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+		public Visibility Visibility { get; set; }
 	}
 }

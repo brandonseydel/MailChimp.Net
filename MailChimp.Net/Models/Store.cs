@@ -18,6 +18,11 @@ namespace MailChimp.Net.Models
     /// </summary>
     public class Store
     {
+        public Store()
+        {
+            this.ListId
+        }
+
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
@@ -49,7 +54,7 @@ namespace MailChimp.Net.Models
         public string EmailAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the id.
+        /// The unique identifier for the store.
         /// </summary>
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -61,13 +66,14 @@ namespace MailChimp.Net.Models
         public IEnumerable<Link> Links { get; set; }
 
         /// <summary>
-        /// Gets or sets the list id.
+        /// The unique identifier for the <a href="http://developer.mailchimp.com/documentation/mailchimp/reference/lists/">MailChimp List</a> associated with the store. The list_id for a specific store cannot change.
         /// </summary>
         [JsonProperty("list_id")]
         public string ListId { get; set; }
 
         /// <summary>
         /// Gets or sets the money format.
+        /// For example: $, £, etc.
         /// </summary>
         [JsonProperty("money_format")]
         public string MoneyFormat { get; set; }
@@ -79,19 +85,20 @@ namespace MailChimp.Net.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the phone.
+        /// The store phone number.
         /// </summary>
         [JsonProperty("phone")]
         public string Phone { get; set; }
 
         /// <summary>
         /// Gets or sets the primary locale.
+        /// For example: en, de, etc.
         /// </summary>
         [JsonProperty("primary_locale")]
         public string PrimaryLocale { get; set; }
 
         /// <summary>
-        /// Gets or sets the timezone.
+        /// The timezone for the store.
         /// </summary>
         [JsonProperty("timezone")]
         public string Timezone { get; set; }

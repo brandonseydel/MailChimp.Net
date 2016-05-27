@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -75,7 +76,8 @@ namespace MailChimp.Net.Models
         /// Gets or sets the status.
         /// </summary>
         [JsonProperty("status")]
-        public string Status { get; set; }
+		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public AutomationStatus Status { get; set; }
 
         /// <summary>
         /// Gets or sets the tracking.

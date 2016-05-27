@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -91,6 +92,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the type.
         /// </summary>
         [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
         public string Type { get; set; }
     }
 }
