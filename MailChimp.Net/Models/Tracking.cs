@@ -35,7 +35,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the google analytics.
         /// </summary>
         [JsonProperty("google_analytics")]
-        public bool? GoogleAnalytics { get; set; }
+        public string GoogleAnalytics { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether html clicks.
@@ -48,6 +48,15 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("opens")]
         public bool Opens { get; set; }
+
+        [JsonProperty("salesforce")]
+        public SalesForce SalesForce { get; set; }
+
+        [JsonProperty("highrise")]
+        public HighRise HighRise { get; set; }
+
+        [JsonProperty("capsule")]
+        public Capsule Capsule { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether text clicks.

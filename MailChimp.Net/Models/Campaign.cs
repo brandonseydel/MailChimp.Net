@@ -37,6 +37,15 @@ namespace MailChimp.Net.Models
         [JsonProperty("delivery_status")]
         public DeliveryStatus DeliveryStatus { get; set; }
 
+        [JsonProperty("rss_opts")]
+        public RssOptions RssOptions { get; set; }
+
+        [JsonProperty("social_card")]
+        public SocialCard SocialCard { get; set; }
+
+        [JsonProperty("report_summary")]
+        public ReportSummary ReportSummary { get; set; }
+
         /// <summary>
         /// Gets or sets the emails sent.
         /// </summary>

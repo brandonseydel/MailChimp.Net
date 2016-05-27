@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -74,7 +74,8 @@ namespace MailChimp.Net.Models
         /// Gets the source.
         /// </summary>
         [JsonProperty("source")]
-        public string Source { get; set; }
+		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public FeedbackSource Source { get; set; }
 
         /// <summary>
         /// Gets the updated at.

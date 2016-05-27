@@ -4,6 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -23,7 +25,10 @@ namespace MailChimp.Net.Models
         /// Gets or sets the links.
         /// </summary>
         [JsonProperty("_links")]
-        public Link[] Links { get; set; }
+        public IEnumerable<Link> Links { get; set; }
+
+        [JsonProperty("variate_contents")]
+        public IEnumerable<VariateContens> VariateContents { get; set; }
 
         /// <summary>
         /// Gets or sets the plain text.
