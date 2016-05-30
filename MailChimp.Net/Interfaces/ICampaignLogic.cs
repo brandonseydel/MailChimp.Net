@@ -121,6 +121,19 @@ namespace MailChimp.Net.Interfaces
         /// </returns>
         Task TestAsync(string campaignId, CampaignTestRequest content = null);
 
+
+        ///<summary>
+        /// The test async.
+        /// </summary>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task ScheduleAsync(string campaignId, CampaignScheduleRequest content = null);
+
+
         /// <summary>
         /// The get all.
         /// </summary>

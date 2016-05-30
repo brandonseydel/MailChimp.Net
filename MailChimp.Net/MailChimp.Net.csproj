@@ -69,6 +69,7 @@
     <Compile Include="Core\Operation.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
     <Compile Include="Core\Requests\BatchRequest.cs" />
+    <Compile Include="Core\Requests\CampaignScheduleRequest.cs" />
     <Compile Include="Core\Requests\CampaignTestRequest.cs" />
     <Compile Include="Core\Requests\FileManagerFileRequest.cs" />
     <Compile Include="Core\Requests\InterestCategoryRequest.cs" />
