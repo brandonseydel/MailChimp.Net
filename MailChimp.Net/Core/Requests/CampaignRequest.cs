@@ -21,5 +21,18 @@ namespace MailChimp.Net.Core
         /// </summary>
         [QueryString("type")]
         public CampaignType? Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort_field.
+        /// </summary>
+        [QueryString("sort_field")]
+        public CampaignSortField? SortField { get; set; }
+
+        /// <summary>
+        /// Gets or sets sort_dir.
+        /// </summary>
+        [QueryString("sort_dir")]
+        public CampaignSortOrder? SortOrder { get; set; }
     }
+
 }
