@@ -17,13 +17,13 @@ namespace MailChimp.Net.Models
         /// Gets or sets the avg sub rate.
         /// </summary>
         [JsonProperty("avg_sub_rate")]
-        public int AvgSubRate { get; set; }
+        public double AvgSubRate { get; set; }
 
         /// <summary>
         /// Gets or sets the avg unsub rate.
         /// </summary>
         [JsonProperty("avg_unsub_rate")]
-        public int AvgUnsubRate { get; set; }
+        public double AvgUnsubRate { get; set; }
 
         /// <summary>
         /// Gets or sets the campaign count.
@@ -53,7 +53,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the click rate.
         /// </summary>
         [JsonProperty("click_rate")]
-        public decimal ClickRate { get; set; }
+        public double ClickRate { get; set; }
 
         /// <summary>
         /// Gets or sets the last sub date.
@@ -89,13 +89,13 @@ namespace MailChimp.Net.Models
         /// Gets or sets the open rate.
         /// </summary>
         [JsonProperty("open_rate")]
-        public decimal OpenRate { get; set; }
+        public double OpenRate { get; set; }
 
         /// <summary>
         /// Gets or sets the target sub rate.
         /// </summary>
         [JsonProperty("target_sub_rate")]
-        public int TargetSubRate { get; set; }
+        public double TargetSubRate { get; set; }
 
         /// <summary>
         /// Gets or sets the unsubscribe count.

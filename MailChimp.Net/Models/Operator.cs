@@ -95,6 +95,9 @@ namespace MailChimp.Net.Models
         [Description("follow")]
         Follow,
         [Description("notfollow")]
-        NotFollow
+        NotFollow,
+        [Description("interestcontains")]
+        InterestContains
+
     }
 }

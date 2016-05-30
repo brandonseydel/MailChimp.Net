@@ -67,6 +67,13 @@ namespace MailChimp.Net.Models
         [Description("social_influence")]
         SocialInfluence,
         [Description("social_network")]
-        SocialNetwork,
+        SocialNetwork,        
+        [Description("Date")]
+        Date,
+        [Description("Interests")]
+        Interests,
+        [Description("DateMerge")]
+        DateMerge
+
     }
 }
