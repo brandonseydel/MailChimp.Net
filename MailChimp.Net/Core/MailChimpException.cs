@@ -37,13 +37,13 @@ namespace MailChimp.Net.Core
         // ReSharper disable once UnusedParameter.Local
         public MailChimpException(SerializationInfo info, StreamingContext context)
         {
-            this.Detail = info?.GetString("detail");
-            this.Title = info?.GetString("title");
-            this.Type = info?.GetString("type");
-            this.Status = info?.GetInt32("status") ?? 0;
-            this.Instance = info?.GetString("instance");
-			try
-			{
+            try
+            {
+                this.Detail = info?.GetString("detail");
+                this.Title = info?.GetString("title");
+                this.Type = info?.GetString("type");
+                this.Status = info?.GetInt32("status") ?? 0;
+                this.Instance = info?.GetString("instance");
 				this.Errors = (List<Error>)info?.GetValue("errors", typeof(List<Error>));
 			}
 			catch
