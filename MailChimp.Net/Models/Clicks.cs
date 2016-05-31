@@ -17,7 +17,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the click rate.
         /// </summary>
         [JsonProperty("click_rate")]
-        public int ClickRate { get; set; }
+        public double ClickRate { get; set; }
 
         /// <summary>
         /// Gets or sets the clicks total.

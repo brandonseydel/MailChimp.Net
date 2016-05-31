@@ -61,12 +61,16 @@
   <ItemGroup>
     <Compile Include="Core\BaseRequest.cs" />
     <Compile Include="Core\BaseResponse.cs" />
+    <Compile Include="Core\CampaignSortOrder.cs" />
+    <Compile Include="Core\CampaignSortField.cs" />
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\HttpRequestExtensions.cs" />
     <Compile Include="Core\MailChimpException.cs" />
     <Compile Include="Core\Operation.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
     <Compile Include="Core\Requests\BatchRequest.cs" />
+    <Compile Include="Core\Requests\CampaignScheduleRequest.cs" />
+    <Compile Include="Core\Requests\CampaignTestRequest.cs" />
     <Compile Include="Core\Requests\FileManagerFileRequest.cs" />
     <Compile Include="Core\Requests\InterestCategoryRequest.cs" />
     <Compile Include="Core\Batch.cs" />

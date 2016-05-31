@@ -23,7 +23,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the open rate.
         /// </summary>
         [JsonProperty("open_rate")]
-        public int OpenRate { get; set; }
+        public double OpenRate { get; set; }
 
         /// <summary>
         /// Gets or sets the opens total.

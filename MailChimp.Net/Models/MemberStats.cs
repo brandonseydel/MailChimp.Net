@@ -10,8 +10,8 @@ namespace MailChimp.Net.Models
     public class MemberStats
     {
         [JsonProperty("avg_open_rate")]
-        public int AverageOpenRate { get; set; }
+        public double AverageOpenRate { get; set; }
         [JsonProperty("avg_click_rate")]
-        public int AverageClickRate { get; set; }
+        public double AverageClickRate { get; set; }
     }
 }
