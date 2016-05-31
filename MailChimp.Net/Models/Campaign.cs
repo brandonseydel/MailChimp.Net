@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -98,6 +99,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the type.
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public CampaignType Type { get; set; }
     }
 }

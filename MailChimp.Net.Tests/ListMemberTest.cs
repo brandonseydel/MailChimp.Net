@@ -23,19 +23,18 @@ namespace MailChimp.Net.Tests
         /// <summary>
         /// The _ticks.
         /// </summary>
-        private static readonly long _ticks = DateTime.Now.Ticks;
+        private readonly long _ticks = DateTime.Now.Ticks;
 
-        /// <summary>
-        /// The add_ new_ user_ to_ list.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        [TestMethod]
-        public async Task Add_New_User_To_List()
+        [TestInitialize]
+        public void InitilizeListMemberTest()
         {
-            await this.AddNewMember();
+            this.ClearMailChimpAsync().Wait();
+            var createdList = this._mailChimpManager.Lists.AddOrUpdateAsync(this.MailChimpList).Result;
+            this.TestList = createdList;
         }
+
+        public List TestList { get; set; }
+
 
         /// <summary>
         /// The add_ user_ to_ list.
@@ -48,8 +47,8 @@ namespace MailChimp.Net.Tests
         {
             await
                 this._mailChimpManager.Members.AddOrUpdateAsync(
-                    "72dcc9fa45", 
-                    new Member { EmailAddress = "test@test.com", Status = Status.Subscribed });
+                    this.TestList.Id, 
+                    new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed }).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -61,7 +60,8 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_Members_From_List()
         {
-            var members = await this._mailChimpManager.Members.GetAllAsync("72dcc9fa45");
+            await this.Add_User_To_List();
+            var members = await this._mailChimpManager.Members.GetAllAsync(this.TestList.Id);
             Assert.IsTrue(members.Any());
         }
 
@@ -74,21 +74,23 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_One_Unsubscribed_Member()
         {
-            var members = await this._mailChimpManager.Members.GetAllAsync("72dcc9fa45");
+            await this.Add_User_To_List();
+            await this.Add_User_To_List();
+            var members = await this._mailChimpManager.Members.GetAllAsync(this.TestList.Id);
             members.ToList().ForEach(
                 async x =>
                     {
                         x.Status = Status.Subscribed;
-                        await this._mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", x);
+                        await this._mailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, x);
                     });
 
             Assert.IsTrue(members.Count(x => x.Status == Status.Unsubscribed) == 0);
 
             var memberToUnsubscribe = members.FirstOrDefault();
             memberToUnsubscribe.Status = Status.Unsubscribed;
-            await this._mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", memberToUnsubscribe);
+            await this._mailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, memberToUnsubscribe);
 
-            members = await this._mailChimpManager.Members.GetAllAsync("72dcc9fa45");
+            members = await this._mailChimpManager.Members.GetAllAsync(this.TestList.Id);
 
             Assert.IsTrue(members.Count(x => x.Status == Status.Unsubscribed) == 1);
         }
@@ -100,12 +102,13 @@ namespace MailChimp.Net.Tests
         /// The <see cref="Task"/>.
         /// </returns>
         [TestMethod]
-        public async Task Subscribed_User_From_List()
+        public async Task UPDATE_MERGE_FIELD_SHOULD_EQUAL()
         {
-            var member = new Member { EmailAddress = "test@test.com", Status = Status.Subscribed };
-
-            member.MergeFields.Add("FNAME", "HOLY COW");
-            await this._mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
+            await this.Add_User_To_List();
+            var member = await this._mailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
+            member.MergeFields["FNAME"] = "HOLY COW";
+            var returnedMember = await this._mailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member).ConfigureAwait(false);
+            Assert.AreEqual(returnedMember.MergeFields["FNAME"], "HOLY COW");
         }
 
         /// <summary>
@@ -117,27 +120,11 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Unsubscribe_User_From_List()
         {
-            var member = new Member { EmailAddress = "test@test.com", Status = Status.Unsubscribed };
-
-            member.MergeFields.Add("FNAME", "HOLY COW");
-            await this._mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
-        }
-
-        /// <summary>
-        /// The update_ existing_ member_ from_ list.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        [TestMethod]
-        public async Task Update_Existing_Member_From_List()
-        {
-            await this.AddNewMember();
-
-            var member = new Member { Status = Status.Subscribed, EmailAddress = $"{_ticks}@test.com" };
-
-            member.MergeFields.Add("FNAME", "HOLY COW");
-            var updateMember = await this._mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
+            await this.Add_User_To_List();
+            var member = await this._mailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
+            member.Status = Status.Unsubscribed;
+            var updatedMember = await this._mailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
+            Assert.AreEqual(member.Status, updatedMember.Status);
         }
 
         /// <summary>
@@ -151,7 +138,7 @@ namespace MailChimp.Net.Tests
             var member = new Member { EmailAddress = $"{_ticks}@test.com", Status = Status.Subscribed };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
-            await this._mailChimpManager.Members.AddOrUpdateAsync("72dcc9fa45", member);
+            await this._mailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
         }
     }
 }

@@ -1,32 +1,93 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CampaignTest.cs" company="Brandon Seydel">
+// <copyright file="ConversationTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Linq;
 using System.Threading.Tasks;
 
+using MailChimp.Net.Core;
+using MailChimp.Net.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MailChimp.Net.Tests
 {
     /// <summary>
-    /// The conversation test.
+    /// The campaign test.
     /// </summary>
     [TestClass]
-    public class ConversationTest : MailChimpTest
+    public class CampaignTest : MailChimpTest
     {
         /// <summary>
-        /// The should_ return_ conversations.
+        /// The should_ get_ one_ campain_ id_ and_ get_ campaign.
         /// </summary>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
         [TestMethod]
-        public async Task Should_Return_Conversations()
+        public async Task Should_Get_One_Campain_Id_And_Get_Campaign()
         {
-            var conversations = await this._mailChimpManager.Conversations.GetAllAsync();
-            Assert.IsNotNull(conversations);
+            await this.ClearMailChimpAsync().ConfigureAwait(true);
+
+            await this._mailChimpManager.Campaigns.AddAsync(new Campaign
+            {
+                Settings = new Setting
+                {
+                    ReplyTo = "test@test.com",
+                    Title = "Get Rich or Die Trying",
+                    FromName = "TESTER",
+                    SubjectLine = "TEST"
+                },
+                Type = CampaignType.Plaintext
+            }).ConfigureAwait(false);
+
+            await this._mailChimpManager.Campaigns.AddAsync(new Campaign
+            {
+                Settings = new Setting
+                {
+                    ReplyTo = "test@test.com",
+                    Title = "Get Rich or Die Trying part 2",
+                    FromName = "TESTER",
+                    SubjectLine = "TEST"
+                },
+                Type = CampaignType.Plaintext
+            }).ConfigureAwait(false);
+
+
+
+            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 });
+            Assert.IsTrue(campaigns.Count() == 1);
+
+            var campaign = await this._mailChimpManager.Campaigns.GetAsync(campaigns.FirstOrDefault().Id);
+
+            Assert.IsNotNull(campaign);
+        }
+
+        /// <summary>
+        /// The should_ return_ campaigns.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_Campaigns()
+        {
+            var campaigns = await this._mailChimpManager.Campaigns.GetAll();
+            Assert.IsNotNull(campaigns);
+        }
+
+        /// <summary>
+        /// The should_ return_ one_ campaign.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_One_Campaign()
+        {
+            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 });
+            Assert.IsTrue(campaigns.Count() == 1);
         }
     }
 }

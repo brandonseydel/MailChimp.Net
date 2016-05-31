@@ -83,9 +83,7 @@ namespace MailChimp.Net.Core
                         .Where(x => x.GetCustomAttributes(typeof(DescriptionAttribute)).Any())
                         .FirstOrDefault(x => ((DescriptionAttribute)x.GetCustomAttribute(typeof(DescriptionAttribute))).Description == (string)reader.Value);
 
-            if (eTypeVal == null) return Enum.Parse(objectType, (string)reader.Value);
-
-            return Enum.Parse(objectType, eTypeVal.Name);
+            return Enum.Parse(objectType, eTypeVal?.Name ?? reader.Value.ToString());
         }
 
         /// <summary>

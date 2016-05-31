@@ -6,6 +6,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -37,6 +39,7 @@ namespace MailChimp.Net.Core
         // ReSharper disable once UnusedParameter.Local
         public MailChimpException(SerializationInfo info, StreamingContext context)
         {
+            var errorText = string.Empty;
             try
             {
                 this.Detail = info?.GetString("detail");
@@ -44,10 +47,20 @@ namespace MailChimp.Net.Core
                 this.Type = info?.GetString("type");
                 this.Status = info?.GetInt32("status") ?? 0;
                 this.Instance = info?.GetString("instance");
-				this.Errors = (List<Error>)info?.GetValue("errors", typeof(List<Error>));
-			}
-			catch
-			{ }
+
+                errorText =
+                    $"Title: {this.Title + Environment.NewLine} Type: {this.Type + Environment.NewLine} Status: {this.Status + Environment.NewLine} + Detail: {this.Detail + Environment.NewLine}";
+                this.Errors = (List<Error>) info?.GetValue("errors", typeof(List<Error>));
+                errorText += "Errors: " + string.Join(" : ", this.Errors.Select(x => x.Field + " " + x.Message));
+            }
+            catch
+            {
+            }
+            finally
+            {
+                Trace.Write(errorText);
+                Console.Error.WriteAsync(errorText);
+            }
 		}
 
 		public List<Error> Errors { get; set; }
