@@ -24,12 +24,6 @@ namespace MailChimp.Net.Logic
 
         private static IECommerceProductVarianceLogic _productVarianceLogic;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ECommerceLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
         public ECommerceProductLogic(string apiKey)
             : base(apiKey)
         {

@@ -9,9 +9,20 @@ namespace MailChimp.Net.Interfaces
 {
     public interface IECommerceLogic
     {
-
         IECommerceCartLogic Carts(string storeId);
+        IECommerceCustomerLogic Customers(string storeId);
+        IECommerceProductLogic Products(string storeId);
+        IECommerceOrderLogic Orders(string storeId);
 
+        /// <summary>
+        /// The add async.
+        /// </summary>
+        /// <param name="store">
+        /// The store.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         Task<Store> AddAsync(Store store);
 
         /// <summary>

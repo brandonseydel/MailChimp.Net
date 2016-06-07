@@ -72,11 +72,6 @@ namespace MailChimp.Net.Logic
             return _orders;
         }
 
-
-
-
-
-
         /// <summary>
         /// The add async.
         /// </summary>

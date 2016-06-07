@@ -22,12 +22,6 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "ecommerce/stores/{0}/carts";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ECommerceLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
         public ECommerceCartLogic(string apiKey)
             : base(apiKey)
         {
