@@ -15,7 +15,7 @@ namespace MailChimp.Net.Core
     /// <summary>
     /// The abuse report response.
     /// </summary>
-    public class AbuseReportResponse
+    public class AbuseReportResponse : BaseResponse
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AbuseReportResponse"/> class.
@@ -31,23 +31,13 @@ namespace MailChimp.Net.Core
         /// </summary>
         [JsonProperty("abuse_reports")]
         public IEnumerable<AbuseReport> AbuseReports { get; set; }
-
-        /// <summary>
-        /// Gets or sets the links.
-        /// </summary>
-        [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; set; }
+        
 
         /// <summary>
         /// Gets or sets the list id.
         /// </summary>
         [JsonProperty("list_id")]
         public string ListId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total items.
-        /// </summary>
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
+        
     }
 }

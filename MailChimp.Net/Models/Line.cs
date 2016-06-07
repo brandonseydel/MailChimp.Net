@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
     public class Line
     {
+
+        public Line()
+        {
+            this.Links = new List<Link>();
+        }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
         [JsonProperty("product_id")]
         public string ProductId { get; set; }
 
@@ -26,5 +32,8 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("price")]
         public int Price { get; set; }
+
+        [JsonProperty("_links")]
+        public IList<Link> Links { get; set; }
     }
 }

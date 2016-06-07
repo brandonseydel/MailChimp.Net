@@ -5,9 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-
-using MailChimp.Net.Models;
-
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core

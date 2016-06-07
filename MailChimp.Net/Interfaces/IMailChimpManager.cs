@@ -95,12 +95,6 @@ namespace MailChimp.Net.Interfaces
         /// </summary>
         IECommerceLogic ECommerceStores { get;  }
 
-
-        /// <summary>
-        /// Gets thet logic for e-commerce carts to call mail chimp
-        /// </summary>
-        IECommerceCartLogic ECommerceCarts { get; }
-
         /// <summary>
         /// Gets the feedback.
         /// </summary>

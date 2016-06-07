@@ -27,6 +27,11 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private string BaseUrl = "ecommerce/stores";
 
+        private static IECommerceCartLogic _carts;
+        private static IECommerceCustomerLogic _customers;
+        private static IECommerceOrderLogic _orders;
+        private static IECommerceProductLogic _products;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ECommerceLogic"/> class.
         /// </summary>
@@ -38,10 +43,38 @@ namespace MailChimp.Net.Logic
         {
         }
 
-        public IECommerceLogic Carts(IECommerceLogic logic)
+
+        public IECommerceCartLogic Carts(string storeId)
         {
-            return logic;
+            _carts = _carts ?? new ECommerceCartLogic(this._apiKey);
+            _carts.StoreId = storeId;
+            return _carts;
         }
+
+        public IECommerceCustomerLogic Customers(string storeId)
+        {
+            _customers = _customers ?? new ECommerceCustomerLogic(this._apiKey);
+            _customers.StoreId = storeId;
+            return _customers;
+        }
+
+        public IECommerceProductLogic Products(string storeId)
+        {
+            _products = _products ?? new ECommerceProductLogic(this._apiKey);
+            _products.StoreId = storeId;
+            return _products;
+        }
+
+        public IECommerceOrderLogic Orders(string storeId)
+        {
+            _orders = _orders ?? new ECommerceOrderLogic(this._apiKey);
+            _orders.StoreId = storeId;
+            return _orders;
+        }
+
+
+
+
 
 
         /// <summary>

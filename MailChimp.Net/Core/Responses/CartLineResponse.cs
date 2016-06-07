@@ -5,24 +5,28 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
-    public class CartResponse
+    public class CartLineResponse
     {
-        public CartResponse()
+
+        public CartLineResponse()
         {
-            this.Carts = new List<Cart>();
+            this.Lines = new List<Line>();
             this.Links = new List<Link>();
         }
 
         [JsonProperty("store_id")]
         public string StoreId { get; set; }
 
-        [JsonProperty("carts")]
-        public IList<Cart> Carts { get; set; }
+        [JsonProperty("cart_id")]
+        public string CartId { get; set; }
+
+        [JsonProperty("lines")]
+        public ICollection<Line> Lines { get; set; }
 
         [JsonProperty("total_items")]
         public int TotalItems { get; set; }
 
         [JsonProperty("_links")]
-        public IList<Link> Links { get; set; }
+        public ICollection<Link> Links { get; set; }
     }
 }

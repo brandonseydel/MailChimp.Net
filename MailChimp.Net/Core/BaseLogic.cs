@@ -19,7 +19,7 @@ namespace MailChimp.Net.Core
         /// <summary>
         /// The _api key.
         /// </summary>
-        private readonly string _apiKey;
+        internal readonly string _apiKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseLogic"/> class.

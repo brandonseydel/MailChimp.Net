@@ -1,40 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    public interface IECommerceLogic
+    public interface IECommerceLineLogic
     {
-
-        IECommerceCartLogic Carts(string storeId);
-
-        Task<Store> AddAsync(Store store);
+        Task<Line> AddAsync(Line line);
+        Task DeleteAsync(string lineId);
 
         /// <summary>
-        /// The delete async.
+        /// Gets only the carts from the response object
         /// </summary>
-        /// <param name="storeId">
-        /// The store id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task DeleteAsync(string storeId);
-
-        /// <summary>
-        /// The get all async.
-        /// </summary>
-        /// <param name="request">
-        /// The request.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task<IEnumerable<Store>> GetAllAsync(QueryableBaseRequest request = null);
+        /// <param name="storeId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Line>> GetAllAsync(QueryableBaseRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -48,7 +31,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Store> GetAsync(string storeId, BaseRequest request = null);
+        Task<Line> GetAsync(string lineId, BaseRequest request = null);
 
         /// <summary>
         /// The get response async.
@@ -59,7 +42,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<ECommerceResponse> GetResponseAsync(QueryableBaseRequest request = null);
+        Task<CartLineResponse> GetResponseAsync(QueryableBaseRequest request = null);
 
         /// <summary>
         /// The update async.
@@ -73,6 +56,10 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Store> UpdateAsync(string storeId, Store store);
+        Task<Line> UpdateAsync(string lineId, Line line);
+
+        string ResourceId { get; set; }
+        string StoreId { get; set; }
+        string Resource { get; set; }
     }
 }

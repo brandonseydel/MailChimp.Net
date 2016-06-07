@@ -40,7 +40,6 @@ namespace MailChimp.Net
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
             this.ECommerceStores = new ECommerceLogic(ApiKey);
-            this.ECommerceCarts = new ECommerceCartLogic(ApiKey);
             this.Feedback = new FeedBackLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
             this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
@@ -79,7 +78,6 @@ namespace MailChimp.Net
             this.Content = new ContentLogic(ApiKey);
             this.Conversations = new ConversationLogic(ApiKey);
             this.ECommerceStores = new ECommerceLogic(ApiKey);
-            this.ECommerceCarts = new ECommerceCartLogic(ApiKey);
             this.Feedback = new FeedBackLogic(ApiKey);
             this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
             this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
@@ -172,11 +170,6 @@ namespace MailChimp.Net
         /// Gets or sets the e commerce stores.
         /// </summary>
         public IECommerceLogic ECommerceStores { get; }
-        
-        /// <summary>
-        /// Gets thet logic for e-commerce carts to call mail chimp
-        /// </summary>
-        public IECommerceCartLogic ECommerceCarts { get; }
 
         /// <summary>
         /// Gets the feedback.

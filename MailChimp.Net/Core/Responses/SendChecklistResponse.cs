@@ -15,7 +15,7 @@ namespace MailChimp.Net.Core
     /// <summary>
     /// The send checklist response.
     /// </summary>
-    public class SendChecklistResponse
+    public class SendChecklistResponse : BaseResponse
     {
         /// <summary>
         /// Gets or sets the check lists.
@@ -28,11 +28,5 @@ namespace MailChimp.Net.Core
         /// </summary>
         [JsonProperty("is_ready")]
         public bool IsReady { get; set; }
-
-        /// <summary>
-        /// Gets or sets the links.
-        /// </summary>
-        [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; set; }
     }
 }
