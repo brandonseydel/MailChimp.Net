@@ -25,7 +25,7 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The base url.
         /// </summary>
-        private const string BaseUrl = "ecommerce/stores";
+        private string BaseUrl = "ecommerce/stores";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ECommerceLogic"/> class.
@@ -37,6 +37,12 @@ namespace MailChimp.Net.Logic
             : base(apiKey)
         {
         }
+
+        public IECommerceLogic Carts(IECommerceLogic logic)
+        {
+            return logic;
+        }
+
 
         /// <summary>
         /// The add async.
@@ -88,7 +94,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<IEnumerable<Store>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            return (await this.GetResponseAsync(request))?.Stores;
+            return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Stores;
         }
 
         /// <summary>
