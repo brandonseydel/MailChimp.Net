@@ -50,12 +50,6 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>Report Sent To</li>
 <li>Report Sub-Reports</li>
 <li>Report Unsubscribes</li>
-
-</ul>
-
-#TODO
--Looking to add additional functionality pending contributors.
-<ul>
 <li>ECommerce Carts</li>
 <li>ECommerce Customers</li>
 <li>ECommerce Orders</li>
@@ -63,3 +57,5 @@ IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 <li>ECommerce Products</li>
 <li>ECommerce Product Variants</li>
 </ul>
+
+#TODO - NONE
