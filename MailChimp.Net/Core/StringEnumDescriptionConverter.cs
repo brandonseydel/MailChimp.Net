@@ -104,18 +104,22 @@ namespace MailChimp.Net.Core
             if (value == null)
             {
                 writer.WriteNull();
+                return;
             }
-            else
-            {
-                var type = value.GetType();
-                var name = Enum.GetName(type, value);
-                var description = type.GetField(name) // I prefer to get attributes this way
-                    .GetCustomAttributes(false)
-                    .OfType<DescriptionAttribute>()
-                    .Select(x => x.Description)
-                    .SingleOrDefault();
-                writer.WriteValue(description ?? name);
+
+            var type = value.GetType();
+            var name = Enum.GetName(type, value);
+            if (string.IsNullOrWhiteSpace(name)) {
+                writer.WriteNull();
+                return;
             }
+
+            var description = type.GetField(name) // I prefer to get attributes this way
+                                  .GetCustomAttributes(false)
+                                  .OfType<DescriptionAttribute>()
+                                  .Select(x => x.Description)
+                                  .SingleOrDefault();
+            writer.WriteValue(description ?? name);
         }
     }
 }
