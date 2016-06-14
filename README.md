@@ -1,61 +1,52 @@
 # MailChimp.Net - A Mail Chimp 3.0 Wrapper
 
-#Nuget
-<h5>Install-Package MailChimp.Net.V3</h5>
-
-#Example
-
+### Quick Start
+Install the [NuGet package](https://www.nuget.org/packages/MailChimp.Net.V3/) from the package manager console:
+```powershell
+Install-Package MailChimp.NET
+```
+Using it in code
+```CSharp
 IMailChimpManager manager = new MailChimpManager(apiKey); //if you have it in code
 
 <add key="MailChimpApiKey" value="apiKEY" />
 IMailChimpManager manager = new MailChimpManager(); //if you have it in config
+```
 
+### Examples
 
-#About
--Used to access all of the Mail Chimp V3.0 REST API <br>
-<h5>Current Functionality</h5>
-<ul>
-<li>API</li>
-<li>Authorized Apps</li>
-<li>Automations</li>
-<li>Batch Operations</li>
-<li>Campaigns</li>
-<li>Campaign Content</li>
-<li>Campaing Feedback</li>
-<li>Campaign Folders</li>
-<li>Campaing Send Checklist</li>
-<li>Conversations</li>
-<li>Conversations Messages</li>
-<li>ECommerce Stores</li>
-<li>File Manager Files</li>
-<li>File Manager Folders</li>
-<li>Lists</li>
-<li>List Abuse Reports</li>
-<li>List Activity</li>
-<li>List Clients</li>
-<li>List Growth History</li>
-<li>List Interest Categories</li>
-<li>List Members</li>
-<li>List Segments</li>
-<li>List Web Hooks</li>
-<li>Template Folders</li>
-<li>Templates</li>
-<li>Template Default Content</li>
-<li>Reports</li>
-<li>Report Click Reports</li>
-<li>Report Domain Performance</li>
-<li>Report EepURL Reports</li>
-<li>Report Email Activity</li>
-<li>Report Location</li>
-<li>Report Sent To</li>
-<li>Report Sub-Reports</li>
-<li>Report Unsubscribes</li>
-<li>ECommerce Carts</li>
-<li>ECommerce Customers</li>
-<li>ECommerce Orders</li>
-<li>ECommerce Order Lines</li>
-<li>ECommerce Products</li>
-<li>ECommerce Product Variants</li>
-</ul>
+```CSharp
+// Instantiate new manager
+IMailChimpManager mailChimpManager = new MailChimpManager(apiKey);
+```
 
-#TODO - NONE
+##### Getting all lists:
+
+```CSharp
+var mailChimpListCollection = await this.mailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
+```
+
+##### Getting 50 Lists:
+
+```CSharp
+var mailChimpListCollection = await this.mailChimpManager.Lists.GetAllAsync(new ListRequest
+                                                               {
+                                                                   Limit = 50
+                                                               }).ConfigureAwait(false);
+```
+
+##### Getting Users from List:
+
+```CSharp
+var listId = "TestListId";
+await this._mailChimpManager.Members.GetAllAsync(listId).ConfigureAwait(false);
+```
+##### Adding User To List
+
+```CSharp
+var listId = "TestListId";
+var member = new Member { EmailAddress = $"githubTestAccount@test.com", Status = Status.Subscribed };
+member.MergeFields.Add("FNAME", "HOLY");
+member.MergeFields.Add("LNAME", "COW");
+await this.mailChimpManager.Members.AddOrUpdateAsync(listId, member);
+```
