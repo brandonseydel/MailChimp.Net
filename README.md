@@ -1,4 +1,4 @@
-# MailChimp.Net - A Mail Chimp 3.0 Wrapper
+## MailChimp.Net - A Mail Chimp 3.0 Wrapper
 
 ### Quick Start
 Install the [NuGet package](https://www.nuget.org/packages/MailChimp.Net.V3/) from the package manager console:
@@ -50,7 +50,7 @@ member.MergeFields.Add("FNAME", "HOLY");
 member.MergeFields.Add("LNAME", "COW");
 await this.mailChimpManager.Members.AddOrUpdateAsync(listId, member);
 ```
-# Status
+### Status
 Progress on full implementation
 
 - API **100%**
