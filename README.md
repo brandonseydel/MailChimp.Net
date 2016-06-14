@@ -39,7 +39,7 @@ var mailChimpListCollection = await this.mailChimpManager.Lists.GetAllAsync(new 
 
 ```CSharp
 var listId = "TestListId";
-await this._mailChimpManager.Members.GetAllAsync(listId).ConfigureAwait(false);
+await this.mailChimpManager.Members.GetAllAsync(listId).ConfigureAwait(false);
 ```
 ##### Adding User To List
 
