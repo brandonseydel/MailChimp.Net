@@ -52,46 +52,48 @@ await this.mailChimpManager.Members.AddOrUpdateAsync(listId, member);
 ```
 # Status
 Progress on full implementation
-<ul>
-<li>API **100%**</li>
-<li>Authorized Apps **100%**</li>
-<li>Automations **100%**</li>
-<li>Batch Operations **100%**</li>
-<li>Campaigns **100%**</li>
-<li>Campaign Content **100%**</li>
-<li>Campaing Feedback **100%**</li>
-<li>Campaign Folders **100%**</li>
-<li>Campaing Send Checklist **100%**</li>
-<li>Conversations **100%**</li>
-<li>Conversations Messages **100%**</li>
-<li>ECommerce Stores **100%**</li>
-<li>File Manager Files **100%**</li>
-<li>File Manager Folders **100%**</li>
-<li>Lists **100%**</li>
-<li>List Abuse Reports **100%**</li>
-<li>List Activity **100%**</li>
-<li>List Clients **100%**</li>
-<li>List Growth History **100%**</li>
-<li>List Interest Categories **100%**</li>
-<li>List Members **100%**</li>
-<li>List Segments **100%**</li>
-<li>List Web Hooks **100%**</li>
-<li>Template Folders **100%**</li>
-<li>Templates **100%**</li>
-<li>Template Default Content **100%**</li>
-<li>Reports **100%**</li>
-<li>Report Click Reports **100%**</li>
-<li>Report Domain Performance **100%**</li>
-<li>Report EepURL Reports **100%**</li>
-<li>Report Email Activity **100%**</li>
-<li>Report Location **100%**</li>
-<li>Report Sent To **100%**</li>
-<li>Report Sub-Reports **100%**</li>
-<li>Report Unsubscribes **100%**</li>
-<li>ECommerce Carts **100%**</li>
-<li>ECommerce Customers **100%**</li>
-<li>ECommerce Orders **100%**</li>
-<li>ECommerce Order Lines **100%**</li>
-<li>ECommerce Products **100%**</li>
-<li>ECommerce Product Variants **100%**</li>
-</ul>
+
+- API **100%**
+- Authorized Apps **100%**
+- Automations **100%**
+- Batch Operations **100%**
+- Campaigns **100%**
+- Campaign Content **100%**
+- Campaing Feedback **100%**
+- Campaign Folders **100%**
+- Campaing Send Checklist **100%**
+- Conversations **100%**
+- Conversations Messages **100%**
+- ECommerce Stores **100%**
+- File Manager Files **100%**
+- File Manager Folders **100%**
+- Lists **100%**
+- List Abuse Reports **100%**
+- List Activity **100%**
+- List Clients **100%**
+- List Growth History **100%**
+- List Interest Categories **100%**
+- List Members **100%**
+- List Segments **100%**
+- List Web Hooks **100%**
+- Template Folders **100%**
+- Templates **100%**
+- Template Default Content **100%**
+- Reports **100%**
+- Report Click Reports **100%**
+- Report Domain Performance **100%**
+- Report EepURL Reports **100%**
+- Report Email Activity **100%**
+- Report Location **100%**
+- Report Sent To **100%**
+- Report Sub-Reports **100%**
+- Report Unsubscribes **100%**
+- ECommerce Carts **100%**
+- ECommerce Customers **100%**
+- ECommerce Orders **100%**
+- ECommerce Order Lines **100%**
+- ECommerce Products **100%**
+- ECommerce Product Variants **100%**
+
+
+Total **100%**
