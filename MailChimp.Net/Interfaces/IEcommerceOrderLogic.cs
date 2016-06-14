@@ -34,7 +34,7 @@ namespace MailChimp.Net.Interfaces
         /// <param name="storeId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<IEnumerable<Order>> GetAllAsync(QueryableBaseRequest request = null);
+        Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -59,7 +59,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<StoreOrderResponse> GetResponseAsync(QueryableBaseRequest request = null);
+        Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null);
 
         /// <summary>
         /// The update async.

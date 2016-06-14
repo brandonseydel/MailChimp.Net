@@ -75,6 +75,7 @@
     <Compile Include="Core\Requests\InterestCategoryRequest.cs" />
     <Compile Include="Core\Batch.cs" />
     <Compile Include="Core\Requests\ListSegmentRequest.cs" />
+    <Compile Include="Core\Requests\OrderRequest.cs" />
     <Compile Include="Core\Requests\Segment.cs" />
     <Compile Include="Core\Requests\MergeFieldRequest.cs" />
     <Compile Include="Core\Responses\BatchResponse.cs" />

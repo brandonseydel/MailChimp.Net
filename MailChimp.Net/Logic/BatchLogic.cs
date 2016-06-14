@@ -69,6 +69,16 @@ namespace MailChimp.Net.Logic
 			}
 		}
 
+	    public async Task DeleteAsync(string batchId)
+	    {
+            using (var client = this.CreateMailClient("batches/"))
+            {
+                var response = await client.DeleteAsync($"{batchId}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            }
+        }
+
+
 		public async Task<Batch> GetBatchStatus(string batchId)
 		{
 			using (var client = this.CreateMailClient($"batches/{batchId}"))

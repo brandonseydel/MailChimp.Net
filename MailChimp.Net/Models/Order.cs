@@ -37,11 +37,24 @@ namespace MailChimp.Net.Models
         [JsonProperty("tax_total")]
         public double TaxTotal { get; set; }
 
+        [JsonProperty("shipping_total")]
+        public double ShippingTotal { get; set; }
+
+        [JsonProperty("tracking_code")]
+        public string TrackingCode { get; set; }
+
         [JsonProperty("processed_at_foreign")]
         public string ProcessedAtForeign { get; set; }
 
         [JsonProperty("cancelled_at_foreign")]
         public string CancelledAtForeign { get; set; }
+
+        [JsonProperty("shipping_address")]
+        public Address ShippingAddress { get; set; }
+
+        [JsonProperty("billing_address")]
+        public Address BillingAddress { get; set; }
+
 
         [JsonProperty("updated_at_foreign")]
         public string UpdatedAtForeign { get; set; }

@@ -82,7 +82,7 @@ namespace MailChimp.Net.Logic
         /// <param name="storeId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Order>> GetAllAsync(QueryableBaseRequest request = null)
+        public async Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null)
         {
             return (await GetResponseAsync(request).ConfigureAwait(false))?.Orders;
         }
@@ -122,7 +122,7 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<StoreOrderResponse> GetResponseAsync(QueryableBaseRequest request = null)
+        public async Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null)
         {
             var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
