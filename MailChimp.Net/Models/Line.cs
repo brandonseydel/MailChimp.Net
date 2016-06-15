@@ -31,7 +31,7 @@ namespace MailChimp.Net.Models
         public int Quantity { get; set; }
 
         [JsonProperty("price")]
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }

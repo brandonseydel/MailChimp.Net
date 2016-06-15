@@ -19,7 +19,7 @@ namespace MailChimp.Net.Models
         public string Sku { get; set; }
 
         [JsonProperty("price")]
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         [JsonProperty("inventory_quantity")]
         public int InventoryQuantity { get; set; }
