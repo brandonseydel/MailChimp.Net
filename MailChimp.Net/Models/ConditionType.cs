@@ -22,6 +22,8 @@ namespace MailChimp.Net.Models
         EmailClient,
         [Description("language")]
         Language,
+        [Description("Mandrill")]
+        Mandrill,
         [Description("rating")]
         MemberRating,
         [Description("source")]
@@ -32,6 +34,8 @@ namespace MailChimp.Net.Models
         VIP,
         [Description("ecomm_cat")]
         EcommCategory,
+        [Description("EcommNumber")]
+        EcommNumber,
         [Description("ecomm_prod")]
         EcommProduct,
         [Description("ecomm_spent_avg")]
@@ -58,8 +62,18 @@ namespace MailChimp.Net.Models
         FuzzySegment,
         [Description("static_segment")]
         StaticSegment,
+        [Description("IPGeoCountryState")]
+        IPGeoCountryState,
         [Description("ipgeo")]
         IPGeo,
+        [Description("IPGeoIn")]
+        IPGeoIn,
+        [Description("IPGeoInZip")]
+        IPGeoInZip,
+        [Description("IPGeoUnknown")]
+        IPGeoUnknown,
+        [Description("IPGeoZip")]
+        IPGeoZip,
         [Description("social_age")]
         SocialAge,
         [Description("social_gender")]
@@ -67,11 +81,23 @@ namespace MailChimp.Net.Models
         [Description("social_influence")]
         SocialInfluence,
         [Description("social_network")]
-        SocialNetwork,        
+        SocialNetwork,
+        [Description("AddressMerge")]
+        AddressMerge,
+        [Description("ZipMerge")]
+        ZipMerge,
+        [Description("BirthdayMerge")]
+        BirthdayMerge,
         [Description("Date")]
         Date,
         [Description("Interests")]
         Interests,
+        [Description("TextMerge")]
+        TextMerge,
+        [Description("SelectMerge")]
+        SelectMerge,
+        [Description("EmailAddress")]
+        EmailAddress,
         [Description("DateMerge")]
         DateMerge
 
