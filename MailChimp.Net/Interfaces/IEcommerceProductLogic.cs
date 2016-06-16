@@ -65,5 +65,7 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task<Product> UpdateAsync(string productId, Product product);
+
+        IECommerceProductVarianceLogic Variances(string productId);
     }
 }
