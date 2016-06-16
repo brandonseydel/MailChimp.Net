@@ -66,6 +66,7 @@
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\HttpRequestExtensions.cs" />
     <Compile Include="Core\MailChimpException.cs" />
+    <Compile Include="Core\MailChimpNotFoundException.cs" />
     <Compile Include="Core\Operation.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
     <Compile Include="Core\Requests\BatchRequest.cs" />

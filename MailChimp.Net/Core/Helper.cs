@@ -6,6 +6,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -36,6 +37,11 @@ namespace MailChimp.Net.Core
         {
             if (!response.IsSuccessStatusCode)
             {
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri} ");
+                }
+
                 throw (await response.Content.ReadAsStreamAsync().ConfigureAwait(false)).Deserialize<MailChimpException>();
             }
         }
