@@ -3,7 +3,7 @@
 ### Quick Start
 Install the [NuGet package](https://www.nuget.org/packages/MailChimp.Net.V3/) from the package manager console:
 ```powershell
-Install-Package MailChimp.NET
+Install-Package MailChimp.Net.V3
 ```
 Using it in code
 ```CSharp
