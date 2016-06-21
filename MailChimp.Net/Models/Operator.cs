@@ -97,7 +97,16 @@ namespace MailChimp.Net.Models
         [Description("notfollow")]
         NotFollow,
         [Description("interestcontains")]
+<<<<<<< HEAD
         InterestContains
+=======
+        InterestContains,
+        [Description("interestcontainsall")]
+        InterestcontainsAll,
+        [Description("interestnotcontains")]
+        InterestNotContains
+
+>>>>>>> refs/remotes/origin/pr/42
 
     }
 }

@@ -5,6 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+<<<<<<< HEAD
+=======
+
+using MailChimp.Net.Models;
+
+>>>>>>> refs/remotes/origin/pr/42
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core

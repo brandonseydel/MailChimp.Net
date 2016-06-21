@@ -39,7 +39,10 @@ namespace MailChimp.Net.Core
         // ReSharper disable once UnusedParameter.Local
         public MailChimpException(SerializationInfo info, StreamingContext context)
         {
+<<<<<<< HEAD
             var errorText = string.Empty;
+=======
+>>>>>>> refs/remotes/origin/pr/42
             try
             {
                 this.Detail = info?.GetString("detail");
@@ -47,6 +50,7 @@ namespace MailChimp.Net.Core
                 this.Type = info?.GetString("type");
                 this.Status = info?.GetInt32("status") ?? 0;
                 this.Instance = info?.GetString("instance");
+<<<<<<< HEAD
 
                 errorText =
                     $"Title: {this.Title + Environment.NewLine} Type: {this.Type + Environment.NewLine} Status: {this.Status + Environment.NewLine} + Detail: {this.Detail + Environment.NewLine}";
@@ -61,6 +65,12 @@ namespace MailChimp.Net.Core
                 Trace.Write(errorText);
                 Console.Error.WriteAsync(errorText);
             }
+=======
+				this.Errors = (List<Error>)info?.GetValue("errors", typeof(List<Error>));
+			}
+			catch
+			{ }
+>>>>>>> refs/remotes/origin/pr/42
 		}
 
 		public List<Error> Errors { get; set; }
