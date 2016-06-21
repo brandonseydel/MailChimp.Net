@@ -63,7 +63,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.PostAsJsonAsync(segmentId, member).ConfigureAwait(false);
+                var response = await client.PostAsJsonAsync(segmentId + "/members", member).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var memberResponse = await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
@@ -84,7 +84,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.GetAsync(segmentId + request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(segmentId + "/members" + request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var memberResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
