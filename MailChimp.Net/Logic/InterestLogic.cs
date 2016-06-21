@@ -203,6 +203,30 @@ namespace MailChimp.Net.Logic
             }
         }
 
+        public async Task<Interest> AddOrUpdateAsync(Interest list)
+        {
+            using (var client = this.CreateMailClient("lists/"))
+            {
+                System.Net.Http.HttpResponseMessage response;
+                if (string.IsNullOrWhiteSpace(list.Id))
+                {
+                    response = await client.PostAsJsonAsync(
+                                         $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests",
+                                         list).ConfigureAwait(false);
+                }
+                else
+                {
+                    response = await client.PatchAsJsonAsync(
+                                        $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests/{list.Id}",
+                                        list).ConfigureAwait(false);
+                }
+
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
+            }
+        }
+
+
         /// <summary>
         /// The update async.
         /// </summary>

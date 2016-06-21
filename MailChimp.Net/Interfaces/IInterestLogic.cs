@@ -36,6 +36,9 @@ namespace MailChimp.Net.Interfaces
         /// </returns>
         Task DeleteAsync(string listId, string interestCategoryId, string interestId);
 
+
+        Task<Interest> AddOrUpdateAsync(Interest list);
+
         /// <summary>
         /// The get all async.
         /// </summary>
