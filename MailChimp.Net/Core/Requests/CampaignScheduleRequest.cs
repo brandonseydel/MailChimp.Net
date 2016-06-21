@@ -5,12 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-<<<<<<< HEAD
-=======
 
 using MailChimp.Net.Models;
-
->>>>>>> refs/remotes/origin/pr/42
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
@@ -38,8 +34,5 @@ namespace MailChimp.Net.Core
         /// </summary>
         [JsonProperty("batch_delivery")]
         public bool? BatchDelivery { get; set; }
-
-
-
     }
 }

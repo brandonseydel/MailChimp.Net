@@ -81,9 +81,6 @@ namespace MailChimp.Net.Models
         [Description("social_influence")]
         SocialInfluence,
         [Description("social_network")]
-<<<<<<< HEAD
-        SocialNetwork,        
-=======
         SocialNetwork,
         [Description("AddressMerge")]
         AddressMerge,
@@ -91,20 +88,16 @@ namespace MailChimp.Net.Models
         ZipMerge,
         [Description("BirthdayMerge")]
         BirthdayMerge,
->>>>>>> refs/remotes/origin/pr/42
         [Description("Date")]
         Date,
         [Description("Interests")]
         Interests,
-<<<<<<< HEAD
-=======
         [Description("TextMerge")]
         TextMerge,
         [Description("SelectMerge")]
         SelectMerge,
         [Description("EmailAddress")]
         EmailAddress,
->>>>>>> refs/remotes/origin/pr/42
         [Description("DateMerge")]
         DateMerge
 

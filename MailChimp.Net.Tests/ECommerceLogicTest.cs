@@ -28,8 +28,7 @@ namespace MailChimp.Net.Tests
             var apiInfo = await this._mailChimpManager.ECommerceStores.Carts("asdfd").GetAllAsync();
             Assert.IsNotNull(apiInfo);
 
-
-            await this._mailChimpManager.ECommerceStores.Products("storeId").Variances("productId")
+            //await this._mailChimpManager.ECommerceStores.Products("storeId").Variances("productId");
 
         }
     }
