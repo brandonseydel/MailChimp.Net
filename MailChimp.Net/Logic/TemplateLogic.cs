@@ -61,6 +61,27 @@ namespace MailChimp.Net.Logic
             }
         }
 
+        public async Task<Template> CreateAsync(string name, string folderId, string html)
+        {
+            using (var client = this.CreateMailClient("templates/"))
+            {
+                var response = await client.PostAsJsonAsync("", new { name, folder_id = folderId, html }).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);                
+            }
+        }
+
+        public async Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null)
+        {
+            using (var client = this.CreateMailClient("templates/"))
+            {
+                var response = await client.GetAsync($"{templateId}/default-content{request?.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
+
+        }
+
         /// <summary>
         /// The get all async.
         /// </summary>

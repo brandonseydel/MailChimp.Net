@@ -58,7 +58,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/abuse-reports{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var appResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
@@ -94,7 +94,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/abuse-reports{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var appResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
@@ -133,7 +133,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);

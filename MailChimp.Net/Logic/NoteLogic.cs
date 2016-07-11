@@ -104,7 +104,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.DeleteAsync(
-                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/notes/{noteId}{request.ToQueryString()}");
+                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/notes/{noteId}{request?.ToQueryString()}");
                 await response.EnsureSuccessMailChimpAsync();
             }
         }

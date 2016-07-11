@@ -30,6 +30,9 @@ namespace MailChimp.Net.Interfaces
         /// </returns>
         Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null);
 
+        Task<Template> CreateAsync(string name, string folderId, string html);
+        Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null);
+
         /// <summary>
         /// The get async.
         /// </summary>

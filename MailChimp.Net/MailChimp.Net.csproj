@@ -83,6 +83,7 @@
     <Compile Include="Core\Responses\CampaignFolderResponse.cs" />
     <Compile Include="Core\Responses\CartLineResponse.cs" />
     <Compile Include="Core\Responses\CartResponse.cs" />
+    <Compile Include="Core\Responses\DefaultContentResponse.cs" />
     <Compile Include="Core\Responses\ECommerceResponse.cs" />
     <Compile Include="Core\Responses\FileManagerFileResponse.cs" />
     <Compile Include="Core\Responses\FileManagerFolderResponse.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Models\RssOptions.cs" />
     <Compile Include="Models\SalesForce.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\Section.cs" />
     <Compile Include="Models\SocialCard.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\TemplateType.cs" />

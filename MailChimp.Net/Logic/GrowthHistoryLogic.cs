@@ -60,7 +60,7 @@ namespace MailChimp.Net.Logic
             using (var client = this.CreateMailClient("lists/"))
             {
                 var response =
-                    await client.GetAsync($"{listId}/growth-history{request.ToQueryString()}").ConfigureAwait(false);
+                    await client.GetAsync($"{listId}/growth-history{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var appResponse = await response.Content.ReadAsAsync<GrowthHistoryResponse>().ConfigureAwait(false);
@@ -97,7 +97,7 @@ namespace MailChimp.Net.Logic
             using (var client = this.CreateMailClient("lists/"))
             {
                 var response =
-                    await client.GetAsync($"{listId}/growth-history{request.ToQueryString()}").ConfigureAwait(false);
+                    await client.GetAsync($"{listId}/growth-history{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var appResponse = await response.Content.ReadAsAsync<GrowthHistoryResponse>().ConfigureAwait(false);
@@ -138,7 +138,7 @@ namespace MailChimp.Net.Logic
             {
                 var response =
                     await
-                    client.GetAsync($"{listId}/growth-history/month{request.ToQueryString()}").ConfigureAwait(false);
+                    client.GetAsync($"{listId}/growth-history/month{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<History>().ConfigureAwait(false);

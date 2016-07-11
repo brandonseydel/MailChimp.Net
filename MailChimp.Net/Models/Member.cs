@@ -17,6 +17,13 @@ namespace MailChimp.Net.Models
 	/// </summary>
 	public class Member
 	{
+        public Member()
+        {
+            this.MergeFields = new Dictionary<string, string>();
+            this.Links = new List<Link>();
+            this.Interests = new Dictionary<string, bool>();
+        }
+
 		/// <summary>
 		/// Gets or sets the email address.
 		/// </summary>

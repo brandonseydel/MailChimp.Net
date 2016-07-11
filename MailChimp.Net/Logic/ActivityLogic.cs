@@ -49,7 +49,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/activity{request.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/activity{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var appResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
@@ -76,7 +76,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/activity{request.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/activity{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var appResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);

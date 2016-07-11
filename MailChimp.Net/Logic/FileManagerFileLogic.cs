@@ -114,7 +114,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {
-                var response = await client.GetAsync($"{fileId}{request.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{fileId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var fileManagerFile = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
