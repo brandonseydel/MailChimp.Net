@@ -22,7 +22,6 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
         public async Task Should_Return_App_Information()
         {
             var apiInfo = await this._mailChimpManager.ECommerceStores.Carts("asdfd").GetAllAsync();

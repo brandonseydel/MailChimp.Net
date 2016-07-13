@@ -46,7 +46,7 @@ namespace MailChimp.Net.Models
         NotBlank,
         [Description("contains")]
         Contains,
-        [Description("notcontains")]
+        [Description("notcontain")]
         DoesNotContain,
         [Description("starts")]
         Starts,
