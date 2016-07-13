@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Net;
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 // ReSharper disable UnusedMember.Local
@@ -316,6 +317,37 @@ namespace MailChimp.Net.Logic
                 var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// The get async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddress">
+        /// The email address.
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task<bool> ExistsAsync(string listId, string emailAddress, BaseRequest request = null)
+        {
+            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            {
+                var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return false;
             }
         }
 

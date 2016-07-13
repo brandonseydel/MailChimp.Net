@@ -66,6 +66,45 @@ namespace MailChimp.Net.Tests
         }
 
         /// <summary>
+        /// The should_ return_true_if_member_exists_in_list.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_True_If_Member_Exists_In_List()
+        {
+            var emailAddress = $"{this._ticks}@test.com";
+            await
+                this._mailChimpManager.Members.AddOrUpdateAsync(
+                    this.TestList.Id,
+                    new Member { EmailAddress = emailAddress, Status = Status.Subscribed }).ConfigureAwait(false);
+
+            var exists = await this._mailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress);
+            Assert.IsTrue(exists);
+        }
+
+        /// <summary>
+        /// The should_ return_false_if_member_does_not_exist_in_list.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_False_If_Member_Does_Not_Exists_In_List()
+        {
+            var emailAddress1 = $"{this._ticks}1@test.com";
+            var emailAddress2 = $"{this._ticks}2@test.com";
+            await
+                this._mailChimpManager.Members.AddOrUpdateAsync(
+                    this.TestList.Id,
+                    new Member { EmailAddress = emailAddress1, Status = Status.Subscribed }).ConfigureAwait(false);
+
+            var exists = await this._mailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress2);
+            Assert.IsFalse(exists);
+        }
+
+        /// <summary>
         /// The should_ return_ one_ unsubscribed_ member.
         /// </summary>
         /// <returns>
