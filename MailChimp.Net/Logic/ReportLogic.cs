@@ -616,15 +616,28 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<SentTo>> GetSentToRecipientsAsync(string campaignId, QueryableBaseRequest request = null)
         {
+            return (await this.GetSentToRecipientResponseAsync(campaignId, request))?.Recipients;
+        }
+
+
+        /// <summary>
+        /// Gets the entire response for a sent to response
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<SentToResponse> GetSentToRecipientResponseAsync(string campaignId, QueryableBaseRequest request = null)
+        {
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response = await client.GetAsync($"{campaignId}/sent-to{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var sendToResponse = await response.Content.ReadAsAsync<SentToResponse>().ConfigureAwait(false);
-                return sendToResponse.Recipients;
+                return sendToResponse;
             }
         }
+
 
         /// <summary>
         /// The get sub report async.
