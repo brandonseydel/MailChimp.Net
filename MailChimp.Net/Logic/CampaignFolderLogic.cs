@@ -23,7 +23,7 @@ namespace MailChimp.Net.Logic
     internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
     {
 
-        private const string BaseUrl = "campagin-folders";
+        private const string BaseUrl = "campaign-folders";
 
         public CampaignFolderLogic(string apiKey)
             : base(apiKey)
