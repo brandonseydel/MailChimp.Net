@@ -616,7 +616,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<SentTo>> GetSentToRecipientsAsync(string campaignId, QueryableBaseRequest request = null)
         {
-            return (await this.GetSentToRecipientResponseAsync(campaignId, request))?.Recipients;
+            return (await this.GetSentToRecipientsResponseAsync(campaignId, request))?.Recipients;
         }
 
 
@@ -626,7 +626,7 @@ namespace MailChimp.Net.Logic
         /// <param name="campaignId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<SentToResponse> GetSentToRecipientResponseAsync(string campaignId, QueryableBaseRequest request = null)
+        public async Task<SentToResponse> GetSentToRecipientsResponseAsync(string campaignId, QueryableBaseRequest request = null)
         {
             using (var client = this.CreateMailClient("reports/"))
             {

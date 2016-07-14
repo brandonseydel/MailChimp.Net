@@ -19,7 +19,7 @@ namespace MailChimp.Net.Interfaces
     /// </summary>
     public interface IReportLogic
     {
-        Task<SentToResponse> GetSentToRecipientResponseAsync(string campaignId, QueryableBaseRequest request = null);
+        Task<SentToResponse> GetSentToRecipientsResponseAsync(string campaignId, QueryableBaseRequest request = null);
         Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null);
         Task<IEnumerable<Advice>> GetCampaignAdviceAsync(string campaignId, BaseRequest request = null);
         Task<IEnumerable<UrlClicked>> GetClickReportAsync(string campaignId, QueryableBaseRequest request = null);
