@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
@@ -30,7 +31,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the create time.
         /// </summary>
         [JsonProperty("create_time")]
-        public string CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the delivery status.
@@ -75,7 +76,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the send time.
         /// </summary>
         [JsonProperty("send_time")]
-        public string SendTime { get; set; }
+        public DateTime? SendTime { get; set; }
 
         /// <summary>
         /// Gets or sets the settings.
