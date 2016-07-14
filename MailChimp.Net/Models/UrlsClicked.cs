@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
@@ -45,7 +46,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the last click.
         /// </summary>
         [JsonProperty("last_click")]
-        public string LastClick { get; set; }
+        public DateTime? LastClick { get; set; }
 
         /// <summary>
         /// Gets or sets the links.

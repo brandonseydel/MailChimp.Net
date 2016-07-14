@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -17,7 +18,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the last open.
         /// </summary>
         [JsonProperty("last_open")]
-        public string LastOpen { get; set; }
+        public DateTime? LastOpen { get; set; }
 
         /// <summary>
         /// Gets or sets the open rate.
