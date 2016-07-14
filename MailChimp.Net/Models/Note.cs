@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System;
 
 namespace MailChimp.Net.Models
 {
@@ -23,7 +24,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the created at.
 		/// </summary>
 		[JsonProperty("created_at")]
-		public string CreatedAt { get; set; }
+		public DateTime? CreatedAt { get; set; }
 
 		/// <summary>
 		/// Gets or sets the created by.
@@ -67,7 +68,7 @@ namespace MailChimp.Net.Models
 		public MemberLastNote()
 		{
 			Body = string.Empty;
-			CreatedAt = string.Empty;
+            CreatedAt = null;
 			CreatedBy = string.Empty;
 		}
 
@@ -87,7 +88,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the created at.
 		/// </summary>
 		[JsonProperty("created_at")]
-		public string CreatedAt { get; set; }
+		public DateTime? CreatedAt { get; set; }
 
 		/// <summary>
 		/// Gets or sets the created by.

@@ -43,10 +43,10 @@ namespace MailChimp.Net.Models
         public int Size { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
-        public string CreatedBy { get; set; }
+        public DateTime? CreatedBy { get; set; }
 
         [JsonProperty("width")]
         public int Width { get; set; }

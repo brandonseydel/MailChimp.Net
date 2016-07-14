@@ -12,9 +12,9 @@ namespace MailChimp.Net.Core
         [QueryString("created_by")]
         public string CreatedBy { get; set; }
         [QueryString("before_created_at")]
-        public string BeforeCreatedAt { get; set; }
+        public DateTime? BeforeCreatedAt { get; set; }
         [QueryString("since_created_at")]
-        public string SinceCreatedAt { get; set; }
+        public DateTime? SinceCreatedAt { get; set; }
 
     }
 }

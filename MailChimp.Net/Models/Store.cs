@@ -33,7 +33,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the created at.
         /// </summary>
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the currency code.
@@ -107,6 +107,6 @@ namespace MailChimp.Net.Models
         /// Gets or sets the updated at.
         /// </summary>
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

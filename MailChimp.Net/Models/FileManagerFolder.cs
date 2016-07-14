@@ -22,7 +22,7 @@ namespace MailChimp.Net.Models
         public int FileCount { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
         public string CreatedBy { get; set; }

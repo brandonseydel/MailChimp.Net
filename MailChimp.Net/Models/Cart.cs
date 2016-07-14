@@ -38,7 +38,7 @@ namespace MailChimp.Net.Models
         public ICollection<Line> Lines { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }

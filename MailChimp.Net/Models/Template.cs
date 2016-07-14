@@ -93,6 +93,6 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumDescriptionConverter))]
-        public string Type { get; set; }
+        public TemplateType Type { get; set; }
     }
 }

@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using MailChimp.Net.Core;
 using Newtonsoft.Json;
+using System;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 namespace MailChimp.Net.Models
@@ -32,7 +33,7 @@ namespace MailChimp.Net.Models
         /// Gets the created at.
         /// </summary>
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         /// <summary>
         /// Gets the created by.
@@ -81,6 +82,6 @@ namespace MailChimp.Net.Models
         /// Gets the updated at.
         /// </summary>
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

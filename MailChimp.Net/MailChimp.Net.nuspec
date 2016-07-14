@@ -12,7 +12,10 @@
     <description>$description$</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright © 2016</copyright>
-    <tags>Mail Chimp 3.0 MailChimp v3.0 MailChimp.Net.V3</tags>
+    <tags>MailChimp Mail Chimp 3.0 MailChimp v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</tags>
+    <summary>
+      A  very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.
+    </summary>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="8.0.3" />
       <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.3" />

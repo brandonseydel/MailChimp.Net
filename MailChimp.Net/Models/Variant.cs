@@ -34,10 +34,10 @@ namespace MailChimp.Net.Models
         public string Visibility { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }
