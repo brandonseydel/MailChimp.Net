@@ -60,7 +60,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the updated at.
 		/// </summary>
 		[JsonProperty("updated_at")]
-		public string UpdatedAt { get; set; }
+		public DateTime? UpdatedAt { get; set; }
 	}
 
 	public class MemberLastNote

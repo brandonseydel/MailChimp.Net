@@ -41,7 +41,7 @@ namespace MailChimp.Net.Models
         public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("_links")]
         public ICollection<Link> Links { get; set; }
