@@ -50,7 +50,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the folder id.
         /// </summary>
         [JsonProperty("folder_id")]
-        public int FolderId { get; set; }
+        public string FolderId { get; set; }
 
         /// <summary>
         /// Gets or sets the id.
