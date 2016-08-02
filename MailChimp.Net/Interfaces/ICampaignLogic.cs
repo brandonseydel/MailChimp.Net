@@ -181,5 +181,6 @@ namespace MailChimp.Net.Interfaces
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         Task<CampaignResponse> GetResponseAsync(CampaignRequest request = null);
+        Task<SendChecklistResponse> SendChecklistAsync(string id);
     }
 }
