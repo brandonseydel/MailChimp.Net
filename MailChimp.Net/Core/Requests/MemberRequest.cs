@@ -16,6 +16,12 @@ namespace MailChimp.Net.Core
         [QueryString("email_type")]
         public string EmailType { get; set; }
 
+        [QueryString("unique_email_id")]
+        public string UniqueEmailId { get; set; }
+
+        [QueryString("vip_only")]
+        public bool VipOnly { get; set; }
+
         [QueryString("status")]
         public Status? Status { get; set; }
 
