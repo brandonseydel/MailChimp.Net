@@ -664,7 +664,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Report>> GetSubReportAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("reports"))
+            using (var client = this.CreateMailClient("reports/"))
             {
                 var response = await client.GetAsync($"{campaignId}/sub-reports{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -714,7 +714,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddress, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("reports"))
+            using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
                     await
@@ -751,7 +751,7 @@ namespace MailChimp.Net.Logic
             string campaignId,
             QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("reports"))
+            using (var client = this.CreateMailClient("reports/"))
             {
                 var response = await client.GetAsync($"{campaignId}/unsubscribed{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
