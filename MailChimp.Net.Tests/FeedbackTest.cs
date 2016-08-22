@@ -15,5 +15,9 @@ namespace MailChimp.Net.Tests
     /// </summary>
     [TestClass]
     public class FeedbackTest : MailChimpTest
-    {}
+    {
+        
+        
+
+    }
 }
