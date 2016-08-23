@@ -53,11 +53,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<Folder> AddAsync(string folderId, string name)
+        public async Task<Folder> AddAsync(string name)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = this.CreateMailClient("template-folders"))
             {
-                var response = await client.PostAsJsonAsync($"{folderId}", new { name }).ConfigureAwait(false);
+                var response = await client.PostAsJsonAsync("", new { name }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<Folder>().ConfigureAwait(false);
@@ -84,7 +84,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Folder> DeleteAsync(string folderId)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = this.CreateMailClient("template-folders/"))
             {
                 var response = await client.DeleteAsync($"{folderId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -183,7 +183,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Folder> GetAsync(string folderId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = this.CreateMailClient("template-folders/"))
             {
                 var response = await client.GetAsync($"{folderId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -214,7 +214,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Folder> UpdateAsync(string folderId, string name)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = this.CreateMailClient("template-folders/"))
             {
                 var response = await client.PatchAsJsonAsync($"{folderId}", new { name }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

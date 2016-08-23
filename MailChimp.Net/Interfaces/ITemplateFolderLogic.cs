@@ -31,7 +31,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Folder> AddAsync(string folderId, string name);
+        Task<Folder> AddAsync(string name);
 
         /// <summary>
         /// The delete async.
