@@ -60,7 +60,7 @@ namespace MailChimp.Net.Models
         GoalTimestamp,
         [Description("fuzzy_segment")]
         FuzzySegment,
-        [Description("static_segment")]
+        [Description("StaticSegment")]
         StaticSegment,
         [Description("IPGeoCountryState")]
         IPGeoCountryState,
