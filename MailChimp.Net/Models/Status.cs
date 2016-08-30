@@ -13,9 +13,6 @@ namespace MailChimp.Net.Models
     /// </summary>
     public enum Status
     {
-
-        [Description("")]
-        None,
         /// <summary>
         /// The subscribed.
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -26,7 +27,8 @@ namespace MailChimp.Net.Models
         public string CheckoutUrl { get; set; }
 
         [JsonProperty("currency_code")]
-        public string CurrencyCode { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public CurrencyCode CurrencyCode { get; set; }
 
         [JsonProperty("order_total")]
         public double OrderTotal { get; set; }

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -39,7 +40,8 @@ namespace MailChimp.Net.Models
         /// Gets or sets the currency code.
         /// </summary>
         [JsonProperty("currency_code")]
-        public string CurrencyCode { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public CurrencyCode CurrencyCode { get; set; }
 
         /// <summary>
         /// Gets or sets the domain.

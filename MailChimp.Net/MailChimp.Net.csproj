@@ -63,6 +63,7 @@
     <Compile Include="Core\BaseResponse.cs" />
     <Compile Include="Core\CampaignSortOrder.cs" />
     <Compile Include="Core\CampaignSortField.cs" />
+    <Compile Include="Core\CurrencyCode.cs" />
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\HttpRequestExtensions.cs" />
     <Compile Include="Core\MailChimpException.cs" />
