@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 using MailChimp.Net.Models;
 
@@ -18,21 +19,16 @@ namespace MailChimp.Net.Core
     public class ContentRequest
     {
         /// <summary>
-        /// Gets or sets the archive.
+        /// Available when uploading an archive to create campaign content. The archive should include all campaign content and images.
+        /// <a href="http://kb.mailchimp.com/campaigns/ways-to-build/import-a-zip-file-to-create-a-campaign?utm_source=mc-api&amp;utm_medium=docs&amp;utm_campaign=apidocs&amp;_ga=1.69087766.629889474.1468257895">Learn More.</a>
         /// </summary>
         public Archive Archive { get; set; }
 
         /// <summary>
-        /// Gets or sets the html.
+        /// The raw HTML for the campaign.
         /// </summary>
         [JsonProperty("html")]
         public string Html { get; set; }
-
-        /// <summary>
-        /// Gets or sets the links.
-        /// </summary>
-        [JsonProperty("_links")]
-        public Link[] Links { get; set; }
 
         /// <summary>
         /// Gets or sets the plain text.
@@ -41,8 +37,21 @@ namespace MailChimp.Net.Core
         public string PlainText { get; set; }
 
         /// <summary>
-        /// Gets or sets the template.
+        /// When importing a campaign, the URL where the HTML lives.
         /// </summary>
-        public Template Template { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        /// <summary>
+        /// Content options for Multivariate Campaigns. Each content option must provide HTML content and may optionally provide plain text.
+        /// For campaigns not testing content, only one object should be provided.
+        /// </summary>
+        [JsonProperty("variate_contents")]
+        public IEnumerable<VariateContents> VariateContents { get; set; }
+
+        /// <summary>
+        ///	Use this template to generate the HTML content of the campaign
+        /// </summary>
+        public ContentTemplate Template { get; set; }
     }
 }

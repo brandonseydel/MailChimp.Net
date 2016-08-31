@@ -17,7 +17,7 @@
       A  very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.
     </summary>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="8.0.3" />
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
       <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.3" />
     </dependencies>
   </metadata>

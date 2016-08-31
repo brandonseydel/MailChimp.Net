@@ -20,7 +20,7 @@ namespace MailChimp.Net.Models
         /// </summary>
         public EmailActivity()
         {
-            this.Activity = new HashSet<Activity>();
+            this.Activity = new HashSet<MemberActivity>();
             this.Links = new HashSet<Link>();
         }
 
@@ -28,7 +28,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the activity.
         /// </summary>
         [JsonProperty("activity")]
-        public IEnumerable<Activity> Activity { get; set; }
+        public IEnumerable<MemberActivity> Activity { get; set; }
 
         /// <summary>
         /// Gets or sets the campaign id.

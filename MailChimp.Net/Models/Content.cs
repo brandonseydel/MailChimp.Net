@@ -26,8 +26,10 @@ namespace MailChimp.Net.Models
         [JsonProperty("_links")]
         public IEnumerable<Link> Links { get; set; }
 
+        /// <summary>
+        /// </summary>
         [JsonProperty("variate_contents")]
-        public IEnumerable<VariateContens> VariateContents { get; set; }
+        public IEnumerable<VariateContents> VariateContents { get; set; }
 
         /// <summary>
         /// Gets or sets the plain text.
