@@ -20,7 +20,7 @@ namespace MailChimp.Net.Models
         EcommDate,
         [Description("email_client")]
         EmailClient,
-        [Description("language")]
+        [Description("Language")]
         Language,
         [Description("Mandrill")]
         Mandrill,
