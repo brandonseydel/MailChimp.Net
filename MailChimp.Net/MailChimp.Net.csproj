@@ -116,6 +116,7 @@
     <Compile Include="Logic\ECommerceProductVarianceLogic.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AutomationStatus.cs" />
+    <Compile Include="Models\BatchDelivery.cs" />
     <Compile Include="Models\CampaignAction.cs" />
     <Compile Include="Models\Capsule.cs" />
     <Compile Include="Models\Cart.cs" />

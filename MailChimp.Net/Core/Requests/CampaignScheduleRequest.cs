@@ -30,9 +30,9 @@ namespace MailChimp.Net.Core
         public bool? Timewarp { get; set; }
 
         /// <summary>
-        /// Choose whether the campaign should use Batch Delivery. Cannot be set to true for campaigns using Timewarp. 
+        /// Choose whether the campaign should use Batch Delivery. Cannot be set to <see langword="true"/> for campaigns using Timewarp. 
         /// </summary>
         [JsonProperty("batch_delivery")]
-        public bool? BatchDelivery { get; set; }
+        public BatchDelivery BatchDelivery { get; set; }
     }
 }
