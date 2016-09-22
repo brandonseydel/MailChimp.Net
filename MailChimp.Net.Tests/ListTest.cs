@@ -25,6 +25,12 @@ namespace MailChimp.Net.Tests
         {
             var allLists = await this._mailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
             await Task.WhenAll(allLists.Select(x => this._mailChimpManager.Lists.DeleteAsync(x.Id))).ConfigureAwait(false);
+
+            var campaignResponse = await _mailChimpManager.Campaigns.GetResponseAsync();
+            var link = campaignResponse.Links.FirstOrDefault(x => x.Rel.ToLower().Equals("self"))?.Href;
+
+
+
         }
 
         [TestMethod]

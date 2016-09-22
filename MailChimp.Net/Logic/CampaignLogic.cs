@@ -323,10 +323,32 @@ namespace MailChimp.Net.Logic
 		{
 			using (var client = this.CreateMailClient("campaigns/"))
 			{
+                string dashboardLink = string.Empty;
 				var response = await client.GetAsync($"{id}").ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-				return await response.Content.ReadAsAsync<Campaign>().ConfigureAwait(false);
+                IEnumerable<string> linkValues;
+                if (response.Headers.TryGetValues("Link", out linkValues))
+                {
+                    var linkValue = linkValues?.FirstOrDefault();
+                    var dashboardLinkSection = linkValue?.Split(';')?.FirstOrDefault(x => x.Contains("show"));
+
+                    if (!string.IsNullOrWhiteSpace(dashboardLinkSection))
+                    {
+                        var indexOfFirstCarrot = dashboardLinkSection.IndexOf("<") + 1;
+                        var indexOfSecondCarrot = dashboardLinkSection.IndexOf(">");
+
+                        if (indexOfFirstCarrot > -1 && indexOfSecondCarrot > indexOfFirstCarrot)
+                        {
+                            dashboardLink = dashboardLinkSection?.Substring(indexOfFirstCarrot, indexOfSecondCarrot - indexOfFirstCarrot);
+                        }
+                    }
+                }
+
+				var campaign = await response.Content.ReadAsAsync<Campaign>().ConfigureAwait(false);
+
+                campaign.DashboardLink = dashboardLink;
+                return campaign;
 			}
 		}
 
@@ -375,16 +397,16 @@ namespace MailChimp.Net.Logic
 			}
 		}
 
-        public async Task<ReplicateResponse> ReplicateCampaignAsync(string campaignId)
-        {
+		public async Task<ReplicateResponse> ReplicateCampaignAsync(string campaignId)
+		{
 
-            using (var client = this.CreateMailClient("campaigns/"))
-            {
+			using (var client = this.CreateMailClient("campaigns/"))
+			{
 				var response = await client.PostAsync($"{campaignId}/actions/replicate", null).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<ReplicateResponse>().ConfigureAwait(false);
-            }
-        }
+				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+				return await response.Content.ReadAsAsync<ReplicateResponse>().ConfigureAwait(false);
+			}
+		}
 
 
 
