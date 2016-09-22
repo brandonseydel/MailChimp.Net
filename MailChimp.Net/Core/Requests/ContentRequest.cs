@@ -52,6 +52,7 @@ namespace MailChimp.Net.Core
         /// <summary>
         ///	Use this template to generate the HTML content of the campaign
         /// </summary>
+        [JsonProperty("template")]
         public ContentTemplate Template { get; set; }
     }
 }
