@@ -331,13 +331,19 @@ namespace MailChimp.Net.Logic
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<bool> ExistsAsync(string listId, string emailAddress, BaseRequest request = null)
+        public async Task<bool> ExistsAsync(string listId, string emailAddress, BaseRequest request = null, bool falseIfUnsubscribed = true)
         {
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
+                    if (falseIfUnsubscribed)
+                    {
+                        var member = await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
+                        return member.Status != Status.Unsubscribed;
+                    }
+
                     return true;
                 }
 
