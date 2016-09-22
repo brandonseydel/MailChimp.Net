@@ -45,18 +45,18 @@ namespace MailChimp.Net.Interfaces
 		Task<Campaign> AddOrUpdateAsync(Campaign campaign);
 		Task<Campaign> AddAsync(Campaign campaign);
 		Task<Campaign> UpdateAsync(string campaignId, Campaign campaign);
+        Task<ReplicateResponse> ReplicateCampaignAsync(string campaignId);
 
-
-		/// <summary>
-		/// The cancel async.
-		/// </summary>
-		/// <param name="campaignId">
-		/// The campaign id.
-		/// </param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		Task CancelAsync(string campaignId);
+        /// <summary>
+        /// The cancel async.
+        /// </summary>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task CancelAsync(string campaignId);
 
         /// <summary>
         /// The delete async.

@@ -64,6 +64,7 @@
     <Compile Include="Core\BaseResponse.cs" />
     <Compile Include="Core\CampaignSortOrder.cs" />
     <Compile Include="Core\CampaignSortField.cs" />
+    <Compile Include="Common.cs" />
     <Compile Include="Core\CurrencyCode.cs" />
     <Compile Include="Core\EmailAction.cs" />
     <Compile Include="Core\Helper.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Core\Responses\ListSegmentResponse.cs" />
     <Compile Include="Core\Responses\MergeFieldResponse.cs" />
     <Compile Include="Core\Responses\ProductVariantResponse.cs" />
+    <Compile Include="Core\Responses\ReplicateResponse.cs" />
     <Compile Include="Core\Responses\StoreCustomerResponse.cs" />
     <Compile Include="Core\Responses\StoreOrderResponse.cs" />
     <Compile Include="Core\Responses\StoreProductResponse.cs" />
