@@ -56,6 +56,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{listId}/abuse-reports{request?.ToQueryString()}").ConfigureAwait(false);

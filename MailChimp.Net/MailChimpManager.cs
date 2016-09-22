@@ -17,6 +17,27 @@ namespace MailChimp.Net
     /// </summary>
     public class MailChimpManager : MailManagerBase, IMailChimpManager
     {
+        public static int Limit { get; private set; }
+
+
+        /// <summary>
+        /// Sets the limit on all GetAllAsync responses with QueryableBaseRequest
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        public IMailChimpManager Configure(MailChimpConfiguration config)
+        {
+            Limit = config.Limit == 0 ? int.MaxValue : config.Limit;
+            this.ApiKey = string.IsNullOrWhiteSpace(config.ApiKey) ? this.ApiKey : config.ApiKey;            
+            return this;
+        }
+
+        public static IMailChimpManager Create(MailChimpConfiguration config)
+        {
+            var mailChimpManager = (new MailChimpManager()).Configure(config);
+            return mailChimpManager;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MailChimpManager"/> class.
         /// </summary>

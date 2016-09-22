@@ -16,7 +16,7 @@ namespace MailChimp.Net.Core
         /// <summary>
         /// The _api key.
         /// </summary>
-        private static string _apiKey;
+        private string _apiKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
@@ -39,7 +39,7 @@ namespace MailChimp.Net.Core
         /// <summary>
         /// Gets or sets the api key.
         /// </summary>
-        protected static string ApiKey
+        protected string ApiKey
         {
             get
             {

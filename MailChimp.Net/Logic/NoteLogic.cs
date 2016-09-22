@@ -129,6 +129,11 @@ namespace MailChimp.Net.Logic
             string emailAddress,
             QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("lists/"))
             {
                 var response =

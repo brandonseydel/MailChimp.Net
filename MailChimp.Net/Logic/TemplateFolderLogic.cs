@@ -115,6 +115,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("template-folders"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

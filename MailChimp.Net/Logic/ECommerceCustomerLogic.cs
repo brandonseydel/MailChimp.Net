@@ -77,6 +77,11 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<IEnumerable<Customer>> GetAllAsync(QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             return (await GetResponseAsync(request).ConfigureAwait(false))?.Customers;
         }
 

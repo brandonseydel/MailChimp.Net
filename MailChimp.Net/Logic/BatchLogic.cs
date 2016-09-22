@@ -43,7 +43,12 @@ namespace MailChimp.Net.Logic
 
 		public async Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null)
 		{
-			using (var client = this.CreateMailClient("batches"))
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
+            using (var client = this.CreateMailClient("batches"))
 			{
 				var response =
 					await

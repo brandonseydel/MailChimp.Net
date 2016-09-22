@@ -82,6 +82,11 @@ namespace MailChimp.Net.Logic
 
         public async Task<MemberResponse> GetMemberResponseAsync(string listId, string segmentId, QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.GetAsync(segmentId + "/members" + request?.ToQueryString()).ConfigureAwait(false);

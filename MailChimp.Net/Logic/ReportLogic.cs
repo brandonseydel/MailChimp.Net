@@ -158,6 +158,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<UrlClicked>> GetClickReportAsync(string campaignId, QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response = await client.GetAsync($"{campaignId}/click-details{request?.ToQueryString()}").ConfigureAwait(false);
@@ -296,6 +301,11 @@ namespace MailChimp.Net.Logic
             string linkId,
             QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
@@ -403,6 +413,11 @@ namespace MailChimp.Net.Logic
             string campaignId,
             QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response = await client.GetAsync($"{campaignId}/email-activity{request?.ToQueryString()}").ConfigureAwait(false);
@@ -581,6 +596,11 @@ namespace MailChimp.Net.Logic
             string emailAddress,
             QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
@@ -616,6 +636,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<SentTo>> GetSentToRecipientsAsync(string campaignId, QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             return (await this.GetSentToRecipientsResponseAsync(campaignId, request))?.Recipients;
         }
 
@@ -751,6 +776,11 @@ namespace MailChimp.Net.Logic
             string campaignId,
             QueryableBaseRequest request = null)
         {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response = await client.GetAsync($"{campaignId}/unsubscribed{request?.ToQueryString()}").ConfigureAwait(false);

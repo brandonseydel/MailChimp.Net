@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs" />
     <Compile Include="Core\BaseRequest.cs" />
     <Compile Include="Core\BaseResponse.cs" />
     <Compile Include="Core\CampaignSortOrder.cs" />

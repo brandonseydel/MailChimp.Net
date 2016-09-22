@@ -46,6 +46,12 @@ namespace MailChimp.Net.Logic
 
         public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
         {
+
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = MailChimpManager.Limit
+            };
+
             using (var client = this.CreateMailClient(BaseUrl))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
