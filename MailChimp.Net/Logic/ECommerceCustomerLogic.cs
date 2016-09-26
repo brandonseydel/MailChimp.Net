@@ -30,6 +30,12 @@ namespace MailChimp.Net.Logic
         public ECommerceCustomerLogic(string apiKey)
             : base(apiKey)
         {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public ECommerceCustomerLogic(string apiKey, int _limit) : this(apiKey)
+        {
+            this._limit = _limit;
         }
 
         /// <summary>
@@ -77,11 +83,6 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<IEnumerable<Customer>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
             return (await GetResponseAsync(request).ConfigureAwait(false))?.Customers;
         }
 
@@ -122,6 +123,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<StoreCustomerResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
+
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {

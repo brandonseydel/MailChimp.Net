@@ -15,10 +15,10 @@ namespace MailChimp.Net.Logic
             get { return $"ecommerce/stores/{this.StoreId}/{this.Resource}/{this.ResourceId}/lines"; }
         }
 
-        internal ECommerceLineLogic(string apiKey) : base(apiKey)
+        public ECommerceLineLogic(string apiKey, int _limit = 0) : base(apiKey,  _limit == 0 ? MailChimpConfiguration.DefaultLimit : _limit)
         {
+            this._limit = _limit;
         }
-
 
         public async Task<Line> AddAsync(Line line)
         {
@@ -49,11 +49,6 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<IEnumerable<Line>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
             return (await GetResponseAsync(request).ConfigureAwait(false))?.Lines;
         }
 
@@ -93,6 +88,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<CartLineResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
+
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = CreateMailClient(BaseUrl))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

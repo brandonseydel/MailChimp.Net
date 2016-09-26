@@ -20,9 +20,15 @@ namespace MailChimp.Net.Logic
     internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
     {
         private const string BaseUrl = "file-manager/folders";
+        
 
         public FileManagerFolderLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public FileManagerFolderLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -41,19 +47,16 @@ namespace MailChimp.Net.Logic
 
         public async Task<IEnumerable<FileManagerFolder>> GetAllAsync(FileManagerRequest request = null)
         {
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var fileManagerFolderResponse =
-                    await response.Content.ReadAsAsync<FileManagerFolderResponse>().ConfigureAwait(false);
-                return fileManagerFolderResponse.Folders;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
         }
 
         public async Task<FileManagerFolderResponse> GetResponseAsync(FileManagerRequest request = null)
         {
+            request = request ?? new FileManagerRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = CreateMailClient(BaseUrl))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

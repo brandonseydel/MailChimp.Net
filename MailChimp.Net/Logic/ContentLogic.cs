@@ -20,6 +20,8 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class ContentLogic : BaseLogic, IContentLogic
     {
+        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContentLogic"/> class.
         /// </summary>
@@ -28,6 +30,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public ContentLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public ContentLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 

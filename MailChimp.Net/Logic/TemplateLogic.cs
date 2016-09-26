@@ -22,6 +22,8 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class TemplateLogic : BaseLogic, ITemplateLogic
     {
+        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateLogic"/> class.
         /// </summary>
@@ -30,6 +32,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public TemplateLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public TemplateLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -117,14 +124,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null)
         {
-            using (var client = this.CreateMailClient("templates"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var templateResponse = await response.Content.ReadAsAsync<TemplateResponse>().ConfigureAwait(false);
-                return templateResponse.Templates;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Templates;
         }
 
         /// <summary>

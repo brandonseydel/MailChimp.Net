@@ -21,6 +21,9 @@ namespace MailChimp.Net.Core
         /// </summary>
         internal readonly string _apiKey;
 
+        internal int _limit;
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseLogic"/> class.
         /// </summary>
@@ -31,6 +34,13 @@ namespace MailChimp.Net.Core
         {
             this._apiKey = apiKey;
         }
+
+        protected BaseLogic(string apiKey, int limit)
+        {
+            this._apiKey = apiKey;
+            _limit = limit;
+        }
+
 
         /// <summary>
         /// The _data center.

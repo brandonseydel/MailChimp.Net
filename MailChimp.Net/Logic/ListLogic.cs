@@ -21,6 +21,7 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class ListLogic : BaseLogic, IListLogic
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ListLogic"/> class.
         /// </summary>
@@ -29,6 +30,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public ListLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public ListLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -118,14 +124,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var listResponse = await response.Content.ReadAsAsync<ListResponse>().ConfigureAwait(false);
-                return listResponse.Lists;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Lists;
         }
 
         /// <summary>
@@ -150,6 +149,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<ListResponse> GetResponseAsync(ListRequest request = null)
         {
+            request = new ListRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient("lists"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

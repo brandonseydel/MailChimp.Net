@@ -21,6 +21,7 @@ namespace MailChimp.Net.Logic
     /// </summary>
     public class InterestLogic : BaseLogic, IInterestLogic
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="InterestLogic"/> class.
         /// </summary>
@@ -29,6 +30,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public InterestLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public InterestLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -98,22 +104,7 @@ namespace MailChimp.Net.Logic
             string interestCategoryId,
             QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
-            using (var client = this.CreateMailClient("lists/"))
-            {
-                var response =
-                    await
-                    client.GetAsync(
-                        $"{listId}/interest-categories/{interestCategoryId}/interests{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var listResponse = await response.Content.ReadAsAsync<InterestResponse>().ConfigureAwait(false);
-                return listResponse.Interests;
-            }
+            return (await GetResponseAsync(listId, interestCategoryId, request).ConfigureAwait(false))?.Interests;
         }
 
 
@@ -148,6 +139,12 @@ namespace MailChimp.Net.Logic
             string interestCategoryId,
             QueryableBaseRequest request = null)
         {
+
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient("lists/"))
             {
                 var response =

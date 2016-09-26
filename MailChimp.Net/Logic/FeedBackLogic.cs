@@ -21,6 +21,8 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     {
+        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FeedBackLogic"/> class.
         /// </summary>
@@ -29,6 +31,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public FeedBackLogic(string apiKey)
             : base(apiKey)
+        {
+            _limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public FeedBackLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -118,14 +125,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var listResponse = await response.Content.ReadAsAsync<FeedBackResponse>().ConfigureAwait(false);
-                return listResponse.Feedback;
-            }
+            return (await GetResponseAsync(campaignId, request).ConfigureAwait(false))?.Feedback;
         }
 
 

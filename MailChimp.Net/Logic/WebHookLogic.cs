@@ -25,7 +25,7 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The base url.
         /// </summary>
-        private const string BaseUrl = "/lists/{0}/webhooks";
+        private const string BaseUrl = "/lists/{0}/webhooks";        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebHookLogic"/> class.
@@ -35,6 +35,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public WebHookLogic(string apiKey) : base(apiKey)
         {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public WebHookLogic(string apiKey, int limit) : base(apiKey, limit)
+        {            
         }
 
         /// <summary>
@@ -90,7 +95,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<IEnumerable<WebHook>> GetAllAsync(string listId)
         {
-            return (await this.GetResponseAsync(listId))?.Webhooks;
+            return (await this.GetResponseAsync(listId).ConfigureAwait(false))?.Webhooks;
         }
 
         /// <summary>

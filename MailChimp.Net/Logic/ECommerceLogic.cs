@@ -31,6 +31,7 @@ namespace MailChimp.Net.Logic
         private static IECommerceCustomerLogic _customers;
         private static IECommerceOrderLogic _orders;
         private static IECommerceProductLogic _products;
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ECommerceLogic"/> class.
@@ -43,31 +44,34 @@ namespace MailChimp.Net.Logic
         {
         }
 
+        public ECommerceLogic(string apiKey, int limit) : base(apiKey, limit)
+        {
+        }
 
         public IECommerceCartLogic Carts(string storeId)
         {
-            _carts = _carts ?? new ECommerceCartLogic(this._apiKey);
+            _carts = _carts ?? new ECommerceCartLogic(this._apiKey, base._limit);            
             _carts.StoreId = storeId;
             return _carts;
         }
 
         public IECommerceCustomerLogic Customers(string storeId)
         {
-            _customers = _customers ?? new ECommerceCustomerLogic(this._apiKey);
+            _customers = _customers ?? new ECommerceCustomerLogic(this._apiKey, base._limit);
             _customers.StoreId = storeId;
             return _customers;
         }
 
         public IECommerceProductLogic Products(string storeId)
         {
-            _products = _products ?? new ECommerceProductLogic(this._apiKey);
+            _products = _products ?? new ECommerceProductLogic(this._apiKey, base._limit);
             _products.StoreId = storeId;
             return _products;
         }
 
         public IECommerceOrderLogic Orders(string storeId)
         {
-            _orders = _orders ?? new ECommerceOrderLogic(this._apiKey);
+            _orders = _orders ?? new ECommerceOrderLogic(this._apiKey, base._limit);
             _orders.StoreId = storeId;
             return _orders;
         }
@@ -122,11 +126,6 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<IEnumerable<Store>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
             return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Stores;
         }
 
@@ -165,6 +164,11 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<ECommerceResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient(BaseUrl))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

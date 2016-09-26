@@ -22,6 +22,8 @@ namespace MailChimp.Net.Logic
     /// </summary>
     public class NoteLogic : BaseLogic, INoteLogic
     {
+        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NoteLogic"/> class.
         /// </summary>
@@ -30,6 +32,10 @@ namespace MailChimp.Net.Logic
         /// </param>
         public NoteLogic(string apiKey)
             : base(apiKey)
+        {
+        }
+
+        public NoteLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -129,22 +135,7 @@ namespace MailChimp.Net.Logic
             string emailAddress,
             QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
-            using (var client = this.CreateMailClient("lists/"))
-            {
-                var response =
-                    await
-                    client.GetAsync(
-                        $"{listId}/members/{this.Hash(emailAddress.ToLower())}/notes{request?.ToQueryString()}");
-                await response.EnsureSuccessMailChimpAsync();
-
-                var noteResponse = await response.Content.ReadAsAsync<NoteResponse>();
-                return noteResponse.Notes;
-            }
+            return (await GetResponseAsync(listId, emailAddress, request).ConfigureAwait(false))?.Notes;
         }
 
         /// <summary>
@@ -167,6 +158,12 @@ namespace MailChimp.Net.Logic
             string emailAddress,
             QueryableBaseRequest request = null)
         {
+
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient("lists/"))
             {
                 var response =

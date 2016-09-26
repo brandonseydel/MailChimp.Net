@@ -27,11 +27,16 @@ namespace MailChimp.Net.Logic
         public ECommerceProductLogic(string apiKey)
             : base(apiKey)
         {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public ECommerceProductLogic(string apiKey, int limit) : base(apiKey, limit)
+        {
         }
 
         public IECommerceProductVarianceLogic Variances(string productId)
         {
-            _productVarianceLogic = _productVarianceLogic ?? new ECommerceProductVarianceLogic(this._apiKey);
+            _productVarianceLogic = _productVarianceLogic ?? new ECommerceProductVarianceLogic(this._apiKey, base._limit);
             _productVarianceLogic.StoreId = this.StoreId;
             _productVarianceLogic.ProductId = productId;
             return _productVarianceLogic;
@@ -75,11 +80,6 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
             return (await GetResponseAsync(request).ConfigureAwait(false))?.Products;
         }
 
@@ -120,6 +120,11 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {

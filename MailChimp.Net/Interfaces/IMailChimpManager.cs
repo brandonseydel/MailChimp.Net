@@ -10,8 +10,9 @@ namespace MailChimp.Net.Interfaces
     /// </summary>
     public interface IMailChimpManager
     {
-        IMailChimpManager Configure(MailChimpConfiguration config);
+        int Limit { get; }
 
+        IMailChimpManager Configure(MailChimpConfiguration config);
 
         /// <summary>
         /// Gets the api.

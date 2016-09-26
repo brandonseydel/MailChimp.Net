@@ -22,6 +22,8 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
     {
+        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizedAppLogic"/> class.
         /// </summary>
@@ -31,6 +33,11 @@ namespace MailChimp.Net.Logic
         public AuthorizedAppLogic(string apiKey)
             : base(apiKey)
         {
+            _limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public AuthorizedAppLogic(string apiKey, int limit) : base(apiKey, limit)
+        {            
         }
 
         /// <summary>
@@ -86,14 +93,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<App>> GetAllAsync(AuthorizedAppRequest request = null)
         {
-            using (var client = this.CreateMailClient("authorized-apps"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var appResponse = await response.Content.ReadAsAsync<AuthorizedAppResponse>().ConfigureAwait(false);
-                return appResponse.Apps;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Apps;
         }
 
         /// <summary>
@@ -118,6 +118,12 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<AuthorizedAppResponse> GetResponseAsync(AuthorizedAppRequest request = null)
         {
+
+            request = request ?? new AuthorizedAppRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient("authorized-apps"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

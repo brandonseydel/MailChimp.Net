@@ -21,6 +21,8 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class AutomationEmailLogic : BaseLogic, IAutomationEmailLogic
     {
+        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AutomationEmailLogic"/> class.
         /// </summary>
@@ -29,6 +31,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public AutomationEmailLogic(string apiKey)
             : base(apiKey)
+        {
+            _limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public AutomationEmailLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -50,14 +57,8 @@ namespace MailChimp.Net.Logic
         /// Custom Mail Chimp Exception
         /// </exception>
         public async Task<IEnumerable<Email>> GetAllAsync(string workflowId)
-        {
-            using (var client = this.CreateMailClient("automations"))
-            {
-                var response = await client.GetAsync($"{workflowId}/emails").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var automationResponse = await response.Content.ReadAsAsync<AutomationEmailResponse>().ConfigureAwait(false);
-                return automationResponse.Emails;
-            }
+        {            
+            return (await GetResponseAsync(workflowId).ConfigureAwait(false))?.Emails;
         }
 
         /// <summary>

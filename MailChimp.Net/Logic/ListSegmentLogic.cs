@@ -12,8 +12,11 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "/lists/{0}/segments";
 
-
         public ListSegmentLogic(string apiKey) : base(apiKey)
+        {
+        }
+
+        public ListSegmentLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -31,12 +34,16 @@ namespace MailChimp.Net.Logic
 
         public async Task<IEnumerable<ListSegment>> GetAllAsync(string listId, ListSegmentRequest request = null)
         {
-            var response = await this.GetResponseAsync(listId, request);
-            return response.Segments;
+            return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Segments;
         }
 
         public async Task<ListSegmentResponse> GetResponseAsync(string listId, ListSegmentRequest request = null)
         {
+            request = new ListSegmentRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
@@ -84,7 +91,7 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = MailChimpManager.Limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
@@ -99,8 +106,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<IEnumerable<Member>> GetAllMembersAsync(string listId, string segmentId, QueryableBaseRequest request = null)
         {
-            var response = await GetMemberResponseAsync(listId, segmentId, request);
-            return response.Members;
+            return (await GetMemberResponseAsync(listId, segmentId, request).ConfigureAwait(false))?.Members;
         }
 
 

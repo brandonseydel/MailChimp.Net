@@ -21,6 +21,7 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class AutomationLogic : BaseLogic, IAutomationLogic
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AutomationLogic"/> class.
         /// </summary>
@@ -29,6 +30,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public AutomationLogic(string apiKey)
             : base(apiKey)
+        {
+            _limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public AutomationLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -54,18 +60,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
-            using (var client = this.CreateMailClient("automations"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var automationResponse = await response.Content.ReadAsAsync<AutomationResponse>().ConfigureAwait(false);
-                return automationResponse.Automations;
-            }
+            return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Automations;
         }
 
 
@@ -91,6 +86,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<AutomationResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient("automations"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

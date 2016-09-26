@@ -25,6 +25,11 @@ namespace MailChimp.Net.Logic
         public ECommerceCartLogic(string apiKey)
             : base(apiKey)
         {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public ECommerceCartLogic(string apiKey, int limit) : base(apiKey, limit)
+        {
         }
 
         /// <summary>
@@ -50,7 +55,7 @@ namespace MailChimp.Net.Logic
 
         public IECommerceLineLogic Lines(string cartId)
         {
-            _cartLogic = _cartLogic ?? new ECommerceLineLogic(this._apiKey);
+            _cartLogic = _cartLogic ?? new ECommerceLineLogic(this._apiKey, base._limit);
             _cartLogic.Resource = "carts";
             _cartLogic.ResourceId = cartId;
             _cartLogic.StoreId = this.StoreId;
@@ -84,12 +89,7 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<IEnumerable<Cart>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
-            return (await GetResponseAsync(request).ConfigureAwait(false))?.Carts;
+            return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Carts;
         }
 
         /// <summary>
@@ -129,6 +129,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<CartResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
+
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {

@@ -4,9 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
+using System.Linq;
 
 // ReSharper disable CommentTypo
 // ReSharper disable IdentifierTypo
@@ -17,7 +19,6 @@ namespace MailChimp.Net
     /// </summary>
     public class MailChimpManager : MailManagerBase, IMailChimpManager
     {
-        public static int Limit { get; private set; }
 
 
         /// <summary>
@@ -27,8 +28,9 @@ namespace MailChimp.Net
         /// <returns></returns>
         public IMailChimpManager Configure(MailChimpConfiguration config)
         {
-            Limit = config.Limit == 0 ? int.MaxValue : config.Limit;
-            this.ApiKey = string.IsNullOrWhiteSpace(config.ApiKey) ? this.ApiKey : config.ApiKey;            
+            this.Limit = config.Limit == 0 ? MailChimpConfiguration.DefaultLimit : config.Limit;
+            this.ApiKey = string.IsNullOrWhiteSpace(config.ApiKey) ? this.ApiKey : config.ApiKey;
+            typeof(MailChimpManager).GetProperties().Select(x => x.GetValue(this)).OfType<BaseLogic>().ToList().ForEach(x => x._limit = this.Limit);
             return this;
         }
 
@@ -46,37 +48,37 @@ namespace MailChimp.Net
         /// </param>
         public MailChimpManager(string apiKey) : base(apiKey)
         {
-            this.Activities = new ActivityLogic(ApiKey);
-            this.AbuseReports = new AbuseReportLogic(ApiKey);
-            this.Api = new ApiLogic(ApiKey);
-            this.Apps = new AuthorizedAppLogic(ApiKey);
-            this.AutomationEmails = new AutomationEmailLogic(ApiKey);
-            this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
-            this.Automations = new AutomationLogic(ApiKey);
-            this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
-            this.Batches = new BatchLogic(ApiKey);
-            this.Campaigns = new CampaignLogic(ApiKey);
-            this.CampaignFolders = new CampaignFolderLogic(ApiKey);
-            this.Clients = new ClientLogic(ApiKey);
-            this.Content = new ContentLogic(ApiKey);
-            this.Conversations = new ConversationLogic(ApiKey);
-            this.ECommerceStores = new ECommerceLogic(ApiKey);
-            this.Feedback = new FeedBackLogic(ApiKey);
-            this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
-            this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
-            this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
-            this.InterestCategories = new InterestCategoryLogic(ApiKey);
-            this.Interests = new InterestLogic(ApiKey);
-            this.Lists = new ListLogic(ApiKey);
-            this.ListSegments = new ListSegmentLogic(ApiKey);
-            this.Members = new MemberLogic(ApiKey);
-            this.MergeFields = new MergeFieldLogic(ApiKey);
-            this.Messages = new MessageLogic(ApiKey);
-            this.Notes = new NoteLogic(ApiKey);
-            this.Reports = new ReportLogic(ApiKey);
-            this.TemplateFolders = new TemplateFolderLogic(ApiKey);
-            this.Templates = new TemplateLogic(ApiKey);
-            this.WebHooks = new WebHookLogic(ApiKey);
+            this.Activities = new ActivityLogic(ApiKey, Limit);
+            this.AbuseReports = new AbuseReportLogic(ApiKey, Limit);
+            this.Api = new ApiLogic(ApiKey, Limit);
+            this.Apps = new AuthorizedAppLogic(ApiKey, Limit);
+            this.AutomationEmails = new AutomationEmailLogic(ApiKey, Limit);
+            this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey, Limit);
+            this.Automations = new AutomationLogic(ApiKey, Limit);
+            this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey, Limit);
+            this.Batches = new BatchLogic(ApiKey, Limit);
+            this.Campaigns = new CampaignLogic(ApiKey, Limit);
+            this.CampaignFolders = new CampaignFolderLogic(ApiKey, Limit);
+            this.Clients = new ClientLogic(ApiKey, Limit);
+            this.Content = new ContentLogic(ApiKey, Limit);
+            this.Conversations = new ConversationLogic(ApiKey, Limit);
+            this.ECommerceStores = new ECommerceLogic(ApiKey, Limit);
+            this.Feedback = new FeedBackLogic(ApiKey, Limit);
+            this.FileManagerFiles = new FileManagerFileLogic(ApiKey, Limit);
+            this.FileManagerFolders = new FileManagerFolderLogic(ApiKey, Limit);
+            this.GrowthHistories = new GrowthHistoryLogic(ApiKey, Limit);
+            this.InterestCategories = new InterestCategoryLogic(ApiKey, Limit);
+            this.Interests = new InterestLogic(ApiKey, Limit);
+            this.Lists = new ListLogic(ApiKey, Limit);
+            this.ListSegments = new ListSegmentLogic(ApiKey, Limit);
+            this.Members = new MemberLogic(ApiKey, Limit);
+            this.MergeFields = new MergeFieldLogic(ApiKey, Limit);
+            this.Messages = new MessageLogic(ApiKey, Limit);
+            this.Notes = new NoteLogic(ApiKey, Limit);
+            this.Reports = new ReportLogic(ApiKey, Limit);
+            this.TemplateFolders = new TemplateFolderLogic(ApiKey, Limit);
+            this.Templates = new TemplateLogic(ApiKey, Limit);
+            this.WebHooks = new WebHookLogic(ApiKey, Limit);
         }
 
         /// <summary>
@@ -84,37 +86,37 @@ namespace MailChimp.Net
         /// </summary>
         public MailChimpManager()
         {
-            this.Activities = new ActivityLogic(ApiKey);
-            this.AbuseReports = new AbuseReportLogic(ApiKey);
-            this.Api = new ApiLogic(ApiKey);
-            this.Apps = new AuthorizedAppLogic(ApiKey);
-            this.AutomationEmails = new AutomationEmailLogic(ApiKey);
-            this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey);
-            this.Automations = new AutomationLogic(ApiKey);
-            this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey);
-            this.Batches = new BatchLogic(ApiKey);
-            this.Campaigns = new CampaignLogic(ApiKey);
-            this.CampaignFolders = new CampaignFolderLogic(ApiKey);
-            this.Clients = new ClientLogic(ApiKey);
-            this.Content = new ContentLogic(ApiKey);
-            this.Conversations = new ConversationLogic(ApiKey);
-            this.ECommerceStores = new ECommerceLogic(ApiKey);
-            this.Feedback = new FeedBackLogic(ApiKey);
-            this.FileManagerFiles = new FileManagerFileLogic(ApiKey);
-            this.FileManagerFolders = new FileManagerFolderLogic(ApiKey);
-            this.GrowthHistories = new GrowthHistoryLogic(ApiKey);
-            this.InterestCategories = new InterestCategoryLogic(ApiKey);
-            this.Interests = new InterestLogic(ApiKey);
-            this.Lists = new ListLogic(ApiKey);
-            this.ListSegments = new ListSegmentLogic(ApiKey);
-            this.Members = new MemberLogic(ApiKey);
-            this.MergeFields = new MergeFieldLogic(ApiKey);
-            this.Messages = new MessageLogic(ApiKey);
-            this.Notes = new NoteLogic(ApiKey);
-            this.Reports = new ReportLogic(ApiKey);
-            this.TemplateFolders = new TemplateFolderLogic(ApiKey);
-            this.Templates = new TemplateLogic(ApiKey);
-            this.WebHooks = new WebHookLogic(ApiKey);
+            this.Activities = new ActivityLogic(ApiKey, Limit);
+            this.AbuseReports = new AbuseReportLogic(ApiKey, Limit);
+            this.Api = new ApiLogic(ApiKey, Limit);
+            this.Apps = new AuthorizedAppLogic(ApiKey, Limit);
+            this.AutomationEmails = new AutomationEmailLogic(ApiKey, Limit);
+            this.AutomationEmailQueues = new AutomationEmailQueueLogic(ApiKey, Limit);
+            this.Automations = new AutomationLogic(ApiKey, Limit);
+            this.AutomationSubscribers = new AutomationSubscriberLogic(ApiKey, Limit);
+            this.Batches = new BatchLogic(ApiKey, Limit);
+            this.Campaigns = new CampaignLogic(ApiKey, Limit);
+            this.CampaignFolders = new CampaignFolderLogic(ApiKey, Limit);
+            this.Clients = new ClientLogic(ApiKey, Limit);
+            this.Content = new ContentLogic(ApiKey, Limit);
+            this.Conversations = new ConversationLogic(ApiKey, Limit);
+            this.ECommerceStores = new ECommerceLogic(ApiKey, Limit);
+            this.Feedback = new FeedBackLogic(ApiKey, Limit);
+            this.FileManagerFiles = new FileManagerFileLogic(ApiKey, Limit);
+            this.FileManagerFolders = new FileManagerFolderLogic(ApiKey, Limit);
+            this.GrowthHistories = new GrowthHistoryLogic(ApiKey, Limit);
+            this.InterestCategories = new InterestCategoryLogic(ApiKey, Limit);
+            this.Interests = new InterestLogic(ApiKey, Limit);
+            this.Lists = new ListLogic(ApiKey, Limit);
+            this.ListSegments = new ListSegmentLogic(ApiKey, Limit);
+            this.Members = new MemberLogic(ApiKey, Limit);
+            this.MergeFields = new MergeFieldLogic(ApiKey, Limit);
+            this.Messages = new MessageLogic(ApiKey, Limit);
+            this.Notes = new NoteLogic(ApiKey, Limit);
+            this.Reports = new ReportLogic(ApiKey, Limit);
+            this.TemplateFolders = new TemplateFolderLogic(ApiKey, Limit);
+            this.Templates = new TemplateLogic(ApiKey, Limit);
+            this.WebHooks = new WebHookLogic(ApiKey, Limit);
         }
 
         /// <summary>
@@ -272,5 +274,9 @@ namespace MailChimp.Net
         /// </summary>
         public IWebHookLogic WebHooks { get; }
 
+        public int Limit
+        {
+            get; private set;
+        }
     }
 }

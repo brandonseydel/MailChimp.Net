@@ -28,8 +28,12 @@ namespace MailChimp.Net.Logic
         public CampaignFolderLogic(string apiKey)
             : base(apiKey)
         {
+            _limit = MailChimpConfiguration.DefaultLimit;
         }
 
+        public CampaignFolderLogic(string apiKey, int limit) : base(apiKey, limit)
+        {
+        }
 
         public async Task<Folder> AddAsync(string name)
         {
@@ -46,24 +50,16 @@ namespace MailChimp.Net.Logic
 
         public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
         {
-
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
-            using (var client = this.CreateMailClient(BaseUrl))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var campaignFolderResponse = await response.Content.ReadAsAsync<CampaignFolderResponse>().ConfigureAwait(false);
-                return campaignFolderResponse.Folders;
-            }
+            return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Folders;
         }
 
         public async Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient(BaseUrl))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);

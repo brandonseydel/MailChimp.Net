@@ -25,6 +25,12 @@ namespace MailChimp.Net.Logic
         public ECommerceOrderLogic(string apiKey)
             : base(apiKey)
         {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public ECommerceOrderLogic(string apiKey, int limit) : base(apiKey, limit)
+        {
+            
         }
 
         /// <summary>
@@ -50,7 +56,7 @@ namespace MailChimp.Net.Logic
 
         public IECommerceLineLogic Lines(string orderId)
         {
-            _orderLogic = _orderLogic ?? new ECommerceLineLogic(this._apiKey);
+            _orderLogic = _orderLogic ?? new ECommerceLineLogic(this._apiKey, base._limit);
             _orderLogic.Resource = "orders";
             _orderLogic.ResourceId = orderId;
             _orderLogic.StoreId = this.StoreId;
@@ -124,6 +130,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null)
         {
+
+            request = new OrderRequest
+            {
+                Limit = base._limit
+            };
+
             var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {

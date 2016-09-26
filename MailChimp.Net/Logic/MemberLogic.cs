@@ -26,6 +26,7 @@ namespace MailChimp.Net.Logic
     internal class MemberLogic : BaseLogic, IMemberLogic
     {
         private const string BaseUrl = "lists";
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MemberLogic"/> class.
@@ -35,6 +36,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public MemberLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public MemberLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -204,14 +210,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
         public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
-            {
-                var response = await client.GetAsync($"{listId}/members{memberRequest?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
-                return listResponse.Members;
-            }
+            return (await GetResponseAsync(listId, memberRequest).ConfigureAwait(false))?.Members;
         }
 
         /// <exception cref="ArgumentNullException"><paramref>
@@ -228,6 +227,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
         public async Task<MemberResponse> GetResponseAsync(string listId, MemberRequest memberRequest = null)
         {
+            memberRequest = new MemberRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.GetAsync($"{listId}/members{memberRequest?.ToQueryString()}").ConfigureAwait(false);

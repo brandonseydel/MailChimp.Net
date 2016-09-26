@@ -21,6 +21,7 @@ namespace MailChimp.Net.Logic
     /// </summary>
     public class GrowthHistoryLogic : BaseLogic, IGrowthHistoryLogic
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GrowthHistoryLogic"/> class.
         /// </summary>
@@ -29,6 +30,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public GrowthHistoryLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public GrowthHistoryLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -57,20 +63,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<History>> GetAllAsync(string listId, QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
-            {
-                Limit = MailChimpManager.Limit
-            };
-
-            using (var client = this.CreateMailClient("lists/"))
-            {
-                var response =
-                    await client.GetAsync($"{listId}/growth-history{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var appResponse = await response.Content.ReadAsAsync<GrowthHistoryResponse>().ConfigureAwait(false);
-                return appResponse.History;
-            }
+            return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.History;
         }
 
 
@@ -99,6 +92,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<GrowthHistoryResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null)
         {
+            request = new QueryableBaseRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient("lists/"))
             {
                 var response =

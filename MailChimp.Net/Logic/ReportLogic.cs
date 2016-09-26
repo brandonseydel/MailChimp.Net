@@ -24,6 +24,7 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class ReportLogic : BaseLogic, IReportLogic
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportLogic"/> class.
         /// </summary>
@@ -32,6 +33,11 @@ namespace MailChimp.Net.Logic
         /// </param>
         public ReportLogic(string apiKey)
             : base(apiKey)
+        {
+            base._limit = MailChimpConfiguration.DefaultLimit;
+        }
+
+        public ReportLogic(string apiKey, int limit) : base(apiKey, limit)
         {
         }
 
@@ -57,13 +63,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null)
         {
-            using (var client = this.CreateMailClient("reports"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
-                return reportResponse.Reports;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Reports;
         }
 
         /// <summary>
@@ -88,6 +88,12 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<ReportResponse> GetResponseAsync(ReportRequest request = null)
         {
+
+            request = request ?? new ReportRequest
+            {
+                Limit = base._limit
+            };
+
             using (var client = this.CreateMailClient("reports"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
@@ -160,7 +166,7 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = MailChimpManager.Limit
+                Limit = base._limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
@@ -303,7 +309,7 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = MailChimpManager.Limit
+                Limit = base._limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
@@ -415,7 +421,7 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = MailChimpManager.Limit
+                Limit = base._limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
@@ -598,7 +604,7 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = MailChimpManager.Limit
+                Limit = base._limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
@@ -638,7 +644,7 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = MailChimpManager.Limit
+                Limit = base._limit
             };
 
             return (await this.GetSentToRecipientsResponseAsync(campaignId, request))?.Recipients;
@@ -778,7 +784,7 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = MailChimpManager.Limit
+                Limit = base._limit
             };
 
             using (var client = this.CreateMailClient("reports/"))

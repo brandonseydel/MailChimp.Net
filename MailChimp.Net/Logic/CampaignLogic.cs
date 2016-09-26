@@ -23,6 +23,7 @@ namespace MailChimp.Net.Logic
 	/// </summary>
 	internal class CampaignLogic : BaseLogic, ICampaignLogic
 	{
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CampaignLogic"/> class.
 		/// </summary>
@@ -30,6 +31,11 @@ namespace MailChimp.Net.Logic
 		/// The api key.
 		/// </param>
 		public CampaignLogic(string apiKey) : base(apiKey)
+		{
+			_limit = MailChimpConfiguration.DefaultLimit;
+		}
+
+		public CampaignLogic(string apiKey, int limit) : base(apiKey, limit)
 		{
 		}
 
@@ -220,14 +226,7 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<IEnumerable<Campaign>> GetAll(CampaignRequest request = null)
 		{
-			using (var client = this.CreateMailClient("campaigns"))
-			{
-				var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-				var campaignResponse = await response.Content.ReadAsAsync<CampaignResponse>().ConfigureAwait(false);
-				return campaignResponse.Campaigns;
-			}
+			return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Campaigns;
 		}
 
 		/// <summary>
@@ -254,14 +253,7 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<IEnumerable<Campaign>> GetAllAsync(CampaignRequest request = null)
 		{
-			using (var client = this.CreateMailClient("campaigns"))
-			{
-				var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-				var campaignResponse = await response.Content.ReadAsAsync<CampaignResponse>().ConfigureAwait(false);
-				return campaignResponse.Campaigns;
-			}
+			return (await this.GetResponseAsync(request))?.Campaigns;
 		}
 
 
@@ -289,6 +281,12 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<CampaignResponse> GetResponseAsync(CampaignRequest request = null)
 		{
+
+			request = request ?? new CampaignRequest
+			{
+				Limit = base._limit
+			};
+
 			using (var client = this.CreateMailClient("campaigns"))
 			{
 				var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
