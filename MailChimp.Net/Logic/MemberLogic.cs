@@ -227,7 +227,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
         public async Task<MemberResponse> GetResponseAsync(string listId, MemberRequest memberRequest = null)
         {
-            memberRequest = new MemberRequest
+            memberRequest = memberRequest ?? new MemberRequest
             {
                 Limit = base._limit
             };
