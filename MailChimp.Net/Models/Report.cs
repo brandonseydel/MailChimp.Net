@@ -73,6 +73,24 @@ namespace MailChimp.Net.Models
         public Forwards Forwards { get; set; }
 
         /// <summary>
+        /// Gets or sets the subject line.
+        /// </summary>
+        [JsonProperty("subject_line")]
+        public string SubjectLine { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list name.
+        /// </summary>
+        [JsonProperty("list_name")]
+        public string ListName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list id.
+        /// </summary>
+        [JsonProperty("list_id")]
+        public string ListId { get; set; }
+
+        /// <summary>
         /// Gets or sets the id.
         /// </summary>
         [JsonProperty("id")]

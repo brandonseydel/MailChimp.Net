@@ -35,6 +35,12 @@ namespace MailChimp.Net.Models
         /// The pending.
         /// </summary>
         [Description("pending")]
-        Pending
+        Pending,
+
+        /// <summary>
+        /// The none.
+        /// </summary>
+        [Description("")]
+        None
     }
 }

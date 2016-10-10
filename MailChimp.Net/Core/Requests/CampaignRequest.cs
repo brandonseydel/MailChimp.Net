@@ -26,10 +26,16 @@ namespace MailChimp.Net.Core
         public CampaignType? Type { get; set; }
 
         /// <summary>
-        /// Gets or sets the type.
+        /// Gets or sets the list id.
         /// </summary>
         [QueryString("list_id")]
         public string ListId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the folder id.
+        /// </summary>
+        [QueryString("folder_id")]
+        public string FolderId { get; set; }
 
         /// <summary>
         /// Gets or sets the sort_field.
