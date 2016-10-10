@@ -149,7 +149,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<ListResponse> GetResponseAsync(ListRequest request = null)
         {
-            request = new ListRequest
+            request = request ?? new ListRequest
             {
                 Limit = base._limit
             };
