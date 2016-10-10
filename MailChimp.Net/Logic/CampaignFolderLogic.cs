@@ -55,7 +55,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
-            request = new QueryableBaseRequest
+            request = request ?? new QueryableBaseRequest
             {
                 Limit = base._limit
             };
