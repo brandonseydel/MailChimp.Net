@@ -19,30 +19,41 @@ namespace MailChimp.Net.Tests
     {
         private string TestListId { get; set; }
 
-
+        /// <summary>
+        /// The should_ delete_ all_ lists.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         [TestMethod]
-        public async Task Should_Delete_List()
+        public async Task Should_Delete_All_Lists()
         {
             var allLists = await this._mailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
             await Task.WhenAll(allLists.Select(x => this._mailChimpManager.Lists.DeleteAsync(x.Id))).ConfigureAwait(false);
-
-            var campaignResponse = await _mailChimpManager.Campaigns.GetResponseAsync();
-            var link = campaignResponse.Links.FirstOrDefault(x => x.Rel.ToLower().Equals("self"))?.Href;
-
-
-
+            allLists = await this._mailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
+            Assert.IsTrue(allLists.Count() == 0);
         }
 
+        /// <summary>
+        /// The should_ create_ new_ list.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         [TestMethod]
         public async Task<List> Should_Create_New_List()
         {
             //Clear out all the lists
-            this.Should_Delete_List();
+            await this.Should_Delete_All_Lists();
 
-            return await this._mailChimpManager.Configure(new MailChimpConfiguration
+            var list = await this._mailChimpManager.Configure(new MailChimpConfiguration
             {
                 Limit = 10
             }).Lists.AddOrUpdateAsync(this.MailChimpList).ConfigureAwait(false);
+
+            var allLists = await this._mailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
+            Assert.IsTrue(allLists.Count() > 0);
+            return list;
         }
 
 
@@ -73,6 +84,12 @@ namespace MailChimp.Net.Tests
             Assert.IsNotNull(lists);
         }
 
+        /// <summary>
+        /// The should_ update_ list_ name.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         [TestMethod]
         public async Task Should_Update_List_Name()
         {
