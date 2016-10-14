@@ -51,12 +51,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ECommerceLogicTest.cs" />
-    <Compile Include="AuthorizedAppTest.cs" />
+    <Compile Include="ApiTest.cs" />
     <Compile Include="ConversationTest.cs" />
     <Compile Include="CampaignTest.cs" />
     <Compile Include="FeedbackTest.cs" />
     <Compile Include="ListMemberTest.cs" />
-    <Compile Include="ApiTest.cs" />
+    <Compile Include="AuthorizedAppTest.cs" />
     <Compile Include="ListTest.cs" />
     <Compile Include="MailChimpTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
