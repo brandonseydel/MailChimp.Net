@@ -48,14 +48,17 @@ namespace MailChimp.Net.Logic
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="webhook">
+        /// Webhook.
+        /// </param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<WebHook> AddAsync(string listId)
+        public async Task<WebHook> AddAsync(string listId, WebHook webhook)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
             {
-                var response = await client.PostAsync(string.Empty, null).ConfigureAwait(false);
+                var response = await client.PostAsJsonAsync(string.Empty, webhook).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var webHookResponse = await response.Content.ReadAsAsync<WebHook>().ConfigureAwait(false);

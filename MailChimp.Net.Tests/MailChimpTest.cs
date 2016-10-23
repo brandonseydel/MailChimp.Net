@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -24,9 +25,9 @@ namespace MailChimp.Net.Tests
         /// </summary>
         protected IMailChimpManager _mailChimpManager;
 
-        internal List MailChimpList => new List
+        internal List GetMailChimpList(string listName = "TestList") => new List
         {
-            Name = "TestList",
+            Name = listName,
             PermissionReminder = "none",
             Contact = new Contact
             {
@@ -46,19 +47,26 @@ namespace MailChimp.Net.Tests
             }
         };
 
+        internal async Task ClearLists(params string[] listToDeleteNames)
+        {
+            var lists = await _mailChimpManager.Lists.GetAllAsync();
+            var listsToDelete = listToDeleteNames.Any()
+                ? lists.Where(i => listToDeleteNames.Contains(i.Name, StringComparer.InvariantCultureIgnoreCase))
+                : lists;
+
+            await Task.WhenAll(listsToDelete.Select(x => _mailChimpManager.Lists.DeleteAsync(x.Id)));
+        }
+
+        internal async Task ClearCampaigns()
+        {
+            var campaigns = await this._mailChimpManager.Campaigns.GetAllAsync();
+            await Task.WhenAll(campaigns.Select(x => _mailChimpManager.Campaigns.DeleteAsync(x.Id)));
+        }
 
         internal async Task ClearMailChimpAsync()
         {
-            var lists = await this._mailChimpManager.Lists.GetAllAsync();
-            await Task.WhenAll(lists.Select(x => _mailChimpManager.Lists.DeleteAsync(x.Id)));
-
-            var campaings = await this._mailChimpManager.Campaigns.GetAllAsync();
-            await Task.WhenAll(campaings.Select(x => _mailChimpManager.Campaigns.DeleteAsync(x.Id)));
-
-            
-
-
-
+            await ClearLists();
+            await ClearCampaigns();
         }
 
         /// <summary>
@@ -68,6 +76,11 @@ namespace MailChimp.Net.Tests
         public void Initialize()
         {
             this._mailChimpManager = new MailChimpManager();
+            RunBeforeTestFixture().Wait();
+        }
+
+        internal virtual async Task RunBeforeTestFixture()
+        {
         }
 
         /// <summary>
