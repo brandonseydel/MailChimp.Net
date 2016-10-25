@@ -29,7 +29,7 @@ namespace MailChimp.Net.Tests
         public void InitilizeListMemberTest()
         {
             this.ClearMailChimpAsync().Wait();
-            var createdList = this._mailChimpManager.Lists.AddOrUpdateAsync(this.MailChimpList).Result;
+            var createdList = this._mailChimpManager.Lists.AddOrUpdateAsync(this.GetMailChimpList()).Result;
             this.TestList = createdList;
         }
 

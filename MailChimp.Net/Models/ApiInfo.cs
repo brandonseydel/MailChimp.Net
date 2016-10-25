@@ -29,7 +29,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the contact.
         /// </summary>
         [JsonProperty("contact")]
-        public Contact Contact { get; set; }
+        public ApiContact Contact { get; set; }
 
         /// <summary>
         /// Gets or sets the last login.

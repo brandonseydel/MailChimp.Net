@@ -210,6 +210,3 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-//Ingore Test
-
-MailChimp.Net.Tests/*
