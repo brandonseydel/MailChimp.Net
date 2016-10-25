@@ -170,5 +170,34 @@ namespace MailChimp.Net.Tests
             var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 });
             Assert.IsTrue(campaigns.Count() == 1);
         }
+
+        /// <summary>
+        /// Should_Return_Zero_Campaigns_After_Removal.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_No_Campaigns_After_Removal()
+        {
+            await this.ClearMailChimpAsync().ConfigureAwait(true);
+
+            var campaign = await this._mailChimpManager.Campaigns.AddAsync(new Campaign
+            {
+                Settings = new Setting
+                {
+                    ReplyTo = "test@test.com",
+                    Title = "Test Campaign",
+                    FromName = "TESTER",
+                    SubjectLine = "TEST"
+                },
+                Type = CampaignType.Plaintext
+            }).ConfigureAwait(false);
+
+            await this._mailChimpManager.Campaigns.DeleteAsync(campaign.Id);
+            var existingCampaigns = await this._mailChimpManager.Campaigns.GetAllAsync();
+
+            Assert.AreEqual(0, existingCampaigns.Count());
+        }
     }
 }

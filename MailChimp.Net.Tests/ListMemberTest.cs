@@ -50,7 +50,7 @@ namespace MailChimp.Net.Tests
                     this.TestList.Id, 
                     new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed }).ConfigureAwait(false);
         }
-
+        
         /// <summary>
         /// The should_ return_ members_ from_ list.
         /// </summary>
@@ -102,6 +102,30 @@ namespace MailChimp.Net.Tests
 
             var exists = await this._mailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress2);
             Assert.IsFalse(exists);
+        }
+
+        /// <summary>
+        /// TShould_Not_Return_Any_Members_After_Delation.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_False_On_Exist_After_Removal()
+        {
+            var emailAddress = "tester@test.com";
+            await
+                this._mailChimpManager.Members.AddOrUpdateAsync(
+                    this.TestList.Id,
+                    new Member { EmailAddress = emailAddress }).ConfigureAwait(false);
+            
+            await
+                this._mailChimpManager.Members.DeleteAsync(
+                    this.TestList.Id,
+                    emailAddress);
+
+            var doesExists = await this._mailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress);
+            Assert.AreEqual(false, doesExists);
         }
 
         /// <summary>
