@@ -79,6 +79,7 @@ namespace MailChimp.Net.Core
         /// </returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            objectType = Nullable.GetUnderlyingType(objectType) ?? objectType;
             var eTypeVal = objectType.GetMembers()
                         .Where(x => x.GetCustomAttributes(typeof(DescriptionAttribute)).Any())
                         .FirstOrDefault(x => ((DescriptionAttribute)x.GetCustomAttribute(typeof(DescriptionAttribute))).Description == (string)reader.Value);
