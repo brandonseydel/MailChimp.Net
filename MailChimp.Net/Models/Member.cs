@@ -19,7 +19,7 @@ namespace MailChimp.Net.Models
 	{
         public Member()
         {
-            this.MergeFields = new Dictionary<string, string>();
+            this.MergeFields = new Dictionary<string, object>();
             this.Links = new List<Link>();
             this.Interests = new Dictionary<string, bool>();
             this.Status = Status.Pending;
@@ -108,7 +108,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the merge fields.
 		/// </summary>
 		[JsonProperty("merge_fields")]
-		public Dictionary<string, string> MergeFields { get; set; }
+		public Dictionary<string, object> MergeFields { get; set; }
 
 		/// <summary>
 		/// Gets or sets the last Note.
