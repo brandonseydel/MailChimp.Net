@@ -37,6 +37,9 @@ namespace MailChimp.Net.Core
         [QueryString("sort_field")]
         public CampaignSortField? SortField { get; set; }
 
+        [QueryString("folder_id")]
+        public string FolderId { get; set; }
+
         /// <summary>
         /// Gets or sets sort_dir.
         /// </summary>

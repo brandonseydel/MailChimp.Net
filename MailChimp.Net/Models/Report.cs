@@ -42,6 +42,9 @@ namespace MailChimp.Net.Models
         [JsonProperty("campaign_title")]
         public string CampaignTitle { get; set; }
 
+        [JsonProperty("subject_line")]
+        public string SubjectLine { get; set; }
+
         /// <summary>
         /// Gets or sets the clicks.
         /// </summary>
