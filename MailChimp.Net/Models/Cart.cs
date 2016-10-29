@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
 
@@ -7,7 +8,6 @@ namespace MailChimp.Net.Models
 {
     public class Cart
     {
-
         public Cart()
         {
             this.Lines = new HashSet<Line>();
@@ -47,5 +47,10 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public ICollection<Link> Links { get; set; }
+
+        public bool ShouldSerializeLinks()
+        {
+            return Links.Any();
+        }
     }
 }
