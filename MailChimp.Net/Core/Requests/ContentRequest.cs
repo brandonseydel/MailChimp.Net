@@ -22,6 +22,7 @@ namespace MailChimp.Net.Core
         /// Available when uploading an archive to create campaign content. The archive should include all campaign content and images.
         /// <a href="http://kb.mailchimp.com/campaigns/ways-to-build/import-a-zip-file-to-create-a-campaign?utm_source=mc-api&amp;utm_medium=docs&amp;utm_campaign=apidocs&amp;_ga=1.69087766.629889474.1468257895">Learn More.</a>
         /// </summary>
+        [JsonProperty("archive")]
         public Archive Archive { get; set; }
 
         /// <summary>
