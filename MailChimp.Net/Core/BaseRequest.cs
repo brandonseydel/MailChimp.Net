@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -77,7 +78,16 @@ namespace MailChimp.Net.Core
                             sb.Append("&");
                         }
 
-                        value = value is DateTime ? ((DateTime)value).ToString(@"yyyy-MM-dd HH:mm:ss") : value;
+                        value = value is DateTime ? ((DateTime)value).ToString(@"yyyy-MM-dd HH:mm:ss") :   
+                                value is IEnumerable ? string.Join(",", ((IEnumerable) value).Cast<object>()) : 
+                                value;
+
+                        //We don't want to add anything if after all this work their is still no data :(
+                        if (string.IsNullOrWhiteSpace(value.ToString()))
+                        {
+                            return;
+                        }
+
                         sb.Append($"{propertyName}={value}");
                         secondProperty = true;
                     });
