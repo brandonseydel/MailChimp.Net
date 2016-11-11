@@ -3,6 +3,10 @@
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System.Diagnostics;
+using System.Linq.Expressions;
+
 namespace MailChimp.Net.Interfaces
 {
     /// <summary>
