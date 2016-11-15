@@ -14,12 +14,8 @@ namespace MailChimp.Net.Logic
 
         public string ProductId { get; set; }
 
-        internal ECommerceProductVarianceLogic(string apiKey) : base(apiKey)
-        {
-            _limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public ECommerceProductVarianceLogic(string apiKey, int limit) : base(apiKey, limit)
+        public ECommerceProductVarianceLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

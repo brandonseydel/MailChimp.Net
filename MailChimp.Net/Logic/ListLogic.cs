@@ -22,19 +22,8 @@ namespace MailChimp.Net.Logic
     internal class ListLogic : BaseLogic, IListLogic
     {
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ListLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public ListLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public ListLogic(string apiKey, int limit) : base(apiKey, limit)
+        public ListLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

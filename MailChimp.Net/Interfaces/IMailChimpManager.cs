@@ -16,7 +16,7 @@ namespace MailChimp.Net.Interfaces
     {
         int Limit { get; }
 
-        IMailChimpManager Configure(MailChimpConfiguration config);
+        IMailChimpManager Configure(IMailChimpConfiguration config);
 
         /// <summary>
         /// Gets the api.

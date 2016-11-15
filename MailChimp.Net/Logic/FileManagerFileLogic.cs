@@ -23,15 +23,9 @@ namespace MailChimp.Net.Logic
     {
 
         private const string BaseUrl = "file-manager/files";
-        
 
-        public FileManagerFileLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public FileManagerFileLogic(string apiKey, int limit) : base(apiKey, limit)
+        public FileManagerFileLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

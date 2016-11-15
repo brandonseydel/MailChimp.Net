@@ -22,22 +22,10 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
     {
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AuthorizedAppLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public AuthorizedAppLogic(string apiKey)
-            : base(apiKey)
+        public AuthorizedAppLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
-            _limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public AuthorizedAppLogic(string apiKey, int limit) : base(apiKey, limit)
-        {            
         }
 
         /// <summary>

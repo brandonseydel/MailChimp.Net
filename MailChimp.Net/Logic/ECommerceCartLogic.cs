@@ -22,13 +22,8 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "ecommerce/stores/{0}/carts";
 
-        public ECommerceCartLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public ECommerceCartLogic(string apiKey, int limit) : base(apiKey, limit)
+        public ECommerceCartLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -55,7 +50,7 @@ namespace MailChimp.Net.Logic
 
         public IECommerceLineLogic Lines(string cartId)
         {
-            _cartLogic = _cartLogic ?? new ECommerceLineLogic(this._apiKey, base._limit);
+            _cartLogic = _cartLogic ?? new ECommerceLineLogic(base._mailChimpConfiguration);
             _cartLogic.Resource = "carts";
             _cartLogic.ResourceId = cartId;
             _cartLogic.StoreId = this.StoreId;

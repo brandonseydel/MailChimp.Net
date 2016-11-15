@@ -22,21 +22,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class TemplateFolderLogic : BaseLogic, ITemplateFolderLogic
     {
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemplateFolderLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public TemplateFolderLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public TemplateFolderLogic(string apiKey, int limit) : base(apiKey, limit)
+        public TemplateFolderLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

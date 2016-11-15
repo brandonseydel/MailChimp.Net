@@ -22,21 +22,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class MessageLogic : BaseLogic, IMessageLogic
     {
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MessageLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public MessageLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public MessageLogic(string apiKey, int limit) : base(apiKey, limit)
+        public MessageLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

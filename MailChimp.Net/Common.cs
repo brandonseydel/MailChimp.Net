@@ -15,7 +15,7 @@ namespace MailChimp.Net
             { CampaignAction.Replicate, typeof(ReplicateResponse) }
         };
 
-
+        public static int DefaultLimit = 1000;
     }
 }
 

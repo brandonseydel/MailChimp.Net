@@ -59,7 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
+    <Compile Include="Configuration\MailChimpConfiguration.cs" />
+    <Compile Include="Configuration\MailChimpOauthConfiguration.cs" />
     <Compile Include="Core\BaseRequest.cs" />
     <Compile Include="Core\BaseResponse.cs" />
     <Compile Include="Core\CampaignSortOrder.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Interfaces\IECommerceCustomerLogic.cs" />
     <Compile Include="Interfaces\IECommerceLogic.cs" />
     <Compile Include="Interfaces\IECommerceProductVarianceLogic.cs" />
+    <Compile Include="Interfaces\IMailChimpConfiguration.cs" />
     <Compile Include="Logic\ECommerceLineLogic.cs" />
     <Compile Include="Logic\ECommerceProductLogic.cs" />
     <Compile Include="Logic\ECommerceOrderLogic.cs" />

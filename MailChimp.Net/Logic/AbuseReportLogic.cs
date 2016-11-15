@@ -22,18 +22,8 @@ namespace MailChimp.Net.Logic
     public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     {
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AbuseReportLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public AbuseReportLogic(string apiKey) : base(apiKey)
-        {
-            _limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public AbuseReportLogic(string apiKey, int limit) : base(apiKey, limit)
+        public AbuseReportLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

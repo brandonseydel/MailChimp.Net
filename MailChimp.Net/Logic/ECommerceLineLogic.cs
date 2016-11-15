@@ -15,9 +15,9 @@ namespace MailChimp.Net.Logic
             get { return $"ecommerce/stores/{this.StoreId}/{this.Resource}/{this.ResourceId}/lines"; }
         }
 
-        public ECommerceLineLogic(string apiKey, int _limit = 0) : base(apiKey,  _limit == 0 ? MailChimpConfiguration.DefaultLimit : _limit)
+        public ECommerceLineLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
-            this._limit = _limit;
         }
 
         public async Task<Line> AddAsync(Line line)

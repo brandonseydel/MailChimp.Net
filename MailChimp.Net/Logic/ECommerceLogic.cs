@@ -31,47 +31,37 @@ namespace MailChimp.Net.Logic
         private static IECommerceCustomerLogic _customers;
         private static IECommerceOrderLogic _orders;
         private static IECommerceProductLogic _products;
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ECommerceLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public ECommerceLogic(string apiKey)
-            : base(apiKey)
-        {
-        }
 
-        public ECommerceLogic(string apiKey, int limit) : base(apiKey, limit)
+        public ECommerceLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
         public IECommerceCartLogic Carts(string storeId)
         {
-            _carts = _carts ?? new ECommerceCartLogic(this._apiKey, base._limit);            
+            _carts = _carts ?? new ECommerceCartLogic(this._mailChimpConfiguration);            
             _carts.StoreId = storeId;
             return _carts;
         }
 
         public IECommerceCustomerLogic Customers(string storeId)
         {
-            _customers = _customers ?? new ECommerceCustomerLogic(this._apiKey, base._limit);
+            _customers = _customers ?? new ECommerceCustomerLogic(this._mailChimpConfiguration);
             _customers.StoreId = storeId;
             return _customers;
         }
 
         public IECommerceProductLogic Products(string storeId)
         {
-            _products = _products ?? new ECommerceProductLogic(this._apiKey, base._limit);
+            _products = _products ?? new ECommerceProductLogic(this._mailChimpConfiguration);
             _products.StoreId = storeId;
             return _products;
         }
 
         public IECommerceOrderLogic Orders(string storeId)
         {
-            _orders = _orders ?? new ECommerceOrderLogic(this._apiKey, base._limit);
+            _orders = _orders ?? new ECommerceOrderLogic(this._mailChimpConfiguration);
             _orders.StoreId = storeId;
             return _orders;
         }

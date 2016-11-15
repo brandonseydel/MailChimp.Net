@@ -18,23 +18,12 @@ namespace MailChimp.Net.Logic
 	/// </summary>
 	internal class BatchLogic : BaseLogic, IBatchLogic
 	{
+        public BatchLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Logic.BatchLogic"/> class.
-		/// </summary>
-		/// <param name="apiKey">
-		/// The api key.
-		/// </param>
-		public BatchLogic(string apiKey) : base(apiKey)
-		{
-			_limit = MailChimpConfiguration.DefaultLimit;
-		}
-
-		public BatchLogic(string apiKey, int limit) : base(apiKey, limit)
-		{
-		}
-
-		public async Task<Batch> AddAsync(BatchRequest request = null)
+        public async Task<Batch> AddAsync(BatchRequest request = null)
 		{
 			using (var client = this.CreateMailClient("batches"))
 			{

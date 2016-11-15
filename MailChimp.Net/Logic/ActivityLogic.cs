@@ -21,18 +21,8 @@ namespace MailChimp.Net.Logic
     public class ActivityLogic : BaseLogic, IActivityLogic
     {
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public ActivityLogic(string apiKey) : base(apiKey)
-        {
-            _limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public ActivityLogic(string apiKey, int limit) : base(apiKey, limit)
+        public ActivityLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

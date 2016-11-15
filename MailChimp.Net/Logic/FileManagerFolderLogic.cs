@@ -20,15 +20,9 @@ namespace MailChimp.Net.Logic
     internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
     {
         private const string BaseUrl = "file-manager/folders";
-        
 
-        public FileManagerFolderLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public FileManagerFolderLogic(string apiKey, int limit) : base(apiKey, limit)
+        public FileManagerFolderLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

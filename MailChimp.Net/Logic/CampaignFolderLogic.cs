@@ -25,13 +25,8 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "campaign-folders";
 
-        public CampaignFolderLogic(string apiKey)
-            : base(apiKey)
-        {
-            _limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public CampaignFolderLogic(string apiKey, int limit) : base(apiKey, limit)
+        public CampaignFolderLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

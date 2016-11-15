@@ -24,21 +24,10 @@ namespace MailChimp.Net.Logic
         /// The base url.
         /// </summary>
         private const string BaseUrl = "/lists/{0}/merge-fields";
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MergeFieldLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public MergeFieldLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
 
-        public MergeFieldLogic(string apiKey, int limit) : base(apiKey, limit)
+        public MergeFieldLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
