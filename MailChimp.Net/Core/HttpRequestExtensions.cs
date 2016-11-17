@@ -53,7 +53,7 @@ namespace MailChimp.Net.Core
                                                        NullValueHandling.Ignore
                                                }
                                        };
-            return await client.PatchAsync(requestUri, new ObjectContent<T>(value, jsonFormatter));
+            return await client.PatchAsync(requestUri, new ObjectContent<T>(value, jsonFormatter)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace MailChimp.Net.Core
                                   Content = content
                               };
 			client.DefaultRequestHeaders.ExpectContinue = false;
-            return await client.SendAsync(request);
+            return await client.SendAsync(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace MailChimp.Net.Core
                                                }
                                 };
             var content = new ObjectContent<T>(value, jsonFormatter);
-            return await client.PutAsync(requestUri, content);
+            return await client.PutAsync(requestUri, content).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace MailChimp.Net.Core
                                                }
                                 };
             var content = new ObjectContent<T>(value, jsonFormatter);
-            return await client.PostAsync(requestUri, content);
+            return await client.PostAsync(requestUri, content).ConfigureAwait(false);
         }
 
     }
