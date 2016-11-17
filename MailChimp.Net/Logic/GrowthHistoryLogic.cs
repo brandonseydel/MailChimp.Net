@@ -22,19 +22,8 @@ namespace MailChimp.Net.Logic
     public class GrowthHistoryLogic : BaseLogic, IGrowthHistoryLogic
     {
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GrowthHistoryLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public GrowthHistoryLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public GrowthHistoryLogic(string apiKey, int limit) : base(apiKey, limit)
+        public GrowthHistoryLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

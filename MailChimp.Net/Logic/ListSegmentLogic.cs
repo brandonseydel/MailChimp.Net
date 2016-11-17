@@ -12,11 +12,8 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "/lists/{0}/segments";
 
-        public ListSegmentLogic(string apiKey) : base(apiKey)
-        {
-        }
-
-        public ListSegmentLogic(string apiKey, int limit) : base(apiKey, limit)
+        public ListSegmentLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

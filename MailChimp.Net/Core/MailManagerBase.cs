@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Configuration;
+using MailChimp.Net.Interfaces;
 
 namespace MailChimp.Net.Core
 {
@@ -13,10 +14,7 @@ namespace MailChimp.Net.Core
     /// </summary>
     public abstract class MailManagerBase
     {
-        /// <summary>
-        /// The _api key.
-        /// </summary>
-        private string _apiKey;
+        protected IMailChimpConfiguration _mailChimpConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
@@ -26,7 +24,21 @@ namespace MailChimp.Net.Core
         /// </param>
         protected MailManagerBase(string apiKey)
         {
-            _apiKey = apiKey;
+            _mailChimpConfiguration = new MailChimpConfiguration()
+            {
+                ApiKey = apiKey,
+            };
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
+        /// </summary>
+        /// <param name="mailChimpConfiguration">
+        /// IMailChimpConfiguration.
+        /// </param>
+        protected MailManagerBase(IMailChimpConfiguration mailChimpConfiguration)
+        {
+            _mailChimpConfiguration = mailChimpConfiguration;
         }
 
         /// <summary>
@@ -34,22 +46,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         protected MailManagerBase()
         {
-        }
-
-        /// <summary>
-        /// Gets or sets the api key.
-        /// </summary>
-        protected string ApiKey
-        {
-            get
-            {
-                return _apiKey ?? ConfigurationManager.AppSettings["MailChimpApiKey"];
-            }
-
-            set
-            {
-                _apiKey = value;
-            }
+            
         }
     }
 }

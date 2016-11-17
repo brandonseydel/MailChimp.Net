@@ -21,21 +21,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     {
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FeedBackLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public FeedBackLogic(string apiKey)
-            : base(apiKey)
-        {
-            _limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public FeedBackLogic(string apiKey, int limit) : base(apiKey, limit)
+        public FeedBackLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

@@ -22,19 +22,8 @@ namespace MailChimp.Net.Logic
     public class InterestLogic : BaseLogic, IInterestLogic
     {
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InterestLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public InterestLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public InterestLogic(string apiKey, int limit) : base(apiKey, limit)
+        public InterestLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

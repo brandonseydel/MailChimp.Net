@@ -26,21 +26,9 @@ namespace MailChimp.Net.Logic
     internal class MemberLogic : BaseLogic, IMemberLogic
     {
         private const string BaseUrl = "lists";
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MemberLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public MemberLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public MemberLogic(string apiKey, int limit) : base(apiKey, limit)
+        public MemberLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

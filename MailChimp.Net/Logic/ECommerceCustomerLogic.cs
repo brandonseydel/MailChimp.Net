@@ -23,19 +23,9 @@ namespace MailChimp.Net.Logic
         private const string BaseUrl = "ecommerce/stores/{0}/customers";
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="apiKey"></param>
-        public ECommerceCustomerLogic(string apiKey)
-            : base(apiKey)
+        public ECommerceCustomerLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public ECommerceCustomerLogic(string apiKey, int _limit) : this(apiKey)
-        {
-            this._limit = _limit;
         }
 
         /// <summary>

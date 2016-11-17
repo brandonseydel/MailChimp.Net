@@ -24,42 +24,32 @@ namespace MailChimp.Net.Logic
 	internal class CampaignLogic : BaseLogic, ICampaignLogic
 	{
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CampaignLogic"/> class.
-		/// </summary>
-		/// <param name="apiKey">
-		/// The api key.
-		/// </param>
-		public CampaignLogic(string apiKey) : base(apiKey)
-		{
-			_limit = MailChimpConfiguration.DefaultLimit;
-		}
+        public CampaignLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
+        {
+        }
 
-		public CampaignLogic(string apiKey, int limit) : base(apiKey, limit)
-		{
-		}
-
-		/// <summary>
-		/// The add or update async.
-		/// </summary>
-		/// <param name="campaignId">
-		/// The campaign id.
-		/// </param>
-		/// <param name="campaign">
-		/// The campaign.
-		/// </param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		/// <exception cref="ArgumentNullException"><paramref>
-		///         <name>uriString</name>
-		///     </paramref>
-		///     is null. </exception>
-		/// <exception cref="MailChimpException">
-		/// Custom Mail Chimp Exception
-		/// </exception>
-		/// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-		public async Task<Campaign> AddOrUpdateAsync(Campaign campaign)
+        /// <summary>
+        /// The add or update async.
+        /// </summary>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <param name="campaign">
+        /// The campaign.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name>uriString</name>
+        ///     </paramref>
+        ///     is null. </exception>
+        /// <exception cref="MailChimpException">
+        /// Custom Mail Chimp Exception
+        /// </exception>
+        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+        public async Task<Campaign> AddOrUpdateAsync(Campaign campaign)
 		{
 			if (string.IsNullOrWhiteSpace(campaign.Id))
 			{

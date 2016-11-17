@@ -25,19 +25,8 @@ namespace MailChimp.Net.Logic
     internal class ReportLogic : BaseLogic, IReportLogic
     {
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReportLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public ReportLogic(string apiKey)
-            : base(apiKey)
-        {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public ReportLogic(string apiKey, int limit) : base(apiKey, limit)
+        public ReportLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

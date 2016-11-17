@@ -22,20 +22,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     public class NoteLogic : BaseLogic, INoteLogic
     {
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NoteLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public NoteLogic(string apiKey)
-            : base(apiKey)
-        {
-        }
-
-        public NoteLogic(string apiKey, int limit) : base(apiKey, limit)
+        public NoteLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

@@ -6,7 +6,11 @@
 
 using System;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography;
+using System.Text;
+using MailChimp.Net.Interfaces;
+
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Core
@@ -16,40 +20,17 @@ namespace MailChimp.Net.Core
     /// </summary>
     public abstract class BaseLogic
     {
-        /// <summary>
-        /// The _api key.
-        /// </summary>
-        internal readonly string _apiKey;
-
-        internal int _limit;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        protected BaseLogic(string apiKey)
+        internal int _limit
         {
-            this._apiKey = apiKey;
-        }
+            get { return _mailChimpConfiguration.Limit; }
+        } 
 
-        protected BaseLogic(string apiKey, int limit)
+        internal IMailChimpConfiguration _mailChimpConfiguration;
+
+        protected BaseLogic(IMailChimpConfiguration mailChimpConfiguration)
         {
-            this._apiKey = apiKey;
-            _limit = limit;
+            this._mailChimpConfiguration = mailChimpConfiguration;
         }
-
-
-        /// <summary>
-        /// The _data center.
-        /// </summary>
-        private string DataCenter
-            =>
-                this._apiKey.Substring(
-                    this._apiKey.LastIndexOf("-", StringComparison.Ordinal) + 1, 
-                    this._apiKey.Length - this._apiKey.LastIndexOf("-", StringComparison.Ordinal) - 1);
 
         /// <summary>
         /// The create mail client.
@@ -76,9 +57,9 @@ namespace MailChimp.Net.Core
             var client = new HttpClient(handler)
                              {
                                  BaseAddress =
-                                     new Uri($"https://{this.DataCenter}.api.mailchimp.com/3.0/{resource}")
-                             };            
-            client.DefaultRequestHeaders.Add("Authorization", $"apikey {this._apiKey}");
+                                     new Uri($"https://{this._mailChimpConfiguration.DataCenter}.api.mailchimp.com/3.0/{resource}")
+                             };
+            client.DefaultRequestHeaders.Add("Authorization", _mailChimpConfiguration.AuthHeader);
             return client;
         }
 

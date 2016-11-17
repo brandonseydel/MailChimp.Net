@@ -22,15 +22,9 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "ecommerce/stores/{0}/orders";
 
-        public ECommerceOrderLogic(string apiKey)
-            : base(apiKey)
+        public ECommerceOrderLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public ECommerceOrderLogic(string apiKey, int limit) : base(apiKey, limit)
-        {
-            
         }
 
         /// <summary>
@@ -56,7 +50,7 @@ namespace MailChimp.Net.Logic
 
         public IECommerceLineLogic Lines(string orderId)
         {
-            _orderLogic = _orderLogic ?? new ECommerceLineLogic(this._apiKey, base._limit);
+            _orderLogic = _orderLogic ?? new ECommerceLineLogic(this._mailChimpConfiguration);
             _orderLogic.Resource = "orders";
             _orderLogic.ResourceId = orderId;
             _orderLogic.StoreId = this.StoreId;

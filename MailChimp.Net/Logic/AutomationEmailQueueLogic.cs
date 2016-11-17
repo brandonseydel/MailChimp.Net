@@ -21,21 +21,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     {
-        
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AutomationEmailQueueLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public AutomationEmailQueueLogic(string apiKey)
-            : base(apiKey)
-        {
-            _limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public AutomationEmailQueueLogic(string apiKey, int limit) : base(apiKey, limit)
+        public AutomationEmailQueueLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

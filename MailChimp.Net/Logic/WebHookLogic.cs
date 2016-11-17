@@ -25,21 +25,11 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The base url.
         /// </summary>
-        private const string BaseUrl = "/lists/{0}/webhooks";        
+        private const string BaseUrl = "/lists/{0}/webhooks";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WebHookLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public WebHookLogic(string apiKey) : base(apiKey)
+        public WebHookLogic(IMailChimpConfiguration mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
-            base._limit = MailChimpConfiguration.DefaultLimit;
-        }
-
-        public WebHookLogic(string apiKey, int limit) : base(apiKey, limit)
-        {            
         }
 
         /// <summary>
