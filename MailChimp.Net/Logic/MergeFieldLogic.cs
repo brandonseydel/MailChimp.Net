@@ -126,7 +126,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request = null)
         {
-            request = new MergeFieldRequest
+            request = request ?? new MergeFieldRequest
             {
                 Limit = base._limit
             };
