@@ -14,8 +14,11 @@ namespace MailChimp.Net.Core
     {
         [Description("")]
         None,
+        [Description("open")]
         Open,
+        [Description("click")]
         Click,
+        [Description("bounce")]
         Bounce
     }
 }
