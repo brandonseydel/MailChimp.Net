@@ -78,8 +78,8 @@ namespace MailChimp.Net.Core
                             sb.Append("&");
                         }
 
-                        value = value is DateTime ? ((DateTime)value).ToString(@"yyyy-MM-dd HH:mm:ss") :   
-                                value is IEnumerable ? string.Join(",", ((IEnumerable) value).Cast<object>()) : 
+                        value = value is DateTime ? ((DateTime)value).ToString(@"yyyy-MM-dd HH:mm:ss") :
+                                value is IEnumerable && !(value is string) ? string.Join(",", ((IEnumerable) value).Cast<object>()) : 
                                 value;
 
                         //We don't want to add anything if after all this work their is still no data :(
