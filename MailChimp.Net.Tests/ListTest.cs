@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MailChimp.Net.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MailChimp.Net.Core;
+using System;
 
 namespace MailChimp.Net.Tests
 {
@@ -67,6 +69,24 @@ namespace MailChimp.Net.Tests
         public async Task Should_Return_Lists()
         {
             var lists = await this._mailChimpManager.Lists.GetAllAsync();
+            Assert.IsNotNull(lists);
+        }
+
+        /// <summary>
+        /// The should_ return_ lists_created_today.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [TestMethod]
+        public async Task Should_Return_Lists_Created_Today()
+        {
+            var request = new ListRequest() {
+                BeforeDateCreated = DateTime.UtcNow,
+                SinceDateCreated = DateTime.UtcNow.AddDays(-1)
+        };
+
+            var lists = await this._mailChimpManager.Lists.GetAllAsync(request);
             Assert.IsNotNull(lists);
         }
 
