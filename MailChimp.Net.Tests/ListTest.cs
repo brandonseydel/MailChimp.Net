@@ -71,7 +71,6 @@ namespace MailChimp.Net.Tests
             var lists = await this._mailChimpManager.Lists.GetAllAsync();
             Assert.IsNotNull(lists);
         }
-
         /// <summary>
         /// The should_ return_ lists_created_today.
         /// </summary>
@@ -81,10 +80,11 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_Lists_Created_Today()
         {
-            var request = new ListRequest() {
+            var request = new ListRequest()
+            {
                 BeforeDateCreated = DateTime.UtcNow,
                 SinceDateCreated = DateTime.UtcNow.AddDays(-1)
-        };
+            };
 
             var lists = await this._mailChimpManager.Lists.GetAllAsync(request);
             Assert.IsNotNull(lists);
