@@ -54,7 +54,7 @@ namespace MailChimp.Net.Tests
             }).Lists.AddOrUpdateAsync(this.GetMailChimpList()).ConfigureAwait(false);
 
             var allLists = await this._mailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
-            Assert.IsTrue(allLists.Count() > 0);
+            Assert.IsTrue(allLists.Any());
             return list;
         }
 
