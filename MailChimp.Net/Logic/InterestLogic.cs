@@ -129,7 +129,7 @@ namespace MailChimp.Net.Logic
             QueryableBaseRequest request = null)
         {
 
-            request = new QueryableBaseRequest
+            request = request ?? new QueryableBaseRequest
             {
                 Limit = base._limit
             };
