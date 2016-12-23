@@ -56,6 +56,42 @@ namespace MailChimp.Net.Logic
         }
 
         /// <summary>
+        /// Get a list of abuse complaints for a specific campaign.
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<AbuseReportResponse> GetAbuseReportsAsync(string campaignId, BaseRequest request = null)
+        {
+            using (var client = this.CreateMailClient("reports/"))
+            {
+                var response = await client.GetAsync($"{campaignId}/abuse-reports{request?.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                var reportResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
+                return reportResponse;
+            }
+        }
+
+        /// <summary>
+        /// Get information about a specific abuse report
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <param name="reportId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<AbuseReport> GetAbuseReportAsync(string campaignId, string reportId, BaseRequest request = null)
+        {
+            using (var client = this.CreateMailClient("reports/"))
+            {
+                var response = await client.GetAsync($"{campaignId}/abuse-reports/${reportId}{request?.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                var reportResponse = await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);
+                return reportResponse;
+            }
+        }
+
+
+        /// <summary>
         /// The get all reports async.
         /// </summary>
         /// <param name="request">
