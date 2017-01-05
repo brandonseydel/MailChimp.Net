@@ -131,7 +131,7 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("status_if_new")]
  		[JsonConverter(typeof(StringEnumDescriptionConverter))]
-        /// Sets the members new status.  To update the status of a member use the <see cref="Status"/> property.  Default value is <see cref="Status.Pending"/>  
+        /// Sets the new member's status.  To update the status of a member use the <see cref="Status"/> property.  Default value is <see cref="Status.Pending"/>  
  		public Status StatusIfNew { get; set; }
 
         /// <summary>
