@@ -41,11 +41,12 @@ var mailChimpListCollection = await this.mailChimpManager.Lists.GetAllAsync(new 
 var listId = "TestListId";
 await this.mailChimpManager.Members.GetAllAsync(listId).ConfigureAwait(false);
 ```
-##### Adding User To List
+##### Adding New User To List
 
 ```CSharp
 var listId = "TestListId";
-var member = new Member { EmailAddress = $"githubTestAccount@test.com", Status = Status.Subscribed };
+// Use the Status property if updating an existing member
+var member = new Member { EmailAddress = $"githubTestAccount@test.com", StatusIfNew = Status.Subscribed };
 member.MergeFields.Add("FNAME", "HOLY");
 member.MergeFields.Add("LNAME", "COW");
 await this.mailChimpManager.Members.AddOrUpdateAsync(listId, member);
