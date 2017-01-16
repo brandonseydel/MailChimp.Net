@@ -105,6 +105,8 @@ namespace MailChimp.Net.Models
         [Description("date_within")]
         DateWithin,
         [Description("within")]
-        Within
+        Within,
+        [Description("notwithin")]
+        NotWithin
     }
 }
