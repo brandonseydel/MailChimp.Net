@@ -104,6 +104,8 @@ namespace MailChimp.Net.Models
         InterestNotContains,
         [Description("date_within")]
         DateWithin,
+        [Description("date_notwithin")]
+        DateNotWithin,
         [Description("within")]
         Within,
         [Description("notwithin")]
