@@ -478,7 +478,8 @@ namespace MailChimp.Net.Logic
                 Limit = base._limit
             };
 
-            using (var client = this.CreateMailClient("reports/")) {
+            using (var client = this.CreateMailClient("reports/")) 
+            {
                 var response = await client.GetAsync($"{campaignId}/email-activity{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
@@ -848,6 +849,5 @@ namespace MailChimp.Net.Logic
                 return reportResponse.Unsubscribes;
             }
         }
-
     }
 }
