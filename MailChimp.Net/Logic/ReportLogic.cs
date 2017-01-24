@@ -474,11 +474,12 @@ namespace MailChimp.Net.Logic
             string campaignId, QueryableBaseRequest 
             request = null)
         {
-            request = request ?? new QueryableBaseRequest {
+            request = request ?? new QueryableBaseRequest
+            {
                 Limit = base._limit
             };
 
-            using (var client = this.CreateMailClient("reports/")) 
+            using (var client = this.CreateMailClient("reports/"))
             {
                 var response = await client.GetAsync($"{campaignId}/email-activity{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
