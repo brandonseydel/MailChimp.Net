@@ -22,6 +22,12 @@ namespace MailChimp.Net.Models
         public string ArchiveUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the archive url.
+        /// </summary>
+        [JsonProperty("long_archive_url")]
+        public string LongArchiveUrl { get; set; }
+
+        /// <summary>
         /// Gets or sets the content type.
         /// </summary>
         [JsonProperty("content_type")]
