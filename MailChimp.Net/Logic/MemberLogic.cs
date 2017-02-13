@@ -83,6 +83,21 @@ namespace MailChimp.Net.Logic
         }
 
         /// <summary>
+        /// Search the account or a specific list for members that match the specified query terms.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<MemberSearchResult> SearchAsync(MemberSearchRequest request = null)
+        {
+            using(var client = this.CreateMailClient($"search-members{request?.ToQueryString()}"))
+            {
+                var response = await client.GetAsync("").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<MemberSearchResult>().ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
         /// The delete async.
         /// </summary>
         /// <param name="listId">

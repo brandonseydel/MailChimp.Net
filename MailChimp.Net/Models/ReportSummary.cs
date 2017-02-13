@@ -47,6 +47,10 @@ namespace MailChimp.Net.Models
         /// Gets or sets the unique opens.
         /// </summary>
         [JsonProperty("unique_opens")]
-        public int UniqueOpens { get; set; }
+        public int UniqueOpens { get; set; }       
+
+        [JsonProperty("ecommerce")]
+        public Ecommerce Ecommerce { get; set; }
+
     }
 }

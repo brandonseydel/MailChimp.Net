@@ -120,6 +120,7 @@ namespace MailChimp.Net.Core
                                   .OfType<DescriptionAttribute>()
                                   .Select(x => x.Description)
                                   .SingleOrDefault();
+
             writer.WriteValue(description ?? name);
         }
     }
