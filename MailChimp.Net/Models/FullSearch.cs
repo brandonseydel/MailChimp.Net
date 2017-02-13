@@ -1,15 +1,19 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-public class FullSearch
+
+namespace MailChimp.Net.Models
 {
-    public FullSearch()
+    public class FullSearch
     {
-        this.Members = new HashSet<Member>();
+        public FullSearch()
+        {
+            this.Members = new HashSet<Member>();
+        }
+
+        [JsonProperty("members")]
+        public IEnumerable<Member> Members { get; set; }
+
+        [JsonProperty("total_items")]
+        public int TotalItems { get; set; }
     }
-
-    [JsonProperty("members")]
-    public IEnumerable<Member> Members { get; set; }
-
-    [JsonProperty("total_items")]
-    public int TotalItems { get; set; }
 }
