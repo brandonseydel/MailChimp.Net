@@ -22,7 +22,7 @@ namespace MailChimp.Net.Models
             this.MergeFields = new Dictionary<string, object>();
             this.Links = new List<Link>();
             this.Interests = new Dictionary<string, bool>();
-            this.Status = Status.Pending;
+            this.Status = Status.Undefined;
             this.StatusIfNew = Status.Pending;            
         }
 
@@ -123,7 +123,7 @@ namespace MailChimp.Net.Models
 		public MemberStats Stats { get; set; }
 
         /// <summary>
-        /// Sets the member's status unless they are new.  Then you need to use the <see cref="StatusIfNew"/> property.  Default value is <see cref="Status.Pending"/>  
+        /// Sets the member's status unless they are new.  Then you need to use the <see cref="StatusIfNew"/> property.  Default value is <see cref="Status.Undefined"/>  
         /// </summary>
 		[JsonProperty("status")]
 		[JsonConverter(typeof(StringEnumDescriptionConverter))]
