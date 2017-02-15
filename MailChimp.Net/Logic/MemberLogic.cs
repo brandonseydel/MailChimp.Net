@@ -72,9 +72,8 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {
-                var response =
-                    await
-                    client.PutAsJsonAsync($"{listId}/members/{this.Hash(member.EmailAddress.ToLower())}", member, null).ConfigureAwait(false);
+                string memberId = member.Id ?? this.Hash(member.EmailAddress.ToLower());
+                var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member, null).ConfigureAwait(false);
 
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
