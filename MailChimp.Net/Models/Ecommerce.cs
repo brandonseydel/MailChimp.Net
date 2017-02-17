@@ -14,9 +14,9 @@ namespace MailChimp.Net.Models
         public int TotalOrders { get; set; }
 
         [JsonProperty("total_spent")]
-        public int TotalSpent { get; set; }
+        public double TotalSpent { get; set; }
 
         [JsonProperty("total_revenue")]
-        public int TotalRevenue { get; set; }
+        public double TotalRevenue { get; set; }
     }
 }
