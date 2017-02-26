@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -41,6 +42,7 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("campaign_title")]
         public string CampaignTitle { get; set; }
+
 
         [JsonProperty("subject_line")]
         public string SubjectLine { get; set; }
@@ -127,8 +129,8 @@ namespace MailChimp.Net.Models
         /// Gets or sets the type.
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
-
+        public CampaignType Type { get; set; }
+        
         /// <summary>
         /// Gets or sets the unsubscribed.
         /// </summary>
