@@ -31,20 +31,29 @@ namespace MailChimp.Net.Interfaces
 		/// The <see cref="Task"/>.
 		/// </returns>
 		Task<Member> AddOrUpdateAsync(string listId, Member member);
+        
+	    /// <summary>
+	    /// Search the account or a specific list for members that match the specified query terms.
+	    /// </summary>
+	    /// <param name="request"></param>
+	    /// <returns>
+	    /// The <see cref="Task"/>.
+	    /// </returns>
+	    Task<MemberSearchResult> SearchAsync(MemberSearchRequest request);
 
-		/// <summary>
-		/// The delete async.
-		/// </summary>
-		/// <param name="listId">
-		/// The list id.
-		/// </param>
-		/// <param name="emailAddress">
-		/// The email address.
-		/// </param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		Task DeleteAsync(string listId, string emailAddress);
+        /// <summary>
+        /// The delete async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddress">
+        /// The email address.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task DeleteAsync(string listId, string emailAddress);
 
 
 		/// <summary>
