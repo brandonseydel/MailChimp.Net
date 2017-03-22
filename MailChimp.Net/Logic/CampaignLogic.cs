@@ -4,24 +4,23 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using static System.Net.Http.HttpContentExtensions;
-using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 namespace MailChimp.Net.Logic
 {
-	/// <summary>
-	/// The campaign logic.
-	/// </summary>
-	internal class CampaignLogic : BaseLogic, ICampaignLogic
+    /// <summary>
+    /// The campaign logic.
+    /// </summary>
+    internal class CampaignLogic : BaseLogic, ICampaignLogic
 	{
 
         public CampaignLogic(IMailChimpConfiguration mailChimpConfiguration)
@@ -371,7 +370,7 @@ namespace MailChimp.Net.Logic
 		public async Task ExecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction)
 		{
 
-			var member = typeof(CampaignAction).GetMember(campaignAction.ToString());
+			var member = typeof(CampaignAction).GetTypeInfo().GetMember(campaignAction.ToString());
 			var action =
 				member.FirstOrDefault()?
 					  .GetCustomAttributes(typeof(DescriptionAttribute), false)

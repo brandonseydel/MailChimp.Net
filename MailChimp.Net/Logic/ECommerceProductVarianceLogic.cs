@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using static System.Net.Http.HttpContentExtensions;
 
 namespace MailChimp.Net.Logic
 {

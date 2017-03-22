@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Configuration;
+using System.Linq;
 using MailChimp.Net.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace MailChimp.Net
 {
@@ -8,10 +9,26 @@ namespace MailChimp.Net
     {
         public static int DefaultLimit => Common.DefaultLimit;
 
+        public MailChimpConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("logging.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+            
+            Configuration = builder.Build();
+        }
+
+        public IConfiguration Configuration { get; }
+
         private string _apiKey;
         public string ApiKey
         {
-            get { return _apiKey ?? (_apiKey = ConfigurationManager.AppSettings["MailChimpApiKey"]); }
+            get { return _apiKey ?? (_apiKey = Configuration
+                    .GetSection("AppSettings")
+                    .GetChildren()
+                    .AsEnumerable()
+                    .FirstOrDefault(x => x.Key == "MailChimpApiKey").Value); }
             set { _apiKey = value; }
         }
 

@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -61,7 +62,6 @@ namespace MailChimp.Net.Core
             }
             finally
             {
-                Trace.Write(errorText);
                 Console.Error.WriteAsync(errorText);
             }
 		}
@@ -102,30 +102,17 @@ namespace MailChimp.Net.Core
         /// </summary>
         public string Type { get; set; }
 
-        /// <summary>
-        /// The get object data.
-        /// </summary>
-        /// <param name="info">
-        /// The info.
-        /// </param>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info" /> parameter is a null reference (Nothing in Visual Basic). </exception>
-        /// <exception cref="SerializationException">A value has already been associated with <paramref>
-        ///         <name>name</name>
-        ///     </paramref>
-        ///     . </exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-
-            info.AddValue("detail", this.Detail);
-            info.AddValue("title", this.Title);
-            info.AddValue("type", this.Type);
-            info.AddValue("status", this.Status);
-            info.AddValue("instance", this.Instance);
-			info.AddValue("errors", this.Errors);
-		}
+        public override IDictionary Data {
+            get {
+                var data = base.Data;
+                data.Add("detail", this.Detail);
+                data.Add("title", this.Title);
+                data.Add("type", this.Type);
+                data.Add("status", this.Status);
+                data.Add("instance", this.Instance);
+                data.Add("errors", this.Errors);
+                return data;
+            }
+        }
     }
 }

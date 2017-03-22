@@ -8,6 +8,7 @@ using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
 using System.Linq;
+using System.Reflection;
 
 // ReSharper disable CommentTypo
 // ReSharper disable IdentifierTypo
@@ -24,7 +25,7 @@ namespace MailChimp.Net
         /// <returns></returns>
         public IMailChimpManager Configure(IMailChimpConfiguration config)
         {
-            typeof(MailChimpManager).GetProperties().Select(x => x.GetValue(this)).OfType<BaseLogic>().ToList().ForEach(x => x._mailChimpConfiguration = config);
+            typeof(MailChimpManager).GetTypeInfo().GetProperties().Select(x => x.GetValue(this)).OfType<BaseLogic>().ToList().ForEach(x => x._mailChimpConfiguration = config);
             return this;
         }
 

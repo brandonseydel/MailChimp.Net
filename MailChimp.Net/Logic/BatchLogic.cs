@@ -5,17 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 
 namespace MailChimp.Net.Logic
 {
-	/// <summary>
-	/// The batch operation logic.
-	/// </summary>
-	internal class BatchLogic : BaseLogic, IBatchLogic
+    /// <summary>
+    /// The batch operation logic.
+    /// </summary>
+    internal class BatchLogic : BaseLogic, IBatchLogic
 	{
         public BatchLogic(IMailChimpConfiguration mailChimpConfiguration)
             : base(mailChimpConfiguration)

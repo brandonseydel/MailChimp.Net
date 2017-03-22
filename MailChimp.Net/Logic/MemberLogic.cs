@@ -4,17 +4,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using static System.Net.Http.HttpContentExtensions;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 // ReSharper disable UnusedMember.Local

@@ -63,7 +63,7 @@ namespace MailChimp.Net.Core
                         }
                         var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 
-                        if (type.IsEnum)
+                        if (type.GetTypeInfo().IsEnum)
                         {
                             var member = type.GetMember(value.ToString());
                             value =
