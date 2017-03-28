@@ -53,7 +53,9 @@ namespace MailChimp.Net.Core
                                                        NullValueHandling.Ignore
                                                }
                                        };
-            return await client.PatchAsync(requestUri, new ObjectContent<T>(value, jsonFormatter)).ConfigureAwait(false);
+            var content = new ObjectContent<T>(value, jsonFormatter);
+            var m = content.ReadAsStringAsync().Result; // This line fixes the tests but I dont know why (ngm)
+            return await client.PatchAsync(requestUri, content).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -122,6 +124,7 @@ namespace MailChimp.Net.Core
                                                }
                                 };
             var content = new ObjectContent<T>(value, jsonFormatter);
+            var m = content.ReadAsStringAsync().Result; // This line fixes the tests but I dont know why (ngm)
             return await client.PutAsync(requestUri, content).ConfigureAwait(false);
         }
 
@@ -161,6 +164,7 @@ namespace MailChimp.Net.Core
                                                }
                                 };
             var content = new ObjectContent<T>(value, jsonFormatter);
+            var m = content.ReadAsStringAsync().Result; // This line fixes the tests but I dont know why (ngm)
             return await client.PostAsync(requestUri, content).ConfigureAwait(false);
         }
 
