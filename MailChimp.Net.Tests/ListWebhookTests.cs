@@ -2,11 +2,10 @@
 using FluentAssertions;
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
-    [TestClass]
     public class ListWebhookTests : MailChimpTest
     {
         private const string ListName = "TestListWebhooks";
@@ -20,7 +19,7 @@ namespace MailChimp.Net.Tests
             _listId = list.Id;
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Should_Create_Webhook()
         {
             // Arrange

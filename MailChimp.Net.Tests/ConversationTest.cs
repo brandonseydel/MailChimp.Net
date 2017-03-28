@@ -6,14 +6,13 @@
 
 using System.Threading.Tasks;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
     /// <summary>
     /// The conversation test.
     /// </summary>
-    [TestClass]
     public class ConversationTest : MailChimpTest
     {
         /// <summary>
@@ -22,11 +21,11 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_Conversations()
         {
             var conversations = await this.MailChimpManager.Conversations.GetAllAsync();
-            Assert.IsNotNull(conversations);
+            Assert.NotNull(conversations);
         }
     }
 }

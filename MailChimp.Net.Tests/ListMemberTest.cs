@@ -10,23 +10,21 @@ using System.Threading.Tasks;
 
 using MailChimp.Net.Models;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
     /// <summary>
     /// The list member test.
     /// </summary>
-    [TestClass]
     public class ListMemberTest : MailChimpTest
     {
         /// <summary>
         /// The _ticks.
         /// </summary>
         private readonly long _ticks = DateTime.Now.Ticks;
-
-        [TestInitialize]
-        public void InitilizeListMemberTest()
+        
+        public ListMemberTest()
         {
             this.ClearMailChimpAsync().Wait();
             var createdList = this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetMailChimpList()).Result;
@@ -42,7 +40,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Add_User_To_List()
         {
             await
@@ -57,12 +55,12 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_Members_From_List()
         {
             await this.Add_User_To_List();
             var members = await this.MailChimpManager.Members.GetAllAsync(this.TestList.Id);
-            Assert.IsTrue(members.Any());
+            Assert.True(members.Any());
         }
 
         /// <summary>
@@ -71,7 +69,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_True_If_Member_Exists_In_List()
         {
             var emailAddress = $"{this._ticks}@test.com";
@@ -81,7 +79,7 @@ namespace MailChimp.Net.Tests
                     new Member { EmailAddress = emailAddress, Status = Status.Subscribed }).ConfigureAwait(false);
 
             var exists = await this.MailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress);
-            Assert.IsTrue(exists);
+            Assert.True(exists);
         }
 
         /// <summary>
@@ -90,7 +88,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_False_If_Member_Does_Not_Exists_In_List()
         {
             var emailAddress1 = $"{this._ticks}1@test.com";
@@ -99,9 +97,9 @@ namespace MailChimp.Net.Tests
                 this.MailChimpManager.Members.AddOrUpdateAsync(
                     this.TestList.Id,
                     new Member { EmailAddress = emailAddress1, Status = Status.Subscribed }).ConfigureAwait(false);
-
+            
             var exists = await this.MailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress2);
-            Assert.IsFalse(exists);
+            Assert.False(exists);
         }
 
         /// <summary>
@@ -110,7 +108,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_False_On_Exist_After_Removal()
         {
             var emailAddress = "tester@test.com";
@@ -123,9 +121,9 @@ namespace MailChimp.Net.Tests
                 this.MailChimpManager.Members.DeleteAsync(
                     this.TestList.Id,
                     emailAddress);
-
+            
             var doesExists = await this.MailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress);
-            Assert.AreEqual(false, doesExists);
+            Assert.Equal(false, doesExists);
         }
 
         /// <summary>
@@ -134,7 +132,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_One_Unsubscribed_Member()
         {
             await this.Add_User_To_List();
@@ -147,7 +145,7 @@ namespace MailChimp.Net.Tests
                         await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, x);
                     });
 
-            Assert.IsTrue(members.Count(x => x.Status == Status.Unsubscribed) == 0);
+            Assert.True(members.Count(x => x.Status == Status.Unsubscribed) == 0);
 
             var memberToUnsubscribe = members.FirstOrDefault();
             memberToUnsubscribe.Status = Status.Unsubscribed;
@@ -155,7 +153,7 @@ namespace MailChimp.Net.Tests
 
             members = await this.MailChimpManager.Members.GetAllAsync(this.TestList.Id);
 
-            Assert.IsTrue(members.Count(x => x.Status == Status.Unsubscribed) == 1);
+            Assert.True(members.Count(x => x.Status == Status.Unsubscribed) == 1);
         }
 
         /// <summary>
@@ -164,14 +162,15 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task UPDATE_MERGE_FIELD_SHOULD_EQUAL()
         {
             await this.Add_User_To_List();
             var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
             member.MergeFields["FNAME"] = "HOLY COW";
+
             var returnedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member).ConfigureAwait(false);
-            Assert.AreEqual(returnedMember.MergeFields["FNAME"], "HOLY COW");
+            Assert.Equal("HOLY COW", returnedMember.MergeFields["FNAME"]);
         }
 
         /// <summary>
@@ -180,14 +179,15 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Unsubscribe_User_From_List()
         {
             await this.Add_User_To_List();
             var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
             member.Status = Status.Unsubscribed;
+
             var updatedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
-            Assert.AreEqual(member.Status, updatedMember.Status);
+            Assert.Equal(member.Status, updatedMember.Status);
         }
 
         /// <summary>

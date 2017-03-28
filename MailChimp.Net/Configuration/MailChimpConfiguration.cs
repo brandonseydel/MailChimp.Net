@@ -15,7 +15,7 @@ namespace MailChimp.Net
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("logging.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
-            
+
             Configuration = builder.Build();
         }
 

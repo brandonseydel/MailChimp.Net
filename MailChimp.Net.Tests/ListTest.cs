@@ -7,7 +7,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MailChimp.Net.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using MailChimp.Net.Core;
 using System;
 
@@ -16,7 +16,6 @@ namespace MailChimp.Net.Tests
     /// <summary>
     /// The list test.
     /// </summary>
-    [TestClass]
     public class ListTest : MailChimpTest
     {
         private string TestListId { get; set; }
@@ -27,13 +26,14 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Delete_All_Lists()
         {
+
             var allLists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
             await Task.WhenAll(allLists.Select(x => this.MailChimpManager.Lists.DeleteAsync(x.Id))).ConfigureAwait(false);
             allLists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
-            Assert.IsTrue(allLists.Count() == 0);
+            Assert.Equal(0, allLists.Count());
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task<List> Should_Create_New_List()
         {
             //Clear out all the lists
@@ -54,7 +54,7 @@ namespace MailChimp.Net.Tests
             }).Lists.AddOrUpdateAsync(this.GetMailChimpList()).ConfigureAwait(false);
 
             var allLists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
-            Assert.IsTrue(allLists.Any());
+            Assert.True(allLists.Any());
             return list;
         }
 
@@ -65,11 +65,11 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_Lists()
         {
             var lists = await this.MailChimpManager.Lists.GetAllAsync();
-            Assert.IsNotNull(lists);
+            Assert.NotNull(lists);
         }
         /// <summary>
         /// The should_ return_ lists_created_today.
@@ -77,7 +77,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_Lists_Created_Today()
         {
             var request = new ListRequest()
@@ -85,9 +85,9 @@ namespace MailChimp.Net.Tests
                 BeforeDateCreated = DateTime.UtcNow,
                 SinceDateCreated = DateTime.UtcNow.AddDays(-1)
             };
-
+            
             var lists = await this.MailChimpManager.Lists.GetAllAsync(request);
-            Assert.IsNotNull(lists);
+            Assert.NotNull(lists);
         }
 
         /// <summary>
@@ -96,12 +96,12 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_One_List()
         {
             var newList = await this.Should_Create_New_List().ConfigureAwait(false);
             var lists = await this.MailChimpManager.Lists.GetAsync(newList.Id).ConfigureAwait(false);
-            Assert.IsNotNull(lists);
+            Assert.NotNull(lists);
         }
 
         /// <summary>
@@ -110,13 +110,13 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Update_List_Name()
         {
             var newList = await this.Should_Create_New_List().ConfigureAwait(false);
             newList.Name = "TEST2";
             var updatedList = await this.MailChimpManager.Lists.AddOrUpdateAsync(newList).ConfigureAwait(false);
-            Assert.IsTrue(newList.Name.Equals(updatedList.Name));
+            Assert.True(newList.Name.Equals(updatedList.Name));
         }
 
     }

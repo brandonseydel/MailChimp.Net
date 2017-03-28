@@ -7,14 +7,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MailChimp.Net.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
     /// <summary>
     /// The authorized app test.
     /// </summary>
-    [TestClass]
     public class ECommerceLogicTest : MailChimpTest
     {
         /// <summary>
@@ -23,7 +22,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_App_Information()
         {
             var stores = await this.MailChimpManager.ECommerceStores.GetAllAsync();
@@ -34,7 +33,7 @@ namespace MailChimp.Net.Tests
                 
 
             });
-            Assert.IsNotNull(testStore);
+            Assert.NotNull(testStore);
 
             //await this._mailChimpManager.ECommerceStores.Products("storeId").Variances("productId");
 
