@@ -26,10 +26,10 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_App_Information()
         {
-            var stores = await this._mailChimpManager.ECommerceStores.GetAllAsync();
-            await Task.WhenAll(stores.Select(x => this._mailChimpManager.ECommerceStores.DeleteAsync(x.Id)));
-            var testStore = await this._mailChimpManager.ECommerceStores.AddAsync(new Store {Name = "TestStore"});
-            var testCart = await this._mailChimpManager.ECommerceStores.Carts(testStore.Id).AddAsync(new Cart
+            var stores = await this.MailChimpManager.ECommerceStores.GetAllAsync();
+            await Task.WhenAll(stores.Select(x => this.MailChimpManager.ECommerceStores.DeleteAsync(x.Id)));
+            var testStore = await this.MailChimpManager.ECommerceStores.AddAsync(new Store {Name = "TestStore"});
+            var testCart = await this.MailChimpManager.ECommerceStores.Carts(testStore.Id).AddAsync(new Cart
             {
                 
 

@@ -31,11 +31,11 @@ namespace MailChimp.Net.Tests
 
             var campaign = await CreateCampaign();
             
-            var createdFeedback = await this._mailChimpManager.Feedback.AddOrUpdateAsync(campaign.Id, new Feedback() {
+            var createdFeedback = await this.MailChimpManager.Feedback.AddOrUpdateAsync(campaign.Id, new Feedback() {
                 Message = "Test feedback"
             });
 
-            var feedback = await this._mailChimpManager.Feedback.GetAsync(campaign.Id, createdFeedback.FeedbackId.Value.ToString());
+            var feedback = await this.MailChimpManager.Feedback.GetAsync(campaign.Id, createdFeedback.FeedbackId.Value.ToString());
 
             Assert.IsNotNull(feedback);
         }
@@ -50,7 +50,7 @@ namespace MailChimp.Net.Tests
         public async Task Should_Return_Feedback()
         {
             var campaign = await CreateCampaign();
-            var feedbacks = await this._mailChimpManager.Feedback.GetAllAsync(campaign.Id);
+            var feedbacks = await this.MailChimpManager.Feedback.GetAllAsync(campaign.Id);
             Assert.IsNotNull(feedbacks);
         }
 
@@ -69,13 +69,13 @@ namespace MailChimp.Net.Tests
 
             for (var i = 0; i < 3; i++)
             {
-                await this._mailChimpManager.Feedback.AddOrUpdateAsync(campaign.Id, new Feedback()
+                await this.MailChimpManager.Feedback.AddOrUpdateAsync(campaign.Id, new Feedback()
                 {
                     Message = "Test feedback"
                 });
             }
 
-            var feedbacks = await this._mailChimpManager.Feedback.GetAllAsync(campaign.Id);
+            var feedbacks = await this.MailChimpManager.Feedback.GetAllAsync(campaign.Id);
             Assert.IsTrue(feedbacks.Count() == 3);
         }
 
@@ -92,20 +92,20 @@ namespace MailChimp.Net.Tests
 
             var campaign = await CreateCampaign();
 
-            var createdFeedback = await this._mailChimpManager.Feedback.AddOrUpdateAsync(campaign.Id, new Feedback()
+            var createdFeedback = await this.MailChimpManager.Feedback.AddOrUpdateAsync(campaign.Id, new Feedback()
             {
                 Message = "Test feedback"
             });
 
-            await this._mailChimpManager.Feedback.DeleteAsync(campaign.Id, createdFeedback.FeedbackId.Value.ToString());
-            var feedback = await this._mailChimpManager.Feedback.GetAllAsync(campaign.Id);
+            await this.MailChimpManager.Feedback.DeleteAsync(campaign.Id, createdFeedback.FeedbackId.Value.ToString());
+            var feedback = await this.MailChimpManager.Feedback.GetAllAsync(campaign.Id);
 
             Assert.AreEqual(0, feedback.Count());
         }
 
         private async Task<Campaign> CreateCampaign()
         {
-            var campaign = await this._mailChimpManager.Campaigns.AddAsync(new Campaign
+            var campaign = await this.MailChimpManager.Campaigns.AddAsync(new Campaign
             {
                 Settings = new Setting
                 {

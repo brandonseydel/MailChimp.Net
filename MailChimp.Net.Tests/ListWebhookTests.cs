@@ -12,11 +12,11 @@ namespace MailChimp.Net.Tests
         private const string ListName = "TestListWebhooks";
         private string _listId = string.Empty;
 
-        internal override async Task RunBeforeTestFixture()
+        protected override async Task RunBeforeTestFixture()
         {
-            await ClearLists(ListName);
+            await ClearLists(ListName).ConfigureAwait(false);
 
-            var list = await _mailChimpManager.Lists.AddOrUpdateAsync(GetMailChimpList(ListName));
+            var list = await MailChimpManager.Lists.AddOrUpdateAsync(GetMailChimpList(ListName)).ConfigureAwait(false);
             _listId = list.Id;
         }
 
@@ -45,8 +45,8 @@ namespace MailChimp.Net.Tests
             };
 
             // Act
-            var response = await _mailChimpManager.WebHooks.AddAsync(_listId, webhook);
-            var existingWebhook = await _mailChimpManager.WebHooks.GetAsync(_listId, response.Id);
+            var response = await MailChimpManager.WebHooks.AddAsync(_listId, webhook).ConfigureAwait(false);
+            var existingWebhook = await MailChimpManager.WebHooks.GetAsync(_listId, response.Id).ConfigureAwait(false);
 
             // Assert
             response.Id.Should().NotBeEmpty();

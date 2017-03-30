@@ -25,8 +25,8 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_App_Information()
         {
-            var apiInfo = await this._mailChimpManager.Apps.GetAllAsync();
-            apiInfo = await this._mailChimpManager.Configure(new MailChimpConfiguration
+            var apiInfo = await this.MailChimpManager.Apps.GetAllAsync();
+            apiInfo = await this.MailChimpManager.Configure(new MailChimpConfiguration
             {
                 Limit = 100000
             }).Apps.GetAllAsync();

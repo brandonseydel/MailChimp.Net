@@ -16,6 +16,7 @@ namespace MailChimp.Net.Core
     /// <summary>
     /// The exception that comes back from Mail Chimp when an invalid operation has occured.
     /// </summary>
+    [Serializable]
     public class MailChimpException : Exception
     {
         /// <summary>

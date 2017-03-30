@@ -13,7 +13,7 @@ namespace MailChimp.Net.Core
     /// </summary>
     public abstract class MailManagerBase
     {
-        protected readonly IMailChimpConfiguration _mailChimpConfiguration;
+        protected readonly IMailChimpConfiguration MailChimpConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
@@ -23,7 +23,7 @@ namespace MailChimp.Net.Core
         /// </param>
         protected MailManagerBase(string apiKey)
         {
-            _mailChimpConfiguration = new MailChimpConfiguration()
+            MailChimpConfiguration = new MailChimpConfiguration()
             {
                 ApiKey = apiKey,
             };
@@ -37,7 +37,7 @@ namespace MailChimp.Net.Core
         /// </param>
         protected MailManagerBase(IMailChimpConfiguration mailChimpConfiguration)
         {
-            _mailChimpConfiguration = mailChimpConfiguration;
+            MailChimpConfiguration = mailChimpConfiguration;
         }
 
         /// <summary>

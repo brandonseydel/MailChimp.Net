@@ -25,7 +25,7 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_Conversations()
         {
-            var conversations = await this._mailChimpManager.Conversations.GetAllAsync();
+            var conversations = await this.MailChimpManager.Conversations.GetAllAsync();
             Assert.IsNotNull(conversations);
         }
     }
