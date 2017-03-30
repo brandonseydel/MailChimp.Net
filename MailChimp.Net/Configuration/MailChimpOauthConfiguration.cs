@@ -4,7 +4,7 @@ namespace MailChimp.Net
 {
     public class MailChimpOauthConfiguration : IMailChimpConfiguration
     {
-        public static int DefaultLimit { get { return Common.DefaultLimit; } }
+        public static int DefaultLimit => Common.DefaultLimit;
 
         public string OauthToken { get; set; }
         public int Limit { get; set; } = DefaultLimit;

@@ -20,10 +20,7 @@ namespace MailChimp.Net.Core
     /// </summary>
     public abstract class BaseLogic
     {
-        internal int _limit
-        {
-            get { return _mailChimpConfiguration.Limit; }
-        } 
+        internal int _limit => _mailChimpConfiguration.Limit;
 
         internal IMailChimpConfiguration _mailChimpConfiguration;
 

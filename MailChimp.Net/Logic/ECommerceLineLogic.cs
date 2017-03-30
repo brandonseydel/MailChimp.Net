@@ -10,10 +10,7 @@ namespace MailChimp.Net.Logic
 {
     internal class ECommerceLineLogic : BaseLogic, IECommerceLineLogic
     {
-        public string BaseUrl
-        {
-            get { return $"ecommerce/stores/{this.StoreId}/{this.Resource}/{this.ResourceId}/lines"; }
-        }
+        public string BaseUrl => $"ecommerce/stores/{this.StoreId}/{this.Resource}/{this.ResourceId}/lines";
 
         public ECommerceLineLogic(IMailChimpConfiguration mailChimpConfiguration)
             : base(mailChimpConfiguration)

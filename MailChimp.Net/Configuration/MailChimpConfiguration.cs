@@ -6,7 +6,7 @@ namespace MailChimp.Net
 {
     public class MailChimpConfiguration : IMailChimpConfiguration
     {
-        public static int DefaultLimit { get { return Common.DefaultLimit; } }
+        public static int DefaultLimit => Common.DefaultLimit;
 
         private string _apiKey;
         public string ApiKey
