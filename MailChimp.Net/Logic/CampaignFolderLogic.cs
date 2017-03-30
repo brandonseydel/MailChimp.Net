@@ -14,7 +14,7 @@ namespace MailChimp.Net.Logic
 {
     using System.Collections.Generic;
 
-    using MailChimp.Net.Models;
+    using Models;
 
     /// <summary>
     /// The campaign folder logic.
@@ -51,12 +51,12 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient(BaseUrl))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var campaignFolderResponse = await response.Content.ReadAsAsync<CampaignFolderResponse>().ConfigureAwait(false);

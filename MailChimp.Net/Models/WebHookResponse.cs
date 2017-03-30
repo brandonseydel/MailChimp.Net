@@ -1,8 +1,7 @@
-﻿using MailChimp.Net.Models;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Models
 {
     public class WebHook
     {

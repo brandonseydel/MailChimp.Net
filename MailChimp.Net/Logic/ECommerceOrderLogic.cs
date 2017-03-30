@@ -29,7 +29,6 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// Adds a order to the given store by id
         /// </summary>
-        /// <param name="storeId"></param>
         /// <param name="order"></param>
         /// <returns></returns>
         public async Task<Order> AddAsync(Order order)
@@ -57,14 +56,10 @@ namespace MailChimp.Net.Logic
         }
 
         /// <summary>
-        /// The delete async.
+        /// Deletes an order
         /// </summary>
-        /// <param name="storeId">
-        /// The store id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public async Task DeleteAsync(string orderId)
         {
             var requestUrl = string.Format(BaseUrl, StoreId);
@@ -78,7 +73,6 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// Gets only the orders from the response object
         /// </summary>
-        /// <param name="storeId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
         public async Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null)
@@ -89,9 +83,7 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The get async.
         /// </summary>
-        /// <param name="storeId">
-        /// The store id.
-        /// </param>
+        /// <param name="orderId"></param>
         /// <param name="request">
         /// The request.
         /// </param>
@@ -126,13 +118,13 @@ namespace MailChimp.Net.Logic
 
             request = request ?? new OrderRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var orderResponse = await response.Content.ReadAsAsync<StoreOrderResponse>().ConfigureAwait(false);
@@ -140,18 +132,13 @@ namespace MailChimp.Net.Logic
             }
         }
 
+
         /// <summary>
-        /// The update async.
+        /// Updates an order
         /// </summary>
-        /// <param name="storeId">
-        /// The store id.
-        /// </param>
-        /// <param name="store">
-        /// The store.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
+        /// <param name="orderId"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public async Task<Order> UpdateAsync(string orderId, Order order)
         {
             var requestUrl = string.Format(BaseUrl, StoreId);

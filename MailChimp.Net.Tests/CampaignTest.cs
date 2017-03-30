@@ -48,7 +48,7 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Update_Campaign()
         {
-            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 });
+            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 }).ConfigureAwait(false);
             var campaign = campaigns.FirstOrDefault();
             if (campaign != null)
             {
@@ -74,7 +74,7 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Replicate_Campaign()
         {
-            var campaigns = await this._mailChimpManager.Campaigns.GetAllAsync();
+            var campaigns = await this._mailChimpManager.Campaigns.GetAllAsync().ConfigureAwait(false);
             var campaign = campaigns.FirstOrDefault();
             if (campaign != null)
             {
@@ -90,12 +90,12 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Delete_Campaign()
         {
-            var campaigns = await this._mailChimpManager.Campaigns.GetAllAsync();
+            var campaigns = (await this._mailChimpManager.Campaigns.GetAllAsync().ConfigureAwait(false)).ToList();
             var campaign = campaigns.FirstOrDefault();
             if (campaign != null)
             {
                 await this._mailChimpManager.Campaigns.DeleteAsync(campaign.Id).ConfigureAwait(false);
-                var campaignsnow = await this._mailChimpManager.Campaigns.GetAllAsync();
+                var campaignsnow = await this._mailChimpManager.Campaigns.GetAllAsync().ConfigureAwait(false);
                 Assert.AreNotEqual(campaigns.Count(), campaignsnow.Count());
             }
         }
@@ -137,7 +137,7 @@ namespace MailChimp.Net.Tests
 
 
 
-            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 });
+            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 }).ConfigureAwait(false);
             Assert.IsTrue(campaigns.Count() == 1);
 
             var campaign = await this._mailChimpManager.Campaigns.GetAsync(campaigns.FirstOrDefault().Id);
@@ -154,7 +154,7 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_Campaigns()
         {
-            var campaigns = await this._mailChimpManager.Campaigns.GetAll();
+            var campaigns = await this._mailChimpManager.Campaigns.GetAll().ConfigureAwait(false);
             Assert.IsNotNull(campaigns);
         }
 
@@ -167,7 +167,7 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_One_Campaign()
         {
-            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 });
+            var campaigns = await this._mailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 }).ConfigureAwait(false);
             Assert.IsTrue(campaigns.Count() == 1);
         }
 
@@ -194,8 +194,8 @@ namespace MailChimp.Net.Tests
                 Type = CampaignType.Plaintext
             }).ConfigureAwait(false);
 
-            await this._mailChimpManager.Campaigns.DeleteAsync(campaign.Id);
-            var existingCampaigns = await this._mailChimpManager.Campaigns.GetAllAsync();
+            await this._mailChimpManager.Campaigns.DeleteAsync(campaign.Id).ConfigureAwait(false);
+            var existingCampaigns = await this._mailChimpManager.Campaigns.GetAllAsync().ConfigureAwait(false);
 
             Assert.AreEqual(0, existingCampaigns.Count());
         }

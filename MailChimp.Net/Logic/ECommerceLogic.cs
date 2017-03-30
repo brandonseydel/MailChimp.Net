@@ -152,14 +152,14 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<ECommerceResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
-            request = new QueryableBaseRequest
+            request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient(BaseUrl))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var storeResponse = await response.Content.ReadAsAsync<ECommerceResponse>().ConfigureAwait(false);

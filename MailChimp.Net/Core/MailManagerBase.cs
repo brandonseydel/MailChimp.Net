@@ -13,7 +13,7 @@ namespace MailChimp.Net.Core
     /// </summary>
     public abstract class MailManagerBase
     {
-        protected IMailChimpConfiguration _mailChimpConfiguration;
+        protected readonly IMailChimpConfiguration _mailChimpConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailManagerBase"/> class.

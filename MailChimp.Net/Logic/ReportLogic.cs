@@ -116,12 +116,12 @@ namespace MailChimp.Net.Logic
 
             request = request ?? new ReportRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("reports"))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
                 return reportResponse;
@@ -191,12 +191,12 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
             {
-                var response = await client.GetAsync($"{campaignId}/click-details{request?.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{campaignId}/click-details{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var clickReportResponse = await response.Content.ReadAsAsync<ClickReportResponse>().ConfigureAwait(false);
@@ -334,13 +334,13 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
-                    await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request?.ToQueryString()}").ConfigureAwait(false);
+                    await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var clickReportMemberResponse = await response.Content.ReadAsAsync<ClickReportMemberResponse>().ConfigureAwait(false);
@@ -476,12 +476,12 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
             {
-                var response = await client.GetAsync($"{campaignId}/email-activity{request?.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{campaignId}/email-activity{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var emailActivityResponse = await response.Content.ReadAsAsync<EmailResponse>().ConfigureAwait(false);
@@ -659,13 +659,13 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
-                    await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddress)}{request?.ToQueryString()}").ConfigureAwait(false);
+                    await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddress)}{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<SentTo>().ConfigureAwait(false);
@@ -699,10 +699,10 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
-            return (await this.GetSentToRecipientsResponseAsync(campaignId, request))?.Recipients;
+            return (await this.GetSentToRecipientsResponseAsync(campaignId, request).ConfigureAwait(false))?.Recipients;
         }
 
 
@@ -839,12 +839,12 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("reports/"))
             {
-                var response = await client.GetAsync($"{campaignId}/unsubscribed{request?.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{campaignId}/unsubscribed{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var reportResponse = await response.Content.ReadAsAsync<UnsubscribeReportResponse>().ConfigureAwait(false);
                 return reportResponse.Unsubscribes;

@@ -131,7 +131,7 @@ namespace MailChimp.Net.Logic
 
             request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("lists/"))
@@ -139,7 +139,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.GetAsync(
-                        $"{listId}/interest-categories/{interestCategoryId}/interests{request?.ToQueryString()}").ConfigureAwait(false);
+                        $"{listId}/interest-categories/{interestCategoryId}/interests{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var listResponse = await response.Content.ReadAsAsync<InterestResponse>().ConfigureAwait(false);

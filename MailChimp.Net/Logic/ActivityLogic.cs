@@ -36,7 +36,10 @@ namespace MailChimp.Net.Logic
         /// The request.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// The <paramref name="requestUri"/> was null.
+        /// The <paramref>
+        ///         <name>requestUri</name>
+        ///     </paramref>
+        ///     was null.
         /// </exception>
         /// <returns>
         /// The <see cref="Task"/>.
@@ -56,7 +59,10 @@ namespace MailChimp.Net.Logic
         /// The request.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// The <paramref name="requestUri"/> was null.
+        /// The <paramref>
+        ///         <name>requestUri</name>
+        ///     </paramref>
+        ///     was null.
         /// </exception>
         /// <returns>
         /// The <see cref="Task"/>.

@@ -72,8 +72,8 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {
-                string memberId = member.Id ?? this.Hash(member.EmailAddress.ToLower());
-                var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member, null).ConfigureAwait(false);
+                var memberId = member.Id ?? this.Hash(member.EmailAddress.ToLower());
+                var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member).ConfigureAwait(false);
 
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
@@ -231,12 +231,12 @@ namespace MailChimp.Net.Logic
         {
             memberRequest = memberRequest ?? new MemberRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient($"{BaseUrl}/"))
             {
-                var response = await client.GetAsync($"{listId}/members{memberRequest?.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
@@ -336,7 +336,9 @@ namespace MailChimp.Net.Logic
         /// The email address.
         /// <returns>
         /// The <see cref="Task"/>.
-        /// </returns>
+        /// </returns></param>
+        /// <param name="request"></param>
+        /// <param name="falseIfUnsubscribed"></param>
         public async Task<bool> ExistsAsync(string listId, string emailAddress, BaseRequest request = null, bool falseIfUnsubscribed = true)
         {
             using (var client = this.CreateMailClient($"{BaseUrl}/"))

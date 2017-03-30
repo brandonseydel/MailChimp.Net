@@ -56,6 +56,7 @@ namespace MailChimp.Net.Core
             }
             catch
             {
+                // ignored
             }
             finally
             {

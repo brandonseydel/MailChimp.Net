@@ -50,7 +50,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("campaigns/"))
             {
-                var response = await client.PutAsJsonAsync($"{campaignId}/content", content, null).ConfigureAwait(false);
+                var response = await client.PutAsJsonAsync($"{campaignId}/content", content).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);

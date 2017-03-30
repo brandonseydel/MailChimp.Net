@@ -25,7 +25,7 @@ namespace MailChimp.Net.Tests
                 OauthToken = ConfigurationManager.AppSettings["MailChimpOauthToken"],
             });
 
-            var apiInfo = await oauthmailChimpManager.Api.GetInfoAsync();
+            var apiInfo = await oauthmailChimpManager.Api.GetInfoAsync().ConfigureAwait(false);
             Assert.IsNotNull(apiInfo);
         }
     }

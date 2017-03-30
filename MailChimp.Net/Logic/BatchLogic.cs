@@ -42,16 +42,16 @@ namespace MailChimp.Net.Logic
 
 		public async Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null)
 		{
-			request = new QueryableBaseRequest
+			request = request ?? new QueryableBaseRequest
 			{
-				Limit = base._limit
+				Limit = _limit
 			};
 
 			using (var client = this.CreateMailClient("batches"))
 			{
 				var response =
 					await
-						client.GetAsync(request?.ToQueryString() ?? string.Empty)
+						client.GetAsync(request.ToQueryString() ?? string.Empty)
 							.ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 				var batchResponse = await response.Content.ReadAsAsync<BatchResponse>().ConfigureAwait(false);

@@ -36,14 +36,14 @@ namespace MailChimp.Net.Logic
 
         public async Task<ListSegmentResponse> GetResponseAsync(string listId, ListSegmentRequest request = null)
         {
-            request = new ListSegmentRequest
+            request = request ?? new ListSegmentRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var segmentResponse = await response.Content.ReadAsAsync<ListSegmentResponse>().ConfigureAwait(false);
@@ -93,7 +93,7 @@ namespace MailChimp.Net.Logic
 
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.GetAsync(segmentId + "/members" + request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(segmentId + "/members" + request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var memberResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);

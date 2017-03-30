@@ -109,12 +109,12 @@ namespace MailChimp.Net.Logic
 
             request = request ?? new AuthorizedAppRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient("authorized-apps"))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var appResponse = await response.Content.ReadAsAsync<AuthorizedAppResponse>().ConfigureAwait(false);

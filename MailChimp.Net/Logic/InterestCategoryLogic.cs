@@ -150,12 +150,12 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new InterestCategoryRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient($"lists/{listId}/interest-categories"))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var listResponse = await response.Content.ReadAsAsync<InterestCategoryResponse>().ConfigureAwait(false);

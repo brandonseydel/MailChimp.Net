@@ -21,7 +21,6 @@ namespace MailChimp.Net
         /// <summary>
         /// Sets the limit on all GetAllAsync responses with QueryableBaseRequest
         /// </summary>
-        /// <param name="limit"></param>
         /// <returns></returns>
         public IMailChimpManager Configure(IMailChimpConfiguration config)
         {

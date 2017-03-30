@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core

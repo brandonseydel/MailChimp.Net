@@ -43,10 +43,10 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("conversations/"))
             {
-                var response = await client.PutAsJsonAsync($"{conversationId}", message, null);
-                await response.EnsureSuccessMailChimpAsync();
+                var response = await client.PutAsJsonAsync($"{conversationId}", message).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Message>();
+                return await response.Content.ReadAsAsync<Message>().ConfigureAwait(false);
             }
         }
 
@@ -84,10 +84,10 @@ namespace MailChimp.Net.Logic
             
             using (var client = this.CreateMailClient($"conversations/{request?.ToQueryString()}"))
             {
-                var response = await client.GetAsync($"{conversationId}/messages");
-                await response.EnsureSuccessMailChimpAsync();
+                var response = await client.GetAsync($"{conversationId}/messages").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var listResponse = await response.Content.ReadAsAsync<MessageResponse>();
+                var listResponse = await response.Content.ReadAsAsync<MessageResponse>().ConfigureAwait(false);
                 return listResponse;
             }
         }
@@ -109,10 +109,10 @@ namespace MailChimp.Net.Logic
         {
             using (var client = this.CreateMailClient("conversations/"))
             {
-                var response = await client.GetAsync($"{conversationId}/messages/{messageId}");
-                await response.EnsureSuccessMailChimpAsync();
+                var response = await client.GetAsync($"{conversationId}/messages/{messageId}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Message>();
+                return await response.Content.ReadAsAsync<Message>().ConfigureAwait(false);
             }
         }
     }

@@ -67,7 +67,7 @@ namespace MailChimp.Net.Tests
 
             var campaign = await CreateCampaign();
 
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 await this._mailChimpManager.Feedback.AddOrUpdateAsync(campaign.Id, new Feedback()
                 {

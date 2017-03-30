@@ -40,7 +40,6 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// Adds a product to the given store by id
         /// </summary>
-        /// <param name="storeId"></param>
         /// <param name="product"></param>
         /// <returns></returns>
         public async Task<Product> AddAsync(Product product)
@@ -69,7 +68,6 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// Gets only the products from the response object
         /// </summary>
-        /// <param name="storeId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
         public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null)
@@ -80,9 +78,7 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The get async.
         /// </summary>
-        /// <param name="storeId">
-        /// The store id.
-        /// </param>
+        /// <param name="productId"></param>
         /// <param name="request">
         /// The request.
         /// </param>
@@ -114,15 +110,15 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
-            request = new QueryableBaseRequest
+            request = request ?? new QueryableBaseRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var productResponse = await response.Content.ReadAsAsync<StoreProductResponse>().ConfigureAwait(false);
@@ -133,12 +129,8 @@ namespace MailChimp.Net.Logic
         /// <summary>
         /// The update async.
         /// </summary>
-        /// <param name="storeId">
-        /// The store id.
-        /// </param>
-        /// <param name="store">
-        /// The store.
-        /// </param>
+        /// <param name="productId"></param>
+        /// <param name="product"></param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>

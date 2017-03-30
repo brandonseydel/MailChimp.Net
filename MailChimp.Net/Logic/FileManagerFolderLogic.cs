@@ -48,12 +48,12 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new FileManagerRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = CreateMailClient(BaseUrl))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var fileManagerFolderResponse =

@@ -1,6 +1,6 @@
 ﻿using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Core.Responses
+namespace MailChimp.Net.Core
 {
     public class DefaultContentResponse
     {

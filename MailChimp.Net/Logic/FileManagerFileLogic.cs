@@ -29,8 +29,14 @@ namespace MailChimp.Net.Logic
         {
         }
 
-        /// <exception cref="ObjectDisposedException">Either the current stream or <paramref name="destination" /> were closed before the <see cref="M:System.IO.Stream.CopyTo(System.IO.Stream)" /> method was called.</exception>
-        /// <exception cref="NotSupportedException">The current stream does not support reading.-or-<paramref name="destination" /> does not support writing.</exception>
+        /// <exception cref="ObjectDisposedException">Either the current stream or <paramref>
+        ///         <name>destination</name>
+        ///     </paramref>
+        ///     were closed before the <see cref="M:System.IO.Stream.CopyTo(System.IO.Stream)" /> method was called.</exception>
+        /// <exception cref="NotSupportedException">The current stream does not support reading.-or-<paramref>
+        ///         <name>destination</name>
+        ///     </paramref>
+        ///     does not support writing.</exception>
         private string ConvertToBase64(Stream stream)
         {
             byte[] bytes;
@@ -92,12 +98,12 @@ namespace MailChimp.Net.Logic
         {
             request = request ?? new FileManagerRequest
             {
-                Limit = base._limit
+                Limit = _limit
             };
 
             using (var client = this.CreateMailClient(BaseUrl))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var fileManagerFileResponse = await response.Content.ReadAsAsync<FileManagerFileResponse>().ConfigureAwait(false);
