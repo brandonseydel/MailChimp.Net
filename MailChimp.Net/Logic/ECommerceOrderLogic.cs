@@ -125,7 +125,7 @@ namespace MailChimp.Net.Logic
         public async Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null)
         {
 
-            request = new OrderRequest
+            request = request ?? new OrderRequest
             {
                 Limit = base._limit
             };
