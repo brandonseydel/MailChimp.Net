@@ -4,8 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-
 using MailChimp.Net.Models;
 using Newtonsoft.Json;
 

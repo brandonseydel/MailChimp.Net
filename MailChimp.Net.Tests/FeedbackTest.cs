@@ -4,8 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MailChimp.Net.Models;
 using MailChimp.Net.Core;

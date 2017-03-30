@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using MailChimp.Net.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MailChimp.Net.Tests

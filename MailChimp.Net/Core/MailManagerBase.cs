@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Configuration;
 using MailChimp.Net.Interfaces;
 
 namespace MailChimp.Net.Core
