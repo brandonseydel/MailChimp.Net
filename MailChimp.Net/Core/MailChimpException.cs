@@ -4,19 +4,66 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
 {
     /// <summary>
     /// The exception that comes back from Mail Chimp when an invalid operation has occured.
     /// </summary>
-    [Serializable]
     public class MailChimpException : Exception
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailChimpException"/> class.
+        /// </summary>
+        /// <param name="info">
+        /// The info.
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name>name</name>
+        ///     </paramref>
+        ///     is null. </exception>
+        /// <exception cref="InvalidCastException">The value associated with <paramref>
+        ///         <name>name</name>
+        ///     </paramref>
+        ///     cannot be converted to a <see cref="T:System.String" />. </exception>
+        /// <exception cref="SerializationException">An element with the specified name is not found in the current instance. </exception>
+        // ReSharper disable once UnusedParameter.Local
+        public MailChimpException(SerializationInfo info, StreamingContext context)
+        {
+            var errorText = string.Empty;
+
+            try
+            {
+                this.Detail = info?.GetString("detail");
+                this.Title = info?.GetString("title");
+                this.Type = info?.GetString("type");
+                this.Status = info?.GetInt32("status") ?? 0;
+                this.Instance = info?.GetString("instance");
+
+                errorText =
+                    $"Title: {this.Title + Environment.NewLine} Type: {this.Type + Environment.NewLine} Status: {this.Status + Environment.NewLine} + Detail: {this.Detail + Environment.NewLine}";
+                this.Errors = (List<Error>) info?.GetValue("errors", typeof(List<Error>));
+                errorText += "Errors: " + string.Join(" : ", this.Errors.Select(x => x.Field + " " + x.Message));
+            }
+            catch
+            {
+            }
+            finally
+            {
+                Console.Error.WriteAsync(errorText);
+            }
+		}
+
 		public List<Error> Errors { get; set; }
 
 		public class Error

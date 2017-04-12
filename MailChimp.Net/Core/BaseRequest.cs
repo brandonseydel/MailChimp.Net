@@ -44,7 +44,7 @@ namespace MailChimp.Net.Core
         /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
         public virtual string ToQueryString()
         {
-            var properties = this.GetType().GetProperties();
+            var properties = this.GetType().GetTypeInfo().GetProperties();
 
             var sb = new StringBuilder();
             sb.Append("?");
@@ -65,7 +65,7 @@ namespace MailChimp.Net.Core
 
                         if (type.GetTypeInfo().IsEnum)
                         {
-                            var member = type.GetMember(value.ToString());
+                            var member = type.GetTypeInfo().GetMember(value.ToString());
                             value =
                                 member.FirstOrDefault()?
                                       .GetCustomAttributes(typeof(DescriptionAttribute), false)

@@ -80,7 +80,9 @@ namespace MailChimp.Net.Core
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             objectType = Nullable.GetUnderlyingType(objectType) ?? objectType;
-            var eTypeVal = objectType.GetMembers()
+            var eTypeVal = objectType
+                        .GetTypeInfo()
+                        .GetMembers()
                         .Where(x => x.GetCustomAttributes(typeof(DescriptionAttribute)).Any())
                         .FirstOrDefault(x => ((DescriptionAttribute)x.GetCustomAttribute(typeof(DescriptionAttribute))).Description == (string)reader.Value);
 
@@ -115,7 +117,8 @@ namespace MailChimp.Net.Core
                 return;
             }
 
-            var description = type.GetField(name) // I prefer to get attributes this way
+            var description = type.GetTypeInfo()
+                                  .GetField(name) // I prefer to get attributes this way
                                   .GetCustomAttributes(false)
                                   .OfType<DescriptionAttribute>()
                                   .Select(x => x.Description)

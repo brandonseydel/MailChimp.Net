@@ -74,6 +74,18 @@ namespace MailChimp.Net.Logic
             }
         }
 
+        public async Task<BatchSegmentMembersResponse> BatchMemberAsync(string listId, string segmentId, BatchSegmentMembers batchSegmentMembers)
+        {
+            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            {
+                var response = await client.PostAsJsonAsync(segmentId, batchSegmentMembers).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var memberResponse = await response.Content.ReadAsAsync<BatchSegmentMembersResponse>().ConfigureAwait(false);
+                return memberResponse;
+            }
+        }
+
         public async Task DeleteMemberAsync(string listId, string segmentId, string emailAddress)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))

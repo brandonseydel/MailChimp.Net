@@ -7,8 +7,6 @@ namespace MailChimp.Net
 {
     public class MailChimpConfiguration : IMailChimpConfiguration
     {
-        public static int DefaultLimit => Common.DefaultLimit;
-
         public MailChimpConfiguration()
         {
             var builder = new ConfigurationBuilder()
@@ -16,10 +14,14 @@ namespace MailChimp.Net
                 .AddJsonFile("logging.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
 
+
+
             Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
+
+        public static int DefaultLimit { get { return Common.DefaultLimit; } }
 
         private string _apiKey;
         public string ApiKey
