@@ -62,7 +62,7 @@ namespace MailChimp.Net.Core
             finally
             {
                 Trace.Write(errorText);
-                Console.Error.WriteAsync(errorText);
+                Debug.Write(errorText);
             }
 		}
 
