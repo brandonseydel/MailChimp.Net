@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
+using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
@@ -42,7 +42,7 @@ namespace MailChimp.Net.Core
                     throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri} ");
                 }
 
-                throw (await response.Content.ReadAsStreamAsync().ConfigureAwait(false)).Deserialize<MailChimpException>();
+                throw new MailChimpException((await response.Content.ReadAsStreamAsync().ConfigureAwait(false)).Deserialize<MailChimpApiError>());
             }
         }
 

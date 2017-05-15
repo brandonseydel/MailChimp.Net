@@ -47,10 +47,5 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public ICollection<Link> Links { get; set; }
-
-        public bool ShouldSerializeLinks()
-        {
-            return Links.Any();
-        }
     }
 }
