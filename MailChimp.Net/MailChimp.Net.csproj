@@ -39,6 +39,10 @@
     <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -73,6 +77,7 @@
     <Compile Include="Core\MailChimpException.cs" />
     <Compile Include="Core\MailChimpNotFoundException.cs" />
     <Compile Include="Core\Operation.cs" />
+    <Compile Include="Core\OperationResponse.cs" />
     <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
     <Compile Include="Core\Requests\BatchRequest.cs" />
     <Compile Include="Core\Requests\CampaignScheduleRequest.cs" />
