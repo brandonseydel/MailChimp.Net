@@ -73,6 +73,7 @@
     <Compile Include="MailChimpTest.cs" />
     <Compile Include="OauthTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SegmentTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MailChimp.Net\MailChimp.Net.csproj">
