@@ -9,6 +9,7 @@ namespace MailChimp.Net.Interfaces
     {
         Task<ListSegment> AddAsync(string listId, Segment segment);
         Task<IEnumerable<ListSegment>> GetAllAsync(string listId, ListSegmentRequest request = null);
+        Task<ListSegment> GetAsync(string listId, int segmentId);
         Task<ListSegmentResponse> GetResponseAsync(string listId, ListSegmentRequest request = null);
         Task<ListSegment> UpdateAsync(string listId, string segmentId, Segment segment);
         Task<Member> AddMemberAsync(string listId, string segmentId, Member member);

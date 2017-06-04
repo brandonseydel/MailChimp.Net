@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
@@ -32,6 +33,18 @@ namespace MailChimp.Net.Logic
         public async Task<IEnumerable<ListSegment>> GetAllAsync(string listId, ListSegmentRequest request = null)
         {
             return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Segments;
+        }
+
+        public async Task<ListSegment> GetAsync(string listId, int segmentId)
+        {
+            using (var client = this.CreateMailClient(string.Format($"{BaseUrl}/", listId)))
+            {
+                var response = await client.GetAsync($"{segmentId}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var segmentResponse = await response.Content.ReadAsAsync<ListSegment>().ConfigureAwait(false);
+                return segmentResponse;
+            }
         }
 
         public async Task<ListSegmentResponse> GetResponseAsync(string listId, ListSegmentRequest request = null)
