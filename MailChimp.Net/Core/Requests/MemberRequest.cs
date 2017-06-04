@@ -36,5 +36,16 @@ namespace MailChimp.Net.Core
 
         [QueryString("before_last_changed")]
         public string BeforeLastChanged { get; set; }
+        
+        //as documented at: https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#%20
+        // to filter members by interests, 3 fields (below) are required
+        [QueryString("interest_category_id")]
+        public string InterestCategoryId { get; set; }
+
+        [QueryString("interest_ids")]
+        public string InterestIds { get; set; }
+
+        [QueryString("interest_match")]
+        public string InterestMatch { get; set; }
     }
 }
