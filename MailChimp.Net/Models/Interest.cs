@@ -60,7 +60,7 @@ namespace MailChimp.Net.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the subscriber count.
         /// </summary>
         [JsonProperty("subscriber_count")]
         public string SubscriberCount { get; set; }
