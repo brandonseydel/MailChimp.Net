@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -29,8 +30,10 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the match.
         /// </summary>
+        /// <see cref="Models.Match"/>
         [JsonProperty("match")]
-        public string Match { get; set; }
+		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public Match Match { get; set; }
 
         /// <summary>
         /// Gets or sets the saved segment id.

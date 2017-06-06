@@ -23,7 +23,7 @@ namespace MailChimp.Net.Tests
                 Name = DateTime.Now.ToString(),
                 Options = new SegmentOptions()
                 {
-                    Match = "all",
+                    Match = Match.All,
                     Conditions = new List<Condition>()
                 }
             };

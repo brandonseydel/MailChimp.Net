@@ -41,7 +41,7 @@ namespace MailChimp.Net.Tests
                     Api = true,
                     User = true
                 },
-                Url = "www.google.com"
+                Url = "http://www.google.com"
             };
 
             // Act
