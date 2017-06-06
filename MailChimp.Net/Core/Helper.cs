@@ -104,7 +104,7 @@ namespace MailChimp.Net.Core
         /// <returns>
         /// The <see cref="T"/>.
         /// </returns>
-        private static T Deserialize<T>(this Stream stream)
+        public static T Deserialize<T>(this Stream stream)
         {
             using (var reader = new StreamReader(stream))
             using (var jsonReader = new JsonTextReader(reader))
