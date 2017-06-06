@@ -7,9 +7,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -101,7 +101,7 @@ namespace MailChimp.Net.Logic
 
                 var responseContentStream = await response.Content.ReadAsStreamAsync();
 
-                using (var tarInputStream = new TarInputStream(new GZipInputStream(responseContentStream)))
+                using (var tarInputStream = new TarInputStream(new GZipStream(responseContentStream, CompressionMode.Decompress)))
                 {
                     var tarEntry = tarInputStream.GetNextEntry();
                     while (tarEntry != null)
