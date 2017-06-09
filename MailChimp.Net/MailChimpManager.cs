@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
@@ -51,6 +52,12 @@ namespace MailChimp.Net
             TemplateFolders = new TemplateFolderLogic(options);
             Templates = new TemplateLogic(options);
             WebHooks = new WebHookLogic(options);
+        }
+
+        public IMailChimpManager Configure(Action<MailchimpOptions> options)
+        {
+            options(MailchimpOptions);
+            return this;
         }
 
         /// <summary>

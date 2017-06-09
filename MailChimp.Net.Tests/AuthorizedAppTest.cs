@@ -25,10 +25,7 @@ namespace MailChimp.Net.Tests
         public async Task Should_Return_App_Information()
         {
             var apiInfo = await this.MailChimpManager.Apps.GetAllAsync();
-            apiInfo = await this.MailChimpManager.Configure(new MailChimpConfiguration
-            {
-                Limit = 100000
-            }).Apps.GetAllAsync();
+            apiInfo = await this.MailChimpManager.Configure((mo) => mo.Limit = 100000).Apps.GetAllAsync();
             Assert.NotNull(apiInfo);
         }
     }

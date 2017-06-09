@@ -74,7 +74,7 @@ namespace MailChimp.Net.Tests
         /// </summary>
         public MailChimpTest()
         {
-            this.MailChimpManager = new MailChimpManager();
+            this.MailChimpManager = new MailChimpManager(null);
             RunBeforeTestFixture().Wait();
         }
 

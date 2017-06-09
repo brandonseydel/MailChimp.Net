@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MailChimp.Net.Tests.Stubs;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
@@ -30,11 +31,8 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Return_API_Information()
         {
-            var oauthmailChimpManager = new MailChimpManager(new MailChimpOauthConfiguration
-            {
-                DataCenter = Configuration["MailChimpOauthDataCenter"],
-                OauthToken = Configuration["MailChimpOauthToken"],
-            });
+            var oauthmailChimpManager = new MailChimpManager(
+                new StubMailchimpOptions(Configuration["MailChimpOauthDataCenter"].ToString(), Configuration["MailChimpOauthToken"].ToString()));
 
             var apiInfo = await oauthmailChimpManager.Api.GetInfoAsync().ConfigureAwait(false);
             Assert.NotNull(apiInfo);

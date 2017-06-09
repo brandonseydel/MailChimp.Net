@@ -48,10 +48,7 @@ namespace MailChimp.Net.Tests
             //Clear out all the lists
             await this.Should_Delete_All_Lists();
 
-            var list = await this.MailChimpManager.Configure(new MailChimpConfiguration
-            {
-                Limit = 10
-            }).Lists.AddOrUpdateAsync(this.GetMailChimpList()).ConfigureAwait(false);
+            var list = await this.MailChimpManager.Configure((mo) => mo.Limit = 10).Lists.AddOrUpdateAsync(this.GetMailChimpList()).ConfigureAwait(false);
 
             var allLists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
             Assert.True(allLists.Any());

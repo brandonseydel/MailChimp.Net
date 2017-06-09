@@ -11,14 +11,14 @@ namespace MailChimp.Net.Tests
         private const string ListName = "TestListWebhooks";
         private string _listId = string.Empty;
 
-        protected override async Task RunBeforeTestFixture()
+        internal override async Task RunBeforeTestFixture()
         {
             await ClearLists(ListName).ConfigureAwait(false);
 
             var list = await MailChimpManager.Lists.AddOrUpdateAsync(GetMailChimpList(ListName)).ConfigureAwait(false);
             _listId = list.Id;
         }
-
+        
         [Fact]
         public async Task Should_Create_Webhook()
         {

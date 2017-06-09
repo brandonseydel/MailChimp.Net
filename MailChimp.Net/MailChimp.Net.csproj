@@ -1,6 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <Import Project="..\FreudCore.Build\ThirdParty.Commons.props" />
+<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
