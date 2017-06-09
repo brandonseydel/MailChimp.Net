@@ -20,8 +20,8 @@ namespace MailChimp.Net.Models
         /// </summary>
         public EmailActivity()
         {
-            this.Activity = new HashSet<MemberActivity>();
-            this.Links = new HashSet<Link>();
+            Activity = new HashSet<MemberActivity>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

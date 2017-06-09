@@ -17,7 +17,7 @@ namespace MailChimp.Net.Core
 
         public ReportRequest()
         {
-            this.Type = new HashSet<CampaignType>();
+            Type = new HashSet<CampaignType>();
         }
 
         /// <summary>

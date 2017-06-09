@@ -8,18 +8,18 @@ namespace MailChimp.Net.Logic
 {
     internal class ECommerceProductVarianceLogic : BaseLogic, IECommerceProductVarianceLogic
     {
-        public string BaseUrl => $"ecommerce/stores/{this.StoreId}/products/{this.ProductId}/variants";
+        public string BaseUrl => $"ecommerce/stores/{StoreId}/products/{ProductId}/variants";
 
         public string ProductId { get; set; }
 
-        public ECommerceProductVarianceLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ECommerceProductVarianceLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
 
         public async Task<Variant> AddAsync(Variant variant)
         {
-            using (var client = CreateMailClient(this.BaseUrl))
+            using (var client = CreateMailClient(BaseUrl))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, variant).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

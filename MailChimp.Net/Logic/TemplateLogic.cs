@@ -4,13 +4,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 // ReSharper disable UnusedMember.Global
-#pragma warning disable 1584,1711,1572,1581,1580
+#pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 namespace MailChimp.Net.Logic
 {
@@ -20,8 +20,8 @@ namespace MailChimp.Net.Logic
     internal class TemplateLogic : BaseLogic, ITemplateLogic
     {
 
-        public TemplateLogic(IMailChimpConfiguration mailChimpConfiguration)
-            : base(mailChimpConfiguration)
+        public TemplateLogic(MailchimpOptions optionsAccessor)
+            : base(optionsAccessor)
         {
         }
 
@@ -46,7 +46,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
         public async Task DeleteAsync(string templateId)
         {
-            using (var client = this.CreateMailClient("templates/"))
+            using (var client = CreateMailClient("templates/"))
             {
                 var response = await client.DeleteAsync($"{templateId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -55,7 +55,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<Template> CreateAsync(string name, string folderId, string html)
         {
-            using (var client = this.CreateMailClient("templates/"))
+            using (var client = CreateMailClient("templates/"))
             {
                 var response = await client.PostAsJsonAsync("", new { name, folder_id = folderId, html }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -65,7 +65,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<Template> UpdateAsync(string templateId, string name, string folderId, string html)
         {
-            using (var client = this.CreateMailClient("templates/"))
+            using (var client = CreateMailClient("templates/"))
             {
                 var response =
                     await client.PatchAsJsonAsync(templateId, new {name, folder_id = folderId, html}).ConfigureAwait(false);
@@ -78,7 +78,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("templates/"))
+            using (var client = CreateMailClient("templates/"))
             {
                 var response = await client.GetAsync($"{templateId}/default-content{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -134,7 +134,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null)
         {
-            using (var client = this.CreateMailClient("templates"))
+            using (var client = CreateMailClient("templates"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -164,7 +164,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Template> GetAsync(string templateId)
         {
-            using (var client = this.CreateMailClient("templates/"))
+            using (var client = CreateMailClient("templates/"))
             {
                 var response = await client.GetAsync($"{templateId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

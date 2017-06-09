@@ -18,7 +18,7 @@ namespace MailChimp.Net.Logic
     internal class ContentLogic : BaseLogic, IContentLogic
     {
 
-        public ContentLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ContentLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -45,7 +45,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest content)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PutAsJsonAsync($"{campaignId}/content", content).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -73,7 +73,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Content> GetAsync(string campaignId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/content").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

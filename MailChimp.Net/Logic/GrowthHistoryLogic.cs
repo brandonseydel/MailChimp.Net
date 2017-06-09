@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
     public class GrowthHistoryLogic : BaseLogic, IGrowthHistoryLogic
     {
 
-        public GrowthHistoryLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public GrowthHistoryLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -83,7 +83,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await client.GetAsync($"{listId}/growth-history{request.ToQueryString()}").ConfigureAwait(false);
@@ -123,7 +123,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<History> GetAsync(string listId, string month, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await

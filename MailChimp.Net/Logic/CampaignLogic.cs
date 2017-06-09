@@ -23,7 +23,7 @@ namespace MailChimp.Net.Logic
     internal class CampaignLogic : BaseLogic, ICampaignLogic
 	{
 
-        public CampaignLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public CampaignLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -52,10 +52,10 @@ namespace MailChimp.Net.Logic
 		{
 			if (string.IsNullOrWhiteSpace(campaign.Id))
 			{
-				return await this.CreateAsync(campaign).ConfigureAwait(false);
+				return await CreateAsync(campaign).ConfigureAwait(false);
 			}
 
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PatchAsJsonAsync($"{campaign.Id}", campaign).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -65,11 +65,11 @@ namespace MailChimp.Net.Logic
 		}
 		public async Task<Campaign> AddAsync(Campaign campaign)
 		{
-			return await this.CreateAsync(campaign).ConfigureAwait(false);
+			return await CreateAsync(campaign).ConfigureAwait(false);
 		}
 		public async Task<Campaign> UpdateAsync(string campaignId, Campaign campaign)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PatchAsJsonAsync($"{campaignId}", campaign).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -108,12 +108,12 @@ namespace MailChimp.Net.Logic
 
 			if (string.IsNullOrWhiteSpace(campaign.Id))
 			{
-				return await this.CreateAsync(campaign).ConfigureAwait(false);
+				return await CreateAsync(campaign).ConfigureAwait(false);
 			}
 
 
 
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PatchAsJsonAsync($"{campaign.Id}", campaign).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -125,7 +125,7 @@ namespace MailChimp.Net.Logic
 
 		private async Task<Campaign> CreateAsync(Campaign campaign)
 		{
-			using (var client = this.CreateMailClient("campaigns"))
+			using (var client = CreateMailClient("campaigns"))
 			{
 				var response = await client.PostAsJsonAsync("", campaign).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -155,7 +155,7 @@ namespace MailChimp.Net.Logic
 		/// </exception>
 		public async Task CancelAsync(string campaignId)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PostAsync($"{campaignId}/actions/cancel-send", null).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -184,7 +184,7 @@ namespace MailChimp.Net.Logic
 		/// </exception>
 		public async Task DeleteAsync(string campaignId)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.DeleteAsync($"{campaignId}").ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -215,7 +215,7 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<IEnumerable<Campaign>> GetAll(CampaignRequest request = null)
 		{
-			return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Campaigns;
+			return (await GetResponseAsync(request).ConfigureAwait(false))?.Campaigns;
 		}
 
 		/// <summary>
@@ -242,7 +242,7 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<IEnumerable<Campaign>> GetAllAsync(CampaignRequest request = null)
 		{
-			return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Campaigns;
+			return (await GetResponseAsync(request).ConfigureAwait(false))?.Campaigns;
 		}
 
 
@@ -276,7 +276,7 @@ namespace MailChimp.Net.Logic
 				Limit = _limit
 			};
 
-			using (var client = this.CreateMailClient("campaigns"))
+			using (var client = CreateMailClient("campaigns"))
 			{
 				var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -308,7 +308,7 @@ namespace MailChimp.Net.Logic
 		/// </exception>
 		public async Task<Campaign> GetAsync(string id)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var dashboardLink = string.Empty;
 				var response = await client.GetAsync($"{id}").ConfigureAwait(false);
@@ -360,7 +360,7 @@ namespace MailChimp.Net.Logic
 		/// </exception>
 		public async Task SendAsync(string campaignId)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PostAsync($"{campaignId}/actions/send", null).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -377,7 +377,7 @@ namespace MailChimp.Net.Logic
 					  .OfType<DescriptionAttribute>()
 					  .FirstOrDefault()?.Description ?? campaignAction.ToString().ToLower();
 
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PostAsync($"{campaignId}/actions/${action}", null).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -387,7 +387,7 @@ namespace MailChimp.Net.Logic
 		public async Task<ReplicateResponse> ReplicateCampaignAsync(string campaignId)
 		{
 
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PostAsync($"{campaignId}/actions/replicate", null).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -418,7 +418,7 @@ namespace MailChimp.Net.Logic
 	    /// </exception>
 	    public async Task TestAsync(string campaignId, CampaignTestRequest content = null)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PostAsJsonAsync($"{campaignId}/actions/test", content).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -447,7 +447,7 @@ namespace MailChimp.Net.Logic
 	    /// </exception>
 	    public async Task ScheduleAsync(string campaignId, CampaignScheduleRequest content = null)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.PostAsJsonAsync($"{campaignId}/actions/schedule", content).ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -456,7 +456,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<CampaignSearchResult> SearchAsync(CampaignSearchRequest request = null)
         {
-            using (var client = this.CreateMailClient($"search-campaigns{request?.ToQueryString()}"))
+            using (var client = CreateMailClient($"search-campaigns{request?.ToQueryString()}"))
             {
                 var response = await client.GetAsync("").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -487,7 +487,7 @@ namespace MailChimp.Net.Logic
         // ReSharper disable once UnusedMember.Global
         public async Task<SendChecklistResponse> SendChecklistAsync(string id)
 		{
-			using (var client = this.CreateMailClient("campaigns/"))
+			using (var client = CreateMailClient("campaigns/"))
 			{
 				var response = await client.GetAsync($"{id}/send-checklist").ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

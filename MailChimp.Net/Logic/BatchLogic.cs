@@ -16,14 +16,14 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class BatchLogic : BaseLogic, IBatchLogic
 	{
-        public BatchLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public BatchLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
 
         public async Task<Batch> AddAsync(BatchRequest request = null)
 		{
-			using (var client = this.CreateMailClient("batches"))
+			using (var client = CreateMailClient("batches"))
 			{
 				var response =
 					await
@@ -36,7 +36,7 @@ namespace MailChimp.Net.Logic
 
 		public async Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null)
 		{
-			return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Batches;
+			return (await GetResponseAsync(request).ConfigureAwait(false))?.Batches;
 		}
 
 		public async Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null)
@@ -46,7 +46,7 @@ namespace MailChimp.Net.Logic
 				Limit = _limit
 			};
 
-			using (var client = this.CreateMailClient("batches"))
+			using (var client = CreateMailClient("batches"))
 			{
 				var response =
 					await
@@ -60,7 +60,7 @@ namespace MailChimp.Net.Logic
 
 		public async Task DeleteAsync(string batchId)
 		{
-			using (var client = this.CreateMailClient("batches/"))
+			using (var client = CreateMailClient("batches/"))
 			{
 				var response = await client.DeleteAsync($"{batchId}").ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -70,7 +70,7 @@ namespace MailChimp.Net.Logic
 
 		public async Task<Batch> GetBatchStatus(string batchId)
 		{
-			using (var client = this.CreateMailClient($"batches/{batchId}"))
+			using (var client = CreateMailClient($"batches/{batchId}"))
 			{
 				var response =
 					await

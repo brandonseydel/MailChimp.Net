@@ -8,7 +8,7 @@ namespace MailChimp.Net.Models
     {
         public MemberSearchResult()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
         }
 
         [JsonProperty("exact_matches")]

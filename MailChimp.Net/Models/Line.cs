@@ -8,7 +8,7 @@ namespace MailChimp.Net.Models
 
         public Line()
         {
-            this.Links = new List<Link>();
+            Links = new List<Link>();
         }
 
         [JsonProperty("id")]

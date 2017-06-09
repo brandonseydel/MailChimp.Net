@@ -6,8 +6,8 @@ namespace MailChimp.Net.Models
     {
         public BatchSegmentMembers()
         {
-            this.MembersToAdd = new string[0];
-            this.MembersToRemove = new string[0];
+            MembersToAdd = new string[0];
+            MembersToRemove = new string[0];
         }
 
         /// <summary>

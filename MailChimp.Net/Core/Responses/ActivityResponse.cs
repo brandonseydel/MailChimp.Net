@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public ActivityResponse()
         {
-            this.Activities = new HashSet<Activity>();
+            Activities = new HashSet<Activity>();
         }
 
         /// <summary>

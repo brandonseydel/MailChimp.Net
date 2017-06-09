@@ -22,8 +22,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public ClickReportResponse()
         {
-            this.UrlsClicked = new HashSet<UrlClicked>();
-            this.Links = new HashSet<Link>();
+            UrlsClicked = new HashSet<UrlClicked>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

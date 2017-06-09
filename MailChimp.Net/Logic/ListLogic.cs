@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
     internal class ListLogic : BaseLogic, IListLogic
     {
 
-        public ListLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ListLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -43,7 +43,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<List> AddOrUpdateAsync(List list)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 System.Net.Http.HttpResponseMessage response;
                 if (string.IsNullOrWhiteSpace(list.Id))
@@ -81,7 +81,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string listId)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.DeleteAsync(listId).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -140,7 +140,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient("lists"))
+            using (var client = CreateMailClient("lists"))
             {
                 var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -170,7 +170,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<List> GetAsync(string id)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{id}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

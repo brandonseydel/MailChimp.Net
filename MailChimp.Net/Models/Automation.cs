@@ -21,7 +21,7 @@ namespace MailChimp.Net.Models
         /// </summary>
         public Automation()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

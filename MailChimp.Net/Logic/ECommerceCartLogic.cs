@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "ecommerce/stores/{0}/carts";
 
-        public ECommerceCartLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ECommerceCartLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -31,7 +31,7 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<Cart> AddAsync(Cart cart)
         {
-            var requestUrl = string.Format(BaseUrl, this.StoreId);
+            var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, cart).ConfigureAwait(false);
@@ -46,10 +46,10 @@ namespace MailChimp.Net.Logic
 
         public IECommerceLineLogic Lines(string cartId)
         {
-            _cartLogic = _cartLogic ?? new ECommerceLineLogic(_mailChimpConfiguration);
+            _cartLogic = _cartLogic ?? new ECommerceLineLogic(_options);
             _cartLogic.Resource = "carts";
             _cartLogic.ResourceId = cartId;
-            _cartLogic.StoreId = this.StoreId;
+            _cartLogic.StoreId = StoreId;
             return _cartLogic;
         }
 
@@ -76,7 +76,7 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<IEnumerable<Cart>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Carts;
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Carts;
         }
 
         /// <summary>

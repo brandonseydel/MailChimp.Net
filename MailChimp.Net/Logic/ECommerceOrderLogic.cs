@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "ecommerce/stores/{0}/orders";
 
-        public ECommerceOrderLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ECommerceOrderLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -31,7 +31,7 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<Order> AddAsync(Order order)
         {
-            var requestUrl = string.Format(BaseUrl, this.StoreId);
+            var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, order).ConfigureAwait(false);
@@ -46,10 +46,10 @@ namespace MailChimp.Net.Logic
 
         public IECommerceLineLogic Lines(string orderId)
         {
-            _orderLogic = _orderLogic ?? new ECommerceLineLogic(this._mailChimpConfiguration);
+            _orderLogic = _orderLogic ?? new ECommerceLineLogic(_options);
             _orderLogic.Resource = "orders";
             _orderLogic.ResourceId = orderId;
-            _orderLogic.StoreId = this.StoreId;
+            _orderLogic.StoreId = StoreId;
             return _orderLogic;
         }
 

@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
     internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     {
 
-        public AutomationEmailQueueLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public AutomationEmailQueueLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -49,7 +49,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Queue> AddSubscriberAsync(string workflowId, string workflowEmailId, string emailAddress)
         {
-            using (var client = this.CreateMailClient("automations/"))
+            using (var client = CreateMailClient("automations/"))
             {
                 var response =
                     await
@@ -108,7 +108,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AutomationEmailQueueResponse> GetResponseAsync(string workflowId, string workflowEmailId)
         {
-            using (var client = this.CreateMailClient("automations/"))
+            using (var client = CreateMailClient("automations/"))
             {
                 var response = await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -143,11 +143,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddress)
         {
-            using (var client = this.CreateMailClient("automations/"))
+            using (var client = CreateMailClient("automations/"))
             {
                 var response =
                     await
-                    client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddress.ToLower())}").ConfigureAwait(false);
+                    client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{Hash(emailAddress.ToLower())}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
             }

@@ -69,12 +69,12 @@ namespace MailChimp.Net.Core
         public override IDictionary Data {
             get {
                 var data = base.Data;
-                data.Add("detail", this.Detail);
-                data.Add("title", this.Title);
-                data.Add("type", this.Type);
-                data.Add("status", this.Status);
-                data.Add("instance", this.Instance);
-                data.Add("errors", this.Errors);
+                data.Add("detail", Detail);
+                data.Add("title", Title);
+                data.Add("type", Type);
+                data.Add("status", Status);
+                data.Add("instance", Instance);
+                data.Add("errors", Errors);
                 return data;
             }
         }

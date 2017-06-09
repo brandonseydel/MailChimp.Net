@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
     public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     {
 
-        public AbuseReportLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public AbuseReportLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -84,7 +84,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -123,7 +123,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

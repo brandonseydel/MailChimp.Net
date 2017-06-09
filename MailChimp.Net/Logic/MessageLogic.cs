@@ -21,7 +21,7 @@ namespace MailChimp.Net.Logic
     internal class MessageLogic : BaseLogic, IMessageLogic
     {
 
-        public MessageLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public MessageLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -40,7 +40,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Message> AddAsync(string conversationId, Message message)
         {
-            using (var client = this.CreateMailClient("conversations/"))
+            using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.PutAsJsonAsync($"{conversationId}", message).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -81,7 +81,7 @@ namespace MailChimp.Net.Logic
         public async Task<MessageResponse> GetResponseAsync(string conversationId, MessageRequest request = null)
         {
             
-            using (var client = this.CreateMailClient($"conversations/{request?.ToQueryString()}"))
+            using (var client = CreateMailClient($"conversations/{request?.ToQueryString()}"))
             {
                 var response = await client.GetAsync($"{conversationId}/messages").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -106,7 +106,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Message> GetAsync(string conversationId, string messageId)
         {
-            using (var client = this.CreateMailClient("conversations/"))
+            using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.GetAsync($"{conversationId}/messages/{messageId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

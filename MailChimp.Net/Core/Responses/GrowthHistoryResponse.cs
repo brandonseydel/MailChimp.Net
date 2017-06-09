@@ -22,8 +22,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public GrowthHistoryResponse()
         {
-            this.History = new HashSet<History>();
-            this.Links = new HashSet<Link>();
+            History = new HashSet<History>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

@@ -10,8 +10,8 @@ namespace MailChimp.Net.Models
     {
         public Cart()
         {
-            this.Lines = new HashSet<Line>();
-            this.Links = new HashSet<Link>();
+            Lines = new HashSet<Line>();
+            Links = new HashSet<Link>();
         }
 
         [JsonProperty("id")]

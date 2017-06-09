@@ -7,7 +7,7 @@ namespace MailChimp.Net.Models
     {
         public ExactMatch()
         {
-            this.Members = new HashSet<Member>();
+            Members = new HashSet<Member>();
         }
 
         [JsonProperty("members")]

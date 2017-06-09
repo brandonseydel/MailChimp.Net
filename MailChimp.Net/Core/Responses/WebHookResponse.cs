@@ -9,7 +9,7 @@ namespace MailChimp.Net.Core
 
         public WebHookResponse()
         {
-            this.Webhooks = new HashSet<WebHook>();
+            Webhooks = new HashSet<WebHook>();
         }
 
         [JsonProperty("webhooks")]

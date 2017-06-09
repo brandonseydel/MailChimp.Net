@@ -25,7 +25,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public StringEnumDescriptionConverter()
         {
-            this.AllowIntegerValues = true;
+            AllowIntegerValues = true;
         }
 
         /// <summary>

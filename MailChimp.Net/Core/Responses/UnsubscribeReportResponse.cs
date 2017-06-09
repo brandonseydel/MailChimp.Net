@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public UnsubscribeReportResponse()
         {
-            this.Unsubscribes = new HashSet<Unsubscribe>();
+            Unsubscribes = new HashSet<Unsubscribe>();
         }
 
         /// <summary>

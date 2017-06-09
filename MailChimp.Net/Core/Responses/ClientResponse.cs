@@ -22,8 +22,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public ClientResponse()
         {
-            this.Clients = new HashSet<Client>();
-            this.Links = new HashSet<Link>();
+            Clients = new HashSet<Client>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

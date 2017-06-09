@@ -9,7 +9,7 @@ namespace MailChimp.Net.Core
 
         public StoreCustomerResponse()
         {
-            this.Customers = new List<Customer>();
+            Customers = new List<Customer>();
         }
 
         [JsonProperty("store_id")]

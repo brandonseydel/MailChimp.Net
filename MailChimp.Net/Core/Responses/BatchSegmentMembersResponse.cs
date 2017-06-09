@@ -14,8 +14,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public BatchSegmentMembersResponse()
         {
-            this.MembersAdded = new Member[0];
-            this.MembersRemoved = new Member[0];
+            MembersAdded = new Member[0];
+            MembersRemoved = new Member[0];
         }
 
         /// <summary>

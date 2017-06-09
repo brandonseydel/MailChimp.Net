@@ -7,11 +7,8 @@
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
-using System.Linq;
-using System.Reflection;
+using Microsoft.Extensions.Options;
 
-// ReSharper disable CommentTypo
-// ReSharper disable IdentifierTypo
 namespace MailChimp.Net
 {
     /// <summary>
@@ -19,74 +16,41 @@ namespace MailChimp.Net
     /// </summary>
     public class MailChimpManager : MailManagerBase, IMailChimpManager
     {
-        /// <summary>
-        /// Sets the limit on all GetAllAsync responses with QueryableBaseRequest
-        /// </summary>
-        /// <returns></returns>
-        public IMailChimpManager Configure(IMailChimpConfiguration config)
+        public MailChimpManager(IOptions<MailchimpOptions> optionsAccessor) : base(optionsAccessor)
         {
-            typeof(MailChimpManager).GetTypeInfo().GetProperties().Select(x => x.GetValue(this)).OfType<BaseLogic>().ToList().ForEach(x => x._mailChimpConfiguration = config);
-            return this;
-        }
+            var options = optionsAccessor.Value;
 
-        public static IMailChimpManager Create(IMailChimpConfiguration config)
-        {
-            var mailChimpManager = (new MailChimpManager()).Configure(config);
-            return mailChimpManager;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MailChimpManager"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public MailChimpManager(string apiKey) : this(new MailChimpConfiguration { ApiKey = apiKey })
-        {
-
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MailChimpManager"/> class.
-        /// </summary>
-        public MailChimpManager() : this(new MailChimpConfiguration())
-        {
-           
-        }
-
-        public MailChimpManager(IMailChimpConfiguration mailChimpConfiguration) : base(mailChimpConfiguration)
-        {
-            this.Activities = new ActivityLogic(MailChimpConfiguration);
-            this.AbuseReports = new AbuseReportLogic(MailChimpConfiguration);
-            this.Api = new ApiLogic(MailChimpConfiguration);
-            this.Apps = new AuthorizedAppLogic(MailChimpConfiguration);
-            this.AutomationEmails = new AutomationEmailLogic(MailChimpConfiguration);
-            this.AutomationEmailQueues = new AutomationEmailQueueLogic(MailChimpConfiguration);
-            this.Automations = new AutomationLogic(MailChimpConfiguration);
-            this.AutomationSubscribers = new AutomationSubscriberLogic(MailChimpConfiguration);
-            this.Batches = new BatchLogic(MailChimpConfiguration);
-            this.Campaigns = new CampaignLogic(MailChimpConfiguration);
-            this.CampaignFolders = new CampaignFolderLogic(MailChimpConfiguration);
-            this.Clients = new ClientLogic(MailChimpConfiguration);
-            this.Content = new ContentLogic(MailChimpConfiguration);
-            this.Conversations = new ConversationLogic(MailChimpConfiguration);
-            this.ECommerceStores = new ECommerceLogic(MailChimpConfiguration);
-            this.Feedback = new FeedBackLogic(MailChimpConfiguration);
-            this.FileManagerFiles = new FileManagerFileLogic(MailChimpConfiguration);
-            this.FileManagerFolders = new FileManagerFolderLogic(MailChimpConfiguration);
-            this.GrowthHistories = new GrowthHistoryLogic(MailChimpConfiguration);
-            this.InterestCategories = new InterestCategoryLogic(MailChimpConfiguration);
-            this.Interests = new InterestLogic(MailChimpConfiguration);
-            this.Lists = new ListLogic(MailChimpConfiguration);
-            this.ListSegments = new ListSegmentLogic(MailChimpConfiguration);
-            this.Members = new MemberLogic(MailChimpConfiguration);
-            this.MergeFields = new MergeFieldLogic(MailChimpConfiguration);
-            this.Messages = new MessageLogic(MailChimpConfiguration);
-            this.Notes = new NoteLogic(MailChimpConfiguration);
-            this.Reports = new ReportLogic(MailChimpConfiguration);
-            this.TemplateFolders = new TemplateFolderLogic(MailChimpConfiguration);
-            this.Templates = new TemplateLogic(MailChimpConfiguration);
-            this.WebHooks = new WebHookLogic(MailChimpConfiguration);
+            Activities = new ActivityLogic(options);
+            AbuseReports = new AbuseReportLogic(options);
+            Api = new ApiLogic(options);
+            Apps = new AuthorizedAppLogic(options);
+            AutomationEmails = new AutomationEmailLogic(options);
+            AutomationEmailQueues = new AutomationEmailQueueLogic(options);
+            Automations = new AutomationLogic(options);
+            AutomationSubscribers = new AutomationSubscriberLogic(options);
+            Batches = new BatchLogic(options);
+            Campaigns = new CampaignLogic(options);
+            CampaignFolders = new CampaignFolderLogic(options);
+            Clients = new ClientLogic(options);
+            Content = new ContentLogic(options);
+            Conversations = new ConversationLogic(options);
+            ECommerceStores = new ECommerceLogic(options);
+            Feedback = new FeedBackLogic(options);
+            FileManagerFiles = new FileManagerFileLogic(options);
+            FileManagerFolders = new FileManagerFolderLogic(options);
+            GrowthHistories = new GrowthHistoryLogic(options);
+            InterestCategories = new InterestCategoryLogic(options);
+            Interests = new InterestLogic(options);
+            Lists = new ListLogic(options);
+            ListSegments = new ListSegmentLogic(options);
+            Members = new MemberLogic(options);
+            MergeFields = new MergeFieldLogic(options);
+            Messages = new MessageLogic(options);
+            Notes = new NoteLogic(options);
+            Reports = new ReportLogic(options);
+            TemplateFolders = new TemplateFolderLogic(options);
+            Templates = new TemplateLogic(options);
+            WebHooks = new WebHookLogic(options);
         }
 
         /// <summary>

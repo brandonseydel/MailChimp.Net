@@ -18,7 +18,7 @@ namespace MailChimp.Net.Logic
     public class ActivityLogic : BaseLogic, IActivityLogic
     {
 
-        public ActivityLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ActivityLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -66,7 +66,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{listId}/activity{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

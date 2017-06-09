@@ -21,7 +21,7 @@ namespace MailChimp.Net.Core
         /// </param>
         public QueryStringAttribute(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         /// <summary>

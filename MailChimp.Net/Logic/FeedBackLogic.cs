@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
     internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     {
 
-        public FeedBackLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public FeedBackLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -46,7 +46,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Feedback> AddOrUpdateAsync(string campaignId, Feedback feedback)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PostAsJsonAsync($"{campaignId}/feedback/{feedback?.FeedbackId}", feedback).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -78,7 +78,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string campaignId, string feedbackId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.DeleteAsync($"{campaignId}/feedback/{feedbackId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -139,7 +139,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<FeedBackResponse> GetResponseAsync(string campaignId, FeedbackRequest request = null)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -172,7 +172,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Feedback> GetAsync(string campaignId, string feedBackId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback/{feedBackId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

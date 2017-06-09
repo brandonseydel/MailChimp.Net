@@ -11,14 +11,14 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "/lists/{0}/segments";
 
-        public ListSegmentLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ListSegmentLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
 
         public async Task<ListSegment> AddAsync(string listId, Segment segment)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl, listId)))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, segment).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -40,7 +40,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl, listId)))
             {
                 var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -52,7 +52,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<ListSegment> UpdateAsync(string listId, string segmentId, Segment segment)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.PatchAsJsonAsync(segmentId, segment).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -64,7 +64,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<Member> AddMemberAsync(string listId, string segmentId, Member member)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.PostAsJsonAsync(segmentId + "/members", member).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -76,7 +76,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<BatchSegmentMembersResponse> BatchMemberAsync(string listId, string segmentId, BatchSegmentMembers batchSegmentMembers)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.PostAsJsonAsync(segmentId, batchSegmentMembers).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -88,9 +88,9 @@ namespace MailChimp.Net.Logic
 
         public async Task DeleteMemberAsync(string listId, string segmentId, string emailAddress)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.DeleteAsync($"{segmentId}/members/{this.Hash(emailAddress.ToLower())}").ConfigureAwait(false);
+                var response = await client.DeleteAsync($"{segmentId}/members/{Hash(emailAddress.ToLower())}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }
@@ -102,7 +102,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.GetAsync(segmentId + "/members" + request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -122,7 +122,7 @@ namespace MailChimp.Net.Logic
 
         public async Task DeleteAsync(string listId, string segmentId)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.DeleteAsync(segmentId).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
