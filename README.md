@@ -1,5 +1,9 @@
 ## MailChimp.Net - A Mail Chimp 3.0 Wrapper
 
+### License
+MailChimp.Net is license under the [MIT](https://github.com/brandonseydel/MailChimp.Net/blob/master/LICENSE.txt) license.
+
+
 ### Quick Start
 Install the [NuGet package](https://www.nuget.org/packages/MailChimp.Net.V3/) from the package manager console:
 ```powershell
