@@ -1,7 +1,7 @@
 ## MailChimp.Net - A Mail Chimp 3.0 Wrapper
 
 ### License
-MailChimp.Net is license under the [MIT](https://github.com/brandonseydel/MailChimp.Net/blob/master/LICENSE.txt) license.
+MailChimp.Net is licensed under the [MIT](https://github.com/brandonseydel/MailChimp.Net/blob/master/LICENSE.txt) license.
 
 
 ### Quick Start
