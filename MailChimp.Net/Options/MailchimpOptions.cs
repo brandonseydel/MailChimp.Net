@@ -8,8 +8,10 @@ namespace MailChimp.Net
 
         private string _dataCenter;
 
-        public string DataCenter {
-            get {
+        public string DataCenter
+        {
+            get
+            {
                 if (_dataCenter == null)
                 {
                     _dataCenter = string.IsNullOrWhiteSpace(ApiKey)

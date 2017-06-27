@@ -113,7 +113,7 @@ namespace MailChimp.Net.Tests
             var newList = await this.Should_Create_New_List().ConfigureAwait(false);
             newList.Name = "TEST2";
             var updatedList = await this.MailChimpManager.Lists.AddOrUpdateAsync(newList).ConfigureAwait(false);
-            Assert.True(newList.Name.Equals(updatedList.Name));
+            Assert.Equal(updatedList.Name, newList.Name);
         }
 
     }

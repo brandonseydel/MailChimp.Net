@@ -123,7 +123,7 @@ namespace MailChimp.Net.Tests
                     emailAddress);
             
             var doesExists = await this.MailChimpManager.Members.ExistsAsync(this.TestList.Id, emailAddress);
-            Assert.Equal(false, doesExists);
+            Assert.False(doesExists);
         }
 
         /// <summary>

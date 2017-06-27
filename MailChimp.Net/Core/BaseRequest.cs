@@ -55,7 +55,7 @@ namespace MailChimp.Net.Core
                     {
                         var value = prop.GetValue(this);
                         var propertyName =
-                            prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault() ?? prop.Name.ToLower();
+                            prop.GetType().GetTypeInfo().GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault() ?? prop.Name.ToLower();
 
                         if (value == null)
                         {
