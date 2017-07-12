@@ -25,5 +25,6 @@ namespace MailChimp.Net.Interfaces
 
 	    Task DeleteAsync(string batchId);
 
+	    Task<IEnumerable<OperationResponse>> GetOperationResponsesAsync(string batchId);
 	}
 }
