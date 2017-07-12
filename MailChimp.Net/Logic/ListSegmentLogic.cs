@@ -88,11 +88,11 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task DeleteMemberAsync(string listId, string segmentId, string emailAddress)
+        public async Task DeleteMemberAsync(string listId, string segmentId, string emailAddressOrHash)
         {
             using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.DeleteAsync($"{segmentId}/members/{this.Hash(emailAddress.ToLower())}").ConfigureAwait(false);
+                var response = await client.DeleteAsync($"{segmentId}/members/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }

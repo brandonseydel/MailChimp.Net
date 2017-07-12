@@ -23,7 +23,7 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <param name="noteId">
@@ -35,7 +35,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Note> AddOrUpdateAsync(string listId, string emailAddress, string noteId, string note);
+        Task<Note> AddOrUpdateAsync(string listId, string emailAddressOrHash, string noteId, string note);
 
         /// <summary>
         /// The delete async.
@@ -43,7 +43,7 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <param name="noteId">
@@ -55,7 +55,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task DeleteAsync(string listId, string emailAddress, string noteId, BaseRequest request = null);
+        Task DeleteAsync(string listId, string emailAddressOrHash, string noteId, BaseRequest request = null);
 
         /// <summary>
         /// The get all async.
@@ -80,7 +80,7 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <param name="noteId">
@@ -89,7 +89,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Note> GetAsync(string listId, string emailAddress, string noteId);
+        Task<Note> GetAsync(string listId, string emailAddressOrHash, string noteId);
 
         /// <summary>
         /// The get all async.
@@ -97,7 +97,7 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <param name="request">
@@ -108,7 +108,7 @@ namespace MailChimp.Net.Interfaces
         /// </returns>
         Task<NoteResponse> GetResponseAsync(
             string listId,
-            string emailAddress,
+            string emailAddressOrHash,
             QueryableBaseRequest request = null);
     }
 }

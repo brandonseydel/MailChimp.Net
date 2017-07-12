@@ -130,7 +130,7 @@ namespace MailChimp.Net.Logic
         /// <param name="workflowEmailId">
         /// The workflow email id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
@@ -144,13 +144,13 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddress)
+        public async Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddressOrHash)
         {
             using (var client = this.CreateMailClient("automations/"))
             {
                 var response =
                     await
-                    client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddress.ToLower())}").ConfigureAwait(false);
+                    client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
             }

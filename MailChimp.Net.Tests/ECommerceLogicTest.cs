@@ -6,6 +6,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using MailChimp.Net.Core;
 using MailChimp.Net.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,15 +27,22 @@ namespace MailChimp.Net.Tests
         [TestMethod]
         public async Task Should_Return_App_Information()
         {
-            var stores = await this.MailChimpManager.ECommerceStores.GetAllAsync();
-            await Task.WhenAll(stores.Select(x => this.MailChimpManager.ECommerceStores.DeleteAsync(x.Id)));
-            var testStore = await this.MailChimpManager.ECommerceStores.AddAsync(new Store {Name = "TestStore"});
-            var testCart = await this.MailChimpManager.ECommerceStores.Carts(testStore.Id).AddAsync(new Cart
+            try
+            {
+                var stores = await this.MailChimpManager.ECommerceStores.GetAllAsync();
+                await Task.WhenAll(stores.Select(x => this.MailChimpManager.ECommerceStores.DeleteAsync(x.Id)));
+                var testStore = await this.MailChimpManager.ECommerceStores.AddAsync(new Store {Name = "TestStore"});
+                var testCart = await this.MailChimpManager.ECommerceStores.Carts(testStore.Id).AddAsync(new Cart
+                {
+
+
+                });
+                Assert.IsNotNull(testStore);
+            }
+            catch (MailChimpException ex)
             {
                 
-
-            });
-            Assert.IsNotNull(testStore);
+            }
 
             //await this._mailChimpManager.ECommerceStores.Products("storeId").Variances("productId");
 

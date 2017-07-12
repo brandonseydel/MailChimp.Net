@@ -47,23 +47,23 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task DeleteAsync(string listId, string emailAddress);
+        Task DeleteAsync(string listId, string emailAddressOrHash);
 
 
 		/// <summary>
 		/// Gets the activities for a specific list
 		/// </summary>
 		/// <param name="listId"></param>
-		/// <param name="emailAddress"></param>
+		/// <param name="emailAddressOrHash"></param>
 		/// <param name="request"></param>
 		/// <returns></returns>
-		Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddress, BaseRequest request = null);
+		Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
 		/// The get all async.
@@ -91,14 +91,14 @@ namespace MailChimp.Net.Interfaces
 		/// <param name="listId">
 		/// The list id.
 		/// </param>
-		/// <param name="emailAddress">
+		/// <param name="emailAddressOrHash">
 		/// The email address.
 		/// </param>
 		/// <param name="request"></param>
 		/// <returns>
 		/// The <see cref="Task"/>.
 		/// </returns>
-		Task<Member> GetAsync(string listId, string emailAddress, BaseRequest request = null);
+		Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
 		/// The check if exists async.
@@ -106,14 +106,14 @@ namespace MailChimp.Net.Interfaces
 		/// <param name="listId">
 		/// The list id.
 		/// </param>
-		/// <param name="emailAddress">
+		/// <param name="emailAddressOrHash">
 		/// </param>
 		/// <param name="request"></param>
 		/// The email address.
 		/// <returns>
 		/// The <see cref="Task"/>.
 		/// </returns>
-		Task<bool> ExistsAsync(string listId, string emailAddress, BaseRequest request = null, bool falseIfUnsubscribed = true);
+		Task<bool> ExistsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, bool falseIfUnsubscribed = true);
 
 		/// <exception cref="ArgumentNullException"><paramref>
 		///         <name>uriString</name>

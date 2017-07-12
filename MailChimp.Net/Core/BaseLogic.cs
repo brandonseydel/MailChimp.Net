@@ -63,7 +63,7 @@ namespace MailChimp.Net.Core
         /// <summary>
         /// The hash.
         /// </summary>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
@@ -91,9 +91,11 @@ namespace MailChimp.Net.Core
         ///     </paramref>
         /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
         /// </exception>
-        public string Hash(string emailAddress)
+        public string Hash(string emailAddressOrHash)
         {
-            using (var md5 = MD5.Create()) return md5.GetHash(emailAddress.ToLower());
+            if (!emailAddressOrHash.Contains("@")) { return emailAddressOrHash; } //this is hashed already
+
+            using (var md5 = MD5.Create()) return md5.GetHash(emailAddressOrHash.ToLower());
         }
     }
 }

@@ -253,7 +253,7 @@ namespace MailChimp.Net.Logic
         /// <param name="linkId">
         /// The link id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
@@ -286,7 +286,7 @@ namespace MailChimp.Net.Logic
         public async Task<ClickMember> GetClickReportMemberAsync(
             string campaignId, 
             string linkId, 
-            string emailAddress,
+            string emailAddressOrHash,
             BaseRequest request = null)
         { 
             using (var client = this.CreateMailClient("reports/"))
@@ -294,7 +294,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.GetAsync(
-                        $"{campaignId}/click-details/{linkId}/members/{this.Hash(emailAddress)}{request?.ToQueryString()}").ConfigureAwait(false);
+                        $"{campaignId}/click-details/{linkId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<ClickMember>().ConfigureAwait(false);
@@ -498,7 +498,7 @@ namespace MailChimp.Net.Logic
         /// <param name="campaignId">
         /// The campaign id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
@@ -530,14 +530,14 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<EmailActivity> GetEmailActivityAsync(
             string campaignId, 
-            string emailAddress,
+            string emailAddressOrHash,
             BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
                     await
-                    client.GetAsync($"{campaignId}/email-activity/{this.Hash(emailAddress)}{request?.ToQueryString()}").ConfigureAwait(false);
+                    client.GetAsync($"{campaignId}/email-activity/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<EmailActivity>().ConfigureAwait(false);
@@ -622,7 +622,7 @@ namespace MailChimp.Net.Logic
         /// <param name="campaignId">
         /// The campaign id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
@@ -654,7 +654,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<SentTo> GetSentToRecipientAsync(
             string campaignId, 
-            string emailAddress,
+            string emailAddressOrHash,
             QueryableBaseRequest request = null)
         {
             request = request ?? new QueryableBaseRequest
@@ -665,7 +665,7 @@ namespace MailChimp.Net.Logic
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
-                    await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddress)}{request.ToQueryString()}").ConfigureAwait(false);
+                    await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddressOrHash)}{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<SentTo>().ConfigureAwait(false);
@@ -768,7 +768,7 @@ namespace MailChimp.Net.Logic
         /// <param name="campaignId">
         /// The campaign id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
@@ -798,13 +798,13 @@ namespace MailChimp.Net.Logic
         ///     </paramref>
         /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
         /// </exception>
-        public async Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddress, BaseRequest request = null)
+        public async Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddressOrHash, BaseRequest request = null)
         {
             using (var client = this.CreateMailClient("reports/"))
             {
                 var response =
                     await
-                    client.GetAsync($"{campaignId}/unsubscribed/{this.Hash(emailAddress)}{request?.ToQueryString()}").ConfigureAwait(false);
+                    client.GetAsync($"{campaignId}/unsubscribed/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Unsubscribe>().ConfigureAwait(false);
             }

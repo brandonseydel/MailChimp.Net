@@ -61,11 +61,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("id")]
         public string Id { get; set; } 
+
         /// <summary>
         /// Gets or sets the web id.
         /// </summary>
         [JsonProperty("web_id")]
-        public string WebId { get; set; }
+        public int WebId { get; set; }
 
         /// <summary>
         /// Gets or sets the links.
