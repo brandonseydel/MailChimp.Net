@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
-using MailChimp.Net.Core;
 using MailChimp.Net.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

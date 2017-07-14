@@ -86,6 +86,7 @@ namespace MailChimp.Net
             this.TemplateFolders = new TemplateFolderLogic(MailChimpConfiguration);
             this.Templates = new TemplateLogic(MailChimpConfiguration);
             this.WebHooks = new WebHookLogic(MailChimpConfiguration);
+            this.BatchWebHooks = new BatchWebHookLogic(MailChimpConfiguration);
         }
 
         /// <summary>
@@ -242,6 +243,9 @@ namespace MailChimp.Net
         /// Gets the logic to access mail chimp web hooks
         /// </summary>
         public IWebHookLogic WebHooks { get; }
+
+
+        public IBatchWebHookLogic BatchWebHooks { get; }
 
         public int Limit
         {

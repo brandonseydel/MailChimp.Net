@@ -87,6 +87,7 @@
     <Compile Include="Core\Requests\Segment.cs" />
     <Compile Include="Core\Requests\MergeFieldRequest.cs" />
     <Compile Include="Core\Responses\BatchResponse.cs" />
+    <Compile Include="Core\Responses\BatchWebHookResponse.cs" />
     <Compile Include="Core\Responses\CampaignFolderResponse.cs" />
     <Compile Include="Core\Responses\CartLineResponse.cs" />
     <Compile Include="Core\Responses\CartResponse.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Core\Responses\StoreOrderResponse.cs" />
     <Compile Include="Core\Responses\StoreProductResponse.cs" />
     <Compile Include="Core\Responses\WebHookResponse.cs" />
+    <Compile Include="Interfaces\IBatchWebHookLogic.cs" />
     <Compile Include="Interfaces\IECommerceCartLineLogic.cs" />
     <Compile Include="Interfaces\IECommerceOrderLineLogic.cs" />
     <Compile Include="Interfaces\IECommerceProductLogic.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Interfaces\IECommerceLogic.cs" />
     <Compile Include="Interfaces\IECommerceProductVarianceLogic.cs" />
     <Compile Include="Interfaces\IMailChimpConfiguration.cs" />
+    <Compile Include="Logic\BatchWebHookLogic.cs" />
     <Compile Include="Logic\ECommerceLineLogic.cs" />
     <Compile Include="Logic\ECommerceProductLogic.cs" />
     <Compile Include="Logic\ECommerceOrderLogic.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Models\ApiContact.cs" />
     <Compile Include="Models\AutomationStatus.cs" />
     <Compile Include="Models\BatchDelivery.cs" />
+    <Compile Include="Models\BatchWebHook.cs" />
     <Compile Include="Models\CampaignAction.cs" />
     <Compile Include="Models\Capsule.cs" />
     <Compile Include="Models\Cart.cs" />

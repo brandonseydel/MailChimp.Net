@@ -61,6 +61,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BatchWebHookTest.cs" />
     <Compile Include="ECommerceLogicTest.cs" />
     <Compile Include="ApiTest.cs" />
     <Compile Include="ConversationTest.cs" />

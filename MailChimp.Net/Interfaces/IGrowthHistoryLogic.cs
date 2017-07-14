@@ -12,8 +12,6 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    using System;
-
     /// <summary>
     /// The GrowthHistoryLogic interface.
     /// </summary>

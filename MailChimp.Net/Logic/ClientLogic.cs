@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
@@ -16,10 +15,10 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Logic
 {
-	/// <summary>
-	/// The client logic.
-	/// </summary>
-	public class ClientLogic : BaseLogic, IClientLogic
+    /// <summary>
+    /// The client logic.
+    /// </summary>
+    public class ClientLogic : BaseLogic, IClientLogic
 	{
 
         public ClientLogic(IMailChimpConfiguration mailChimpConfiguration)

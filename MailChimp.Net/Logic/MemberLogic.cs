@@ -4,11 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;

@@ -11,12 +11,10 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-	using System;
-
-	/// <summary>
-	/// The MemberLogic interface.
-	/// </summary>
-	public interface IMemberLogic
+    /// <summary>
+    /// The MemberLogic interface.
+    /// </summary>
+    public interface IMemberLogic
 	{
 		/// <summary>
 		/// The add or update async.

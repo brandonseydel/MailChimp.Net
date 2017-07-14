@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
