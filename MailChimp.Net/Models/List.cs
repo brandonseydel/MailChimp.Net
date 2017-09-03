@@ -22,7 +22,7 @@ namespace MailChimp.Net.Models
         /// </summary>
         public List()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
             Visibility = Visibility.Private;
         }
 

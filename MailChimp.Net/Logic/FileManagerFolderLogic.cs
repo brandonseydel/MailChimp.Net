@@ -4,12 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using static System.Net.Http.HttpContentExtensions;
-using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace MailChimp.Net.Logic
@@ -21,7 +20,7 @@ namespace MailChimp.Net.Logic
     {
         private const string BaseUrl = "file-manager/folders";
 
-        public FileManagerFolderLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public FileManagerFolderLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

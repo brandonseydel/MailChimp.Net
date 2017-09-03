@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using static System.Net.Http.HttpContentExtensions;
 
 namespace MailChimp.Net.Logic
 {
     internal class ECommerceLineLogic : BaseLogic, IECommerceLineLogic
     {
-        public string BaseUrl => $"ecommerce/stores/{this.StoreId}/{this.Resource}/{this.ResourceId}/lines";
+        public string BaseUrl => $"ecommerce/stores/{StoreId}/{Resource}/{ResourceId}/lines";
 
-        public ECommerceLineLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ECommerceLineLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
 
         public async Task<Line> AddAsync(Line line)
         {
-            using (var client = CreateMailClient(this.BaseUrl))
+            using (var client = CreateMailClient(BaseUrl))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, line).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

@@ -9,8 +9,8 @@ namespace MailChimp.Net.Models
 
         public Order()
         {
-            this.Lines = new List<Line>();
-            this.Links = new List<Link>();
+            Lines = new List<Line>();
+            Links = new List<Link>();
         }
 
         [JsonProperty("id")]

@@ -26,7 +26,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public CampaignFolderResponse()
         {
-            this.Folders = new HashSet<Folder>();
+            Folders = new HashSet<Folder>();
         }
 
         /// <summary>

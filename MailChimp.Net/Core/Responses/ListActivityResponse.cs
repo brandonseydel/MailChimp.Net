@@ -8,7 +8,7 @@ namespace MailChimp.Net.Core
     {
         public ListActivityResponse()
         {
-            this.Activities = new List<ListActivity>();
+            Activities = new List<ListActivity>();
         }
         [JsonProperty("activity")]
         public IEnumerable<ListActivity> Activities { get; set; }

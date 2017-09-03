@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public AutomationResponse()
         {
-            this.Automations = new HashSet<Automation>();
+            Automations = new HashSet<Automation>();
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace MailChimp.Net.Core
 
         public ProductVariantResponse()
         {
-            this.Variants = new List<Variant>();
+            Variants = new List<Variant>();
         }
 
         [JsonProperty("store_id")]

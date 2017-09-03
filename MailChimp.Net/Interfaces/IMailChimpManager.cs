@@ -4,6 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+
 namespace MailChimp.Net.Interfaces
 {
     /// <summary>
@@ -12,8 +14,6 @@ namespace MailChimp.Net.Interfaces
     public interface IMailChimpManager
     {
         int Limit { get; }
-
-        IMailChimpManager Configure(IMailChimpConfiguration config);
 
         /// <summary>
         /// Gets the api.
@@ -171,10 +171,14 @@ namespace MailChimp.Net.Interfaces
         /// </summary>
         IBatchLogic Batches { get; }
 
+<<<<<<< HEAD
         /// <summary>
         /// Gets or Sets batch web hooks
         /// </summary>
         IBatchWebHookLogic BatchWebHooks { get; }
 
+=======
+        IMailChimpManager Configure(Action<MailchimpOptions> options);
+>>>>>>> pr/203
     }
 }

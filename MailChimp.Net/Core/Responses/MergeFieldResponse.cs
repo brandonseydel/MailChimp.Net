@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public MergeFieldResponse()
         {
-            this.MergeFields = new HashSet<MergeField>();
+            MergeFields = new HashSet<MergeField>();
         }
 
         /// <summary>

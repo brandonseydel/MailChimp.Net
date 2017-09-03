@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using MailChimp.Net.Models;
 using MailChimp.Net.Core;
 using System.Threading.Tasks;
@@ -15,7 +15,6 @@ namespace MailChimp.Net.Tests
     /// <summary>
     /// The feedback test.
     /// </summary>
-    [TestClass]
     public class FeedbackTest : MailChimpTest
     {
         /// <summary>
@@ -24,7 +23,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Create_One_Feedback()
         {
             await this.ClearMailChimpAsync().ConfigureAwait(true);
@@ -37,7 +36,7 @@ namespace MailChimp.Net.Tests
 
             var feedback = await this.MailChimpManager.Feedback.GetAsync(campaign.Id, createdFeedback.FeedbackId.Value.ToString());
 
-            Assert.IsNotNull(feedback);
+            Assert.NotNull(feedback);
         }
 
         /// <summary>
@@ -46,12 +45,12 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_Feedback()
         {
             var campaign = await CreateCampaign();
             var feedbacks = await this.MailChimpManager.Feedback.GetAllAsync(campaign.Id);
-            Assert.IsNotNull(feedbacks);
+            Assert.NotNull(feedbacks);
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_Multiple_Feedback()
         {
             await this.ClearMailChimpAsync().ConfigureAwait(true);
@@ -74,9 +73,8 @@ namespace MailChimp.Net.Tests
                     Message = "Test feedback"
                 });
             }
-
             var feedbacks = await this.MailChimpManager.Feedback.GetAllAsync(campaign.Id);
-            Assert.IsTrue(feedbacks.Count() == 3);
+            Assert.Equal(3, feedbacks.Count());
         }
 
         /// <summary>
@@ -85,7 +83,7 @@ namespace MailChimp.Net.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
+        [Fact]
         public async Task Should_Return_No_Feedback_After_Removal()
         {
             await this.ClearMailChimpAsync().ConfigureAwait(true);
@@ -100,7 +98,7 @@ namespace MailChimp.Net.Tests
             await this.MailChimpManager.Feedback.DeleteAsync(campaign.Id, createdFeedback.FeedbackId.Value.ToString());
             var feedback = await this.MailChimpManager.Feedback.GetAllAsync(campaign.Id);
 
-            Assert.AreEqual(0, feedback.Count());
+            Assert.Equal(0, feedback.Count());
         }
 
         private async Task<Campaign> CreateCampaign()

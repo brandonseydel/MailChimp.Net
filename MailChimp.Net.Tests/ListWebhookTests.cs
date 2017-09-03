@@ -1,25 +1,24 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
 using MailChimp.Net.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
-    [TestClass]
     public class ListWebhookTests : MailChimpTest
     {
         private const string ListName = "TestListWebhooks";
         private string _listId = string.Empty;
 
-        protected override async Task RunBeforeTestFixture()
+        internal override async Task RunBeforeTestFixture()
         {
             await ClearLists(ListName).ConfigureAwait(false);
 
             var list = await MailChimpManager.Lists.AddOrUpdateAsync(GetMailChimpList(ListName)).ConfigureAwait(false);
             _listId = list.Id;
         }
-
-        [TestMethod]
+        
+        [Fact]
         public async Task Should_Create_Webhook()
         {
             // Arrange

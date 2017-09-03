@@ -5,41 +5,22 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
+using System.Text;
+using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Core
 {
     /// <summary>
     /// The exception that comes back from Mail Chimp when an invalid operation has occured.
     /// </summary>
-    [Serializable]
     public class MailChimpException : Exception
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MailChimpException"/> class.
-        /// </summary>
-        /// <param name="info">
-        /// The info.
-        /// </param>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>name</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="InvalidCastException">The value associated with <paramref>
-        ///         <name>name</name>
-        ///     </paramref>
-        ///     cannot be converted to a <see cref="T:System.String" />. </exception>
-        /// <exception cref="SerializationException">An element with the specified name is not found in the current instance. </exception>
-        // ReSharper disable once UnusedParameter.Local
-        public MailChimpException(SerializationInfo info, StreamingContext context)
+        public MailChimpException(MailChimpApiError apierror) : base(formatMessage(apierror))
         {
+<<<<<<< HEAD
             var errorText = string.Empty;
 
             try
@@ -74,9 +55,29 @@ namespace MailChimp.Net.Core
 			public string Field { get; set; }
 			[JsonProperty("message")]
 			public string Message { get; set; }
+=======
+            Detail = apierror.Detail;
+            Title = apierror.Title;
+            Type = apierror.Type;
+            Status = apierror.Status;
+            Instance = apierror.Instance;
+            Errors = apierror.Errors;
+>>>>>>> pr/203
 		}
 
+        private static string formatMessage(MailChimpApiError apierror)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"Title: {apierror.Title}");
+            builder.AppendLine($"Type: {apierror.Type}");
+            builder.AppendLine($"Status: {apierror.Status}");
+            builder.AppendLine($"Detail: {apierror.Detail}");
+            builder.AppendLine("Errors: " + string.Join(" : ", apierror.Errors.Select(x => x.Field + " " + x.Message)));
+            return builder.ToString();
+        }
 
+        public List<MailChimpError> Errors { get; set; }
+        
 		/// <summary>
 		/// Gets or Sets a human-readable explanation specific to this occurrence of the problem. Learn more about errors.
 		/// </summary>
@@ -102,30 +103,17 @@ namespace MailChimp.Net.Core
         /// </summary>
         public string Type { get; set; }
 
-        /// <summary>
-        /// The get object data.
-        /// </summary>
-        /// <param name="info">
-        /// The info.
-        /// </param>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info" /> parameter is a null reference (Nothing in Visual Basic). </exception>
-        /// <exception cref="SerializationException">A value has already been associated with <paramref>
-        ///         <name>name</name>
-        ///     </paramref>
-        ///     . </exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-
-            info.AddValue("detail", this.Detail);
-            info.AddValue("title", this.Title);
-            info.AddValue("type", this.Type);
-            info.AddValue("status", this.Status);
-            info.AddValue("instance", this.Instance);
-			info.AddValue("errors", this.Errors);
-		}
+        public override IDictionary Data {
+            get {
+                var data = base.Data;
+                data.Add("detail", Detail);
+                data.Add("title", Title);
+                data.Add("type", Type);
+                data.Add("status", Status);
+                data.Add("instance", Instance);
+                data.Add("errors", Errors);
+                return data;
+            }
+        }
     }
 }

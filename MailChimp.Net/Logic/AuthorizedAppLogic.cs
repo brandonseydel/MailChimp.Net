@@ -4,14 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using static System.Net.Http.HttpContentExtensions;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 namespace MailChimp.Net.Logic
@@ -22,7 +26,7 @@ namespace MailChimp.Net.Logic
     internal class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
     {
 
-        public AuthorizedAppLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public AuthorizedAppLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -49,7 +53,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AuthorizedAppCreatedResponse> AddAsync(string clientId, string clientSecret)
         {
-            using (var client = this.CreateMailClient("authorized-apps"))
+            using (var client = CreateMailClient("authorized-apps"))
             {
                 var response =
                     await client.PostAsJsonAsync(string.Empty, new { ClientId = clientId, ClientSecret = clientSecret }).ConfigureAwait(false);
@@ -111,7 +115,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient("authorized-apps"))
+            using (var client = CreateMailClient("authorized-apps"))
             {
                 var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -147,7 +151,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<App> GetAsync(string appId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("authorized-apps/"))
+            using (var client = CreateMailClient("authorized-apps/"))
             {
                 var response = await client.GetAsync($"{appId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

@@ -19,11 +19,11 @@ namespace MailChimp.Net.Models
 	{
         public Member()
         {
-            this.MergeFields = new Dictionary<string, object>();
-            this.Links = new List<Link>();
-            this.Interests = new Dictionary<string, bool>();
-            this.Status = Status.Undefined;
-            this.StatusIfNew = Status.Pending;            
+            MergeFields = new Dictionary<string, object>();
+            Links = new List<Link>();
+            Interests = new Dictionary<string, bool>();
+            Status = Status.Undefined;
+            StatusIfNew = Status.Pending;            
         }
 
 		/// <summary>

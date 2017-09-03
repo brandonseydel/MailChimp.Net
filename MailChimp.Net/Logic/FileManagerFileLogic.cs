@@ -4,15 +4,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using static System.Net.Http.HttpContentExtensions;
-using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace MailChimp.Net.Logic
 {
@@ -24,7 +22,7 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "file-manager/files";
 
-        public FileManagerFileLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public FileManagerFileLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -52,10 +50,10 @@ namespace MailChimp.Net.Logic
         public async Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName)
         {
             using(var fs = File.OpenRead(fileName))
-            using (var client = this.CreateMailClient(BaseUrl))
+            using (var client = CreateMailClient(BaseUrl))
             {
                 
-                var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = this.ConvertToBase64(fs) }).ConfigureAwait(false);
+                var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = ConvertToBase64(fs) }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var fileManagerFile = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
@@ -65,7 +63,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<FileManagerFile> AddAsync(string name, string folderId, string base64String)
         {
-            using (var client = this.CreateMailClient(BaseUrl))
+            using (var client = CreateMailClient(BaseUrl))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = base64String }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -77,9 +75,9 @@ namespace MailChimp.Net.Logic
 
         public async Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream)
         {
-            using (var client = this.CreateMailClient(BaseUrl))
+            using (var client = CreateMailClient(BaseUrl))
             {
-                var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = this.ConvertToBase64(fileStream) }).ConfigureAwait(false);
+                var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = ConvertToBase64(fileStream) }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var fileManagerFile = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
@@ -101,7 +99,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient(BaseUrl))
+            using (var client = CreateMailClient(BaseUrl))
             {
                 var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -116,7 +114,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<FileManagerFile> GetAsync(string fileId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.GetAsync($"{fileId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -130,7 +128,7 @@ namespace MailChimp.Net.Logic
 
         public async Task DeleteAsync(string fileId)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.DeleteAsync($"{fileId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -140,9 +138,9 @@ namespace MailChimp.Net.Logic
         public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName)
         {
             using (var fs = File.OpenRead(fileName))
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
-                var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = this.ConvertToBase64(fs)}).ConfigureAwait(false);
+                var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = ConvertToBase64(fs)}).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var folder = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
@@ -154,7 +152,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = base64String}).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -167,9 +165,9 @@ namespace MailChimp.Net.Logic
 
         public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
-                var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = this.ConvertToBase64(stream) }).ConfigureAwait(false);
+                var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = ConvertToBase64(stream) }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var folder = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);

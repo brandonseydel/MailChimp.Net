@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
@@ -51,7 +51,7 @@ namespace MailChimp.Net.Tests
         {
             var lists = await MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
             var listsToDelete = listToDeleteNames.Any()
-                ? lists.Where(i => listToDeleteNames.Contains(i.Name, StringComparer.InvariantCultureIgnoreCase))
+                ? lists.Where(i => listToDeleteNames.Contains(i.Name, StringComparer.OrdinalIgnoreCase))
                 : lists;
 
             await Task.WhenAll(listsToDelete.Select(x => MailChimpManager.Lists.DeleteAsync(x.Id))).ConfigureAwait(false);
@@ -72,16 +72,15 @@ namespace MailChimp.Net.Tests
         /// <summary>
         /// The initialize.
         /// </summary>
-        [TestInitialize]
-        public void Initialize()
+        public MailChimpTest()
         {
-            this.MailChimpManager = new MailChimpManager();
+            this.MailChimpManager = new MailChimpManager(null);
             RunBeforeTestFixture().Wait();
         }
 
-        protected virtual Task RunBeforeTestFixture()
+        internal virtual Task RunBeforeTestFixture()
         {
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         /// <summary>

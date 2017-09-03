@@ -10,7 +10,7 @@ namespace MailChimp.Net.Core
     {
         public ReplicateResponse()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
         }
 
         [JsonProperty("id")]

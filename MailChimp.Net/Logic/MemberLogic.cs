@@ -4,14 +4,19 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 // ReSharper disable UnusedMember.Local
@@ -24,7 +29,7 @@ namespace MailChimp.Net.Logic
     {
         private const string BaseUrl = "lists";
 
-        public MemberLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public MemberLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -67,9 +72,13 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Member> AddOrUpdateAsync(string listId, Member member)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
+<<<<<<< HEAD
                 var memberId = member.Id ?? this.Hash(member.EmailAddress);
+=======
+                var memberId = member.Id ?? Hash(member.EmailAddress.ToLower());
+>>>>>>> pr/203
                 var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member).ConfigureAwait(false);
 
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -85,7 +94,7 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<MemberSearchResult> SearchAsync(MemberSearchRequest request = null)
         {
-            using(var client = this.CreateMailClient($"search-members{request?.ToQueryString()}"))
+            using(var client = CreateMailClient($"search-members{request?.ToQueryString()}"))
             {
                 var response = await client.GetAsync("").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -132,9 +141,13 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string listId, string emailAddressOrHash)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
+<<<<<<< HEAD
                 var response = await client.DeleteAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
+=======
+                var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddress.ToLower())}").ConfigureAwait(false);
+>>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }
@@ -173,12 +186,16 @@ namespace MailChimp.Net.Logic
             string emailAddressOrHash, 
             BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response =
                     await
                     client.GetAsync(
+<<<<<<< HEAD
                         $"{listId}/members/{this.Hash(emailAddressOrHash)}/activity{request?.ToQueryString()}").ConfigureAwait(false);
+=======
+                        $"{listId}/members/{Hash(emailAddress.ToLower())}/activity{request?.ToQueryString()}").ConfigureAwait(false);
+>>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var activityResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
                 return activityResponse.Activities;
@@ -231,7 +248,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -261,7 +278,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<int> GetTotalItems(string listId, Status? status)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var memberRequest = new MemberRequest { Status = status, FieldsToInclude = "total_items" };
 
@@ -315,9 +332,13 @@ namespace MailChimp.Net.Logic
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         public async Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
+<<<<<<< HEAD
                 var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+=======
+                var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
+>>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
             }
@@ -338,9 +359,13 @@ namespace MailChimp.Net.Logic
         /// <param name="falseIfUnsubscribed"></param>
         public async Task<bool> ExistsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, bool falseIfUnsubscribed = true)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
+<<<<<<< HEAD
                 var response = await client.GetAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+=======
+                var response = await client.GetAsync($"{listId}/members/{Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
+>>>>>>> pr/203
                 if (response.IsSuccessStatusCode)
                 {
                     if (falseIfUnsubscribed)
@@ -388,12 +413,16 @@ namespace MailChimp.Net.Logic
         /// </exception>
         private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response =
                     await
                     client.GetAsync(
+<<<<<<< HEAD
                         $"{listId}/members/{this.Hash(emailAddressOrHash)}/goals{request?.ToQueryString()}").ConfigureAwait(false);
+=======
+                        $"{listId}/members/{Hash(emailAddress.ToLower())}/goals{request?.ToQueryString()}").ConfigureAwait(false);
+>>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var goalResponse = await response.Content.ReadAsAsync<GoalResponse>().ConfigureAwait(false);
                 return goalResponse.Goals;

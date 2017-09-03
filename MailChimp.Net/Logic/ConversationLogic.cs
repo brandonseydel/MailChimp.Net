@@ -4,13 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -21,7 +26,7 @@ namespace MailChimp.Net.Logic
     internal class ConversationLogic : BaseLogic, IConversationLogic
     {
 
-        public ConversationLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ConversationLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -48,7 +53,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Conversation>> GetAllAsync(ConversationRequest request = null)
         {
-            return (await this.GetResponseAsync(request).ConfigureAwait(false))?.Conversations;
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Conversations;
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<ConversationResponse> GetResponseAsync(ConversationRequest request = null)
         {
-            using (var client = this.CreateMailClient("conversations"))
+            using (var client = CreateMailClient("conversations"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -103,7 +108,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Conversation> GetAsync(string id)
         {
-            using (var client = this.CreateMailClient("conversations/"))
+            using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.GetAsync($"{id}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

@@ -4,13 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -21,7 +26,7 @@ namespace MailChimp.Net.Logic
     public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     {
 
-        public InterestCategoryLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public InterestCategoryLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -44,7 +49,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<InterestCategory> AddOrUpdateAsync(InterestCategory category, string listId)
         {
-            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories/"))
+            using (var client = CreateMailClient($"lists/{listId}/interest-categories/"))
             {
                 System.Net.Http.HttpResponseMessage response;
                 if (string.IsNullOrWhiteSpace(category.Id))
@@ -83,7 +88,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string listId, string categoryId)
         {
-            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories/"))
+            using (var client = CreateMailClient($"lists/{listId}/interest-categories/"))
             {
                 var response = await client.DeleteAsync(categoryId).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -152,7 +157,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories"))
+            using (var client = CreateMailClient($"lists/{listId}/interest-categories"))
             {
                 var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -183,7 +188,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<InterestCategory> GetAsync(string listId, string id)
         {
-            using (var client = this.CreateMailClient($"lists/{listId}/interest-categories/"))
+            using (var client = CreateMailClient($"lists/{listId}/interest-categories/"))
             {
                 var response = await client.GetAsync($"{id}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

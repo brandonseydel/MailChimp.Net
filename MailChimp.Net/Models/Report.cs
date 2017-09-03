@@ -21,8 +21,8 @@ namespace MailChimp.Net.Models
         /// </summary>
         public Report()
         {
-            this.Timeseries = new HashSet<Timesery>();
-            this.Links = new HashSet<Link>();
+            Timeseries = new HashSet<Timesery>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

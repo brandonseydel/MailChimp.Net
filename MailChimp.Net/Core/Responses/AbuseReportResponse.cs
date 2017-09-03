@@ -22,8 +22,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public AbuseReportResponse()
         {
-            this.AbuseReports = new HashSet<AbuseReport>();
-            this.Links = new HashSet<Link>();
+            AbuseReports = new HashSet<AbuseReport>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

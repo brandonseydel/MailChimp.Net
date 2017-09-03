@@ -6,7 +6,7 @@
 
 using System;
 using System.Net.Http;
-using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -18,6 +18,11 @@ namespace MailChimp.Net.Core
     /// </summary>
     public static class HttpRequestExtensions
     {
+        private readonly static JsonSerializerSettings JsonSettings = new JsonSerializerSettings()
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
         /// <summary>
         /// The patch as json async.
         /// </summary>
@@ -41,19 +46,15 @@ namespace MailChimp.Net.Core
         public static async Task<HttpResponseMessage> PatchAsJsonAsync<T>(
             this HttpClient client, 
             string requestUri, 
-            T value, 
-            JsonMediaTypeFormatter formatter = null)
+            T value,
+            JsonSerializerSettings settings = null)
         {
-            var jsonFormatter = formatter
-                                ?? new JsonMediaTypeFormatter
-                                       {
-                                           SerializerSettings =
-                                               {
-                                                   NullValueHandling =
-                                                       NullValueHandling.Ignore
-                                               }
-                                       };
-            return await client.PatchAsync(requestUri, new ObjectContent<T>(value, jsonFormatter)).ConfigureAwait(false);
+            var content = new StringContent(
+                JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+                Encoding.UTF8,
+                "application/json");
+
+            return await client.PatchAsync(requestUri, content).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -110,18 +111,13 @@ namespace MailChimp.Net.Core
             this HttpClient client,
             string requestUri,
             T value,
-            JsonMediaTypeFormatter formatter = null)
+            JsonSerializerSettings settings = null)
         {
-            var jsonFormatter = formatter
-                                ?? new JsonMediaTypeFormatter
-                                {
-                                    SerializerSettings =
-                                               {
-                                                   NullValueHandling =
-                                                       NullValueHandling.Ignore
-                                               }
-                                };
-            var content = new ObjectContent<T>(value, jsonFormatter);
+            var content = new StringContent(
+                JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+                Encoding.UTF8,
+                "application/json");
+
             return await client.PutAsync(requestUri, content).ConfigureAwait(false);
         }
 
@@ -149,18 +145,13 @@ namespace MailChimp.Net.Core
             this HttpClient client,
             string requestUri,
             T value,
-            JsonMediaTypeFormatter formatter = null)
+            JsonSerializerSettings settings = null)
         {
-            var jsonFormatter = formatter
-                                ?? new JsonMediaTypeFormatter
-                                {
-                                    SerializerSettings =
-                                               {
-                                                   NullValueHandling =
-                                                       NullValueHandling.Ignore
-                                               }
-                                };
-            var content = new ObjectContent<T>(value, jsonFormatter);
+            var content = new StringContent(
+                JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+                Encoding.UTF8,
+                "application/json");
+
             return await client.PostAsync(requestUri, content).ConfigureAwait(false);
         }
 

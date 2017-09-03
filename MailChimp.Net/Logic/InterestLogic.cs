@@ -4,13 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -21,7 +26,7 @@ namespace MailChimp.Net.Logic
     public class InterestLogic : BaseLogic, IInterestLogic
     {
 
-        public InterestLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public InterestLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -52,7 +57,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string listId, string interestCategoryId, string interestId)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await
@@ -133,7 +138,7 @@ namespace MailChimp.Net.Logic
                 Limit = _limit
             };
 
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await
@@ -182,7 +187,7 @@ namespace MailChimp.Net.Logic
             string interestId, 
             BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await
@@ -195,7 +200,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<Interest> AddOrUpdateAsync(Interest list)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 System.Net.Http.HttpResponseMessage response;
                 if (string.IsNullOrWhiteSpace(list.Id))
@@ -236,7 +241,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Interest> UpdateAsync(Interest list)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await

@@ -4,13 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -21,7 +26,7 @@ namespace MailChimp.Net.Logic
     internal class AutomationSubscriberLogic : BaseLogic, IAutomationSubscriberLogic
     {
 
-        public AutomationSubscriberLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public AutomationSubscriberLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -45,7 +50,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<IEnumerable<Subscriber>> GetRemovedSubscribersAsync(string workflowId)
         {
-            using (var client = this.CreateMailClient("automations/"))
+            using (var client = CreateMailClient("automations/"))
             {
                 var response = await client.GetAsync($"{workflowId}/removed-subscribers").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -74,7 +79,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AutomationSubscriberResponse> GetRemovedSubscribersResponseAsync(string workflowId)
         {
-            using (var client = this.CreateMailClient("automations/"))
+            using (var client = CreateMailClient("automations/"))
             {
                 var response = await client.GetAsync($"{workflowId}/removed-subscribers").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -106,7 +111,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Subscriber> RemoveSubscriberAsync(string workflowId, string emailAddress)
         {
-            using (var client = this.CreateMailClient("automations/"))
+            using (var client = CreateMailClient("automations/"))
             {
                 var response =
                     await

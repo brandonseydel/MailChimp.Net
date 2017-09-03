@@ -4,13 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -21,7 +26,7 @@ namespace MailChimp.Net.Logic
     internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     {
 
-        public FeedBackLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public FeedBackLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -48,7 +53,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Feedback> AddOrUpdateAsync(string campaignId, Feedback feedback)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PostAsJsonAsync($"{campaignId}/feedback/{feedback?.FeedbackId}", feedback).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -80,7 +85,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string campaignId, string feedbackId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.DeleteAsync($"{campaignId}/feedback/{feedbackId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -141,7 +146,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<FeedBackResponse> GetResponseAsync(string campaignId, FeedbackRequest request = null)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -174,7 +179,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Feedback> GetAsync(string campaignId, string feedBackId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback/{feedBackId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

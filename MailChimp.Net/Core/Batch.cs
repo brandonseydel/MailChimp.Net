@@ -27,8 +27,8 @@ namespace MailChimp.Net.Core
 	    [System.ComponentModel.Browsable(false), Obsolete("Spelling corrected to FinishedOperations"), JsonIgnore]
 	    public int FinishedOperpations
 	    {
-	        get { return this.FinishedOperations; }
-	        set { this.FinishedOperations = value; }
+	        get { return FinishedOperations; }
+	        set { FinishedOperations = value; }
 	    }
 
 	    /// <summary>

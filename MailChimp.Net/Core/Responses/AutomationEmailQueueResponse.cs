@@ -22,8 +22,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public AutomationEmailQueueResponse()
         {
-            this.Queues = new HashSet<Queue>();
-            this.Links = new HashSet<Link>();
+            Queues = new HashSet<Queue>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

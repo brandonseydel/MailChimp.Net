@@ -4,13 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using static System.Net.Http.HttpContentExtensions;
 
 namespace MailChimp.Net.Logic
 {
@@ -22,7 +20,7 @@ namespace MailChimp.Net.Logic
         private const string BaseUrl = "ecommerce/stores/{0}/customers";
 
 
-        public ECommerceCustomerLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ECommerceCustomerLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -34,7 +32,7 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<Customer> AddAsync(Customer customer)
         {
-            var requestUrl = string.Format(BaseUrl, this.StoreId);
+            var requestUrl = string.Format(BaseUrl, StoreId);
             using (var client = CreateMailClient(requestUrl))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, customer).ConfigureAwait(false);

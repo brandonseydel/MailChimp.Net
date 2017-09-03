@@ -16,6 +16,7 @@ namespace MailChimp.Net.Interfaces
         Task DeleteMemberAsync(string listId, string segmentId, string emailAddressOrHash);
         Task<MemberResponse> GetMemberResponseAsync(string listId, string segmentId, QueryableBaseRequest request = null);
         Task<IEnumerable<Member>> GetAllMembersAsync(string listId, string segmentId, QueryableBaseRequest request = null);
+        Task<BatchSegmentMembersResponse> BatchMemberAsync(string listId, string segmentId, BatchSegmentMembers batchSegmentMembers);
         Task DeleteAsync(string listId, string segmentId);
     }
 }

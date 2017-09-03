@@ -22,8 +22,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public InterestCategoryResponse()
         {
-            this.Links = new HashSet<Link>();
-            this.Categories = new HashSet<InterestCategory>();
+            Links = new HashSet<Link>();
+            Categories = new HashSet<InterestCategory>();
         }
 
         /// <summary>

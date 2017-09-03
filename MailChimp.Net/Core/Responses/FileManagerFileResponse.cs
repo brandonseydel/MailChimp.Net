@@ -10,7 +10,7 @@ namespace MailChimp.Net.Core
 
         public FileManagerFileResponse()
         {
-            this.Files = new HashSet<FileManagerFile>();
+            Files = new HashSet<FileManagerFile>();
         }
 
         [JsonProperty("files")]

@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BaseLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,9 +7,12 @@
 using System;
 using System.Net.Http;
 using System.Security.Cryptography;
+<<<<<<< HEAD
 using MailChimp.Net.Interfaces;
+=======
+>>>>>>> pr/203
 
-#pragma warning disable 1584,1711,1572,1581,1580
+#pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 namespace MailChimp.Net.Core
 {
@@ -18,13 +21,13 @@ namespace MailChimp.Net.Core
     /// </summary>
     public abstract class BaseLogic
     {
-        internal int _limit => _mailChimpConfiguration.Limit;
+        internal int _limit => _options.Limit;
 
-        internal IMailChimpConfiguration _mailChimpConfiguration;
+        internal MailchimpOptions _options;
 
-        protected BaseLogic(IMailChimpConfiguration mailChimpConfiguration)
+        protected BaseLogic(MailchimpOptions options)
         {
-            this._mailChimpConfiguration = mailChimpConfiguration;
+            _options = options;
         }
 
         /// <summary>
@@ -52,9 +55,9 @@ namespace MailChimp.Net.Core
             var client = new HttpClient(handler)
                              {
                                  BaseAddress =
-                                     new Uri($"https://{this._mailChimpConfiguration.DataCenter}.api.mailchimp.com/3.0/{resource}")
+                                     new Uri($"https://{_options.DataCenter}.api.mailchimp.com/3.0/{resource}")
                              };
-            client.DefaultRequestHeaders.Add("Authorization", _mailChimpConfiguration.AuthHeader);
+            client.DefaultRequestHeaders.Add("Authorization", _options.AuthHeader);
             return client;
         }
 

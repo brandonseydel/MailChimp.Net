@@ -4,13 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 using System.Collections.Generic;
 using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
 
+=======
+>>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -21,7 +26,7 @@ namespace MailChimp.Net.Logic
     public class ClientLogic : BaseLogic, IClientLogic
 	{
 
-        public ClientLogic(IMailChimpConfiguration mailChimpConfiguration)
+        public ClientLogic(MailchimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -51,7 +56,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Client>> GetAllAsync(string listId, BaseRequest request = null)
 		{
-			return (await this.GetResponseAsync(listId, request).ConfigureAwait(false))?.Clients;			
+			return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Clients;			
 		}
 
 		/// <summary>
@@ -79,7 +84,7 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<ClientResponse> GetResponseAsync(string listId, BaseRequest request = null)
 		{
-			using (var client = this.CreateMailClient("lists/"))
+			using (var client = CreateMailClient("lists/"))
 			{
 				var response = await client.GetAsync($"{listId}/clients{request?.ToQueryString()}").ConfigureAwait(false);
 				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
