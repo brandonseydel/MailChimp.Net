@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/brandonseydel/MailChimp.Net</projectUrl>
+    <iconUrl>http://developer.mailchimp.com/documentation/mailchimp/img/freddie_o.svg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright © 2016</copyright>
+    <tags>MailChimp Mail Chimp 3.0 MailChimp v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</tags>
+    <summary>
+      A  very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.
+    </summary>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.3" />
+    </dependencies>
+  </metadata>
+</package>
