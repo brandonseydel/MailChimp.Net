@@ -19,7 +19,7 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "ecommerce/stores/{0}/carts";
 
-        public ECommerceCartLogic(MailchimpOptions mailChimpConfiguration)
+        public ECommerceCartLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

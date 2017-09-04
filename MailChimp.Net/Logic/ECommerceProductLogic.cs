@@ -21,7 +21,7 @@ namespace MailChimp.Net.Logic
 
         private static IECommerceProductVarianceLogic _productVarianceLogic;
 
-        public ECommerceProductLogic(MailchimpOptions mailChimpConfiguration)
+        public ECommerceProductLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

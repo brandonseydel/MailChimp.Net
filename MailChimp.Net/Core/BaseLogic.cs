@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BaseLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,11 +7,6 @@
 using System;
 using System.Net.Http;
 using System.Security.Cryptography;
-<<<<<<< HEAD
-using MailChimp.Net.Interfaces;
-=======
->>>>>>> pr/203
-
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 namespace MailChimp.Net.Core
@@ -23,9 +18,9 @@ namespace MailChimp.Net.Core
     {
         internal int _limit => _options.Limit;
 
-        internal MailchimpOptions _options;
+        internal MailChimpOptions _options;
 
-        protected BaseLogic(MailchimpOptions options)
+        protected BaseLogic(MailChimpOptions options)
         {
             _options = options;
         }

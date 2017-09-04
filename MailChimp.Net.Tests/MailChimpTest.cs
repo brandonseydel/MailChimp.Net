@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MailChimpTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using Xunit;
+using Microsoft.Extensions.Configuration;
 
 namespace MailChimp.Net.Tests
 {
@@ -69,12 +69,15 @@ namespace MailChimp.Net.Tests
             await ClearCampaigns().ConfigureAwait(false);
         }
 
+        public IConfiguration Configuration { get; }
+
+
         /// <summary>
         /// The initialize.
         /// </summary>
         public MailChimpTest()
         {
-            this.MailChimpManager = new MailChimpManager(null);
+            this.MailChimpManager = new MailChimpManager("599629998b18960fa6e8a283d280ac28-us13");
             RunBeforeTestFixture().Wait();
         }
 

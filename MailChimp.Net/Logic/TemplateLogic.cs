@@ -20,7 +20,7 @@ namespace MailChimp.Net.Logic
     internal class TemplateLogic : BaseLogic, ITemplateLogic
     {
 
-        public TemplateLogic(MailchimpOptions optionsAccessor)
+        public TemplateLogic(MailChimpOptions optionsAccessor)
             : base(optionsAccessor)
         {
         }

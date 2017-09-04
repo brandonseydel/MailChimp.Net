@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Options;
 
-namespace MailChimp.Net.Tests.Stubs
+namespace MailChimp.Net.Tests
 {
-    public class StubMailchimpOptions : IOptions<MailchimpOptions>
+    public class StubMailchimpOptions : IOptions<MailChimpOptions>
     {
-        private readonly MailchimpOptions _options;
+        private readonly MailChimpOptions _options;
 
         public StubMailchimpOptions(string key)
         {
-            _options = new MailchimpOptions { ApiKey = key };
+            _options = new MailChimpOptions { ApiKey = key };
         }
 
         public StubMailchimpOptions(int limit)
         {
-            _options = new MailchimpOptions { Limit = limit };
+            _options = new MailChimpOptions { Limit = limit };
         }
 
         public StubMailchimpOptions(string datacenter, string token)
         {
-            _options = new MailchimpOptions { DataCenter = datacenter,  OauthToken = token };
+            _options = new MailChimpOptions { DataCenter = datacenter,  OauthToken = token };
         }
 
-        public MailchimpOptions Value => _options;
+        public MailChimpOptions Value => _options;
     }
 }

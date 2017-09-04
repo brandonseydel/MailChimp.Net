@@ -1,21 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AbuseReportLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 using System.Collections.Generic;
-using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
-
-=======
->>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -26,7 +19,7 @@ namespace MailChimp.Net.Logic
     public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     {
 
-        public AbuseReportLogic(MailchimpOptions mailChimpConfiguration)
+        public AbuseReportLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

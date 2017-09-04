@@ -16,7 +16,7 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class BatchLogic : BaseLogic, IBatchLogic
 	{
-        public BatchLogic(MailchimpOptions mailChimpConfiguration)
+        public BatchLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

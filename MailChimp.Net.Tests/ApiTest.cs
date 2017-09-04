@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AuthorizedAppTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -23,13 +23,8 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Return_API_Information()
         {
-<<<<<<< HEAD
             var apiInfo = await this.MailChimpManager.Api.GetInfoAsync().ConfigureAwait(false);
-            Assert.IsNotNull(apiInfo);
-=======
-            var apiInfo = await this.MailChimpManager.Api.GetInfoAsync();
             Assert.NotNull(apiInfo);
->>>>>>> pr/203
         }
     }
 }

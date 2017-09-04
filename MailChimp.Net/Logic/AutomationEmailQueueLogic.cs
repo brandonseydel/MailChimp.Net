@@ -1,21 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AutomationEmailQueueLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 using System.Collections.Generic;
-using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
-
-=======
->>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 namespace MailChimp.Net.Logic
@@ -26,7 +19,7 @@ namespace MailChimp.Net.Logic
     internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     {
 
-        public AutomationEmailQueueLogic(MailchimpOptions mailChimpConfiguration)
+        public AutomationEmailQueueLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -154,11 +147,7 @@ namespace MailChimp.Net.Logic
             {
                 var response =
                     await
-<<<<<<< HEAD
                     client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
-=======
-                    client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{Hash(emailAddress.ToLower())}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
             }

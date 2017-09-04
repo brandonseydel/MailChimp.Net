@@ -1,21 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ReportLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 using System.Collections.Generic;
-using static System.Net.Http.HttpContentExtensions;
 using System.Threading.Tasks;
-
-=======
->>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 #pragma warning disable 1584,1711,1572,1581,1580
 
 // ReSharper disable UnusedMember.Global
@@ -27,7 +20,7 @@ namespace MailChimp.Net.Logic
     internal class ReportLogic : BaseLogic, IReportLogic
     {
 
-        public ReportLogic(MailchimpOptions mailChimpConfiguration)
+        public ReportLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -296,11 +289,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.GetAsync(
-<<<<<<< HEAD
                         $"{campaignId}/click-details/{linkId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
-=======
-                        $"{campaignId}/click-details/{linkId}/members/{Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<ClickMember>().ConfigureAwait(false);
@@ -543,11 +532,7 @@ namespace MailChimp.Net.Logic
             {
                 var response =
                     await
-<<<<<<< HEAD
                     client.GetAsync($"{campaignId}/email-activity/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
-=======
-                    client.GetAsync($"{campaignId}/email-activity/{Hash(emailAddress.ToLower())}{request?.ToQueryString()}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<EmailActivity>().ConfigureAwait(false);
@@ -675,11 +660,7 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("reports/"))
             {
                 var response =
-<<<<<<< HEAD
                     await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddressOrHash)}{request.ToQueryString()}").ConfigureAwait(false);
-=======
-                    await client.GetAsync($"{campaignId}/sent-to/{Hash(emailAddress)}{request.ToQueryString()}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<SentTo>().ConfigureAwait(false);
@@ -818,11 +799,7 @@ namespace MailChimp.Net.Logic
             {
                 var response =
                     await
-<<<<<<< HEAD
                     client.GetAsync($"{campaignId}/unsubscribed/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
-=======
-                    client.GetAsync($"{campaignId}/unsubscribed/{Hash(emailAddress)}{request?.ToQueryString()}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 return await response.Content.ReadAsAsync<Unsubscribe>().ConfigureAwait(false);
             }

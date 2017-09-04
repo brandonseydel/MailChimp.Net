@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ApiTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -35,21 +35,14 @@ namespace MailChimp.Net.Tests
                 {
 
 
-<<<<<<< HEAD
                 });
-                Assert.IsNotNull(testStore);
+                Assert.NotNull(testStore);
             }
-            catch (MailChimpException ex)
+            catch (MailChimpException)
             {
                 
             }
-=======
-            });
-            Assert.NotNull(testStore);
->>>>>>> pr/203
-
             //await this._mailChimpManager.ECommerceStores.Products("storeId").Variances("productId");
-
         }
     }
 }

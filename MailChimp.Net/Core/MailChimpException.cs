@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MailChimpException.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -20,49 +20,12 @@ namespace MailChimp.Net.Core
     {
         public MailChimpException(MailChimpApiError apierror) : base(formatMessage(apierror))
         {
-<<<<<<< HEAD
-            var errorText = string.Empty;
-
-            try
-            {
-                this.Detail = info?.GetString("detail");
-                this.Title = info?.GetString("title");
-                this.Type = info?.GetString("type");
-                this.Status = info?.GetInt32("status") ?? 0;
-                this.Instance = info?.GetString("instance");
-
-                errorText =
-                    $"Title: {this.Title + Environment.NewLine} Type: {this.Type + Environment.NewLine} Status: {this.Status + Environment.NewLine} + Detail: {this.Detail + Environment.NewLine}";
-                this.Errors = (List<Error>) info?.GetValue("errors", typeof(List<Error>));
-                errorText += "Errors: " + string.Join(" : ", this.Errors.Select(x => x.Field + " " + x.Message));
-            }
-            catch
-            {
-                // ignored
-            }
-            finally
-            {
-                Trace.Write(errorText);
-                Debug.Write(errorText);
-            }
-		}
-
-		public List<Error> Errors { get; set; }
-
-		public class Error
-		{
-			[JsonProperty("field")]
-			public string Field { get; set; }
-			[JsonProperty("message")]
-			public string Message { get; set; }
-=======
             Detail = apierror.Detail;
             Title = apierror.Title;
             Type = apierror.Type;
             Status = apierror.Status;
             Instance = apierror.Instance;
             Errors = apierror.Errors;
->>>>>>> pr/203
 		}
 
         private static string formatMessage(MailChimpApiError apierror)

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IMailChimpManager.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -98,7 +98,7 @@ namespace MailChimp.Net.Interfaces
         /// <summary>
         /// Gets or sets the e commerce stores.
         /// </summary>
-        IECommerceLogic ECommerceStores { get;  }
+        IECommerceLogic ECommerceStores { get; }
 
         /// <summary>
         /// Gets the feedback.
@@ -164,21 +164,14 @@ namespace MailChimp.Net.Interfaces
         /// <summary>
         /// Gets the logic to access mail chimp web hooks
         /// </summary>
-        IWebHookLogic WebHooks { get;  }
+        IWebHookLogic WebHooks { get; }
+        IBatchWebHookLogic BatchWebHooks { get; }
 
         /// <summary>
         /// Gets othe batch logic layer to talk to Mail Chimp
         /// </summary>
         IBatchLogic Batches { get; }
 
-<<<<<<< HEAD
-        /// <summary>
-        /// Gets or Sets batch web hooks
-        /// </summary>
-        IBatchWebHookLogic BatchWebHooks { get; }
-
-=======
-        IMailChimpManager Configure(Action<MailchimpOptions> options);
->>>>>>> pr/203
+        IMailChimpManager Configure(Action<MailChimpOptions> options);
     }
 }

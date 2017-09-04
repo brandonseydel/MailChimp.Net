@@ -12,7 +12,7 @@ namespace MailChimp.Net.Logic
 
         public string ProductId { get; set; }
 
-        public ECommerceProductVarianceLogic(MailchimpOptions mailChimpConfiguration)
+        public ECommerceProductVarianceLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

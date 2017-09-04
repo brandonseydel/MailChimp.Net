@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ECommerceCustomerLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -20,7 +20,7 @@ namespace MailChimp.Net.Logic
         private const string BaseUrl = "ecommerce/stores/{0}/customers";
 
 
-        public ECommerceCustomerLogic(MailchimpOptions mailChimpConfiguration)
+        public ECommerceCustomerLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

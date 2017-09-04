@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CampaignLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -23,7 +23,7 @@ namespace MailChimp.Net.Logic
     internal class CampaignLogic : BaseLogic, ICampaignLogic
 	{
 
-        public CampaignLogic(MailchimpOptions mailChimpConfiguration)
+        public CampaignLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -270,8 +270,7 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<CampaignResponse> GetResponseAsync(CampaignRequest request = null)
 		{
-
-			request = request ?? new CampaignRequest
+            request = request ?? new CampaignRequest
 			{
 				Limit = _limit
 			};
@@ -370,10 +369,9 @@ namespace MailChimp.Net.Logic
 		public async Task ExecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction)
 		{
 
-			var member = typeof(CampaignAction).GetTypeInfo().GetMember(campaignAction.ToString());
+			var member = typeof(CampaignAction).GetRuntimeProperties().FirstOrDefault(x=>x.Name == (campaignAction.ToString()));
 			var action =
-				member.FirstOrDefault()?
-					  .GetCustomAttributes(typeof(DescriptionAttribute), false)
+				member.GetCustomAttributes(typeof(DescriptionAttribute), false)
 					  .OfType<DescriptionAttribute>()
 					  .FirstOrDefault()?.Description ?? campaignAction.ToString().ToLower();
 

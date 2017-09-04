@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="StringEnumDescriptionConverter.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -81,8 +81,8 @@ namespace MailChimp.Net.Core
         {
             objectType = Nullable.GetUnderlyingType(objectType) ?? objectType;
             var eTypeVal = objectType
-                        .GetTypeInfo()
-                        .GetMembers()
+                        .GetRuntimeFields().Cast<MemberInfo>()
+                        .Union(objectType.GetRuntimeProperties())                        
                         .Where(x => x.GetCustomAttributes(typeof(DescriptionAttribute)).Any())
                         .FirstOrDefault(x => ((DescriptionAttribute)x.GetCustomAttribute(typeof(DescriptionAttribute))).Description == (string)reader.Value);
 
@@ -117,8 +117,8 @@ namespace MailChimp.Net.Core
                 return;
             }
 
-            var description = type.GetTypeInfo()
-                                  .GetField(name) // I prefer to get attributes this way
+            var description = type.GetRuntimeField(name)
+                                  //.GetField(name) // I prefer to get attributes this way
                                   .GetCustomAttributes(false)
                                   .OfType<DescriptionAttribute>()
                                   .Select(x => x.Description)

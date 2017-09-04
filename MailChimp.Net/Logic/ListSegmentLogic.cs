@@ -1,4 +1,4 @@
-﻿using MailChimp.Net.Core;
+using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "/lists/{0}/segments";
 
-        public ListSegmentLogic(MailchimpOptions mailChimpConfiguration)
+        public ListSegmentLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -86,9 +86,6 @@ namespace MailChimp.Net.Logic
             }
         }
 
-<<<<<<< HEAD
-        public async Task DeleteMemberAsync(string listId, string segmentId, string emailAddressOrHash)
-=======
         public async Task<BatchSegmentMembersResponse> BatchMemberAsync(string listId, string segmentId, BatchSegmentMembers batchSegmentMembers)
         {
             using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
@@ -102,15 +99,10 @@ namespace MailChimp.Net.Logic
         }
 
         public async Task DeleteMemberAsync(string listId, string segmentId, string emailAddress)
->>>>>>> pr/203
         {
             using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-<<<<<<< HEAD
-                var response = await client.DeleteAsync($"{segmentId}/members/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
-=======
                 var response = await client.DeleteAsync($"{segmentId}/members/{Hash(emailAddress.ToLower())}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }

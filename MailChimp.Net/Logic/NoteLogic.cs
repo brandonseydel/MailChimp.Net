@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="NoteLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -21,7 +21,7 @@ namespace MailChimp.Net.Logic
     public class NoteLogic : BaseLogic, INoteLogic
     {
 
-        public NoteLogic(MailchimpOptions mailChimpConfiguration)
+        public NoteLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }
@@ -54,11 +54,7 @@ namespace MailChimp.Net.Logic
                     response =
                         await
                         client.PostAsJsonAsync(
-<<<<<<< HEAD
                             $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes", 
-=======
-                            $"{listId}/members/{Hash(emailAddress.ToLower())}/notes", 
->>>>>>> pr/203
                             new { note }).ConfigureAwait(false);
                 }
                 else
@@ -66,11 +62,7 @@ namespace MailChimp.Net.Logic
                     response =
                         await
                         client.PatchAsJsonAsync(
-<<<<<<< HEAD
                             $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}", 
-=======
-                            $"{listId}/members/{Hash(emailAddress.ToLower())}/notes/{noteId}", 
->>>>>>> pr/203
                             new { note }).ConfigureAwait(false);
                 }
 
@@ -105,11 +97,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.DeleteAsync(
-<<<<<<< HEAD
                         $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}{request?.ToQueryString()}").ConfigureAwait(false);
-=======
-                        $"{listId}/members/{Hash(emailAddress.ToLower())}/notes/{noteId}{request?.ToQueryString()}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }
@@ -168,11 +156,7 @@ namespace MailChimp.Net.Logic
                 var response =
                     await
                     client.GetAsync(
-<<<<<<< HEAD
                         $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{request.ToQueryString()}").ConfigureAwait(false);
-=======
-                        $"{listId}/members/{Hash(emailAddress.ToLower())}/notes{request.ToQueryString()}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var noteResponse = await response.Content.ReadAsAsync<NoteResponse>().ConfigureAwait(false);
@@ -201,11 +185,7 @@ namespace MailChimp.Net.Logic
             using (var client = CreateMailClient("lists/"))
             {
                 var response =
-<<<<<<< HEAD
                     await client.GetAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{noteId}").ConfigureAwait(false);
-=======
-                    await client.GetAsync($"{listId}/members/{Hash(emailAddress.ToLower())}/notes{noteId}").ConfigureAwait(false);
->>>>>>> pr/203
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<Note>().ConfigureAwait(false);

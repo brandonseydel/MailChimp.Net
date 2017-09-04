@@ -22,7 +22,7 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "file-manager/files";
 
-        public FileManagerFileLogic(MailchimpOptions mailChimpConfiguration)
+        public FileManagerFileLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

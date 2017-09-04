@@ -23,7 +23,7 @@ namespace MailChimp.Net.Logic
         private const string BaseUrl = "/lists/{0}/merge-fields";
 
 
-        public MergeFieldLogic(MailchimpOptions mailChimpConfiguration)
+        public MergeFieldLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

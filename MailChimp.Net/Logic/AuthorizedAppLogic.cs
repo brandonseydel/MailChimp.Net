@@ -1,21 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AuthorizedAppLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 using System.Collections.Generic;
-
 using System.Threading.Tasks;
-
-=======
->>>>>>> pr/203
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 namespace MailChimp.Net.Logic
@@ -26,7 +19,7 @@ namespace MailChimp.Net.Logic
     internal class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
     {
 
-        public AuthorizedAppLogic(MailchimpOptions mailChimpConfiguration)
+        public AuthorizedAppLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

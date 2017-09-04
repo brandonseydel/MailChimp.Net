@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -12,7 +11,8 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "batch-webhooks";
 
-        public BatchWebHookLogic(IMailChimpConfiguration mailChimpConfiguration) : base(mailChimpConfiguration)
+        public BatchWebHookLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 

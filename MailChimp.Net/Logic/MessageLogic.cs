@@ -21,7 +21,7 @@ namespace MailChimp.Net.Logic
     internal class MessageLogic : BaseLogic, IMessageLogic
     {
 
-        public MessageLogic(MailchimpOptions mailChimpConfiguration)
+        public MessageLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

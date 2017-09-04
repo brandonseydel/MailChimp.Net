@@ -2,7 +2,7 @@
 
 namespace MailChimp.Net
 {
-    public class MailchimpOptions
+    public class MailChimpOptions
     {
         public int Limit { get; set; } = 1000;
 

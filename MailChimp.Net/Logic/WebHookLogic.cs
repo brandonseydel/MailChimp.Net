@@ -22,7 +22,7 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "/lists/{0}/webhooks";
 
-        public WebHookLogic(MailchimpOptions mailChimpConfiguration)
+        public WebHookLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

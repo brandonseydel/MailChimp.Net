@@ -1,17 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
-    [TestClass]
     public class SegmentTest : MailChimpTest
     {
-        [TestMethod]
+        [Fact]
         public async Task Should_Get_Segment()
         {
             var lists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
@@ -31,8 +30,8 @@ namespace MailChimp.Net.Tests
 
             var retrievedSegment = await this.MailChimpManager.ListSegments.GetAsync(listId, createdSegment.Id).ConfigureAwait(false);
 
-            Assert.IsNotNull(retrievedSegment);
-            Assert.IsTrue(createdSegment.Id == retrievedSegment.Id);
+            Assert.NotNull(retrievedSegment);
+            Assert.True(createdSegment.Id == retrievedSegment.Id);
 
         }
     }

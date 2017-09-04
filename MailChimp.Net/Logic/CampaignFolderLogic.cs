@@ -22,7 +22,7 @@ namespace MailChimp.Net.Logic
 
         private const string BaseUrl = "campaign-folders";
 
-        public CampaignFolderLogic(MailchimpOptions mailChimpConfiguration)
+        public CampaignFolderLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
         }

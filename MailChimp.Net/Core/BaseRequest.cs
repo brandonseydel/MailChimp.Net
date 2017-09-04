@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BaseRequest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,6 +7,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -44,7 +45,7 @@ namespace MailChimp.Net.Core
         /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
         public virtual string ToQueryString()
         {
-            var properties = GetType().GetTypeInfo().GetProperties();
+            var properties = GetType().GetRuntimeProperties();//.GetProperties();
 
             var sb = new StringBuilder();
             sb.Append("?");
@@ -52,10 +53,9 @@ namespace MailChimp.Net.Core
 
             properties.ToList().ForEach(
                 prop =>
-                    {
+                    {                        
                         var value = prop.GetValue(this);
-                        var propertyName =
-                            prop.GetType().GetTypeInfo().GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault() ?? prop.Name.ToLower();
+                        var propertyName = prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault() ?? prop.Name.ToLower();
 
                         if (value == null)
                         {
@@ -63,11 +63,12 @@ namespace MailChimp.Net.Core
                         }
                         var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 
+
                         if (type.GetTypeInfo().IsEnum)
                         {
-                            var member = type.GetTypeInfo().GetMember(value.ToString());
+                            var member = type.GetRuntimeProperties().FirstOrDefault(x => x.Name == (value.ToString()));
                             value =
-                                member.FirstOrDefault()?
+                                member?
                                       .GetCustomAttributes(typeof(DescriptionAttribute), false)
                                       .OfType<DescriptionAttribute>()
                                       .FirstOrDefault()?.Description ?? value;
@@ -79,7 +80,7 @@ namespace MailChimp.Net.Core
                         }
 
                         value = value is DateTime ? ((DateTime)value).ToString(@"yyyy-MM-dd HH:mm:ss") :
-                                value is IEnumerable && !(value is string) ? string.Join(",", ((IEnumerable) value).Cast<object>()) : 
+                                value is IEnumerable && !(value is string) ? string.Join(",", ((IEnumerable)value).Cast<object>()) :
                                 value;
 
                         //We don't want to add anything if after all this work their is still no data :(

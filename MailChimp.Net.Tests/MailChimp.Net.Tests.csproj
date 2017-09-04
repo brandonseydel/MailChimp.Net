@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>MailChimp.Net.Tests</AssemblyName>
     <PackageId>MailChimp.Net.Tests</PackageId>
@@ -11,28 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="BatchWebHookTest.cs" />
-    <Compile Include="ECommerceLogicTest.cs" />
-    <Compile Include="ApiTest.cs" />
-    <Compile Include="ConversationTest.cs" />
-    <Compile Include="CampaignTest.cs" />
-    <Compile Include="FeedbackTest.cs" />
-    <Compile Include="ListMemberTest.cs" />
-    <Compile Include="AuthorizedAppTest.cs" />
-    <Compile Include="ListTest.cs" />
-    <Compile Include="ListWebhookTests.cs" />
-    <Compile Include="MailChimpTest.cs" />
-    <Compile Include="OauthTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SegmentTest.cs" />
-=======
     <PackageReference Include="FluentAssertions" Version="4.19.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta3-build3705" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
     <PackageReference Include="xunit" Version="2.3.0-beta3-build3705" />
->>>>>>> pr/203
   </ItemGroup>
 
   <ItemGroup>
