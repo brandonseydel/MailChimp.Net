@@ -20,6 +20,7 @@ namespace MailChimp.Net
 
         public IMailChimpManager Configure(Action<MailChimpOptions> options)
         {
+            
             options(MailChimpOptions);
             return this;
         }

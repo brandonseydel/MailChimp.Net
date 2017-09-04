@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ApiInfo.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -21,7 +21,11 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("login_id")]
         public string LoginId { get; set; }
-
+        /// <summary>
+        /// Gets or sets the account name.
+        /// </summary>
+        [JsonProperty("account_name")]
+        public string AccountName { get; set; }
         [JsonProperty("email")]
         public string Email { get; set; }
         [JsonProperty("first_name")]
@@ -47,11 +51,8 @@ namespace MailChimp.Net.Models
         [JsonProperty("pro_enabled")]
         public bool ProEnabled { get; set; }
 
-        /// <summary>
-        /// Gets or sets the account name.
-        /// </summary>
-        [JsonProperty("account_name")]
-        public string AccountName { get; set; }
+        [JsonProperty("industry_stats")]
+        public IndustryStats IndustryStats { get; set; }
 
         /// <summary>
         /// Gets or sets the contact.
