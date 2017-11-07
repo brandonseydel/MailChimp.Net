@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Helper.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -41,7 +41,10 @@ namespace MailChimp.Net.Core
                     throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri} ");
                 }
 
-                throw new MailChimpException((await response.Content.ReadAsStreamAsync().ConfigureAwait(false)).Deserialize<MailChimpApiError>());
+                var responseContentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                throw new MailChimpException(responseContentStream.Deserialize<MailChimpApiError>(), responseContent, response.StatusCode);
             }
         }
 
@@ -64,13 +67,13 @@ namespace MailChimp.Net.Core
         /// <paramref>
         ///         <name>s</name>
         ///     </paramref>
-        ///     is null. 
+        ///     is null.
         /// </exception>
         /// <exception cref="EncoderFallbackException">
         /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
+        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>.
         /// </exception>
         /// <exception cref="FormatException">
         /// <paramref>
