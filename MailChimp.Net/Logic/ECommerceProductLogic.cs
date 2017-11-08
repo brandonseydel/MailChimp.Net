@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ECommerceProductLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -18,9 +18,7 @@ namespace MailChimp.Net.Logic
         /// The base url.
         /// </summary>
         private const string BaseUrl = "ecommerce/stores/{0}/products";
-
-        private static IECommerceProductVarianceLogic _productVarianceLogic;
-
+        
         public ECommerceProductLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
@@ -28,12 +26,12 @@ namespace MailChimp.Net.Logic
 
         public IECommerceProductVarianceLogic Variances(string productId)
         {
-            _productVarianceLogic = _productVarianceLogic ?? new ECommerceProductVarianceLogic(_options);
-            _productVarianceLogic.StoreId = StoreId;
-            _productVarianceLogic.ProductId = productId;
-            return _productVarianceLogic;
+            return new ECommerceProductVarianceLogic(_options)
+            {
+                StoreId = StoreId,
+                ProductId = productId
+            };
         }
-
 
         /// <summary>
         /// Adds a product to the given store by id

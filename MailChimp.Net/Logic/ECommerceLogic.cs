@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ECommerceLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -22,12 +22,6 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private string BaseUrl = "ecommerce/stores";
 
-        private static IECommerceCartLogic _carts;
-        private static IECommerceCustomerLogic _customers;
-        private static IECommerceOrderLogic _orders;
-        private static IECommerceProductLogic _products;
-
-
         public ECommerceLogic(MailChimpOptions mailChimpConfiguration)
             : base(mailChimpConfiguration)
         {
@@ -35,30 +29,34 @@ namespace MailChimp.Net.Logic
 
         public IECommerceCartLogic Carts(string storeId)
         {
-            _carts = _carts ?? new ECommerceCartLogic(_options);            
-            _carts.StoreId = storeId;
-            return _carts;
+            return new ECommerceCartLogic(_options)
+            {
+                StoreId = storeId
+            };
         }
 
         public IECommerceCustomerLogic Customers(string storeId)
         {
-            _customers = _customers ?? new ECommerceCustomerLogic(_options);
-            _customers.StoreId = storeId;
-            return _customers;
+            return new ECommerceCustomerLogic(_options)
+            {
+                StoreId = storeId
+            };
         }
 
         public IECommerceProductLogic Products(string storeId)
         {
-            _products = _products ?? new ECommerceProductLogic(_options);
-            _products.StoreId = storeId;
-            return _products;
+            return new ECommerceProductLogic(_options)
+            {
+                StoreId = storeId
+            };
         }
 
         public IECommerceOrderLogic Orders(string storeId)
         {
-            _orders = _orders ?? new ECommerceOrderLogic(_options);
-            _orders.StoreId = storeId;
-            return _orders;
+            return new ECommerceOrderLogic(_options)
+            {
+                StoreId = storeId
+            };
         }
 
         /// <summary>
