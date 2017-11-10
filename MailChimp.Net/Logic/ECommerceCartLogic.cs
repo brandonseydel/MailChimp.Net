@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ECommerceCartLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -42,15 +42,14 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        private static IECommerceLineLogic _cartLogic;
-
         public IECommerceLineLogic Lines(string cartId)
         {
-            _cartLogic = _cartLogic ?? new ECommerceLineLogic(_options);
-            _cartLogic.Resource = "carts";
-            _cartLogic.ResourceId = cartId;
-            _cartLogic.StoreId = StoreId;
-            return _cartLogic;
+            return new ECommerceLineLogic(_options)
+            {
+                Resource = "carts",
+                ResourceId = cartId,
+                StoreId = StoreId
+            };
         }
 
         /// <summary>

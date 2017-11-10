@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ECommerceOrderLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -42,15 +42,14 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        private static IECommerceLineLogic _orderLogic;
-
         public IECommerceLineLogic Lines(string orderId)
         {
-            _orderLogic = _orderLogic ?? new ECommerceLineLogic(_options);
-            _orderLogic.Resource = "orders";
-            _orderLogic.ResourceId = orderId;
-            _orderLogic.StoreId = StoreId;
-            return _orderLogic;
+            return new ECommerceLineLogic(_options)
+            {
+                Resource = "orders",
+                ResourceId = orderId,
+                StoreId = StoreId
+            };
         }
 
         /// <summary>
