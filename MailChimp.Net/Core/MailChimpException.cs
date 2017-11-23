@@ -8,7 +8,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using MailChimp.Net.Models;
 
@@ -19,7 +18,7 @@ namespace MailChimp.Net.Core
     /// </summary>
     public class MailChimpException : Exception
     {
-        public MailChimpException(MailChimpApiError apierror, string rawErrorContent, HttpStatusCode rawHttpStatus) : base(formatMessage(apierror))
+        public MailChimpException(MailChimpApiError apierror) : base(formatMessage(apierror))
         {
             Detail = apierror.Detail;
             Title = apierror.Title;
@@ -27,9 +26,6 @@ namespace MailChimp.Net.Core
             Status = apierror.Status;
             Instance = apierror.Instance;
             Errors = apierror.Errors;
-
-            RawHttpStatus = rawHttpStatus;
-            RawErrorContent = rawErrorContent;
         }
 
         private static string formatMessage(MailChimpApiError apierror)
@@ -70,16 +66,6 @@ namespace MailChimp.Net.Core
         /// </summary>
         public string Type { get; set; }
 
-        /// <summary>
-        /// Gets or Sets the raw response http status.
-        /// </summary>
-        public HttpStatusCode RawHttpStatus { get; set; }
-
-        /// <summary>
-        /// Gets or Sets the raw response content from MailChimp.
-        /// </summary>
-        public string RawErrorContent { get; set; }
-
         public override IDictionary Data
         {
             get
@@ -91,8 +77,6 @@ namespace MailChimp.Net.Core
                 data.Add("status", Status);
                 data.Add("instance", Instance);
                 data.Add("errors", Errors);
-                data.Add("rawerrorcontent", RawErrorContent);
-                data.Add("rawhttpstatus", RawHttpStatus);
                 return data;
             }
         }

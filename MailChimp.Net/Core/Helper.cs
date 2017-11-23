@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -29,8 +30,14 @@ namespace MailChimp.Net.Core
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
+        /// <exception cref="MailChimpNotFoundException">
+        /// Custom Mail Chimp NotFound Exception
+        /// </exception>
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
+        /// </exception>
+        /// <exception cref="Exception">
+        /// Fallback Exception
         /// </exception>
         public static async Task EnsureSuccessMailChimpAsync(this HttpResponseMessage response)
         {
@@ -38,13 +45,20 @@ namespace MailChimp.Net.Core
             {
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri} ");
+                    throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri}");
                 }
 
                 var responseContentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+
+                var deserializedApiError = responseContentStream.Deserialize<MailChimpApiError>();
+                if (deserializedApiError.Status != 0)
+                {
+                    throw new MailChimpException(deserializedApiError);
+                }
+
                 var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                throw new MailChimpException(responseContentStream.Deserialize<MailChimpApiError>(), responseContent, response.StatusCode);
+                throw new Exception($"Error response content: {responseContent}");
             }
         }
 
