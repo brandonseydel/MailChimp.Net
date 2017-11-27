@@ -42,9 +42,8 @@ namespace MailChimp.Net.Core
                 }
 
                 var responseContentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                throw new MailChimpException(responseContentStream.Deserialize<MailChimpApiError>(), responseContent, response.StatusCode);
+                throw new MailChimpException(responseContentStream.Deserialize<MailChimpApiError>(), response);
             }
         }
 
