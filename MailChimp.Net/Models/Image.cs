@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -11,7 +11,7 @@ namespace MailChimp.Net.Models
         [JsonProperty("url")]
         public string Url { get; set; }
 
-        [JsonProperty("url")]
+        [JsonProperty("variant_ids")]
         public IList<string> VariantIds { get; set; }
 
         [JsonProperty("_links")]
