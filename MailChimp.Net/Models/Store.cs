@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Store.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -42,6 +42,12 @@ namespace MailChimp.Net.Models
         [JsonProperty("currency_code")]
         [JsonConverter(typeof(StringEnumDescriptionConverter))]
         public CurrencyCode CurrencyCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the platform.
+        /// </summary>
+        [JsonProperty("platform")]
+        public string Platform { get; set; }
 
         /// <summary>
         /// Gets or sets the domain.
