@@ -49,6 +49,13 @@ namespace MailChimp.Net.Models
         [JsonProperty("platform")]
         public string Platform { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets the syncing flag.
+        /// </summary>
+        [JsonProperty("is_syncing")]
+        public bool IsSyncing { get; set; }
+
         /// <summary>
         /// Gets or sets the domain.
         /// </summary>
