@@ -15,6 +15,6 @@ namespace MailChimp.Net.Models
         [JsonProperty("winner_criteria")]
         public string WinnerCriteria { get; set; }
         [JsonProperty("combinations")]
-        public Combination[] Combinations { get; set; }
+        public IEnumerable<Combination> Combinations { get; set; }
     }
 }
