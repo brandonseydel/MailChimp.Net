@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
@@ -20,13 +20,13 @@ namespace MailChimp.Net.Models
         public int Longitude { get; set; }
 
         /// <summary>
-        /// Gets or sets the longitude.
+        /// Gets or sets the phone number.
         /// </summary>
         [JsonProperty("phone")]
         public string Phone { get; set; }
 
         /// <summary>
-        /// Gets or sets the longitude.
+        /// Gets or sets the company name.
         /// </summary>
         [JsonProperty("company")]
         public string Company { get; set; }

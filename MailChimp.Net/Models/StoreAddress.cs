@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
-    /// Order address.
+    /// Store address.
     /// </summary>
     public class StoreAddress : Address
     {
