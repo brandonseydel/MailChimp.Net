@@ -28,7 +28,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the address.
         /// </summary>
         [JsonProperty("address")]
-        public Address Address { get; set; }
+        public StoreAddress Address { get; set; }
 
         /// <summary>
         /// Gets or sets the created at.
