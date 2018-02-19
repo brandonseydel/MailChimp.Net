@@ -11,6 +11,7 @@ namespace MailChimp.Net.Models
         {
             Lines = new List<Line>();
             Links = new List<Link>();
+            Promos = new List<Promo>();
         }
 
         [JsonProperty("id")]
@@ -19,8 +20,14 @@ namespace MailChimp.Net.Models
         [JsonProperty("customer")]
         public Customer Customer { get; set; }
 
+        [JsonProperty("store_id")]
+        public string StoreId { get; set; }
+
         [JsonProperty("campaign_id")]
         public string CampaignId { get; set; }
+
+        [JsonProperty("landing_site")]
+        public string LandingSite { get; set; }
 
         [JsonProperty("financial_status")]
         public string FinancialStatus { get; set; }
@@ -34,6 +41,12 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("order_total")]
         public double OrderTotal { get; set; }
+
+        [JsonProperty("order_url")]
+        public string OrderUrl { get; set; }
+
+        [JsonProperty("discount_total")]
+        public double DiscountTotal { get; set; }
 
         [JsonProperty("tax_total")]
         public double TaxTotal { get; set; }
@@ -55,13 +68,18 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("billing_address")]
         public OrderAddress BillingAddress { get; set; }
-
-
+        
         [JsonProperty("updated_at_foreign")]
         public string UpdatedAtForeign { get; set; }
 
+        [JsonProperty("promos")]
+        public IList<Promo> Promos { get; set; }
+
         [JsonProperty("lines")]
         public IList<Line> Lines { get; set; }
+        
+        [JsonProperty("outreach")]
+        public Outreach Outreach { get; set; }
 
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }
