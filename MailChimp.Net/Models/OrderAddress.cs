@@ -8,6 +8,12 @@ namespace MailChimp.Net.Models
     public class OrderAddress : Address
     {
         /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or sets the latitude.
         /// </summary>
         [JsonProperty("latitude")]
