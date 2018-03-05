@@ -67,7 +67,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient("automations"))
             {
-                var response = await client.GetAsync($"{workflowId}/emails").ConfigureAwait(false);
+                var response = await client.GetAsync($"automations/{workflowId}/emails").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var automationResponse = await response.Content.ReadAsAsync<AutomationEmailResponse>().ConfigureAwait(false);
                 return automationResponse;
