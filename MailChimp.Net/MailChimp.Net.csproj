@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>
-      netstandard1.3;net451
+      net451;netstandard1.3
     </TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,7 +31,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
     <PackageId>MailChimp.Net.V3</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.1.1-alpha</Version>
     <Authors>Brandon Seydel</Authors>
     <Company>DevSquad</Company>
     <Product>MailChimp.Net.V3</Product>
@@ -50,10 +50,21 @@
 
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3'">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3' Or '$(TargetFramework)' == 'netstandard1.4' Or '$(TargetFramework)' == 'netstandard1.5' Or '$(TargetFramework)' == 'netstandard1.7' Or '$(TargetFramework)' == 'netstandard1.8' Or '$(TargetFramework)' == 'netstandard1.9' Or '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp1.0' Or '$(TargetFramework)' == 'netcoreapp1.1' Or '$(TargetFramework)' == 'netcoreapp2.0'">
+    <DefineConstants>NET_CORE</DefineConstants>
+  </PropertyGroup>
+
 </Project>

@@ -1,3 +1,5 @@
+
+#if NET_CORE
 using MailChimp.Net.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,3 +21,4 @@ namespace MailChimp.Net
 
     }
 }
+#endif

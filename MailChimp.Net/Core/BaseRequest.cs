@@ -79,7 +79,7 @@ namespace MailChimp.Net.Core
                             sb.Append("&");
                         }
 
-                        value = value is DateTime ? ((DateTime)value).ToString(@"yyyy-MM-dd HH:mm:ss") :
+                        value = value is DateTime time ? time.ToString(@"yyyy-MM-dd HH:mm:ss") :
                                 value is IEnumerable && !(value is string) ? string.Join(",", ((IEnumerable)value).Cast<object>()) :
                                 value;
 
