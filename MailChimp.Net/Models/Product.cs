@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -34,6 +34,9 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("published_at_foreign")]
         public string PublishedAtForeign { get; set; }
+
+        [JsonProperty("images")]
+        public IList<Image> Images { get; set; }
 
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }

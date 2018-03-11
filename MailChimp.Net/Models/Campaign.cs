@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Campaign.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -115,5 +115,8 @@ namespace MailChimp.Net.Models
         [JsonConverter(typeof(StringEnumDescriptionConverter))]
         public CampaignType Type { get; set; }
         public string DashboardLink { get; internal set; }
+
+        [JsonProperty("variate_settings")]
+        public VariateSettings VariateSettings { get; set; }
     }
 }

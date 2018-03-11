@@ -66,7 +66,7 @@ namespace MailChimp.Net.Core
 
                         if (type.GetTypeInfo().IsEnum)
                         {
-                            var member = type.GetRuntimeProperties().FirstOrDefault(x => x.Name == (value.ToString()));
+                            var member = type.GetRuntimeFields().FirstOrDefault(x => x.Name == (value.ToString()));
                             value =
                                 member?
                                       .GetCustomAttributes(typeof(DescriptionAttribute), false)
