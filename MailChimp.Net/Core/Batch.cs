@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
@@ -27,8 +27,8 @@ namespace MailChimp.Net.Core
 	    [System.ComponentModel.Browsable(false), Obsolete("Spelling corrected to FinishedOperations"), JsonIgnore]
 	    public int FinishedOperpations
 	    {
-	        get { return FinishedOperations; }
-	        set { FinishedOperations = value; }
+	        get => FinishedOperations;
+	        set => FinishedOperations = value;
 	    }
 
 	    /// <summary>

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ListMemberTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -188,6 +188,26 @@ namespace MailChimp.Net.Tests
 
             var updatedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
             Assert.Equal(member.Status, updatedMember.Status);
+        }
+
+        /// <summary>
+        /// The search_ by_ user_ status.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [Fact]
+        public async Task Search_By_User_Status()
+        {
+            await this.Add_User_To_List();
+            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
+            member.Status = Status.Unsubscribed;
+
+            var updatedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
+            Assert.Equal(member.Status, updatedMember.Status);
+
+            var unsubscribedMembers = await this.MailChimpManager.Members.GetAllAsync(this.TestList.Id, new Core.MemberRequest {Status = Status.Unsubscribed });
+            Assert.True(unsubscribedMembers.Count() == 1);
         }
 
         /// <summary>

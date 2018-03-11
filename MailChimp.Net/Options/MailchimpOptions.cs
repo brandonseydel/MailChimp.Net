@@ -10,19 +10,12 @@ namespace MailChimp.Net
 
         public string DataCenter
         {
-            get
-            {
-                if (_dataCenter == null)
-                {
-                    _dataCenter = string.IsNullOrWhiteSpace(ApiKey)
-                    ? string.Empty
-                    : ApiKey.Substring(
-                        ApiKey.LastIndexOf("-", StringComparison.Ordinal) + 1,
-                        ApiKey.Length - ApiKey.LastIndexOf("-", StringComparison.Ordinal) - 1);
-                }
-                return _dataCenter;
-            }
-            set { _dataCenter = value; }
+            get => this._dataCenter ?? (this._dataCenter = string.IsNullOrWhiteSpace(this.ApiKey)
+                                                               ? string.Empty
+                                                               : this.ApiKey.Substring(
+                                                                                       this.ApiKey.LastIndexOf("-", StringComparison.Ordinal) + 1,
+                                                                                       this.ApiKey.Length - this.ApiKey.LastIndexOf("-", StringComparison.Ordinal) - 1));
+            set => _dataCenter = value;
         }
 
         public string AuthHeader => $"apikey {ApiKey}";

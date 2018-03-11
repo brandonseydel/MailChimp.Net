@@ -64,11 +64,11 @@ namespace MailChimp.Net.Models
         public string CancelledAtForeign { get; set; }
 
         [JsonProperty("shipping_address")]
-        public Address ShippingAddress { get; set; }
+        public OrderAddress ShippingAddress { get; set; }
 
         [JsonProperty("billing_address")]
-        public Address BillingAddress { get; set; }
-        
+        public OrderAddress BillingAddress { get; set; }
+
         [JsonProperty("updated_at_foreign")]
         public string UpdatedAtForeign { get; set; }
 

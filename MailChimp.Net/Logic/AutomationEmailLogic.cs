@@ -65,7 +65,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AutomationEmailResponse> GetResponseAsync(string workflowId)
         {
-            using (var client = CreateMailClient("automations"))
+            using (var client = CreateMailClient("automations/"))
             {
                 var response = await client.GetAsync($"{workflowId}/emails").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
