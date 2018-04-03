@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SentTo.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -73,5 +74,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the merge fields.
+        /// </summary>
+        [JsonProperty("merge_fields")]
+        public List<SentToMergeFields> MergeFields { get; set; }
     }
 }
