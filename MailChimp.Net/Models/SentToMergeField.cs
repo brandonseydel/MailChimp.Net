@@ -15,7 +15,7 @@ namespace MailChimp.Net.Models
     public class SentToMergeFields
     {
         /// <summary>
-        /// Gets or sets the absplit group.
+        /// Gets or sets the merge fields.
         /// </summary>
         public string FieldName { get; set; }
         public string FieldValue { get; set; }
