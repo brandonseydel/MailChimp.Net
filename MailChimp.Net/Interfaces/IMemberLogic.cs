@@ -89,7 +89,7 @@ namespace MailChimp.Net.Interfaces
 		/// <param name="listId"></param>
 		/// <param name="memberRequest"></param>
 		/// <returns></returns>
-        Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest)
+        Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest);
 
         /// <summary>
         /// The get async.
