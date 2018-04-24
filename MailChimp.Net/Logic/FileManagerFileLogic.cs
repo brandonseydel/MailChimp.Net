@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CampaignFolderLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -47,7 +47,7 @@ namespace MailChimp.Net.Logic
         }
 
 
-        public async Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName)
+        public async Task<FileManagerFile> AddFileAsync(string name, int folderId, string fileName)
         {
             using(var fs = File.OpenRead(fileName))
             using (var client = CreateMailClient(BaseUrl))
@@ -61,7 +61,7 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<FileManagerFile> AddAsync(string name, string folderId, string base64String)
+        public async Task<FileManagerFile> AddAsync(string name, int folderId, string base64String)
         {
             using (var client = CreateMailClient(BaseUrl))
             {
@@ -73,7 +73,7 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream)
+        public async Task<FileManagerFile> AddAsync(string name, int folderId, Stream fileStream)
         {
             using (var client = CreateMailClient(BaseUrl))
             {
@@ -135,7 +135,7 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName)
+        public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, int folderId, string fileName)
         {
             using (var fs = File.OpenRead(fileName))
             using (var client = CreateMailClient($"{BaseUrl}/"))
@@ -150,7 +150,7 @@ namespace MailChimp.Net.Logic
         }
 
 
-        public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String)
+        public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, string base64String)
         {
             using (var client = CreateMailClient($"{BaseUrl}/"))
             {
@@ -163,7 +163,7 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream)
+        public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, Stream stream)
         {
             using (var client = CreateMailClient($"{BaseUrl}/"))
             {

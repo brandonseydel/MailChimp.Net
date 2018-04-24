@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IFileManagerFileLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -33,7 +33,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName);
+        Task<FileManagerFile> AddFileAsync(string name, int folderId, string fileName);
 
         /// <summary>
         /// The add async.
@@ -50,7 +50,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<FileManagerFile> AddAsync(string name, string folderId, string base64String);
+        Task<FileManagerFile> AddAsync(string name, int folderId, string base64String);
 
         /// <summary>
         /// The add async.
@@ -67,7 +67,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream);
+        Task<FileManagerFile> AddAsync(string name, int folderId, Stream fileStream);
 
         /// <summary>
         /// The get all async.
@@ -123,7 +123,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName);
+        Task<FileManagerFile> UpdateFileAsync(string fileId, string name, int folderId, string fileName);
 
         /// <summary>
         /// The update async.
@@ -143,7 +143,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String);
+        Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, string base64String);
 
         /// <summary>
         /// The update async.
@@ -163,7 +163,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream);
+        Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, Stream stream);
 
         Task<FileManagerFileResponse> GetResponseAsync(FileManagerRequest request = null);
     }
