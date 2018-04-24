@@ -160,6 +160,89 @@ namespace MailChimp.Net.Logic
         }
 
         /// <summary>
+        /// The get campaign open report async.
+        /// </summary>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name>uriString</name>
+        ///     </paramref>
+        ///     is null. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+        /// <exception cref="MailChimpException">
+        /// Custom Mail Chimp Exception
+        /// </exception>
+        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+        public async Task<IEnumerable<Open>> GetCampaignOpenReportAsync(string campaignId, QueryableBaseRequest request = null)
+        {
+            var campaignOpenReport = await GetCampaignOpenReportResponseAsync(campaignId, request).ConfigureAwait(false);
+            return campaignOpenReport.Members;
+        }
+
+        /// <summary>
+        /// The get campaign open report async.
+        /// </summary>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name>uriString</name>
+        ///     </paramref>
+        ///     is null. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+        /// <exception cref="MailChimpException">
+        /// Custom Mail Chimp Exception
+        /// </exception>
+        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+        public async Task<int> GetCampaignOpenReportCountAsync(string campaignId, QueryableBaseRequest request = null)
+        {
+            // Limit the response to the total only with the min query limit
+            request = request ?? new CampaignOpenReportRequest();
+            request.Limit = 1;
+            request.FieldsToExclude = "_links,campaign_id,members,total_opens";
+
+            var campaignOpenReport = await GetCampaignOpenReportResponseAsync(campaignId, request).ConfigureAwait(false);
+            return campaignOpenReport.TotalItems;
+        }
+
+
+
+        private async Task<CampaignOpenReportResponse> GetCampaignOpenReportResponseAsync(
+            string campaignId,
+            QueryableBaseRequest request = null)
+        {
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = _limit
+            };
+
+            using (var client = CreateMailClient("reports/"))
+            {
+                var response = await client.GetAsync($"{campaignId}/open-details{request.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                var reportResponse = await response.Content.ReadAsAsync<CampaignOpenReportResponse>().ConfigureAwait(false);
+                return reportResponse;
+            }
+        }
+
+        /// <summary>
         /// The get click report async.
         /// </summary>
         /// <param name="request">
@@ -832,6 +915,50 @@ namespace MailChimp.Net.Logic
             string campaignId,
             QueryableBaseRequest request = null)
         {
+            var reportResponse = await GetUnsubscribesReportResponseAsync(campaignId, request).ConfigureAwait(false);
+            return reportResponse.Unsubscribes;
+        }
+
+        /// <summary>
+        /// The get unsubscribes async.
+        /// </summary>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name>uriString</name>
+        ///     </paramref>
+        ///     is null. </exception>
+        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+        /// <exception cref="MailChimpException">
+        /// Custom Mail Chimp Exception
+        /// </exception>
+        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+        public async Task<int> GetUnsubscribesCountAsync(
+            string campaignId,
+            QueryableBaseRequest request = null)
+        {
+            // Limit the response to the total only with the min query limit
+            request = request ?? new QueryableBaseRequest();
+            request.Limit = 1;
+            request.FieldsToExclude = "_links,campaign_id,unsubscribes";
+
+            var reportResponse = await GetUnsubscribesReportResponseAsync(campaignId, request).ConfigureAwait(false);
+            return reportResponse.TotalItems;
+        }
+
+        private async Task<UnsubscribeReportResponse> GetUnsubscribesReportResponseAsync(
+            string campaignId,
+            QueryableBaseRequest request = null)
+        {
             request = request ?? new QueryableBaseRequest
             {
                 Limit = _limit
@@ -842,7 +969,7 @@ namespace MailChimp.Net.Logic
                 var response = await client.GetAsync($"{campaignId}/unsubscribed{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var reportResponse = await response.Content.ReadAsAsync<UnsubscribeReportResponse>().ConfigureAwait(false);
-                return reportResponse.Unsubscribes;
+                return reportResponse;
             }
         }
     }
