@@ -53,6 +53,7 @@ namespace MailChimp.Net.Core
                                      new Uri($"https://{_options.DataCenter}.api.mailchimp.com/3.0/{resource}")
                              };
             client.DefaultRequestHeaders.Add("Authorization", _options.AuthHeader);
+            client.DefaultRequestHeaders.Add("user-agent", "Bewise_DanDomain-WebApp");
             return client;
         }
 
