@@ -424,7 +424,7 @@ namespace MailChimp.Net.Logic
 		}
 
 	    /// <summary>
-	    /// The send test request async.
+	    /// Schedule campaign async.
 	    /// </summary>
 	    /// <param name="campaignId">
 	    /// The campaign Id.
@@ -453,7 +453,7 @@ namespace MailChimp.Net.Logic
 		}
 
         /// <summary>
-	    /// Unschedule campaign request async.
+	    /// Unschedule campaign async.
 	    /// </summary>
 	    /// <param name="campaignId">
 	    /// The campaign Id.

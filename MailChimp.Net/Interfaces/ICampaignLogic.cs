@@ -123,7 +123,7 @@ namespace MailChimp.Net.Interfaces
 
 
 		///<summary>
-		/// The test async.
+		/// The schedule async task.
 		/// </summary>
 		/// <param name="campaignId">
 		/// The campaign id.
@@ -134,7 +134,7 @@ namespace MailChimp.Net.Interfaces
 		Task ScheduleAsync(string campaignId, CampaignScheduleRequest content = null);
 
         ///<summary>
-		/// The test async.
+		/// The unschedule async task.
 		/// </summary>
 		/// <param name="campaignId">
 		/// The campaign id.
