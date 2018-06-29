@@ -8,6 +8,8 @@ namespace MailChimp.Net.Models
         [Description("any")]
         Any,
         [Description("all")]
-        All
+        All,
+        [Description("")]
+        Empty
     }
 }
