@@ -43,10 +43,23 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Add_User_To_List()
         {
-            await
+            var t = await
                 this.MailChimpManager.Members.AddOrUpdateAsync(
                     this.TestList.Id, 
-                    new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed }).ConfigureAwait(false);
+                    new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed, MergeFields = new System.Collections.Generic.Dictionary<string, object>{
+                        { "FNAME", "HOLYYY" },
+                        { "LNAME", "COW" }
+                    }
+                    }).ConfigureAwait(false);
+
+            t.MergeFields["FNAME"] = "AWESOME";
+
+            var updateMergeField =
+                await
+
+                                this.MailChimpManager.Members.AddOrUpdateAsync(
+                    this.TestList.Id,t).ConfigureAwait(false);
+
         }
         
         /// <summary>
@@ -221,7 +234,7 @@ namespace MailChimp.Net.Tests
             var member = new Member { EmailAddress = $"{_ticks}@test.com", Status = Status.Subscribed };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
-            await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
+            member = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
         }
     }
 }

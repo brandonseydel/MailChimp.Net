@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>
-      net451;netstandard1.3
+      net45;netstandard1.3
     </TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -38,12 +38,13 @@
     <Title>MailChimp.Net.V3</Title>
     <Description>A .NET Wrapper for Mail Chimp v3.0 API</Description>
     <Summary>A very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.</Summary>
-    <Copyright>Copyright © 2017</Copyright>
+    <Copyright>Copyright © 2018</Copyright>
     <PackageProjectUrl>https://github.com/brandonseydel/MailChimp.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/brandonseydel/MailChimp.Net</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <NeutralLanguage />
-    <PackageReleaseNotes>.NET Standard 1.3</PackageReleaseNotes>
+    <PackageReleaseNotes>.NET Standard 1.3
+.NETFramework 4.5</PackageReleaseNotes>
     <PackageIconUrl>http://developer.mailchimp.com/documentation/mailchimp/img/freddie_o.svg</PackageIconUrl>
     <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
     <PackageLicenseUrl>https://github.com/brandonseydel/MailChimp.Net/blob/master/LICENSE.txt</PackageLicenseUrl>
