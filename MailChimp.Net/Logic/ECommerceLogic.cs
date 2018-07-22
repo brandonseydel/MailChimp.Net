@@ -59,6 +59,14 @@ namespace MailChimp.Net.Logic
             };
         }
 
+        public IECommercePromoRuleLogic PromoRules(string storeId)
+        {
+            return new ECommercePromoRuleLogic(_options)
+            {
+                StoreId = storeId
+            };
+        }
+
         /// <summary>
         /// The add async.
         /// </summary>

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IReportLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -22,6 +22,8 @@ namespace MailChimp.Net.Interfaces
         Task<SentToResponse> GetSentToRecipientsResponseAsync(string campaignId, QueryableBaseRequest request = null);
         Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null);
         Task<IEnumerable<Advice>> GetCampaignAdviceAsync(string campaignId, BaseRequest request = null);
+        Task<IEnumerable<Open>> GetCampaignOpenReportAsync(string campaignId, QueryableBaseRequest request = null);
+        Task<int> GetCampaignOpenReportCountAsync(string campaignId, QueryableBaseRequest request = null);
         Task<IEnumerable<UrlClicked>> GetClickReportAsync(string campaignId, QueryableBaseRequest request = null);
         Task<UrlClicked> GetClickReportDetailsAsync(string campaignId, string linkId, BaseRequest request = null);
         Task<ClickMember> GetClickReportMemberAsync(string campaignId, string linkId, string emailAddressOrHash, BaseRequest request = null);
@@ -39,5 +41,6 @@ namespace MailChimp.Net.Interfaces
         Task<IEnumerable<Report>> GetSubReportAsync(string campaignId, BaseRequest request = null);
         Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddressOrHash, BaseRequest request = null);
         Task<IEnumerable<Unsubscribe>> GetUnsubscribesAsync(string campaignId, QueryableBaseRequest request = null);
+        Task<int> GetUnsubscribesCountAsync(string campaignId, QueryableBaseRequest request = null);
     }
 }

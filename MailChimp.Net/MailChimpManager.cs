@@ -8,7 +8,10 @@ using System;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Logic;
+
+#if NET_CORE
 using Microsoft.Extensions.Options;
+#endif
 
 namespace MailChimp.Net
 {
@@ -60,7 +63,8 @@ namespace MailChimp.Net
             this.WebHooks = new WebHookLogic(MailChimpOptions);
             this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
         }
-        
+
+#if NET_CORE
         public MailChimpManager(IOptions<MailChimpOptions> optionsAccessor) : base(optionsAccessor)
         {
             // The base implementation already sets the mail chimp options
@@ -98,7 +102,46 @@ namespace MailChimp.Net
             this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
         }
 
-            
+#else
+        public MailChimpManager(MailChimpOptions optionsAccessor) : base(optionsAccessor)
+        {
+            // The base implementation already sets the mail chimp options
+            this.Activities = new ActivityLogic(MailChimpOptions);
+            this.AbuseReports = new AbuseReportLogic(MailChimpOptions);
+            this.Api = new ApiLogic(MailChimpOptions);
+            this.Apps = new AuthorizedAppLogic(MailChimpOptions);
+            this.AutomationEmails = new AutomationEmailLogic(MailChimpOptions);
+            this.AutomationEmailQueues = new AutomationEmailQueueLogic(MailChimpOptions);
+            this.Automations = new AutomationLogic(MailChimpOptions);
+            this.AutomationSubscribers = new AutomationSubscriberLogic(MailChimpOptions);
+            this.Batches = new BatchLogic(MailChimpOptions);
+            this.Campaigns = new CampaignLogic(MailChimpOptions);
+            this.CampaignFolders = new CampaignFolderLogic(MailChimpOptions);
+            this.Clients = new ClientLogic(MailChimpOptions);
+            this.Content = new ContentLogic(MailChimpOptions);
+            this.Conversations = new ConversationLogic(MailChimpOptions);
+            this.ECommerceStores = new ECommerceLogic(MailChimpOptions);
+            this.Feedback = new FeedBackLogic(MailChimpOptions);
+            this.FileManagerFiles = new FileManagerFileLogic(MailChimpOptions);
+            this.FileManagerFolders = new FileManagerFolderLogic(MailChimpOptions);
+            this.GrowthHistories = new GrowthHistoryLogic(MailChimpOptions);
+            this.InterestCategories = new InterestCategoryLogic(MailChimpOptions);
+            this.Interests = new InterestLogic(MailChimpOptions);
+            this.Lists = new ListLogic(MailChimpOptions);
+            this.ListSegments = new ListSegmentLogic(MailChimpOptions);
+            this.Members = new MemberLogic(MailChimpOptions);
+            this.MergeFields = new MergeFieldLogic(MailChimpOptions);
+            this.Messages = new MessageLogic(MailChimpOptions);
+            this.Notes = new NoteLogic(MailChimpOptions);
+            this.Reports = new ReportLogic(MailChimpOptions);
+            this.TemplateFolders = new TemplateFolderLogic(MailChimpOptions);
+            this.Templates = new TemplateLogic(MailChimpOptions);
+            this.WebHooks = new WebHookLogic(MailChimpOptions);
+            this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
+        }
+#endif
+
+
 
         /// <summary>
         /// Gets the abuse reports.

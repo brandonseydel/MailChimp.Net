@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MailChimp.Net
 {
@@ -7,28 +7,42 @@ namespace MailChimp.Net
         public int Limit { get; set; } = 1000;
 
         private string _dataCenter;
+        private string _authHeader;
+        private string _apiKey;
+        private string _oauthToken;
 
         public string DataCenter
         {
-            get
-            {
-                if (_dataCenter == null)
-                {
-                    _dataCenter = string.IsNullOrWhiteSpace(ApiKey)
-                    ? string.Empty
-                    : ApiKey.Substring(
-                        ApiKey.LastIndexOf("-", StringComparison.Ordinal) + 1,
-                        ApiKey.Length - ApiKey.LastIndexOf("-", StringComparison.Ordinal) - 1);
-                }
-                return _dataCenter;
-            }
-            set { _dataCenter = value; }
+            get => this._dataCenter ?? (this._dataCenter = string.IsNullOrWhiteSpace(this.ApiKey)
+                                                               ? string.Empty
+                                                               : this.ApiKey.Substring(
+                                                                                       this.ApiKey.LastIndexOf("-", StringComparison.Ordinal) + 1,
+                                                                                       this.ApiKey.Length - this.ApiKey.LastIndexOf("-", StringComparison.Ordinal) - 1));
+            set => _dataCenter = value;
         }
 
-        public string AuthHeader => $"apikey {ApiKey}";
+        public string AuthHeader => _authHeader;
 
-        public string ApiKey { get; set; }
+        public string ApiKey
+        {
+            get { return _apiKey; }
+            set
+            {
+                _apiKey = value;
+                _oauthToken = null;
+                _authHeader = $"apikey {_apiKey}";
+            }
+        }
 
-        public string OauthToken { get; set; }
+        public string OauthToken
+        {
+            get { return _oauthToken; }
+            set
+            {
+                _oauthToken = value;
+                _apiKey = null;
+                _authHeader = $"OAuth {_oauthToken}";
+            }
+        }
     }
 }
