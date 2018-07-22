@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
@@ -9,9 +9,9 @@ namespace MailChimp.Net.Models
         public int TotalOrders { get; set; }
 
         [JsonProperty("total_spent")]
-        public double TotalSpent { get; set; }
+        public decimal TotalSpent { get; set; }
 
         [JsonProperty("total_revenue")]
-        public double TotalRevenue { get; set; }
+        public decimal TotalRevenue { get; set; }
     }
 }

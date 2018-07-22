@@ -40,19 +40,19 @@ namespace MailChimp.Net.Models
         public CurrencyCode CurrencyCode { get; set; }
 
         [JsonProperty("order_total")]
-        public double OrderTotal { get; set; }
+        public decimal OrderTotal { get; set; }
 
         [JsonProperty("order_url")]
         public string OrderUrl { get; set; }
 
         [JsonProperty("discount_total")]
-        public double DiscountTotal { get; set; }
+        public decimal? DiscountTotal { get; set; }
 
         [JsonProperty("tax_total")]
-        public double TaxTotal { get; set; }
+        public decimal? TaxTotal { get; set; }
 
         [JsonProperty("shipping_total")]
-        public double ShippingTotal { get; set; }
+        public decimal? ShippingTotal { get; set; }
 
         [JsonProperty("tracking_code")]
         public string TrackingCode { get; set; }

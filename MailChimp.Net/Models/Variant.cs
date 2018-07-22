@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -19,10 +19,10 @@ namespace MailChimp.Net.Models
         public string Sku { get; set; }
 
         [JsonProperty("price")]
-        public double Price { get; set; }
+        public decimal? Price { get; set; }
 
         [JsonProperty("inventory_quantity")]
-        public int InventoryQuantity { get; set; }
+        public int? InventoryQuantity { get; set; }
 
         [JsonProperty("image_url")]
         public string ImageUrl { get; set; }
