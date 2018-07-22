@@ -68,7 +68,7 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("billing_address")]
         public OrderAddress BillingAddress { get; set; }
-
+        
         [JsonProperty("updated_at_foreign")]
         public string UpdatedAtForeign { get; set; }
 
