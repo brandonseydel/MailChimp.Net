@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IMemberLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -83,20 +83,28 @@ namespace MailChimp.Net.Interfaces
 		/// <returns></returns>
 		Task<int> GetTotalItems(string listId, Status? status);
 
-		/// <summary>
-		/// The get async.
+        /// <summary>
+		/// Get the total number of members in a list based on a MemberRequest model
 		/// </summary>
-		/// <param name="listId">
-		/// The list id.
-		/// </param>
-		/// <param name="emailAddressOrHash">
-		/// The email address.
-		/// </param>
-		/// <param name="request"></param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
+		/// <param name="listId"></param>
+		/// <param name="memberRequest"></param>
+		/// <returns></returns>
+        Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest);
+
+        /// <summary>
+        /// The get async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddressOrHash">
+        /// The email address.
+        /// </param>
+        /// <param name="request"></param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
 		/// The check if exists async.

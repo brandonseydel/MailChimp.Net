@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ListMemberTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -43,10 +43,23 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Add_User_To_List()
         {
-            await
+            var t = await
                 this.MailChimpManager.Members.AddOrUpdateAsync(
                     this.TestList.Id, 
-                    new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed }).ConfigureAwait(false);
+                    new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed, MergeFields = new System.Collections.Generic.Dictionary<string, object>{
+                        { "FNAME", "HOLYYY" },
+                        { "LNAME", "COW" }
+                    }
+                    }).ConfigureAwait(false);
+
+            t.MergeFields["FNAME"] = "AWESOME";
+
+            var updateMergeField =
+                await
+
+                                this.MailChimpManager.Members.AddOrUpdateAsync(
+                    this.TestList.Id,t).ConfigureAwait(false);
+
         }
         
         /// <summary>
@@ -191,6 +204,26 @@ namespace MailChimp.Net.Tests
         }
 
         /// <summary>
+        /// The search_ by_ user_ status.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [Fact]
+        public async Task Search_By_User_Status()
+        {
+            await this.Add_User_To_List();
+            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
+            member.Status = Status.Unsubscribed;
+
+            var updatedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
+            Assert.Equal(member.Status, updatedMember.Status);
+
+            var unsubscribedMembers = await this.MailChimpManager.Members.GetAllAsync(this.TestList.Id, new Core.MemberRequest {Status = Status.Unsubscribed });
+            Assert.True(unsubscribedMembers.Count() == 1);
+        }
+
+        /// <summary>
         /// The add new member.
         /// </summary>
         /// <returns>
@@ -201,7 +234,7 @@ namespace MailChimp.Net.Tests
             var member = new Member { EmailAddress = $"{_ticks}@test.com", Status = Status.Subscribed };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
-            await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
+            member = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
         }
     }
 }

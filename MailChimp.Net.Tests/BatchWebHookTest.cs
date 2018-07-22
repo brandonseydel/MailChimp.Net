@@ -24,7 +24,8 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Create_Batch_Webhook()
         {
-
+            var batch = await this.MailChimpManager.Batches.AddAsync();
+            var status = await this.MailChimpManager.Batches.GetBatchStatus(batch.Id);
             var batches = await this.MailChimpManager.BatchWebHooks.GetAllAsync().ConfigureAwait(false);
             await Task.WhenAll(batches.ToList().Select(x => this.MailChimpManager.BatchWebHooks.DeleteAsync(x.Id)));
 

@@ -178,5 +178,24 @@ namespace MailChimp.Net.Logic
                 return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
             }
         }
+
+        public async Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null)
+        {
+            const string BaseUrl = "/lists/{0}/activity";
+
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = _limit
+            };
+
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            {
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var listActivityResponse = await response.Content.ReadAsAsync<ListActivityResponse>().ConfigureAwait(false);
+                return listActivityResponse;
+            }
+        }
     }
 }

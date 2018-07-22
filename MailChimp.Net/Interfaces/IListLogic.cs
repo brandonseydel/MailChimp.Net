@@ -82,5 +82,7 @@ namespace MailChimp.Net.Interfaces
         /// </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         Task<ListResponse> GetResponseAsync(ListRequest request = null);
+
+        Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null);
     }
 }

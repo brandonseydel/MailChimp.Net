@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="HttpRequestExtensions.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -18,7 +18,7 @@ namespace MailChimp.Net.Core
     /// </summary>
     public static class HttpRequestExtensions
     {
-        private readonly static JsonSerializerSettings JsonSettings = new JsonSerializerSettings()
+        private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings()
         {
             NullValueHandling = NullValueHandling.Ignore
         };
@@ -35,9 +35,7 @@ namespace MailChimp.Net.Core
         /// <param name="value">
         /// The value.
         /// </param>
-        /// <param name="formatter">
-        /// The formatter.
-        /// </param>
+        /// <param name="settings"></param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
@@ -99,9 +97,7 @@ namespace MailChimp.Net.Core
         /// <param name="value">
         /// The value.
         /// </param>
-        /// <param name="formatter">
-        /// The formatter.
-        /// </param>
+        /// <param name="settings"></param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
@@ -132,9 +128,6 @@ namespace MailChimp.Net.Core
         /// </param>
         /// <param name="value">
         /// The value.
-        /// </param>
-        /// <param name="formatter">
-        /// The formatter.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>

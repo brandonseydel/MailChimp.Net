@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>
-      netstandard1.3;net451
+      net45;netstandard1.3
     </TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,29 +31,41 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
     <PackageId>MailChimp.Net.V3</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.3.0</Version>
     <Authors>Brandon Seydel</Authors>
     <Company>DevSquad</Company>
     <Product>MailChimp.Net.V3</Product>
     <Title>MailChimp.Net.V3</Title>
     <Description>A .NET Wrapper for Mail Chimp v3.0 API</Description>
     <Summary>A very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.</Summary>
-    <Copyright>Copyright © 2017</Copyright>
+    <Copyright>Copyright © 2018</Copyright>
     <PackageProjectUrl>https://github.com/brandonseydel/MailChimp.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/brandonseydel/MailChimp.Net</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <NeutralLanguage />
-    <PackageReleaseNotes>.NET Standard 1.3</PackageReleaseNotes>
-    <PackageIconUrl>http://developer.mailchimp.com/documentation/mailchimp/img/freddie_o.svg</PackageIconUrl>
+    <PackageReleaseNotes>.NET Standard 1.3
+.NETFramework 4.5</PackageReleaseNotes>
+    <PackageIconUrl>http://logos-download.com/wp-content/uploads/2016/09/MailChimp_logo_icon_Freddie_Wink.png</PackageIconUrl>
     <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
     <PackageLicenseUrl>https://github.com/brandonseydel/MailChimp.Net/blob/master/LICENSE.txt</PackageLicenseUrl>
 
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3'">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3' Or '$(TargetFramework)' == 'netstandard1.4' Or '$(TargetFramework)' == 'netstandard1.5' Or '$(TargetFramework)' == 'netstandard1.7' Or '$(TargetFramework)' == 'netstandard1.8' Or '$(TargetFramework)' == 'netstandard1.9' Or '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp1.0' Or '$(TargetFramework)' == 'netcoreapp1.1' Or '$(TargetFramework)' == 'netcoreapp2.0'">
+    <DefineConstants>NET_CORE</DefineConstants>
+  </PropertyGroup>
+
 </Project>
