@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
@@ -30,10 +30,10 @@ namespace MailChimp.Net.Models
         public CurrencyCode CurrencyCode { get; set; }
 
         [JsonProperty("order_total")]
-        public double OrderTotal { get; set; }
+        public decimal? OrderTotal { get; set; }
 
         [JsonProperty("tax_total")]
-        public double TaxTotal { get; set; }
+        public decimal? TaxTotal { get; set; }
 
         [JsonProperty("lines")]
         public ICollection<Line> Lines { get; set; }

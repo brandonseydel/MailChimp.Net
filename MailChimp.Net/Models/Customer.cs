@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -30,10 +30,10 @@ namespace MailChimp.Net.Models
         public string LastName { get; set; }
 
         [JsonProperty("orders_count")]
-        public int OrdersCount { get; set; }
+        public int? OrdersCount { get; set; }
 
         [JsonProperty("total_spent")]
-        public double TotalSpent { get; set; }
+        public decimal? TotalSpent { get; set; }
 
         [JsonProperty("address")]
         public Address Address { get; set; }
