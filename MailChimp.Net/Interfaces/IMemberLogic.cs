@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IMemberLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -64,24 +64,33 @@ namespace MailChimp.Net.Interfaces
 		Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
-		/// The get all async.
+		/// Gets the tags asynchronous.
 		/// </summary>
-		/// <param name="listId">
-		/// The list id.
-		/// </param>
-		/// <param name="memberRequest"></param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
-
-		/// <summary>
-		/// Get the total number of members in the list
-		/// </summary>
-		/// <param name="listId"></param>
-		/// <param name="status"></param>
+		/// <param name="listId">The list identifier.</param>
+		/// <param name="emailAddressOrHash">The email address or hash.</param>
+		/// <param name="request">The request.</param>
 		/// <returns></returns>
-		Task<int> GetTotalItems(string listId, Status? status);
+		Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
+
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="memberRequest"></param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
+
+        /// <summary>
+        /// Get the total number of members in the list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        Task<int> GetTotalItems(string listId, Status? status);
 
 		/// <summary>
 		/// The get async.

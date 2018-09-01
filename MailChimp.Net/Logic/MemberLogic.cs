@@ -397,5 +397,19 @@ namespace MailChimp.Net.Logic
                 return goalResponse.Goals;
             }
         }
+
+        public async Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null)
+        {
+            using (var client = CreateMailClient($"{BaseUrl}/"))
+            {
+                var response =
+                    await
+                    client.GetAsync(
+                        $"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                var tagsResponse = await response.Content.ReadAsAsync<TagsResponse>().ConfigureAwait(false);
+                return tagsResponse.Tags;
+            }
+        }
     }
 }
