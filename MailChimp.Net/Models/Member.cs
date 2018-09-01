@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Member.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -17,14 +17,15 @@ namespace MailChimp.Net.Models
 	/// </summary>
 	public class Member
 	{
-        public Member()
-        {
-            MergeFields = new Dictionary<string, object>();
-            Links = new List<Link>();
-            Interests = new Dictionary<string, bool>();
-            Status = Status.Undefined;
-            StatusIfNew = Status.Pending;            
-        }
+		public Member()
+		{
+			MergeFields = new Dictionary<string, object>();
+			Links = new List<Link>();
+			Interests = new Dictionary<string, bool>();
+			Status = Status.Undefined;
+			StatusIfNew = Status.Pending;
+			Tags = new List<MemberTag>();
+		}
 
 		/// <summary>
 		/// Gets or sets the email address.
@@ -111,6 +112,18 @@ namespace MailChimp.Net.Models
 		public Dictionary<string, object> MergeFields { get; set; }
 
 		/// <summary>
+		/// Gets or sets the number of tags.
+		/// </summary>
+		[JsonProperty("tags_count")]
+		public int TagsCount { get; set; }
+
+		/// <summary>
+		/// Gets or sets the tags.
+		/// </summary>
+		[JsonProperty("tags")]
+		public List<MemberTag> Tags { get; set; }
+
+		/// <summary>
 		/// Gets or sets the last Note.
 		/// </summary>
 		[JsonProperty("last_note")]
@@ -122,24 +135,24 @@ namespace MailChimp.Net.Models
 		[JsonProperty("stats")]
 		public MemberStats Stats { get; set; }
 
-        /// <summary>
-        /// Sets the member's status unless they are new.  Then you need to use the <see cref="StatusIfNew"/> property.  Default value is <see cref="Status.Undefined"/>  
-        /// </summary>
+		/// <summary>
+		/// Sets the member's status unless they are new.  Then you need to use the <see cref="StatusIfNew"/> property.  Default value is <see cref="Status.Undefined"/>  
+		/// </summary>
 		[JsonProperty("status")]
 		[JsonConverter(typeof(StringEnumDescriptionConverter))]
 		public Status Status { get; set; }
 
-        [JsonProperty("status_if_new")]
+		[JsonProperty("status_if_new")]
  		[JsonConverter(typeof(StringEnumDescriptionConverter))]
-        public Status StatusIfNew { get; set; }
+		public Status StatusIfNew { get; set; }
 
-        [JsonProperty("unsubscribe_reason")]
-        public string UnsubscribeReason { get; set; }
+		[JsonProperty("unsubscribe_reason")]
+		public string UnsubscribeReason { get; set; }
 
-        /// <summary>
-        /// Gets or sets the timestamp opt.
-        /// </summary>
-        [JsonProperty("timestamp_opt")]
+		/// <summary>
+		/// Gets or sets the timestamp opt.
+		/// </summary>
+		[JsonProperty("timestamp_opt")]
 		public string TimestampOpt { get; set; }
 
 		/// <summary>
