@@ -4,7 +4,7 @@ namespace MailChimp.Net.Models
 {
     public enum ConditionType
     {
-        [Description("aim")]
+        [Description("Aim")]
         Aim,
         [Description("automation")]
         Automation,
