@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="List.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -133,6 +133,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("use_archive_bar")]
         public bool UseArchiveBar { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the list 
+        /// has marketing permissions (eg. GDPR) enabled.
+        /// </summary>
+        [JsonProperty("marketing_permissions")]
+        public bool MarketingPermissions { get; set; }
 
         /// <summary>
         /// Gets or sets the visibility.
