@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ListTest.cs" company="Brandon Seydel">
+// <copyright file="TemplateTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -115,7 +115,7 @@ namespace MailChimp.Net.Tests
         }
 
         /// <summary>
-        /// The should_ return_ templates_created_today.
+        /// The should_ return_ templates_ created_ today.
         /// </summary>
         /// <returns>
         /// The <see cref="Task"/>.
@@ -133,6 +133,21 @@ namespace MailChimp.Net.Tests
 
             var templates = await this.MailChimpManager.Templates.GetAllAsync(request);
             Assert.True(templates.Any());
+        }
+
+        /// <summary>
+        /// The should_ update_ template.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [Fact]
+        public async Task Should_Update_Template()
+        {
+            var newTemplate = await this.Should_Create_New_Template().ConfigureAwait(false);
+            var newName = $"{newTemplate.Name}_V2";
+            var updatedTemplate = await this.MailChimpManager.Templates.UpdateAsync(newTemplate.Id, newName, newTemplate.FolderId, "<html><body><h1>Test *|FNAME|* V2</body></html>").ConfigureAwait(false);
+            Assert.Equal(newName, updatedTemplate.Name);
         }
 
         /// <summary>
