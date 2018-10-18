@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Settings.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -66,6 +66,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("reply_to")]
         public string ReplyTo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the preview text.
+        /// </summary>
+        [JsonProperty("preview_text")]
+        public string PreviewText { get; set; }
 
         /// <summary>
         /// Gets or sets the subject line.
