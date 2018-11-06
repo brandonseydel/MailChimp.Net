@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Models;
 
 using Xunit;
@@ -28,11 +28,13 @@ namespace MailChimp.Net.Tests
         {
             this.ClearMailChimpAsync().Wait();
             var createdList = this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetMailChimpList()).Result;
+            var createdGdprList = this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetGdprMailChimpList()).Result;
             this.TestList = createdList;
+            this.GdprTestList = createdGdprList;
         }
 
         public List TestList { get; set; }
-
+        public List GdprTestList { get; set; }
 
         /// <summary>
         /// The add_ user_ to_ list.
@@ -46,7 +48,7 @@ namespace MailChimp.Net.Tests
             var t = await
                 this.MailChimpManager.Members.AddOrUpdateAsync(
                     this.TestList.Id, 
-                    new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed, MergeFields = new System.Collections.Generic.Dictionary<string, object>{
+                    new Member { EmailAddress = $"{this._ticks}@test.com", Status = Status.Subscribed, MergeFields = new Dictionary<string, object>{
                         { "FNAME", "HOLYYY" },
                         { "LNAME", "COW" }
                     }
@@ -61,7 +63,43 @@ namespace MailChimp.Net.Tests
                     this.TestList.Id,t).ConfigureAwait(false);
 
         }
-        
+
+        /// <summary>
+        /// The add_ user_ to_ Gdpr_ list.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [Fact]
+        public async Task Add_User_To_Gdpr_List()
+        {
+            var t = await this.MailChimpManager.Members.AddOrUpdateAsync(
+                this.GdprTestList.Id,
+                new Member
+                {
+                    EmailAddress = $"{this._ticks}@test.com",
+                    StatusIfNew = Status.Subscribed,
+                    Status = Status.Subscribed,
+                    MergeFields = new Dictionary<string, object>
+                    {
+                        { "FNAME", "HOLYYY" },
+                        { "LNAME", "COW" }
+                    }
+                    
+                }, 
+                new List<MarketingPermissionText>
+                {
+                    MarketingPermissionText.Email,
+                    MarketingPermissionText.CustomizedOnlineAdvertising,
+                    MarketingPermissionText.DirectMail
+                }).ConfigureAwait(false);
+
+            t.MergeFields["FNAME"] = "AWESOME";
+
+            var updateMergeField = await this.MailChimpManager.Members.AddOrUpdateAsync(
+                this.GdprTestList.Id, t).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// The should_ return_ members_ from_ list.
         /// </summary>
@@ -73,6 +111,20 @@ namespace MailChimp.Net.Tests
         {
             await this.Add_User_To_List();
             var members = await this.MailChimpManager.Members.GetAllAsync(this.TestList.Id);
+            Assert.True(members.Any());
+        }
+
+        /// <summary>
+        /// The should_ return_ members_ from_ Gdpr_ list.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [Fact]
+        public async Task Should_Return_Members_From_Gdpr_List()
+        {
+            await this.Add_User_To_Gdpr_List();
+            var members = await this.MailChimpManager.Members.GetAllAsync(this.GdprTestList.Id);
             Assert.True(members.Any());
         }
 

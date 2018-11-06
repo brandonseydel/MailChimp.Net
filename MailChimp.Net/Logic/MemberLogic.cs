@@ -10,6 +10,8 @@ using MailChimp.Net.Models;
 using System.Net;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 // ReSharper disable UnusedMember.Local
@@ -63,10 +65,71 @@ namespace MailChimp.Net.Logic
         ///     </paramref>
         /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
         /// </exception>
-        public async Task<Member> AddOrUpdateAsync(string listId, Member member)
+        public async Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null)
         {
             using (var client = CreateMailClient($"{BaseUrl}/"))
             {
+                if (marketingPermissions != null)
+                {
+                    var getListResponse = await client.GetAsync($"{listId}").ConfigureAwait(false);
+                    await getListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                    var list = await getListResponse.Content.ReadAsAsync<List>().ConfigureAwait(false);
+
+                    await getListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                    if (list.MarketingPermissions)
+                    {
+                        var currentListMarketingPermissions = new List<MarketingPermission>();
+
+                        var members = (await GetResponseAsync(list.Id, null).ConfigureAwait(false))?.Members;
+
+                        if (!members.Any())
+                        {
+                            var dummyMember = new Member
+                            {
+                                EmailAddress = $"dummyMember{DateTime.Now.Ticks}@test.com",
+                                StatusIfNew = Status.Subscribed,
+                                Status = Status.Subscribed,
+                                MergeFields = new Dictionary<string, object>
+                            {
+                                { "FNAME", "DUMMY" },
+                                { "LNAME", "MEMBER" }
+                            }
+                            };
+
+                            var putDummyMemberToListResponse = await client.PutAsJsonAsync($"{listId}/members/{Hash(dummyMember.EmailAddress.ToLower())}", dummyMember).ConfigureAwait(false);
+
+                            await putDummyMemberToListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                            var dummyMemberResponse = await putDummyMemberToListResponse.Content.ReadAsAsync<Member>().ConfigureAwait(false);
+
+                            currentListMarketingPermissions = dummyMemberResponse.MarketingPermissions.ToList();
+
+                            await DeleteAsync(list.Id, dummyMember.EmailAddress);
+                        }
+                        else
+                        {
+                            currentListMarketingPermissions = members.First().MarketingPermissions.ToList();
+                        }
+
+                        for (var i = 0; i < currentListMarketingPermissions.Count; i++)
+                        {
+                            if (marketingPermissions.Contains(MarketingPermissionTextHelpers.GetMarketingPermissions()[currentListMarketingPermissions[i].Text]))
+                            {
+                                currentListMarketingPermissions[i].Enabled = true;
+                            }
+                            else
+                            {
+                                currentListMarketingPermissions[i].Enabled = false;
+                            }
+                        }
+
+                        member.MarketingPermissions = currentListMarketingPermissions;
+                    }
+
+                }
+
                 var memberId = member.Id ?? Hash(member.EmailAddress.ToLower());
                 var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member).ConfigureAwait(false);
 

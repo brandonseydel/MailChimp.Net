@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ListTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -55,6 +55,24 @@ namespace MailChimp.Net.Tests
             return list;
         }
 
+        /// <summary>
+        /// The should_ create_ new_ Gdpr_ list.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        [Fact]
+        public async Task<List> Should_Create_New_Gdpr_List()
+        {
+            //Clear out all the lists
+            await this.Should_Delete_All_Lists();
+
+            var list = await this.MailChimpManager.Configure((mo) => mo.Limit = 10).Lists.AddOrUpdateAsync(this.GetGdprMailChimpList()).ConfigureAwait(false);
+
+            var allLists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
+            Assert.True(allLists.Any());
+            return list;
+        }
 
         /// <summary>
         /// The should_ return_ lists.
