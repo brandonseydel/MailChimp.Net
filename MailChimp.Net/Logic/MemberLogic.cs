@@ -92,11 +92,10 @@ namespace MailChimp.Net.Logic
                                 StatusIfNew = Status.Subscribed,
                                 Status = Status.Subscribed,
                                 MergeFields = new Dictionary<string, object>
-                            {
-                                { "FNAME", "DUMMY" },
-                                { "LNAME", "MEMBER" }
-                            }
-                            };
+                                {
+                                    { "FNAME", "DUMMY" },
+                                    { "LNAME", "MEMBER" }
+                                }};
 
                             var putDummyMemberToListResponse = await client.PutAsJsonAsync($"{listId}/members/{Hash(dummyMember.EmailAddress.ToLower())}", dummyMember).ConfigureAwait(false);
 
@@ -113,16 +112,12 @@ namespace MailChimp.Net.Logic
                             currentListMarketingPermissions = members.First().MarketingPermissions.ToList();
                         }
 
-                        for (var i = 0; i < currentListMarketingPermissions.Count; i++)
+                        for (var currentListMarketingPermission = 0; currentListMarketingPermission < currentListMarketingPermissions.Count; currentListMarketingPermission++)
                         {
-                            if (marketingPermissions.Contains(MarketingPermissionTextHelpers.GetMarketingPermissions()[currentListMarketingPermissions[i].Text]))
-                            {
-                                currentListMarketingPermissions[i].Enabled = true;
-                            }
+                            if (marketingPermissions.Contains(MarketingPermissionTextHelpers.GetMarketingPermissions()[currentListMarketingPermissions[currentListMarketingPermission].Text]))
+                                currentListMarketingPermissions[currentListMarketingPermission].Enabled = true;
                             else
-                            {
-                                currentListMarketingPermissions[i].Enabled = false;
-                            }
+                                currentListMarketingPermissions[currentListMarketingPermission].Enabled = false;
                         }
 
                         member.MarketingPermissions = currentListMarketingPermissions;
