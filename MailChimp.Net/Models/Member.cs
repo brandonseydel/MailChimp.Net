@@ -121,6 +121,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the tags.
 		/// </summary>
 		[JsonProperty("tags")]
+        [JsonConverter(typeof(MemberTagListJsonConverter))] // This converted is used to serialize the tag list to a simple array of strings for PUT/POST requests
 		public List<MemberTag> Tags { get; set; }
 
 		/// <summary>
