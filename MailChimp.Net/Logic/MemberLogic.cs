@@ -127,7 +127,6 @@ namespace MailChimp.Net.Logic
 
                         member.MarketingPermissions = currentListMarketingPermissions;
                     }
-
                 }
 
                 var memberId = member.Id ?? Hash(member.EmailAddress.ToLower());
