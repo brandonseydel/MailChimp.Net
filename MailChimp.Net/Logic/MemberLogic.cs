@@ -86,24 +86,20 @@ namespace MailChimp.Net.Logic
 
                         if (!members.Any())
                         {
-                            var dummyMember = new Member
-                            {
-                                EmailAddress = $"dummyMember{DateTime.Now.Ticks}@test.com",
-                                StatusIfNew = Status.Subscribed,
-                                Status = Status.Subscribed,
-                                MergeFields = new Dictionary<string, object>
+                            var dummyMember = await AddOrUpdateAsync(listId,
+                                new Member
                                 {
-                                    { "FNAME", "DUMMY" },
-                                    { "LNAME", "MEMBER" }
-                                }};
+                                    EmailAddress = $"dummyMember{DateTime.Now.Ticks}@test.com",
+                                    StatusIfNew = Status.Subscribed,
+                                    Status = Status.Subscribed,
+                                    MergeFields = new Dictionary<string, object>
+                                    {
+                                        { "FNAME", "DUMMY" },
+                                        { "LNAME", "MEMBER" }
+                                    }
+                                });
 
-                            var putDummyMemberToListResponse = await client.PutAsJsonAsync($"{listId}/members/{Hash(dummyMember.EmailAddress.ToLower())}", dummyMember).ConfigureAwait(false);
-
-                            await putDummyMemberToListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                            var dummyMemberResponse = await putDummyMemberToListResponse.Content.ReadAsAsync<Member>().ConfigureAwait(false);
-
-                            currentListMarketingPermissions = dummyMemberResponse.MarketingPermissions.ToList();
+                            currentListMarketingPermissions = dummyMember.MarketingPermissions.ToList();
 
                             await DeleteAsync(list.Id, dummyMember.EmailAddress);
                         }
@@ -112,15 +108,15 @@ namespace MailChimp.Net.Logic
                             currentListMarketingPermissions = members.First().MarketingPermissions.ToList();
                         }
 
-                        for (var currentListMarketingPermission = 0; currentListMarketingPermission < currentListMarketingPermissions.Count; currentListMarketingPermission++)
+                        member.MarketingPermissions = currentListMarketingPermissions.Select(marketingPermission =>
                         {
-                            if (marketingPermissions.Contains(MarketingPermissionTextHelpers.GetMarketingPermissions()[currentListMarketingPermissions[currentListMarketingPermission].Text]))
-                                currentListMarketingPermissions[currentListMarketingPermission].Enabled = true;
+                            if (marketingPermissions.Contains(MarketingPermissionTextHelpers.GetMarketingPermissions()[marketingPermission.Text]))
+                                marketingPermission.Enabled = true;
                             else
-                                currentListMarketingPermissions[currentListMarketingPermission].Enabled = false;
-                        }
+                                marketingPermission.Enabled = false;
 
-                        member.MarketingPermissions = currentListMarketingPermissions;
+                            return marketingPermission;
+                        });
                     }
                 }
 
