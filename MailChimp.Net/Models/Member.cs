@@ -101,7 +101,7 @@ namespace MailChimp.Net.Models
 		public Location Location { get; set; }
 
 		/// <summary>
-		/// Gets the location.
+		/// Gets or sets the marketing permissions.
 		/// </summary>
 		[JsonProperty("marketing_permissions")]
 		public IEnumerable<MarketingPermission> MarketingPermissions { get; set; }
