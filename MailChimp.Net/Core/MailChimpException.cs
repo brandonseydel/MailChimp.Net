@@ -42,6 +42,8 @@ namespace MailChimp.Net.Core
             return builder.ToString();
         }
 
+        private IDictionary _data;
+
         public List<MailChimpError> Errors { get; set; }
 
         /// <summary>
@@ -78,6 +80,9 @@ namespace MailChimp.Net.Core
         {
             get
             {
+                if (_data != null)
+                    return _data;
+
                 var data = base.Data;
                 data.Add("detail", Detail);
                 data.Add("title", Title);
@@ -86,7 +91,9 @@ namespace MailChimp.Net.Core
                 data.Add("instance", Instance);
                 data.Add("errors", Errors);
                 data.Add("rawhttpresponsemessage", RawHttpResponseMessage);
-                return data;
+
+                _data = data;
+                return _data;
             }
         }
     }
