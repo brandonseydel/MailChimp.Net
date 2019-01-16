@@ -32,6 +32,9 @@ namespace MailChimp.Net.Models
         [JsonProperty("price")]
         public decimal Price { get; set; }
 
+        [JsonProperty("discount")]
+        public decimal? Discount { get; set; }
+
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }
     }
