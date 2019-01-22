@@ -20,6 +20,7 @@ namespace MailChimp.Net.Models
 		public Member()
 		{
 			MergeFields = new Dictionary<string, object>();
+			MarketingPermissions = new List<MarketingPermission>();
 			Links = new List<Link>();
 			Interests = new Dictionary<string, bool>();
 			Status = Status.Undefined;
@@ -98,6 +99,12 @@ namespace MailChimp.Net.Models
 		/// </summary>
 		[JsonProperty("location")]
 		public Location Location { get; set; }
+
+		/// <summary>
+		/// Gets or sets the marketing permissions.
+		/// </summary>
+		[JsonProperty("marketing_permissions")]
+		public IEnumerable<MarketingPermission> MarketingPermissions { get; set; }
 
 		/// <summary>
 		/// Gets or sets the member rating.

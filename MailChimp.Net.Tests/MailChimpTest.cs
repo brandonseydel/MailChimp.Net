@@ -47,6 +47,13 @@ namespace MailChimp.Net.Tests
             }
         };
 
+        internal List GetGdprMailChimpList()
+        {
+            var list = GetMailChimpList("GDPRTestList");
+            list.MarketingPermissions = true;
+            return list;
+        }
+
         internal async Task ClearLists(params string[] listToDeleteNames)
         {
             var lists = await MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
