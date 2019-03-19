@@ -53,7 +53,20 @@ namespace MailChimp.Net.Interfaces
         /// </returns>
         Task DeleteAsync(string listId, string emailAddressOrHash);
 
-
+        /// <summary>
+        /// The permanent delete async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddressOrHash">
+        /// The email address.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task PermanentDeleteAsync(string listId, string emailAddressOrHash);
+		
 		/// <summary>
 		/// Gets the activities for a specific list
 		/// </summary>
