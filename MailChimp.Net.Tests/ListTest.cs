@@ -10,6 +10,7 @@ using MailChimp.Net.Models;
 using Xunit;
 using MailChimp.Net.Core;
 using System;
+using System.Collections.Generic;
 
 namespace MailChimp.Net.Tests
 {
@@ -134,5 +135,33 @@ namespace MailChimp.Net.Tests
             Assert.Equal(updatedList.Name, newList.Name);
         }
 
+        [Fact]
+        public async Task Should_Batch_List_Update_Name()
+        {
+            var newList = await this.Should_Create_New_List().ConfigureAwait(false);
+            var testEmail = $"test{Guid.NewGuid()}@yandex.ru";
+
+            var updatedList = await this.MailChimpManager.Lists.BatchAsync(new BatchList()
+            {
+                Members = new List<Member>()
+                {
+                    new Member()
+                    {
+                        EmailAddress = testEmail,
+                        Status = Status.Subscribed,
+                        StatusIfNew = Status.Subscribed
+                    },
+                    new Member()
+                    {
+                        EmailAddress = $"test{Guid.NewGuid()}@yandex.ru",
+                        Status = Status.Unsubscribed,
+                        StatusIfNew = Status.Unsubscribed
+                    },
+                },
+                UpdateExisting = false
+            }, newList.Id);
+
+            Assert.True(updatedList.NewMembers.Any(x => x.EmailAddress == testEmail));
+        }
     }
 }

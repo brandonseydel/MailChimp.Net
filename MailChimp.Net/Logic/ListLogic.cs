@@ -4,9 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
+using MailChimp.Net.Core.Responses;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 #pragma warning disable 1584,1711,1572,1581,1580
@@ -195,6 +197,20 @@ namespace MailChimp.Net.Logic
 
                 var listActivityResponse = await response.Content.ReadAsAsync<ListActivityResponse>().ConfigureAwait(false);
                 return listActivityResponse;
+            }
+        }
+
+        /// <summary>
+        /// Batch subscribe or unsubscribe list members.
+        /// </summary>
+        public async Task<BatchListResponse> BatchAsync(BatchList batchList, string listId)
+        {
+            using (var client = CreateMailClient($"lists/{listId}"))
+            {
+                var response = await client.PostAsJsonAsync(string.Empty, batchList).ConfigureAwait(false);
+
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<BatchListResponse>().ConfigureAwait(false);
             }
         }
     }
