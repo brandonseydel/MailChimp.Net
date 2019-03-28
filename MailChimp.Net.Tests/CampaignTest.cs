@@ -164,6 +164,17 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Return_One_Campaign()
         {
+            var campaign = await this.MailChimpManager.Campaigns.AddAsync(new Campaign
+            {
+                Settings = new Setting
+                {
+                    ReplyTo = "test@test.com",
+                    Title = "Get Rich or Die Trying To Add Campaigns",
+                    FromName = "AddCampaign",
+                    SubjectLine = "TestingAddCampaign"
+                },
+                Type = CampaignType.Plaintext
+            }).ConfigureAwait(false);
             var campaigns = await this.MailChimpManager.Campaigns.GetAll(new CampaignRequest { Limit = 1 });
             Assert.True(campaigns.Count() == 1);
         }

@@ -13,25 +13,32 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Get_Segment()
         {
-            var lists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
-            var listId = lists.First().Id;
-
-            var segment = new Segment()
+            try
             {
-                Name = DateTime.Now.ToString(),
-                Options = new SegmentOptions()
+                var createList = await this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetMailChimpList());
+                var lists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
+                var listId = lists.First().Id;
+
+                var segment = new Segment()
                 {
-                    Match = Match.All,
-                    Conditions = new List<Condition>()
-                }
-            };
+                    Name = DateTime.Now.ToString(),
+                    Options = new SegmentOptions()
+                    {
+                        Match = Match.All,
+                        Conditions = new List<Condition>()
+                    }
+                };
 
-            var createdSegment = await this.MailChimpManager.ListSegments.AddAsync(listId, segment).ConfigureAwait(false);
+                var createdSegment = await this.MailChimpManager.ListSegments.AddAsync(listId, segment).ConfigureAwait(false);
 
-            var retrievedSegment = await this.MailChimpManager.ListSegments.GetAsync(listId, createdSegment.Id).ConfigureAwait(false);
+                var retrievedSegment = await this.MailChimpManager.ListSegments.GetAsync(listId, createdSegment.Id).ConfigureAwait(false);
 
-            Assert.NotNull(retrievedSegment);
-            Assert.True(createdSegment.Id == retrievedSegment.Id);
+                Assert.NotNull(retrievedSegment);
+                Assert.True(createdSegment.Id == retrievedSegment.Id);
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
 
         }
     }
