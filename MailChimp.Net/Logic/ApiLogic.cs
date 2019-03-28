@@ -47,5 +47,16 @@ namespace MailChimp.Net.Logic
                 return await response.Content.ReadAsAsync<ApiInfo>().ConfigureAwait(false);
             }
         }
+
+        public async Task<Ping> PingAsync()
+        {
+            using (var client = CreateMailClient("/ping"))
+            {
+                var response = await client.GetAsync(string.Empty).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                return await response.Content.ReadAsAsync<Ping>().ConfigureAwait(false);
+            }
+        }
     }
 }
