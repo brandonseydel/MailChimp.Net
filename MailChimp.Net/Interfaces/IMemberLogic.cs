@@ -66,15 +66,15 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task PermanentDeleteAsync(string listId, string emailAddressOrHash);
-		
-		/// <summary>
-		/// Gets the activities for a specific list
-		/// </summary>
-		/// <param name="listId"></param>
-		/// <param name="emailAddressOrHash"></param>
-		/// <param name="request"></param>
-		/// <returns></returns>
-		Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
+
+        /// <summary>
+        /// Gets the activities for a specific list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="emailAddressOrHash"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
 		/// Gets the tags asynchronous.
@@ -84,6 +84,15 @@ namespace MailChimp.Net.Interfaces
 		/// <param name="request">The request.</param>
 		/// <returns></returns>
 		Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
+
+        /// <summary>
+        /// Adds member tags asynchronous.
+        /// </summary>
+        /// <param name="listId">The list identifier.</param>
+        /// <param name="emailAddressOrHash">The email address or hash.</param>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null);
 
         /// <summary>
         /// The get all async.
