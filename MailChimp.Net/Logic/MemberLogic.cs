@@ -231,7 +231,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient($"{BaseUrl}/"))
             {
-                var response = await client.PostAsync($"{listId}/members/{Hash(emailAddressOrHash)}/actions/delete-permanent",null).ConfigureAwait(false);
+                var response = await client.PostAsync($"{listId}/members/{Hash(emailAddressOrHash)}/actions/delete-permanent", null).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }
@@ -540,6 +540,18 @@ namespace MailChimp.Net.Logic
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
                 var tagsResponse = await response.Content.ReadAsAsync<TagsResponse>().ConfigureAwait(false);
                 return tagsResponse.Tags;
+            }
+        }
+
+        public async Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null)
+        {
+            using (var client = CreateMailClient($"{BaseUrl}/"))
+            {
+                var res = await client
+                    .PostAsJsonAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", tags)
+                    .ConfigureAwait(false);
+
+                await res.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             }
         }
     }
