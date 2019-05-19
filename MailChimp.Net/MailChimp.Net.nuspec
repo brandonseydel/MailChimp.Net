@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>MailChimp.Net.V3</id>
-        <version>3.3.0.0</version>
+        <version>4.1.0.0</version>
         <title>MailChimp.Net.V3</title>
         <authors>Brandon Seydel (DevSquad)</authors>
         <owners>MailChimp.Net.V3</owners>
@@ -11,7 +11,15 @@
         <iconUrl>http://developer.mailchimp.com/documentation/mailchimp/img/freddie_o.svg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A .NET Wrapper for Mail Chimp v3.0 API</description>
-        <releaseNotes></releaseNotes>
+        <releaseNotes>
+            Added Ping
+            Added support for list(batch) method (#266)
+            Add automation campaign type to enum.
+            Add delete-permanent action
+            Add Discount property to Line class
+            FIX - Exception when accesssing Data twice on MailChimpException
+            Added support to subscribe users to a GDPR list #332
+        </releaseNotes>
         <copyright>Copyright © 2017</copyright>
         <tags>MailChimp Mail Chimp 3.0 MailChimp v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</tags>
         <summary>
