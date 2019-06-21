@@ -180,5 +180,11 @@ namespace MailChimp.Net.Models
 		/// </summary>
 		[JsonProperty("vip")]
 		public bool Vip { get; set; }
-	}
+
+        /// <summary>
+        /// Gets the ID used in the Mailchimp web application. <para>View this member in your Mailchimp account at https://{dc}.admin.mailchimp.com/lists/members/view?id={web_id}.</para>
+        /// </summary>
+        [JsonProperty("web_id")]
+        public int WebId { get; set; }
+    }
 }
