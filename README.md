@@ -59,6 +59,30 @@ member.MergeFields.Add("FNAME", "HOLY");
 member.MergeFields.Add("LNAME", "COW");
 await this.mailChimpManager.Members.AddOrUpdateAsync(listId, member);
 ```
+
+##### Updating An Existing User
+
+```CSharp
+// Get reference to existing user if you don't already have it
+var listId = "TestListId";
+var members = await this.mailChimpManager.Members.GetAllAsync(listId).ConfigureAwait(false);
+var member = members.First(x => x.EmailAddress == "abc@def.com");
+
+// Update the user
+member.MergeFields.Add("FNAME", "New first name");
+member.MergeFields.Add("LNAME", "New last name");
+await this.mailChimpManager.Members.AddOrUpdateAsync(listId, member);
+```
+
+##### Adding/Removing a Tag From a User
+
+```CSharp
+Tags tags = new Tags();
+tags.MemberTags.Add(new Tag() { Name = "Awesome Person", Status = "active" });
+await this.mailChimpManager.Members.AddTagsAsync(listId, "abc@def.com", tags);
+```
+To remove the tag, use "inactive" as the Status.
+
 ### Status
 Progress on full implementation
 
