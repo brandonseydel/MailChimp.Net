@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FeedbackTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -98,7 +98,7 @@ namespace MailChimp.Net.Tests
             await this.MailChimpManager.Feedback.DeleteAsync(campaign.Id, createdFeedback.FeedbackId.Value.ToString());
             var feedback = await this.MailChimpManager.Feedback.GetAllAsync(campaign.Id);
 
-            Assert.Equal(0, feedback.Count());
+            Assert.Empty(feedback);
         }
 
         private async Task<Campaign> CreateCampaign()

@@ -205,7 +205,7 @@ namespace MailChimp.Net.Tests
             await this.MailChimpManager.Campaigns.DeleteAsync(campaign.Id).ConfigureAwait(false);
             var existingCampaigns = await this.MailChimpManager.Campaigns.GetAllAsync().ConfigureAwait(false);
 
-            Assert.Equal(0, existingCampaigns.Count());
+            Assert.Empty(existingCampaigns);
         }
     }
 }

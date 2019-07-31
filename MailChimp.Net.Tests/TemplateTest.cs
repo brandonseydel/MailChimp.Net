@@ -32,7 +32,7 @@ namespace MailChimp.Net.Tests
             var allTemplates = await this.MailChimpManager.Templates.GetAllAsync(RequestOnlyUserTemplates).ConfigureAwait(false);
             await Task.WhenAll(allTemplates.Select(x => this.MailChimpManager.Templates.DeleteAsync(x.Id))).ConfigureAwait(false);
             allTemplates = await this.MailChimpManager.Templates.GetAllAsync(RequestOnlyUserTemplates).ConfigureAwait(false);
-            Assert.Equal(0, allTemplates.Count());
+            Assert.Empty(allTemplates);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace MailChimp.Net.Tests
             var allTemplateFolders = await this.MailChimpManager.TemplateFolders.GetAllAsync().ConfigureAwait(false);
             await Task.WhenAll(allTemplateFolders.Where(n => n.Name.StartsWith("TestFolder_")).Select(x => this.MailChimpManager.TemplateFolders.DeleteAsync(x.Id))).ConfigureAwait(false);
             allTemplateFolders = await this.MailChimpManager.TemplateFolders.GetAllAsync().ConfigureAwait(false);
-            Assert.Equal(0, allTemplateFolders.Where(n => n.Name.StartsWith("TestFolder_")).Count());
+            Assert.Empty(allTemplateFolders.Where(n => n.Name.StartsWith("TestFolder_")));
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace MailChimp.Net.Tests
             var templateFolder = await Should_Create_New_TemplateFolder();
 
             var template = await this.MailChimpManager.Configure((mo) => mo.Limit = 10).Templates.CreateAsync($"Test_{DateTime.UtcNow.Ticks}", templateFolder.Id, "<html><body><h1>Test *|FNAME|* </body></html>").ConfigureAwait(false);
-            var allTemplates = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
+            var allTemplates = await this.MailChimpManager.Templates.GetAllAsync().ConfigureAwait(false);
             Assert.True(allTemplates.Any());
             return template;
         }

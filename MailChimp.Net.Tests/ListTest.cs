@@ -34,7 +34,7 @@ namespace MailChimp.Net.Tests
             var allLists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
             await Task.WhenAll(allLists.Select(x => this.MailChimpManager.Lists.DeleteAsync(x.Id))).ConfigureAwait(false);
             allLists = await this.MailChimpManager.Lists.GetAllAsync().ConfigureAwait(false);
-            Assert.Equal(0, allLists.Count());
+            Assert.Empty(allLists);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace MailChimp.Net.Tests
                 UpdateExisting = false
             }, newList.Id);
 
-            Assert.True(updatedList.NewMembers.Any(x => x.EmailAddress == testEmail));
+            Assert.Contains(updatedList.NewMembers, x => x.EmailAddress == testEmail);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using FluentAssertions;
 using MailChimp.Net.Models;
 using Xunit;
@@ -50,7 +50,7 @@ namespace MailChimp.Net.Tests
             response.Id.Should().NotBeEmpty();
             response.ListId.Should().Be(_listId);
             response.Links.Should().NotBeEmpty();
-            response.ShouldBeEquivalentTo(webhook,
+            response.Should().BeEquivalentTo(webhook,
                 o => o.Excluding(i => i.Id).Excluding(i => i.ListId).Excluding(i => i.Links));
 
             existingWebhook.Should().NotBeNull();
