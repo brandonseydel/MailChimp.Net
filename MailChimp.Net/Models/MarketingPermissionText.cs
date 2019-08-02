@@ -17,7 +17,7 @@ namespace MailChimp.Net.Models
     {
         public static Dictionary<string, MarketingPermissionText> GetMarketingPermissions()
         {
-            var dictionary = new Dictionary<string, MarketingPermissionText>();
+            var dictionary = new Dictionary<string, MarketingPermissionText>(StringComparer.CurrentCultureIgnoreCase);
 
             var regex = new Regex(@"
                 (?<=[A-Z])(?=[A-Z][a-z]) |
