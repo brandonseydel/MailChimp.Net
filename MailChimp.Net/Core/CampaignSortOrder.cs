@@ -19,7 +19,7 @@ namespace MailChimp.Net.Core
         /// ASC
         /// </summary>
         [Description("DESC")]
-        DESC = 1
+        DESC = 2
     }
 
 }
