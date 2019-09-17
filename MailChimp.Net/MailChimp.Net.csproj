@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>
       net45;netstandard1.3
@@ -31,7 +31,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
     <PackageId>MailChimp.Net.V3</PackageId>
-    <Version>4.2.0</Version>
+    <Version>4.2.1</Version>
     <Authors>Brandon Seydel</Authors>
     <Company>DevSquad</Company>
     <Product>MailChimp.Net.V3</Product>

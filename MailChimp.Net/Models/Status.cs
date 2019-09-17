@@ -43,9 +43,17 @@ namespace MailChimp.Net.Models
         [Description("pending")]
         Pending,
 
-
+        /// <summary>
+        /// Trajnsaction Member status
+        /// </summary>
         [Description("transactional")]
-        Transactional
-        
+        Transactional,
+
+        /// <summary>
+        /// Archived member status
+        /// </summary>
+        [Description("archived")]
+        Archived
+
     }
 }

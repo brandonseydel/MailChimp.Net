@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using MailChimp.Net.Core;
 using MailChimp.Net.Models;
 
 using Xunit;
@@ -20,19 +21,32 @@ namespace MailChimp.Net.Tests
     /// </summary>
     public class ListMemberTest : MailChimpTest
     {
-        /// <summary>
-        /// The _ticks.
-        /// </summary>
-        private readonly long _ticks = DateTime.Now.Ticks;
-
         public ListMemberTest()
         {
             this.ClearMailChimpAsync().Wait();
-            var createdList = this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetMailChimpList()).Result;
-            var createdGdprList = this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetGdprMailChimpList()).Result;
+            var createdList = this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetMailChimpList(Guid.NewGuid().ToString())).Result;
+            List createdGdprList = null;
+            try
+            {
+                createdGdprList = this.MailChimpManager.Lists.AddOrUpdateAsync(this.GetGdprMailChimpList()).Result;
+            }
+            catch (Exception ex)
+            {
+                var t = ex;
+                // ignore not allowed
+            }
             this.TestList = createdList;
             this.GdprTestList = createdGdprList;
         }
+
+        ~ListMemberTest()
+        {
+            this.MailChimpManager.Lists.DeleteAsync(this.TestList.Id);
+            if (this.GdprTestList == null) return;
+            this.MailChimpManager.Lists.DeleteAsync(this.GdprTestList.Id);
+        }
+
+
 
         public List TestList { get; set; }
         public List GdprTestList { get; set; }
@@ -44,29 +58,22 @@ namespace MailChimp.Net.Tests
         /// The <see cref="Task"/>.
         /// </returns>
         [Fact]
-        public async Task Add_User_To_List()
+        public async Task<Member> Add_User_To_List()
         {
             var t = await
                 this.MailChimpManager.Members.AddOrUpdateAsync(
                     this.TestList.Id,
                     new Member
                     {
-                        EmailAddress = $"{this._ticks}@test.com",
+                        EmailAddress = $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com",
                         Status = Status.Subscribed,
+                        StatusIfNew = Status.Subscribed,
                         MergeFields = new System.Collections.Generic.Dictionary<string, object>{
                         { "FNAME", "HOLYYY" },
                         { "LNAME", "COW" }
                     }
                     }).ConfigureAwait(false);
-
-            t.MergeFields["FNAME"] = "AWESOME";
-
-            var updateMergeField =
-                await
-
-                                this.MailChimpManager.Members.AddOrUpdateAsync(
-                    this.TestList.Id, t).ConfigureAwait(false);
-
+            return t;
         }
 
         /// <summary>
@@ -76,13 +83,14 @@ namespace MailChimp.Net.Tests
         /// The <see cref="Task"/>.
         /// </returns>
         [Fact]
-        public async Task Add_User_To_Gdpr_List()
+        public async Task<Member> Add_User_To_Gdpr_List()
         {
+            if (this.GdprTestList == null) return null;
             var t = await this.MailChimpManager.Members.AddOrUpdateAsync(
                 this.GdprTestList.Id,
                 new Member
                 {
-                    EmailAddress = $"{this._ticks}@test.com",
+                    EmailAddress = $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com",
                     StatusIfNew = Status.Subscribed,
                     Status = Status.Subscribed,
                     MergeFields = new Dictionary<string, object>
@@ -90,8 +98,8 @@ namespace MailChimp.Net.Tests
                         { "FNAME", "HOLYYY" },
                         { "LNAME", "COW" }
                     }
-                    
-                }, 
+
+                },
                 new List<MarketingPermissionText>
                 {
                     MarketingPermissionText.Email,
@@ -103,6 +111,7 @@ namespace MailChimp.Net.Tests
 
             var updateMergeField = await this.MailChimpManager.Members.AddOrUpdateAsync(
                 this.GdprTestList.Id, t).ConfigureAwait(false);
+            return t;
         }
 
         /// <summary>
@@ -119,6 +128,15 @@ namespace MailChimp.Net.Tests
             Assert.True(members.Any());
         }
 
+
+        [Fact]
+        public async Task Should_Delete_User_And_Readd()
+        {
+            var member = await this.Add_User_To_List();
+            var members = await this.MailChimpManager.Members.GetAllAsync(this.TestList.Id);
+            Assert.True(members.Any());
+        }
+
         /// <summary>
         /// The should_ return_ members_ from_ Gdpr_ list.
         /// </summary>
@@ -128,6 +146,7 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Return_Members_From_Gdpr_List()
         {
+            if (this.GdprTestList == null) return;
             await this.Add_User_To_Gdpr_List();
             var members = await this.MailChimpManager.Members.GetAllAsync(this.GdprTestList.Id);
             Assert.True(members.Any());
@@ -142,7 +161,7 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Return_True_If_Member_Exists_In_List()
         {
-            var emailAddress = $"{this._ticks}@test.com";
+            var emailAddress = $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com";
             await
                 this.MailChimpManager.Members.AddOrUpdateAsync(
                     this.TestList.Id,
@@ -161,8 +180,8 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Return_False_If_Member_Does_Not_Exists_In_List()
         {
-            var emailAddress1 = $"{this._ticks}1@test.com";
-            var emailAddress2 = $"{this._ticks}2@test.com";
+            var emailAddress1 = $"{Guid.NewGuid().ToString().Replace("-", "")}1@test.com";
+            var emailAddress2 = $"{Guid.NewGuid().ToString().Replace("-", "")}2@test.com";
             await
                 this.MailChimpManager.Members.AddOrUpdateAsync(
                     this.TestList.Id,
@@ -222,8 +241,41 @@ namespace MailChimp.Net.Tests
             await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, memberToUnsubscribe);
 
             members = await this.MailChimpManager.Members.GetAllAsync(this.TestList.Id);
-
             Assert.True(members.Count(x => x.Status == Status.Unsubscribed) == 1);
+        }
+
+        [Fact]
+        public async Task Should_Create_And_Archive_Member()
+        {
+            var member = await this.Add_User_To_List();
+            member = await this.MailChimpManager.Members.GetAsync(TestList.Id, member.EmailAddress);
+            member.Status = Status.Archived;
+            member.StatusIfNew = Status.Archived;
+            await this.MailChimpManager.Members.AddOrUpdateAsync(TestList.Id, member);
+            member = await this.MailChimpManager.Members.GetAsync(TestList.Id, member.EmailAddress);
+            Assert.True(member.Status == Status.Archived);
+        }
+
+        [Fact]
+        public async Task Should_Return_1001_Members()
+        {
+            Parallel.For(0, 1000, new ParallelOptions
+            {
+                MaxDegreeOfParallelism = 10
+            }, (i) => this.Add_User_To_List().Wait());
+            var members = await this.MailChimpManager.Members.GetAllAsync(TestList.Id, new MemberRequest { Limit = int.MaxValue });
+            Assert.True(members.Count() == 1001);
+        }
+
+        [Fact]
+        public async Task Should_Delete_And_ReSubscribe()
+        {
+            var member = await this.Add_User_To_List();
+            member = await this.MailChimpManager.Members.AddOrUpdateAsync(TestList.Id, member);
+            await this.MailChimpManager.Members.DeleteAsync(TestList.Id, member.EmailAddress);
+            member.Status = Status.Subscribed;
+            member = await this.MailChimpManager.Members.AddOrUpdateAsync(TestList.Id, member);
+            Assert.True(member.Status == Status.Subscribed);
         }
 
         /// <summary>
@@ -236,7 +288,7 @@ namespace MailChimp.Net.Tests
         public async Task UPDATE_MERGE_FIELD_SHOULD_EQUAL()
         {
             await this.Add_User_To_List();
-            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
+            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com");
             member.MergeFields["FNAME"] = "HOLY COW";
 
             var returnedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member).ConfigureAwait(false);
@@ -253,7 +305,7 @@ namespace MailChimp.Net.Tests
         public async Task Unsubscribe_User_From_List()
         {
             await this.Add_User_To_List();
-            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
+            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com");
             member.Status = Status.Unsubscribed;
 
             var updatedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
@@ -270,7 +322,7 @@ namespace MailChimp.Net.Tests
         public async Task Search_By_User_Status()
         {
             await this.Add_User_To_List();
-            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{this._ticks}@test.com");
+            var member = await this.MailChimpManager.Members.GetAsync(this.TestList.Id, $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com");
             member.Status = Status.Unsubscribed;
 
             var updatedMember = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
@@ -285,7 +337,7 @@ namespace MailChimp.Net.Tests
         {
             var member = new Member
             {
-                EmailAddress = $"{_ticks}@test.com",
+                EmailAddress = $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com",
                 Status = Status.Subscribed,
                 Tags = new List<MemberTag>
                 {
@@ -308,7 +360,7 @@ namespace MailChimp.Net.Tests
         /// </returns>
         private async Task AddNewMember()
         {
-            var member = new Member { EmailAddress = $"{_ticks}@test.com", Status = Status.Subscribed };
+            var member = new Member { EmailAddress = $"{Guid.NewGuid().ToString().Replace("-", "")}@test.com", Status = Status.Subscribed };
 
             member.MergeFields.Add("FNAME", "HOLY COW");
             member = await this.MailChimpManager.Members.AddOrUpdateAsync(this.TestList.Id, member);
