@@ -114,6 +114,8 @@ namespace MailChimp.Net.Models
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumDescriptionConverter))]
         public CampaignType Type { get; set; }
+
+        [JsonProperty("dashboard_link")]
         public string DashboardLink { get; internal set; }
 
         [JsonProperty("variate_settings")]
