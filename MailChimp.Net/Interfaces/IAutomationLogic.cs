@@ -39,6 +39,21 @@ namespace MailChimp.Net.Interfaces
         /// </returns>
         Task<Automation> GetAsync(string workflowId);
 
+
+        /// <summary>
+        /// The update async.
+        /// </summary>
+        /// <param name="workflowId">
+        /// The workflow id
+        /// </param>
+        /// <param name="automation">
+        /// The campaign.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<Automation> UpdateAsync(string workflowId, Automation automation);
+
         /// <summary>
         /// The pause async.
         /// </summary>
