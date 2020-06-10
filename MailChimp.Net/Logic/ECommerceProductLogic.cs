@@ -132,9 +132,15 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Product> UpdateAsync(string productId, Product product)
         {
-            //We need to delete and then readd in order to update...
-            await DeleteAsync(productId).ConfigureAwait(false);
-            return await AddAsync(product).ConfigureAwait(false);
+            var requestUrl = $"{string.Format(BaseUrl, StoreId)}/{productId}";
+
+            using (var client = CreateMailClient(requestUrl))
+            {
+                var response = await client.PatchAsJsonAsync("", product).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
+                return productResponse;
+            }
         }
 
         public string StoreId { get; set; }
