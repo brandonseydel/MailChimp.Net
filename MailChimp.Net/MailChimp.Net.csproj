@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>
-      net45;netstandard1.3
+        net45;net472;netstandard1.3;netstandard2.0
     </TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,6 +49,7 @@
     <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
 
   </PropertyGroup>
   <ItemGroup>
@@ -59,9 +60,15 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3' And '$(TargetFramework)' != 'netstandard2.0'">
     <Reference Include="System.Net.Http" />
   </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net472'">
+        <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    </ItemGroup>   
   <ItemGroup>
     <None Include="..\LICENSE.txt">
       <Pack>True</Pack>
@@ -71,8 +78,12 @@
 
 
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3' Or '$(TargetFramework)' == 'netstandard1.4' Or '$(TargetFramework)' == 'netstandard1.5' Or '$(TargetFramework)' == 'netstandard1.7' Or '$(TargetFramework)' == 'netstandard1.8' Or '$(TargetFramework)' == 'netstandard1.9' Or '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp1.0' Or '$(TargetFramework)' == 'netcoreapp1.1' Or '$(TargetFramework)' == 'netcoreapp2.0' Or '$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp2.2'">
-    <DefineConstants>NET_CORE</DefineConstants>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3' Or '$(TargetFramework)' == 'netstandard1.4' Or '$(TargetFramework)' == 'netstandard1.5' Or '$(TargetFramework)' == 'netstandard1.7' Or '$(TargetFramework)' == 'netstandard1.8' Or '$(TargetFramework)' == 'netstandard1.9' Or '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp1.0' Or '$(TargetFramework)' == 'netcoreapp1.1' Or '$(TargetFramework)' == 'netcoreapp2.0' Or '$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp2.2'">
+        <DefineConstants>NET_CORE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp2.0' Or '$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp2.2' Or '$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'net48' ">
+        <DefineConstants>HTTP_CLIENT_FACTORY</DefineConstants>
+    </PropertyGroup>
 
 </Project>
