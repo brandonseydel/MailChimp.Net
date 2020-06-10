@@ -12,7 +12,7 @@ namespace MailChimp.Net.Tests
 
         internal override async Task RunBeforeTestFixture()
         {
-            await ClearLists(ListName).ConfigureAwait(false);
+            await ClearLists().ConfigureAwait(false);
 
             var list = await MailChimpManager.Lists.AddOrUpdateAsync(GetMailChimpList(ListName)).ConfigureAwait(false);
             _listId = list.Id;
