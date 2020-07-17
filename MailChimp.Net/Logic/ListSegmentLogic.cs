@@ -98,7 +98,7 @@ namespace MailChimp.Net.Logic
             }
         }
 
-        public async Task<ListSegment> ClearMembers(string listId, string segmentId)
+        public async Task<ListSegment> ClearMembersAsync(string listId, string segmentId)
         {
             using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
