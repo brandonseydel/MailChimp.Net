@@ -1,6 +1,7 @@
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -95,6 +96,19 @@ namespace MailChimp.Net.Logic
 
                 var memberResponse = await response.Content.ReadAsAsync<BatchSegmentMembersResponse>().ConfigureAwait(false);
                 return memberResponse;
+            }
+        }
+
+        public async Task<ListSegment> ClearMembers(string listId, string segmentId)
+        {
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            {
+                var request = new { static_segment = new object[] { } };
+                var response = await client.PatchAsJsonAsync(segmentId, request).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var segmentResponse = await response.Content.ReadAsAsync<ListSegment>().ConfigureAwait(false);
+                return segmentResponse;
             }
         }
 
