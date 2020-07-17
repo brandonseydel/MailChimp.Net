@@ -1,7 +1,6 @@
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
