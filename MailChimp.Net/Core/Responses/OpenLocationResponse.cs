@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public OpenLocationResponse()
         {
-            this.Locations = new HashSet<OpenLocation>();
+            Locations = new HashSet<OpenLocation>();
         }
 
         /// <summary>

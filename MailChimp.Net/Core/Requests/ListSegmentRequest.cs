@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MailChimp.Net.Core
 {
@@ -13,14 +9,14 @@ namespace MailChimp.Net.Core
         [QueryString("created_by")]
         public string CreatedBy { get; set; }
         [QueryString("before_created_at")]
-        public string BeforeCreatedAt { get; set; }
+        public DateTime? BeforeCreatedAt { get; set; }
         [QueryString("since_created_at")]
-        public string SinceCreatedAt { get; set; }
+        public DateTime? SinceCreatedAt { get; set; }
 
         [QueryString("before_updated_at")]
-        public string BeforeUpdatedAt { get; set; }
+        public DateTime? BeforeUpdatedAt { get; set; }
         [QueryString("since_updated_at")]
-        public string SinceUpdatedAt { get; set; }
+        public DateTime? SinceUpdatedAt { get; set; }
 
     }
 }

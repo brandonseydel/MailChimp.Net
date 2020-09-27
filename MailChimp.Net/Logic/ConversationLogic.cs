@@ -1,14 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ConversationLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
@@ -21,14 +18,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class ConversationLogic : BaseLogic, IConversationLogic
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConversationLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public ConversationLogic(string apiKey)
-            : base(apiKey)
+
+        public ConversationLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -54,14 +46,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Conversation>> GetAllAsync(ConversationRequest request = null)
         {
-            using (var client = this.CreateMailClient("conversations"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var conversationResponse = await response.Content.ReadAsAsync<ConversationResponse>().ConfigureAwait(false);
-                return conversationResponse.Conversations;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Conversations;
         }
 
         /// <summary>
@@ -86,7 +71,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<ConversationResponse> GetResponseAsync(ConversationRequest request = null)
         {
-            using (var client = this.CreateMailClient("conversations"))
+            using (var client = CreateMailClient("conversations"))
             {
                 var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -116,7 +101,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Conversation> GetAsync(string id)
         {
-            using (var client = this.CreateMailClient("conversations/"))
+            using (var client = CreateMailClient("conversations/"))
             {
                 var response = await client.GetAsync($"{id}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

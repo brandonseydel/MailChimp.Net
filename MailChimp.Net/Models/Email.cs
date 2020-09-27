@@ -20,7 +20,7 @@ namespace MailChimp.Net.Models
         /// </summary>
         public Email()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>
@@ -118,5 +118,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("workflow_id")]
         public string WorkflowId { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the web id.
+        /// </summary>
+        [JsonProperty("web_id")]
+        public int WebId { get; set; }
     }
 }

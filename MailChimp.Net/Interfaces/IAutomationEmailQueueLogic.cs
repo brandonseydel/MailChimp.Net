@@ -11,9 +11,8 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    using System;
 
-    using MailChimp.Net.Core;
+    using Core;
 
     /// <summary>
     /// The AutomationEmailQueueLogic interface.
@@ -60,13 +59,13 @@ namespace MailChimp.Net.Interfaces
         /// <param name="workflowEmailId">
         /// The workflow email id.
         /// </param>
-        /// <param name="emailAddress">
+        /// <param name="emailAddressOrHash">
         /// The email address.
         /// </param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddress);
+        Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddressOrHash);
 
         /// <summary>
         /// The get all async.

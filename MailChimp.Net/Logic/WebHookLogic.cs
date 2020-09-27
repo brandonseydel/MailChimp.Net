@@ -4,13 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-
-
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
@@ -27,13 +22,8 @@ namespace MailChimp.Net.Logic
         /// </summary>
         private const string BaseUrl = "/lists/{0}/webhooks";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WebHookLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public WebHookLogic(string apiKey) : base(apiKey)
+        public WebHookLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -43,14 +33,17 @@ namespace MailChimp.Net.Logic
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="webhook">
+        /// Webhook.
+        /// </param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<WebHook> AddAsync(string listId)
+        public async Task<WebHook> AddAsync(string listId, WebHook webhook)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl, listId)))
             {
-                var response = await client.PostAsync(string.Empty, null).ConfigureAwait(false);
+                var response = await client.PostAsJsonAsync(string.Empty, webhook).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var webHookResponse = await response.Content.ReadAsAsync<WebHook>().ConfigureAwait(false);
@@ -72,7 +65,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task DeleteAsync(string listId, string webhookId)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.DeleteAsync(webhookId).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -90,7 +83,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<IEnumerable<WebHook>> GetAllAsync(string listId)
         {
-            return (await this.GetResponseAsync(listId))?.Webhooks;
+            return (await GetResponseAsync(listId).ConfigureAwait(false))?.Webhooks;
         }
 
         /// <summary>
@@ -107,7 +100,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<WebHook> GetAsync(string listId, string webhookId)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.GetAsync(webhookId).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -128,7 +121,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<WebHookResponse> GetResponseAsync(string listId)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl, listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl, listId)))
             {
                 var response = await client.GetAsync(string.Empty).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -155,7 +148,7 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null)
         {
-            using (var client = this.CreateMailClient(string.Format(BaseUrl + "/", listId)))
+            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
                 var response = await client.PatchAsJsonAsync((mergeId ?? mergeField.MergeId).ToString(), mergeField).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

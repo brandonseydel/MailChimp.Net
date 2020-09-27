@@ -1,14 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FeedBackLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
@@ -21,14 +18,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FeedBackLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public FeedBackLogic(string apiKey)
-            : base(apiKey)
+
+        public FeedBackLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -54,7 +46,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Feedback> AddOrUpdateAsync(string campaignId, Feedback feedback)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.PostAsJsonAsync($"{campaignId}/feedback/{feedback?.FeedbackId}", feedback).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -86,7 +78,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string campaignId, string feedbackId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.DeleteAsync($"{campaignId}/feedback/{feedbackId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -118,14 +110,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var listResponse = await response.Content.ReadAsAsync<FeedBackResponse>().ConfigureAwait(false);
-                return listResponse.Feedback;
-            }
+            return (await GetResponseAsync(campaignId, request).ConfigureAwait(false))?.Feedback;
         }
 
 
@@ -154,7 +139,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<FeedBackResponse> GetResponseAsync(string campaignId, FeedbackRequest request = null)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -187,7 +172,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Feedback> GetAsync(string campaignId, string feedBackId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
                 var response = await client.GetAsync($"{campaignId}/feedback/{feedBackId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

@@ -12,8 +12,6 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    using System;
-
     /// <summary>
     /// The InterestLogic interface.
     /// </summary>
@@ -35,6 +33,9 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task DeleteAsync(string listId, string interestCategoryId, string interestId);
+
+
+        Task<Interest> AddOrUpdateAsync(Interest list);
 
         /// <summary>
         /// The get all async.

@@ -1,13 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ContentLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
@@ -20,14 +17,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class ContentLogic : BaseLogic, IContentLogic
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public ContentLogic(string apiKey)
-            : base(apiKey)
+
+        public ContentLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -53,9 +45,9 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest content)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
-                var response = await client.PutAsJsonAsync($"{campaignId}/contents", content, null).ConfigureAwait(false);
+                var response = await client.PutAsJsonAsync($"{campaignId}/content", content).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);
@@ -81,9 +73,9 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Content> GetAsync(string campaignId)
         {
-            using (var client = this.CreateMailClient("campaigns/"))
+            using (var client = CreateMailClient("campaigns/"))
             {
-                var response = await client.GetAsync($"{campaignId}/contents").ConfigureAwait(false);
+                var response = await client.GetAsync($"{campaignId}/content").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);

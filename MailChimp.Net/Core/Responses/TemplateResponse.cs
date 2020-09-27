@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public TemplateResponse()
         {
-            this.Templates = new HashSet<Template>();
+            Templates = new HashSet<Template>();
         }
 
         /// <summary>

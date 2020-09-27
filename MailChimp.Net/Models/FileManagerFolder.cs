@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -25,7 +22,7 @@ namespace MailChimp.Net.Models
         public int FileCount { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
         public string CreatedBy { get; set; }

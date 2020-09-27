@@ -1,9 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Campaign.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -20,6 +22,12 @@ namespace MailChimp.Net.Models
         public string ArchiveUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the long archive url.
+        /// </summary>
+        [JsonProperty("long_archive_url")]
+        public string LongArchiveUrl { get; set; }
+
+        /// <summary>
         /// Gets or sets the content type.
         /// </summary>
         [JsonProperty("content_type")]
@@ -29,7 +37,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the create time.
         /// </summary>
         [JsonProperty("create_time")]
-        public string CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the delivery status.
@@ -37,17 +45,32 @@ namespace MailChimp.Net.Models
         [JsonProperty("delivery_status")]
         public DeliveryStatus DeliveryStatus { get; set; }
 
+        [JsonProperty("rss_opts")]
+        public RssOptions RssOptions { get; set; }
+
+        [JsonProperty("social_card")]
+        public SocialCard SocialCard { get; set; }
+
+        [JsonProperty("report_summary")]
+        public ReportSummary ReportSummary { get; set; }
+
         /// <summary>
         /// Gets or sets the emails sent.
         /// </summary>
         [JsonProperty("emails_sent")]
-        public int EmailsSent { get; set; }
+        public int? EmailsSent { get; set; }
 
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
         [JsonProperty("id")]
         public string Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the web id.
+        /// </summary>
+        [JsonProperty("web_id")]
+        public int WebId { get; set; }
 
         /// <summary>
         /// Gets or sets the links.
@@ -65,7 +88,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the send time.
         /// </summary>
         [JsonProperty("send_time")]
-        public string SendTime { get; set; }
+        public DateTime? SendTime { get; set; }
 
         /// <summary>
         /// Gets or sets the settings.
@@ -89,6 +112,13 @@ namespace MailChimp.Net.Models
         /// Gets or sets the type.
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public CampaignType Type { get; set; }
+
+        [JsonProperty("dashboard_link")]
+        public string DashboardLink { get; internal set; }
+
+        [JsonProperty("variate_settings")]
+        public VariateSettings VariateSettings { get; set; }
     }
 }

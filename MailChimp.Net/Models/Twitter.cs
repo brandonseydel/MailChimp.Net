@@ -30,16 +30,19 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the retweets.
         /// </summary>
+        [JsonProperty("retweets")]
         public int Retweets { get; set; }
 
         /// <summary>
         /// Gets or sets the statuses.
         /// </summary>
+        [JsonProperty("retweets")]
         public IEnumerable<Status> Statuses { get; set; }
 
         /// <summary>
         /// Gets or sets the tweets.
         /// </summary>
+        [JsonProperty("tweets")]
         public int Tweets { get; set; }
     }
 }

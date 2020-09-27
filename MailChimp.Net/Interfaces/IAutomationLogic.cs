@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,7 +26,7 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<IEnumerable<Automation>> GetAllAsync(BaseRequest request = null);
+        Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null);
 
         /// <summary>
         /// The get async.
@@ -39,6 +38,21 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task<Automation> GetAsync(string workflowId);
+
+
+        /// <summary>
+        /// The update async.
+        /// </summary>
+        /// <param name="workflowId">
+        /// The workflow id
+        /// </param>
+        /// <param name="automation">
+        /// The campaign.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<Automation> UpdateAsync(string workflowId, Automation automation);
 
         /// <summary>
         /// The pause async.
@@ -82,6 +96,6 @@ namespace MailChimp.Net.Interfaces
         /// Custom Mail Chimp Exception
         /// </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        Task<AutomationResponse> GetResponseAsync(BaseRequest request = null);
+        Task<AutomationResponse> GetResponseAsync(QueryableBaseRequest request = null);
     }
 }

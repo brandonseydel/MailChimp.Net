@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public GoalResponse()
         {
-            this.Goals = new HashSet<Goal>();
+            Goals = new HashSet<Goal>();
         }
 
         /// <summary>

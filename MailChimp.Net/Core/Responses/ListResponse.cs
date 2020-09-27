@@ -1,11 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ListResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
 using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
@@ -22,7 +21,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public ListResponse()
         {
-            this.Lists = new HashSet<List>();
+            Lists = new HashSet<List>();
         }
 
         /// <summary>

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -11,7 +8,6 @@ namespace MailChimp.Net.Models
     {
         public ListSegment()
         {
-            Options = new HashSet<SegmentOptions>();
             Links = new HashSet<Link>();
         }
 
@@ -28,10 +24,10 @@ namespace MailChimp.Net.Models
         public string Type { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("list_id")]
         public string ListId { get; set; }
@@ -40,6 +36,6 @@ namespace MailChimp.Net.Models
         public IEnumerable<Link> Links { get; set; }
 
         [JsonProperty("options")]
-        public IEnumerable<SegmentOptions> Options { get; set; }
+        public SegmentOptions Options { get; set; }
     }
 }

@@ -1,13 +1,16 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MailChimpException.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Core
 {
@@ -16,55 +19,37 @@ namespace MailChimp.Net.Core
     /// </summary>
     public class MailChimpException : Exception
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MailChimpException"/> class.
-        /// </summary>
-        /// <param name="info">
-        /// The info.
-        /// </param>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>name</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="InvalidCastException">The value associated with <paramref>
-        ///         <name>name</name>
-        ///     </paramref>
-        ///     cannot be converted to a <see cref="T:System.String" />. </exception>
-        /// <exception cref="SerializationException">An element with the specified name is not found in the current instance. </exception>
-        // ReSharper disable once UnusedParameter.Local
-        public MailChimpException(SerializationInfo info, StreamingContext context)
+        public MailChimpException(MailChimpApiError apierror, HttpResponseMessage rawHttpResponseMessage = null) : base(formatMessage(apierror))
         {
-            this.Detail = info?.GetString("detail");
-            this.Title = info?.GetString("title");
-            this.Type = info?.GetString("type");
-            this.Status = info?.GetInt32("status") ?? 0;
-            this.Instance = info?.GetString("instance");
-			try
-			{
-				this.Errors = (List<Error>)info?.GetValue("errors", typeof(List<Error>));
-			}
-			catch
-			{ }
-		}
+            Detail = apierror.Detail;
+            Title = apierror.Title;
+            Type = apierror.Type;
+            Status = apierror.Status;
+            Instance = apierror.Instance;
+            Errors = apierror.Errors;
 
-		public List<Error> Errors { get; set; }
+            RawHttpResponseMessage = rawHttpResponseMessage;
+        }
 
-		public class Error
-		{
-			[JsonProperty("field")]
-			public string Field { get; set; }
-			[JsonProperty("message")]
-			public string Message { get; set; }
-		}
+        private static string formatMessage(MailChimpApiError apierror)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"Title: {apierror.Title}");
+            builder.AppendLine($"Type: {apierror.Type}");
+            builder.AppendLine($"Status: {apierror.Status}");
+            builder.AppendLine($"Detail: {apierror.Detail}");
+            builder.AppendLine("Errors: " + string.Join(" : ", apierror.Errors.Select(x => x.Field + " " + x.Message)));
+            return builder.ToString();
+        }
 
+        private IDictionary _data;
 
-		/// <summary>
-		/// Gets or Sets a human-readable explanation specific to this occurrence of the problem. Learn more about errors.
-		/// </summary>
-		public string Detail { get; set; }
+        public List<MailChimpError> Errors { get; set; }
+
+        /// <summary>
+        /// Gets or Sets a human-readable explanation specific to this occurrence of the problem. Learn more about errors.
+        /// </summary>
+        public string Detail { get; set; }
 
         /// <summary>
         /// Gets or sets a string that identifies this specific occurrence of the problem. Please provide this ID when contacting support.
@@ -87,29 +72,29 @@ namespace MailChimp.Net.Core
         public string Type { get; set; }
 
         /// <summary>
-        /// The get object data.
+        /// Gets or Sets the raw http response message.
         /// </summary>
-        /// <param name="info">
-        /// The info.
-        /// </param>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info" /> parameter is a null reference (Nothing in Visual Basic). </exception>
-        /// <exception cref="SerializationException">A value has already been associated with <paramref>
-        ///         <name>name</name>
-        ///     </paramref>
-        ///     . </exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
+        public HttpResponseMessage RawHttpResponseMessage { get; set; }
 
-            info.AddValue("detail", this.Detail);
-            info.AddValue("title", this.Title);
-            info.AddValue("type", this.Type);
-            info.AddValue("status", this.Status);
-            info.AddValue("instance", this.Instance);
-			info.AddValue("errors", this.Errors);
-		}
+        public override IDictionary Data
+        {
+            get
+            {
+                if (_data != null)
+                    return _data;
+
+                var data = base.Data;
+                data.Add("detail", Detail);
+                data.Add("title", Title);
+                data.Add("type", Type);
+                data.Add("status", Status);
+                data.Add("instance", Instance);
+                data.Add("errors", Errors);
+                data.Add("rawhttpresponsemessage", RawHttpResponseMessage);
+
+                _data = data;
+                return _data;
+            }
+        }
     }
 }

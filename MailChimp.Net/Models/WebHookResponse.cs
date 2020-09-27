@@ -1,19 +1,14 @@
-﻿using MailChimp.Net.Models;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Models
 {
     public class WebHook
     {
 
         public WebHook()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
         }
 
         [JsonProperty("id")]

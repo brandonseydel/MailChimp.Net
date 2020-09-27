@@ -1,17 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{74F62C2B-B935-4284-85DE-DF37F62A431C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MailChimp.Net</RootNamespace>
-    <AssemblyName>MailChimp.Net.V3</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>
+        net45;net472;netstandard1.3;netstandard2.0
+    </TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,261 +25,65 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
+    <PackageId>MailChimp.Net.V3</PackageId>
+    <Version>4.2.1</Version>
+    <Authors>Brandon Seydel</Authors>
+    <Company>DevSquad</Company>
+    <Product>MailChimp.Net.V3</Product>
+    <Title>MailChimp.Net.V3</Title>
+    <Description>A .NET Wrapper for Mail Chimp v3.0 API</Description>
+    <Summary>A very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.</Summary>
+    <Copyright>Copyright © 2019</Copyright>
+    <PackageProjectUrl>https://github.com/brandonseydel/MailChimp.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/brandonseydel/MailChimp.Net</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <NeutralLanguage />
+    <PackageReleaseNotes>.NET Standard 1.3
+.NETFramework 4.5</PackageReleaseNotes>
+    <PackageIconUrl>http://logos-download.com/wp-content/uploads/2016/09/MailChimp_logo_icon_Freddie_Wink.png</PackageIconUrl>
+    <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.5" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3' And '$(TargetFramework)' != 'netstandard2.0'">
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net472'">
+        <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    </ItemGroup>   
   <ItemGroup>
-    <Compile Include="Core\BaseRequest.cs" />
-    <Compile Include="Core\BaseResponse.cs" />
-    <Compile Include="Core\Helper.cs" />
-    <Compile Include="Core\HttpRequestExtensions.cs" />
-    <Compile Include="Core\MailChimpException.cs" />
-    <Compile Include="Core\Operation.cs" />
-    <Compile Include="Core\Requests\AuthorizedAppRequest.cs" />
-    <Compile Include="Core\Requests\BatchRequest.cs" />
-    <Compile Include="Core\Requests\FileManagerFileRequest.cs" />
-    <Compile Include="Core\Requests\InterestCategoryRequest.cs" />
-    <Compile Include="Core\Batch.cs" />
-    <Compile Include="Core\Requests\ListSegmentRequest.cs" />
-    <Compile Include="Core\Requests\Segment.cs" />
-    <Compile Include="Core\Requests\MergeFieldRequest.cs" />
-    <Compile Include="Core\Responses\BatchResponse.cs" />
-    <Compile Include="Core\Responses\CampaignFolderResponse.cs" />
-    <Compile Include="Core\Responses\ECommerceResponse.cs" />
-    <Compile Include="Core\Responses\FileManagerFileResponse.cs" />
-    <Compile Include="Core\Responses\FileManagerFolderResponse.cs" />
-    <Compile Include="Core\Responses\GrowthHistoryResponse.cs" />
-    <Compile Include="Core\Responses\InterestCategoryResponse.cs" />
-    <Compile Include="Core\Responses\InterestResponse.cs" />
-    <Compile Include="Core\Responses\ListSegmentResponse.cs" />
-    <Compile Include="Core\Responses\MergeFieldResponse.cs" />
-    <Compile Include="Core\Responses\WebHookResponse.cs" />
-    <Compile Include="Interfaces\IECommerceLogic.cs" />
-    <Compile Include="Logic\ECommerceLogic.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\Store.cs" />
-    <Compile Include="Models\WebHookResponse.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Interfaces\IActivityLogic.cs" />
-    <Compile Include="Interfaces\IListSegmentLogic.cs" />
-    <Compile Include="Interfaces\INoteLogic.cs" />
-    <Compile Include="Interfaces\IWebHookLogic.cs" />
-    <Compile Include="Logic\InterestLogic.cs" />
-    <Compile Include="Logic\ListSegmentLogic.cs" />
-    <Compile Include="Logic\NoteLogic.cs" />
-    <Compile Include="Logic\WebHookLogic.cs" />
-    <Compile Include="Models\Event.cs" />
-    <Compile Include="Models\FileManagerFile.cs" />
-    <Compile Include="Models\FileManagerFolder.cs" />
-    <Compile Include="Models\History.cs" />
-    <Compile Include="Models\Client.cs" />
-    <Compile Include="Core\Responses\ClientResponse.cs" />
-    <Compile Include="Models\AbuseReport.cs" />
-    <Compile Include="Core\Responses\AbuseReportResponse.cs" />
-    <Compile Include="Core\Responses\EmailResponse.cs" />
-    <Compile Include="Interfaces\IBatchLogic.cs" />
-    <Compile Include="Interfaces\ICampaignFolderLogic.cs" />
-    <Compile Include="Interfaces\IFileManagerFileLogic.cs" />
-    <Compile Include="Interfaces\IFileManagerFolderLogic.cs" />
-    <Compile Include="Interfaces\IInterestLogic.cs" />
-    <Compile Include="Interfaces\IMemberNoteLogic.cs" />
-    <Compile Include="Interfaces\IReportLogic.cs" />
-    <Compile Include="Interfaces\ITemplateFolderLogic.cs" />
-    <Compile Include="Logic\BatchLogic.cs" />
-    <Compile Include="Logic\CampaignFolderLogic.cs" />
-    <Compile Include="Logic\FileManagerFileLogic.cs" />
-    <Compile Include="Logic\FileManagerFolderLogic.cs" />
-    <Compile Include="Logic\InterestCategoryLogic.cs" />
-    <Compile Include="Logic\AbuseReportLogic.cs" />
-    <Compile Include="Logic\ActivityLogic.cs" />
-    <Compile Include="Logic\ClientLogic.cs" />
-    <Compile Include="Logic\GrowthHistoryLogic.cs" />
-    <Compile Include="Logic\MergeFieldLogic.cs" />
-    <Compile Include="Models\EepUrlActivity.cs" />
-    <Compile Include="Models\ListSegment.cs" />
-    <Compile Include="Models\MergeField.cs" />
-    <Compile Include="Models\Options.cs" />
-    <Compile Include="Models\SegmentCondition.cs" />
-    <Compile Include="Models\Source.cs" />
-    <Compile Include="Models\Unsubscribe.cs" />
-    <Compile Include="Core\Responses\UnsubscribeReportResponse.cs" />
-    <Compile Include="Models\SentTo.cs" />
-    <Compile Include="Core\Responses\SentToResponse.cs" />
-    <Compile Include="Models\OpenLocation.cs" />
-    <Compile Include="Core\Responses\OpenLocationResponse.cs" />
-    <Compile Include="Models\Domain.cs" />
-    <Compile Include="Core\Responses\DomainPerformanceResponse.cs" />
-    <Compile Include="Models\ClickMember.cs" />
-    <Compile Include="Core\Responses\ClickReportMemberResponse.cs" />
-    <Compile Include="Core\Responses\ClickReportResponse.cs" />
-    <Compile Include="Models\EepClick.cs" />
-    <Compile Include="Models\EepLocation.cs" />
-    <Compile Include="Models\EmailActivity.cs" />
-    <Compile Include="Models\Referrer.cs" />
-    <Compile Include="Models\Twitter.cs" />
-    <Compile Include="Models\UrlsClicked.cs" />
-    <Compile Include="Models\Advice.cs" />
-    <Compile Include="Core\Responses\ApiResponse.cs" />
-    <Compile Include="Core\Responses\AutomationEmailQueueResponse.cs" />
-    <Compile Include="Core\Responses\AutomationResponse.cs" />
-    <Compile Include="Core\Responses\AutomationSubscriberResponse.cs" />
-    <Compile Include="Core\Responses\CampaignAdvice.cs" />
-    <Compile Include="Core\Responses\ReportResponse.cs" />
-    <Compile Include="Core\Responses\TemplateFolderResponse.cs" />
-    <Compile Include="Core\Requests\ContentRequest.cs" />
-    <Compile Include="Core\Requests\ListRequest.cs" />
-    <Compile Include="Core\Requests\FeedBackRequest.cs" />
-    <Compile Include="Core\Requests\TemplateRequest.cs" />
-    <Compile Include="Core\Requests\MessageRequest.cs" />
-    <Compile Include="Core\Responses\AutomationEmailResponse.cs" />
-    <Compile Include="Core\Responses\AuthorizedAppCreatedResponse.cs" />
-    <Compile Include="Core\Responses\TemplateResponse.cs" />
-    <Compile Include="Interfaces\IAutomationLogic.cs" />
-    <Compile Include="Logic\AutomationSubscriberLogic.cs" />
-    <Compile Include="Logic\ReportLogic.cs" />
-    <Compile Include="Models\Automation.cs" />
-    <Compile Include="Models\Folder.cs" />
-    <Compile Include="Core\Responses\SendChecklistResponse.cs" />
-    <Compile Include="Interfaces\IAutomationEmailQueueLogic.cs" />
-    <Compile Include="Interfaces\ITemplateLogic.cs" />
-    <Compile Include="Logic\TemplateFolderLogic.cs" />
-    <Compile Include="Logic\TemplateLogic.cs" />
-    <Compile Include="Interfaces\IAutomationSubscriberLogic.cs" />
-    <Compile Include="Models\CheckList.cs" />
-    <Compile Include="Models\Goal.cs" />
-    <Compile Include="Models\Queue.cs" />
-    <Compile Include="Interfaces\IAutomationEmailLogic.cs" />
-    <Compile Include="Logic\AutomationEmailQueueLogic.cs" />
-    <Compile Include="Models\Delay.cs" />
-    <Compile Include="Models\Email.cs" />
-    <Compile Include="Logic\AutomationEmailLogic.cs" />
-    <Compile Include="Logic\AutomationLogic.cs" />
-    <Compile Include="Models\Hours.cs" />
-    <Compile Include="Core\Responses\NoteResponse.cs" />
-    <Compile Include="Core\Responses\GoalResponse.cs" />
-    <Compile Include="Core\Responses\ActivityResponse.cs" />
-    <Compile Include="Core\Responses\AuthorizedAppResponse.cs" />
-    <Compile Include="Core\Responses\FeedbackResponse.cs" />
-    <Compile Include="Core\Result.cs" />
-    <Compile Include="Models\Runtime.cs" />
-    <Compile Include="Models\Subscriber.cs" />
-    <Compile Include="Models\TriggerSettings.cs" />
-    <Compile Include="Interfaces\IAuthorizedAppLogic.cs" />
-    <Compile Include="Logic\AuthorizedAppLogic.cs" />
-    <Compile Include="Logic\ContentLogic.cs" />
-    <Compile Include="Logic\FeedBackLogic.cs" />
-    <Compile Include="Models\Activity.cs" />
-    <Compile Include="Models\App.cs" />
-    <Compile Include="Models\Archive.cs" />
-    <Compile Include="Models\Feedback.cs" />
-    <Compile Include="Models\Interest.cs" />
-    <Compile Include="Models\InterestCategory.cs" />
-    <Compile Include="Models\Note.cs" />
-    <Compile Include="Models\Template.cs" />
-    <Compile Include="Models\Content.cs" />
-    <Compile Include="Core\Responses\MessageResponse.cs" />
-    <Compile Include="Interfaces\IMailChimpManager.cs" />
-    <Compile Include="Core\BaseLogic.cs" />
-    <Compile Include="Interfaces\IListLogic.cs" />
-    <Compile Include="Interfaces\IContentLogic.cs" />
-    <Compile Include="Interfaces\IFeedbackLogic.cs" />
-    <Compile Include="Interfaces\IInterestCategoryLogic.cs" />
-    <Compile Include="Interfaces\IMergeFieldLogic.cs" />
-    <Compile Include="Interfaces\IConversationLogic.cs" />
-    <Compile Include="Interfaces\IMessageLogic.cs" />
-    <Compile Include="Interfaces\IAbuseReportLogic.cs" />
-    <Compile Include="Interfaces\IClientLogic.cs" />
-    <Compile Include="Interfaces\IGrowthHistoryLogic.cs" />
-    <Compile Include="Interfaces\IMemberLogic.cs" />
-    <Compile Include="Core\QueryableBaseRequest.cs" />
-    <Compile Include="Core\StringEnumDescriptionConverter.cs" />
-    <Compile Include="Logic\ApiLogic.cs" />
-    <Compile Include="Interfaces\IApiLogic.cs" />
-    <Compile Include="Logic\ConversationLogic.cs" />
-    <Compile Include="Logic\CampaignLogic.cs" />
-    <Compile Include="Interfaces\ICampaignLogic.cs" />
-    <Compile Include="Logic\MessageLogic.cs" />
-    <Compile Include="Models\ApiInfo.cs" />
-    <Compile Include="Models\Condition.cs" />
-    <Compile Include="Models\ReportSummary.cs" />
-    <Compile Include="Models\SegmentOpts.cs" />
-    <Compile Include="Core\Requests\ConversationRequest.cs" />
-    <Compile Include="Core\Requests\MemberRequest.cs" />
-    <Compile Include="Core\Requests\ReportRequest.cs" />
-    <Compile Include="Core\Requests\CampaignRequest.cs" />
-    <Compile Include="Core\CampaignStatus.cs" />
-    <Compile Include="Core\CampaignType.cs" />
-    <Compile Include="Logic\MemberLogic.cs" />
-    <Compile Include="Logic\ListLogic.cs" />
-    <Compile Include="MailChimpManager.cs" />
-    <Compile Include="Models\Bounces.cs" />
-    <Compile Include="Models\Campaign.cs" />
-    <Compile Include="Models\CampaignDefaults.cs" />
-    <Compile Include="Models\Member.cs" />
-    <Compile Include="Models\Clicks.cs" />
-    <Compile Include="Models\Contact.cs" />
-    <Compile Include="Models\Conversation.cs" />
-    <Compile Include="Models\DeliveryStatus.cs" />
-    <Compile Include="Models\FacebookLikes.cs" />
-    <Compile Include="Models\Forwards.cs" />
-    <Compile Include="Models\IndustryStats.cs" />
-    <Compile Include="Models\Link.cs" />
-    <Compile Include="Models\List.cs" />
-    <Compile Include="Models\ListStats.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Opens.cs" />
-    <Compile Include="Models\Recipients.cs" />
-    <Compile Include="Models\Report.cs" />
-    <Compile Include="Models\Settings.cs" />
-    <Compile Include="Models\ShareReport.cs" />
-    <Compile Include="Models\Stats.cs" />
-    <Compile Include="Models\Status.cs" />
-    <Compile Include="Models\Timesery.cs" />
-    <Compile Include="Models\Tracking.cs" />
-    <Compile Include="Core\MailManagerBase.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\QueryStringAttribute.cs" />
-    <Compile Include="Core\Responses\CampaignResponse.cs" />
-    <Compile Include="Core\Responses\ConversationResponse.cs" />
-    <Compile Include="Core\Responses\MemberResponse.cs" />
-    <Compile Include="Core\Responses\ListResponse.cs" />
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="bundleconfig.json" />
-    <None Include="MailChimp.Key.snk" />
-    <None Include="MailChimp.Net.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildProjectDirectory)\..\.build\MSBuild.Community.Tasks.targets" />
-  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
-    <!-- Only download a new copy of nuget.exe if we don't have a copy available -->
-    <WebDownload Condition="!Exists('nuget.exe')" Filename="nuget.exe" FileUri="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" />
-    <Exec Command="nuget pack MailChimp.Net.csproj -Prop Configuration=Release">
-    </Exec>
-  </Target>
+
+
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3' Or '$(TargetFramework)' == 'netstandard1.4' Or '$(TargetFramework)' == 'netstandard1.5' Or '$(TargetFramework)' == 'netstandard1.7' Or '$(TargetFramework)' == 'netstandard1.8' Or '$(TargetFramework)' == 'netstandard1.9' Or '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp1.0' Or '$(TargetFramework)' == 'netcoreapp1.1' Or '$(TargetFramework)' == 'netcoreapp2.0' Or '$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp2.2'">
+        <DefineConstants>NET_CORE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netcoreapp2.0' Or '$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp2.2' Or '$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'net48' ">
+        <DefineConstants>HTTP_CLIENT_FACTORY</DefineConstants>
+    </PropertyGroup>
+
 </Project>

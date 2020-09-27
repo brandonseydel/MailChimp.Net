@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace MailChimp.Net.Core
 {
@@ -13,6 +14,12 @@ namespace MailChimp.Net.Core
     /// </summary>
     public class ReportRequest : QueryableBaseRequest
     {
+
+        public ReportRequest()
+        {
+            Type = new HashSet<CampaignType>();
+        }
+
         /// <summary>
         /// Gets or sets the before send time.
         /// </summary>
@@ -29,6 +36,6 @@ namespace MailChimp.Net.Core
         /// Gets or sets the type.
         /// </summary>
         [QueryString("type")]
-        public CampaignType Type { get; set; }
+        public IEnumerable<CampaignType> Type { get; set; }
     }
 }

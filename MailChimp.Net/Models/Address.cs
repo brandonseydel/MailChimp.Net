@@ -1,12 +1,9 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Address.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-
-
-using System;
 
 using Newtonsoft.Json;
 
@@ -46,18 +43,6 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("country_code")]
         public string CountryCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the latitude.
-        /// </summary>
-        [JsonProperty("latitude")]
-        public int Latitude { get; set; }
-
-        /// <summary>
-        /// Gets or sets the longitude.
-        /// </summary>
-        [JsonProperty("longitude")]
-        public int Longitude { get; set; }
 
         /// <summary>
         /// Gets or sets the postal code.

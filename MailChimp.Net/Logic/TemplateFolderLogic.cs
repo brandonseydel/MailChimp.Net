@@ -1,14 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TemplateFolderLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
@@ -22,14 +19,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     internal class TemplateFolderLogic : BaseLogic, ITemplateFolderLogic
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemplateFolderLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public TemplateFolderLogic(string apiKey)
-            : base(apiKey)
+
+        public TemplateFolderLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -53,11 +45,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="MailChimpException">
         /// Custom Mail Chimp Exception
         /// </exception>
-        public async Task<Folder> AddAsync(string folderId, string name)
+        public async Task<Folder> AddAsync(string name)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = CreateMailClient("template-folders"))
             {
-                var response = await client.PostAsJsonAsync($"{folderId}", new { name }).ConfigureAwait(false);
+                var response = await client.PostAsJsonAsync("", new { name }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<Folder>().ConfigureAwait(false);
@@ -84,7 +76,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Folder> DeleteAsync(string folderId)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = CreateMailClient("template-folders/"))
             {
                 var response = await client.DeleteAsync($"{folderId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -115,14 +107,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("template-folders"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var templateResponse = await response.Content.ReadAsAsync<TemplateFolderResponse>().ConfigureAwait(false);
-                return templateResponse.Folders;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
         }
 
         /// <summary>
@@ -147,9 +132,14 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<TemplateFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("template-folders"))
+            request = request ?? new QueryableBaseRequest
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                Limit = _limit
+            };
+
+            using (var client = CreateMailClient("template-folders"))
+            {
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var templateResponse = await response.Content.ReadAsAsync<TemplateFolderResponse>().ConfigureAwait(false);
@@ -183,7 +173,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Folder> GetAsync(string folderId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = CreateMailClient("template-folders/"))
             {
                 var response = await client.GetAsync($"{folderId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -214,7 +204,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Folder> UpdateAsync(string folderId, string name)
         {
-            using (var client = this.CreateMailClient("templates-folders/"))
+            using (var client = CreateMailClient("template-folders/"))
             {
                 var response = await client.PatchAsJsonAsync($"{folderId}", new { name }).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

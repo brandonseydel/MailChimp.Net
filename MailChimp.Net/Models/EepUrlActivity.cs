@@ -24,16 +24,19 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the clicks.
         /// </summary>
+        [JsonProperty("clicks")]
         public IEnumerable<EepClick> Clicks { get; set; }
 
         /// <summary>
         /// Gets or sets the eep url.
         /// </summary>
+        [JsonProperty("eepurl")]
         public string EepUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the referrers.
         /// </summary>
+        [JsonProperty("referrers")]
         public IEnumerable<Referrer> Referrers { get; set; }
 
         /// <summary>
@@ -45,6 +48,7 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the twitter.
         /// </summary>
+        [JsonProperty("twitter")]
         public Twitter Twitter { get; set; }
     }
 }

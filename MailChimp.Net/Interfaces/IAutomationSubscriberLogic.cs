@@ -11,9 +11,8 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    using System;
 
-    using MailChimp.Net.Core;
+    using Core;
 
     /// <summary>
     /// The AutomationSubscriberLogic interface.

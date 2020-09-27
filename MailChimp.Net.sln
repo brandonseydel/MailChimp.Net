@@ -1,17 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25029.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3F11AC9-5972-4691-B0B7-B366F978358A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4538F71-1B32-41D4-B899-24E1F6132EF0}"
 	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailChimp.Net", "MailChimp.Net\MailChimp.Net.csproj", "{74F62C2B-B935-4284-85DE-DF37F62A431C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailChimp.Net", "MailChimp.Net\MailChimp.Net.csproj", "{74F62C2B-B935-4284-85DE-DF37F62A431C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailChimp.Net.Tests", "MailChimp.Net.Tests\MailChimp.Net.Tests.csproj", "{42DA36F8-AF54-4610-93A1-83E18B37CE5F}"
 EndProject

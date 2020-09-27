@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -16,19 +17,20 @@ namespace MailChimp.Net.Models
         /// <summary>
         /// Gets or sets the clicks.
         /// </summary>
+        [JsonProperty("clicks")]
         public int Clicks { get; set; }
 
         /// <summary>
         /// Gets or sets the first click.
         /// </summary>
         [JsonProperty("first_click")]
-        public string FirstClick { get; set; }
+        public DateTime? FirstClick { get; set; }
 
         /// <summary>
         /// Gets or sets the last click.
         /// </summary>
         [JsonProperty("last_click")]
-        public string LastClick { get; set; }
+        public DateTime? LastClick { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

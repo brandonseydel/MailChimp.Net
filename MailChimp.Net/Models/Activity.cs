@@ -20,6 +20,12 @@ namespace MailChimp.Net.Models
         public string Action { get; set; }
 
         /// <summary>
+        /// If the action is a ‘bounce’, the type of bounce received: ‘hard’, ‘soft’. (WHEN ACTIVITY IS INSTANTIATED FROM EMAILACTIVITY)
+        /// </summary>
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        /// <summary>
         /// Gets or sets the campaign id.
         /// </summary>
         [JsonProperty("campaign_id")]

@@ -9,11 +9,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -30,7 +27,8 @@ namespace MailChimp.Net.Models
         public int FolderId { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public FileType Type { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -45,7 +43,7 @@ namespace MailChimp.Net.Models
         public int Size { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
         public string CreatedBy { get; set; }

@@ -1,14 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="InterestLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
@@ -21,14 +18,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     public class InterestLogic : BaseLogic, IInterestLogic
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InterestLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public InterestLogic(string apiKey)
-            : base(apiKey)
+
+        public InterestLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -58,7 +50,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string listId, string interestCategoryId, string interestId)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await
@@ -98,17 +90,7 @@ namespace MailChimp.Net.Logic
             string interestCategoryId,
             QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
-            {
-                var response =
-                    await
-                    client.GetAsync(
-                        $"{listId}/interest-categories/{interestCategoryId}/interests{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var listResponse = await response.Content.ReadAsAsync<InterestResponse>().ConfigureAwait(false);
-                return listResponse.Interests;
-            }
+            return (await GetResponseAsync(listId, interestCategoryId, request).ConfigureAwait(false))?.Interests;
         }
 
 
@@ -143,12 +125,18 @@ namespace MailChimp.Net.Logic
             string interestCategoryId,
             QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = _limit
+            };
+
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await
                     client.GetAsync(
-                        $"{listId}/interest-categories/{interestCategoryId}/interests{request?.ToQueryString()}").ConfigureAwait(false);
+                        $"{listId}/interest-categories/{interestCategoryId}/interests{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var listResponse = await response.Content.ReadAsAsync<InterestResponse>().ConfigureAwait(false);
@@ -192,7 +180,7 @@ namespace MailChimp.Net.Logic
             string interestId, 
             BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await
@@ -202,6 +190,30 @@ namespace MailChimp.Net.Logic
                 return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
             }
         }
+
+        public async Task<Interest> AddOrUpdateAsync(Interest list)
+        {
+            using (var client = CreateMailClient("lists/"))
+            {
+                System.Net.Http.HttpResponseMessage response;
+                if (string.IsNullOrWhiteSpace(list.Id))
+                {
+                    response = await client.PostAsJsonAsync(
+                                         $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests",
+                                         list).ConfigureAwait(false);
+                }
+                else
+                {
+                    response = await client.PatchAsJsonAsync(
+                                        $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests/{list.Id}",
+                                        list).ConfigureAwait(false);
+                }
+
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
+            }
+        }
+
 
         /// <summary>
         /// The update async.
@@ -222,7 +234,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Interest> UpdateAsync(Interest list)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
                 var response =
                     await

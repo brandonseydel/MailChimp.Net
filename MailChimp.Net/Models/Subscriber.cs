@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Subscriber.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -20,7 +20,7 @@ namespace MailChimp.Net.Models
         /// </summary>
         public Subscriber()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

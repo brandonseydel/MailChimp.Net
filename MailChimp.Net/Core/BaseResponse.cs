@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
@@ -23,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         protected BaseResponse()
         {
-            this.Links = new HashSet<Link>();
+            Links = new HashSet<Link>();
         }
 
         /// <summary>

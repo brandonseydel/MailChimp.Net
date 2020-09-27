@@ -43,6 +43,12 @@ namespace MailChimp.Net.Core
         /// The variate.
         /// </summary>
         [Description("variate")]
-        Variate = 16
+        Variate = 16,
+
+        /// <summary>
+        /// The automation.
+        /// </summary>
+        [Description("automation")]
+        Automation = 32
     }
 }

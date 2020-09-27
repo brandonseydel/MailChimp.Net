@@ -1,14 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AbuseReportLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
@@ -21,13 +18,9 @@ namespace MailChimp.Net.Logic
     /// </summary>
     public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AbuseReportLogic"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        public AbuseReportLogic(string apiKey) : base(apiKey)
+
+        public AbuseReportLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -56,14 +49,7 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
-            {
-                var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var appResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
-                return appResponse.AbuseReports;
-            }
+            return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.AbuseReports;
         }
 
 
@@ -92,7 +78,13 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+
+            request = request ?? new QueryableBaseRequest
+            {
+                Limit = _limit
+            };
+
+            using (var client = CreateMailClient("lists/"))
             {
                 var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -131,9 +123,9 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient("lists/"))
+            using (var client = CreateMailClient("lists/"))
             {
-                var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request.ToQueryString()}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request?.ToQueryString()}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 return await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);

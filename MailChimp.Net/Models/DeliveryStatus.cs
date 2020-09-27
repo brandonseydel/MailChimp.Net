@@ -18,5 +18,17 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("enabled")]
         public bool Enabled { get; set; }
+
+        [JsonProperty("can_cancel")]
+        public bool CanCancel { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("emails_sent")]
+        public int EmailsSent { get; set; }
+
+        [JsonProperty("emails_canceled")]
+        public int EmailsCanceled { get; set; }
     }
 }

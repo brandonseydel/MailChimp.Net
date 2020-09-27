@@ -11,6 +11,6 @@ namespace MailChimp.Net.Core
         [JsonProperty("static_segment")]
         public IEnumerable<string> EmailAddresses { get; set; }
         [JsonProperty("options")]
-        public IEnumerable<SegmentOptions> Options { get; set; }
+        public SegmentOptions Options { get; set; }
     }
 }

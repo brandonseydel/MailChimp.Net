@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IMemberLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,12 +11,10 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-	using System;
-
-	/// <summary>
-	/// The MemberLogic interface.
-	/// </summary>
-	public interface IMemberLogic
+    /// <summary>
+    /// The MemberLogic interface.
+    /// </summary>
+    public interface IMemberLogic
 	{
 		/// <summary>
 		/// The add or update async.
@@ -30,56 +28,129 @@ namespace MailChimp.Net.Interfaces
 		/// <returns>
 		/// The <see cref="Task"/>.
 		/// </returns>
-		Task<Member> AddOrUpdateAsync(string listId, Member member);
+		Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null);
+        
+	    /// <summary>
+	    /// Search the account or a specific list for members that match the specified query terms.
+	    /// </summary>
+	    /// <param name="request"></param>
+	    /// <returns>
+	    /// The <see cref="Task"/>.
+	    /// </returns>
+	    Task<MemberSearchResult> SearchAsync(MemberSearchRequest request);
+
+        /// <summary>
+        /// The delete async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddressOrHash">
+        /// The email address.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task DeleteAsync(string listId, string emailAddressOrHash);
+
+        /// <summary>
+        /// The permanent delete async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddressOrHash">
+        /// The email address.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task PermanentDeleteAsync(string listId, string emailAddressOrHash);
+
+        /// <summary>
+        /// Gets the activities for a specific list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="emailAddressOrHash"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
-		/// The delete async.
+		/// Gets the tags asynchronous.
 		/// </summary>
-		/// <param name="listId">
-		/// The list id.
-		/// </param>
-		/// <param name="emailAddress">
-		/// The email address.
-		/// </param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		Task DeleteAsync(string listId, string emailAddress);
+		/// <param name="listId">The list identifier.</param>
+		/// <param name="emailAddressOrHash">The email address or hash.</param>
+		/// <param name="request">The request.</param>
+		/// <returns></returns>
+		Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
-		/// <summary>
-		/// The get all async.
-		/// </summary>
-		/// <param name="listId">
-		/// The list id.
-		/// </param>
-		/// <param name="memberRequest"></param>
-		/// <returns>
-		/// The <see cref="Task"/>.
-		/// </returns>
-		Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
+        /// <summary>
+        /// Adds member tags asynchronous.
+        /// </summary>
+        /// <param name="listId">The list identifier.</param>
+        /// <param name="emailAddressOrHash">The email address or hash.</param>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null);
 
-		/// <summary>
-		/// Get the total number of members in the list
+        /// <summary>
+        /// The get all async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="memberRequest"></param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
+
+        /// <summary>
+        /// Get the total number of members in the list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        Task<int> GetTotalItems(string listId, Status? status);
+
+        /// <summary>
+		/// Get the total number of members in a list based on a MemberRequest model
 		/// </summary>
 		/// <param name="listId"></param>
-		/// <param name="status"></param>
+		/// <param name="memberRequest"></param>
 		/// <returns></returns>
-		Task<int> GetTotalItems(string listId, Status? status);
+        Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest);
+
+        /// <summary>
+        /// The get async.
+        /// </summary>
+        /// <param name="listId">
+        /// The list id.
+        /// </param>
+        /// <param name="emailAddressOrHash">
+        /// The email address.
+        /// </param>
+        /// <param name="request"></param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
-		/// The get async.
+		/// The check if exists async.
 		/// </summary>
 		/// <param name="listId">
 		/// The list id.
 		/// </param>
-		/// <param name="emailAddress">
-		/// The email address.
+		/// <param name="emailAddressOrHash">
 		/// </param>
 		/// <param name="request"></param>
+		/// The email address.
 		/// <returns>
 		/// The <see cref="Task"/>.
 		/// </returns>
-		Task<Member> GetAsync(string listId, string emailAddress, BaseRequest request = null);
+		Task<bool> ExistsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, bool falseIfUnsubscribed = true);
 
 		/// <exception cref="ArgumentNullException"><paramref>
 		///         <name>uriString</name>

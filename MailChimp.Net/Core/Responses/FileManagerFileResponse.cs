@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using MailChimp.Net.Core;
+﻿using System.Collections.Generic;
 using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
@@ -16,7 +10,7 @@ namespace MailChimp.Net.Core
 
         public FileManagerFileResponse()
         {
-            this.Files = new HashSet<FileManagerFile>();
+            Files = new HashSet<FileManagerFile>();
         }
 
         [JsonProperty("files")]

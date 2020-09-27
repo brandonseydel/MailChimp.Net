@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IApiLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -22,5 +22,7 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task<ApiInfo> GetInfoAsync();
+
+        Task<Ping> PingAsync();
     }
 }

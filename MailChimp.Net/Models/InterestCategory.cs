@@ -29,13 +29,13 @@ namespace MailChimp.Net.Models
         /// Gets the id.
         /// </summary>
         [JsonProperty("id")]
-        public string Id { get; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets the list id.
         /// </summary>
         [JsonProperty("list_id")]
-        public string ListId { get; }
+        public string ListId { get; set; }
 
         /// <summary>
         /// Gets or sets the title.

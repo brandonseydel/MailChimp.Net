@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
@@ -29,35 +25,35 @@ namespace MailChimp.Net.Core
 		public int TotalOperations { get; set; }
 
 	    [System.ComponentModel.Browsable(false), Obsolete("Spelling corrected to FinishedOperations"), JsonIgnore]
-	    public string FinishedOperpations
+	    public int FinishedOperpations
 	    {
-	        get { return this.FinishedOperations; }
-	        set { this.FinishedOperations = value; }
+	        get => FinishedOperations;
+	        set => FinishedOperations = value;
 	    }
 
 	    /// <summary>
 		/// The number of completed operations. This includes operations that returned an error.
 		/// </summary>
 		[JsonProperty("finished_operations")]
-		public string FinishedOperations { get; set; }
+		public int FinishedOperations { get; set; }
 
 		/// <summary>
 		/// The number of completed operations that returned an error.
 		/// </summary>
 		[JsonProperty("errored_operations")]
-		public string ErroredOperations { get; set; }
+		public int ErroredOperations { get; set; }
 
 		/// <summary>
 		/// The time and date when the server received the batch request.
 		/// </summary>
 		[JsonProperty("submitted_at")]
-		public string SubmittedAt { get; set; }
+		public DateTime? SubmittedAt { get; set; }
 
 		/// <summary>
 		/// The time and date when all operations in the batch request completed.
 		/// </summary>
 		[JsonProperty("completed_at")]
-		public string CompletedAt { get; set; }
+		public DateTime? CompletedAt { get; set; }
 
 		/// <summary>
 		/// The URL of the gzipped archive of the results of all the operations.

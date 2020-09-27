@@ -5,8 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using MailChimp.Net.Core;
 using Newtonsoft.Json;
+using System;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 namespace MailChimp.Net.Models
@@ -26,25 +27,25 @@ namespace MailChimp.Net.Models
         /// Gets the campaign id.
         /// </summary>
         [JsonProperty("campaign_id")]
-        public string CampaignId { get; private set; }
+        public string CampaignId { get; set; }
 
         /// <summary>
         /// Gets the created at.
         /// </summary>
         [JsonProperty("created_at")]
-        public string CreatedAt { get; private set; }
+        public DateTime? CreatedAt { get; set; }
 
         /// <summary>
         /// Gets the created by.
         /// </summary>
         [JsonProperty("created_by")]
-        public string CreatedBy { get; private set; }
+        public string CreatedBy { get; set; }
 
         /// <summary>
         /// Gets the feedback id.
         /// </summary>
         [JsonProperty("feedback_id")]
-        public int? FeedbackId { get; private set; }
+        public int? FeedbackId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is complete.
@@ -56,7 +57,7 @@ namespace MailChimp.Net.Models
         /// Gets the links.
         /// </summary>
         [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; private set; }
+        public IEnumerable<Link> Links { get; set; }
 
         /// <summary>
         /// Gets or sets the message.
@@ -68,18 +69,19 @@ namespace MailChimp.Net.Models
         /// Gets the parent id.
         /// </summary>
         [JsonProperty("parent_id")]
-        public int ParentId { get; private set; }
+        public int ParentId { get; set; }
 
         /// <summary>
         /// Gets the source.
         /// </summary>
         [JsonProperty("source")]
-        public string Source { get; private set; }
+		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public FeedbackSource Source { get; set; }
 
         /// <summary>
         /// Gets the updated at.
         /// </summary>
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

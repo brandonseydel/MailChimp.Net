@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
@@ -23,8 +22,8 @@ namespace MailChimp.Net.Core
         /// </summary>
         public InterestCategoryResponse()
         {
-            this.Links = new HashSet<Link>();
-            this.Categories = new HashSet<InterestCategory>();
+            Links = new HashSet<Link>();
+            Categories = new HashSet<InterestCategory>();
         }
 
         /// <summary>

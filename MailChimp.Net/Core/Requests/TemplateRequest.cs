@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TemplateRequest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -48,5 +48,23 @@ namespace MailChimp.Net.Core
         /// </summary>
         [QueryString("type")]
         public string Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category.
+        /// </summary>
+        [QueryString("category")]
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the folder id.
+        /// </summary>
+        [QueryString("folder_id")]
+        public string FolderId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort by field
+        /// </summary>
+        [QueryString("sort_field")]
+        public TemplateSortField? SortByField { get; set; }
     }
 }

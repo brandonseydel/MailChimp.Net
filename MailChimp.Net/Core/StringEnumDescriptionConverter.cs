@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="StringEnumDescriptionConverter.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -25,7 +25,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public StringEnumDescriptionConverter()
         {
-            this.AllowIntegerValues = true;
+            AllowIntegerValues = true;
         }
 
         /// <summary>
@@ -79,13 +79,14 @@ namespace MailChimp.Net.Core
         /// </returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var eTypeVal = objectType.GetMembers()
+            objectType = Nullable.GetUnderlyingType(objectType) ?? objectType;
+            var eTypeVal = objectType
+                        .GetRuntimeFields().Cast<MemberInfo>()
+                        .Union(objectType.GetRuntimeProperties())                        
                         .Where(x => x.GetCustomAttributes(typeof(DescriptionAttribute)).Any())
                         .FirstOrDefault(x => ((DescriptionAttribute)x.GetCustomAttribute(typeof(DescriptionAttribute))).Description == (string)reader.Value);
 
-            if (eTypeVal == null) return Enum.Parse(objectType, (string)reader.Value);
-
-            return Enum.Parse(objectType, eTypeVal.Name);
+            return Enum.Parse(objectType, eTypeVal?.Name ?? reader.Value.ToString());
         }
 
         /// <summary>
@@ -106,18 +107,24 @@ namespace MailChimp.Net.Core
             if (value == null)
             {
                 writer.WriteNull();
+                return;
             }
-            else
-            {
-                var type = value.GetType();
-                var name = Enum.GetName(type, value);
-                var description = type.GetField(name) // I prefer to get attributes this way
-                    .GetCustomAttributes(false)
-                    .OfType<DescriptionAttribute>()
-                    .Select(x => x.Description)
-                    .SingleOrDefault();
-                writer.WriteValue(description);
+
+            var type = value.GetType();
+            var name = Enum.GetName(type, value);
+            if (string.IsNullOrWhiteSpace(name)) {
+                writer.WriteNull();
+                return;
             }
+
+            var description = type.GetRuntimeField(name)
+                                  //.GetField(name) // I prefer to get attributes this way
+                                  .GetCustomAttributes(false)
+                                  .OfType<DescriptionAttribute>()
+                                  .Select(x => x.Description)
+                                  .SingleOrDefault();
+
+            writer.WriteValue(description ?? name);
         }
     }
 }

@@ -1,32 +1,38 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApiTest.cs" company="Brandon Seydel">
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AuthorizedAppTest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MailChimp.Net.Core;
+using Xunit;
 
 namespace MailChimp.Net.Tests
 {
     /// <summary>
-    /// The authorized app test.
+    /// The api test.
     /// </summary>
-    [TestClass]
-    public class AuthorizedAppTest : MailChimpTest
+    public class ApiTest : MailChimpTest
     {
         /// <summary>
-        /// The should_ return_ app_ information.
+        /// The should_ return_ ap i_ information.
         /// </summary>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        [TestMethod]
-        public async Task Should_Return_App_Information()
+        [Fact]
+        public async Task Should_Return_API_Information()
         {
-            var apiInfo = await this._mailChimpManager.Apps.GetAllAsync();
-            Assert.IsNotNull(apiInfo);
+            var apiInfo = await this.MailChimpManager.Api.GetInfoAsync().ConfigureAwait(false);
+            Assert.NotNull(apiInfo);
+        }
+
+        [Fact]
+        public async Task Should_Return_String_From_Ping()
+        {
+            var ping = await this.MailChimpManager.Api.PingAsync().ConfigureAwait(false);
+            Assert.Equal(ping.HealthStatus, Constants.MailChimpHealthCheck);
         }
     }
 }

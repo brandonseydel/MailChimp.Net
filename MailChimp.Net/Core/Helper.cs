@@ -1,16 +1,16 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Helper.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
+using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core
@@ -36,7 +36,14 @@ namespace MailChimp.Net.Core
         {
             if (!response.IsSuccessStatusCode)
             {
-                throw (await response.Content.ReadAsStreamAsync().ConfigureAwait(false)).Deserialize<MailChimpException>();
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri} ");
+                }
+
+                var responseContentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+
+                throw new MailChimpException(responseContentStream.Deserialize<MailChimpApiError>(), response);
             }
         }
 
@@ -59,13 +66,13 @@ namespace MailChimp.Net.Core
         /// <paramref>
         ///         <name>s</name>
         ///     </paramref>
-        ///     is null. 
+        ///     is null.
         /// </exception>
         /// <exception cref="EncoderFallbackException">
         /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
+        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>.
         /// </exception>
         /// <exception cref="FormatException">
         /// <paramref>

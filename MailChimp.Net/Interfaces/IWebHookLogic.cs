@@ -5,8 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,10 +24,13 @@ namespace MailChimp.Net.Interfaces
         /// <param name="listId">
         /// The list id.
         /// </param>
+        /// <param name="webhook">
+        /// Webhook.
+        /// </param>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<WebHook> AddAsync(string listId);
+        Task<WebHook> AddAsync(string listId, WebHook webhook);
 
         /// <summary>
         /// The delete async.

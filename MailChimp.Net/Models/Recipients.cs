@@ -24,5 +24,29 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("segment_text")]
         public string SegmentText { get; set; }
+
+        /// <summary>
+ 		/// Gets or sets the segment options.
+ 		/// </summary>
+ 		[JsonProperty("segment_opts")]
+        public SegmentOptions SegmentOptions { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the list name.
+        /// </summary>
+        [JsonProperty("list_name")]
+        public string ListName { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the list is active flag.
+        /// </summary>
+        [JsonProperty("list_is_active")]
+        public bool ListIsActive { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the recipient count.
+        /// </summary>
+        [JsonProperty("recipient_count")]
+        public int RecipientCount { get; set; }
     }
 }

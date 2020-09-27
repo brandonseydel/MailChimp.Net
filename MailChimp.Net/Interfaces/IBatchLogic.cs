@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
@@ -23,5 +22,8 @@ namespace MailChimp.Net.Interfaces
 		Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null);
 
 		Task<Batch> GetBatchStatus(string batchId);
+
+	    Task DeleteAsync(string batchId);
+
 	}
 }

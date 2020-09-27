@@ -1,7 +1,4 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -11,6 +8,12 @@ namespace MailChimp.Net.Interfaces
 {
     public interface IECommerceLogic
     {
+        IECommerceCartLogic Carts(string storeId);
+        IECommerceCustomerLogic Customers(string storeId);
+        IECommerceProductLogic Products(string storeId);
+        IECommerceOrderLogic Orders(string storeId);
+        IECommercePromoRuleLogic PromoRules(string storeId);
+
         /// <summary>
         /// The add async.
         /// </summary>

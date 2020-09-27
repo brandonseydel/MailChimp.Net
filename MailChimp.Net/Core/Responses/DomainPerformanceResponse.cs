@@ -22,7 +22,7 @@ namespace MailChimp.Net.Core
         /// </summary>
         public DomainPerformanceResponse()
         {
-            this.Domains = new HashSet<Domain>();
+            Domains = new HashSet<Domain>();
         }
 
         /// <summary>

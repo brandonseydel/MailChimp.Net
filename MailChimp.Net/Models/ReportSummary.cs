@@ -17,7 +17,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the click rate.
         /// </summary>
         [JsonProperty("click_rate")]
-        public int ClickRate { get; set; }
+        public double ClickRate { get; set; }
 
         /// <summary>
         /// Gets or sets the clicks.
@@ -29,7 +29,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the open rate.
         /// </summary>
         [JsonProperty("open_rate")]
-        public int OpenRate { get; set; }
+        public double OpenRate { get; set; }
 
         /// <summary>
         /// Gets or sets the opens.
@@ -47,6 +47,10 @@ namespace MailChimp.Net.Models
         /// Gets or sets the unique opens.
         /// </summary>
         [JsonProperty("unique_opens")]
-        public int UniqueOpens { get; set; }
+        public int UniqueOpens { get; set; }       
+
+        [JsonProperty("ecommerce")]
+        public Ecommerce Ecommerce { get; set; }
+
     }
 }

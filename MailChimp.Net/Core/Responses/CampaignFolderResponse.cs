@@ -26,12 +26,13 @@ namespace MailChimp.Net.Core
         /// </summary>
         public CampaignFolderResponse()
         {
-            this.Folders = new HashSet<Folder>();
+            Folders = new HashSet<Folder>();
         }
 
         /// <summary>
         /// Gets or Sets an array of objects representing campaign folders.
         /// </summary>
+        [JsonProperty("folders")]
         public IEnumerable<Folder> Folders { get; set; }
 
     }

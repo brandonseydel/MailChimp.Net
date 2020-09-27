@@ -4,10 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 
@@ -15,7 +12,7 @@ namespace MailChimp.Net.Logic
 {
     using System.Collections.Generic;
 
-    using MailChimp.Net.Models;
+    using Models;
 
     /// <summary>
     /// The campaign folder logic.
@@ -23,17 +20,16 @@ namespace MailChimp.Net.Logic
     internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
     {
 
-        private const string BaseUrl = "campagin-folders";
+        private const string BaseUrl = "campaign-folders";
 
-        public CampaignFolderLogic(string apiKey)
-            : base(apiKey)
+        public CampaignFolderLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
-
         public async Task<Folder> AddAsync(string name)
         {
-            using (var client = this.CreateMailClient(BaseUrl))
+            using (var client = CreateMailClient(BaseUrl))
             {
                 var response = await client.PostAsJsonAsync(string.Empty, new {name}).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -46,21 +42,19 @@ namespace MailChimp.Net.Logic
 
         public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient(BaseUrl))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var campaignFolderResponse = await response.Content.ReadAsAsync<CampaignFolderResponse>().ConfigureAwait(false);
-                return campaignFolderResponse.Folders;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
         }
 
         public async Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
-            using (var client = this.CreateMailClient(BaseUrl))
+            request = request ?? new QueryableBaseRequest
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                Limit = _limit
+            };
+
+            using (var client = CreateMailClient(BaseUrl))
+            {
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var campaignFolderResponse = await response.Content.ReadAsAsync<CampaignFolderResponse>().ConfigureAwait(false);
@@ -72,7 +66,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<Folder> GetAsync(string folderId, BaseRequest request = null)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.GetAsync(folderId).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -86,7 +80,7 @@ namespace MailChimp.Net.Logic
 
         public async Task DeleteAsync(string folderId)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.DeleteAsync($"{folderId}").ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -95,7 +89,7 @@ namespace MailChimp.Net.Logic
 
         public async Task<Folder> UpdateAsync(string folderId, string name)
         {
-            using (var client = this.CreateMailClient($"{BaseUrl}/"))
+            using (var client = CreateMailClient($"{BaseUrl}/"))
             {
                 var response = await client.PatchAsJsonAsync($"{folderId}", new {name}).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

@@ -14,15 +14,15 @@ namespace MailChimp.Net.Models
     public class Archive
     {
         /// <summary>
-        /// Gets or sets the archive content.
+        /// Gets or sets the archive content. [Required]
         /// </summary>
-        [JsonProperty("archive_content")]
+        [JsonProperty("archive_content", Required = Required.Always)]
         public string ArchiveContent { get; set; }
 
         /// <summary>
         /// Gets or sets the archive type.
         /// </summary>
-        [JsonProperty("arhive_type")]
+        [JsonProperty("archive_type")]
         public string ArchiveType { get; set; }
     }
 }

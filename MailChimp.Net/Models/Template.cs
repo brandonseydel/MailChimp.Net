@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models
 {
@@ -49,7 +50,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the folder id.
         /// </summary>
         [JsonProperty("folder_id")]
-        public int FolderId { get; set; }
+        public string FolderId { get; set; }
 
         /// <summary>
         /// Gets or sets the id.
@@ -91,6 +92,7 @@ namespace MailChimp.Net.Models
         /// Gets or sets the type.
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
+        public TemplateType Type { get; set; }
     }
 }

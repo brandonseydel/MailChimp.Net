@@ -20,7 +20,7 @@ namespace MailChimp.Net.Models
         /// </summary>
         public Runtime()
         {
-            this.Days = new HashSet<string>();
+            Days = new HashSet<string>();
         }
 
         /// <summary>

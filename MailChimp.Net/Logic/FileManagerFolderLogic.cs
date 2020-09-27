@@ -4,12 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace MailChimp.Net.Logic
@@ -21,8 +20,8 @@ namespace MailChimp.Net.Logic
     {
         private const string BaseUrl = "file-manager/folders";
 
-        public FileManagerFolderLogic(string apiKey)
-            : base(apiKey)
+        public FileManagerFolderLogic(MailChimpOptions mailChimpConfiguration)
+            : base(mailChimpConfiguration)
         {
         }
 
@@ -41,22 +40,19 @@ namespace MailChimp.Net.Logic
 
         public async Task<IEnumerable<FileManagerFolder>> GetAllAsync(FileManagerRequest request = null)
         {
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                var fileManagerFolderResponse =
-                    await response.Content.ReadAsAsync<FileManagerFolderResponse>().ConfigureAwait(false);
-                return fileManagerFolderResponse.Folders;
-            }
+            return (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
         }
 
         public async Task<FileManagerFolderResponse> GetResponseAsync(FileManagerRequest request = null)
         {
+            request = request ?? new FileManagerRequest
+            {
+                Limit = _limit
+            };
+
             using (var client = CreateMailClient(BaseUrl))
             {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var fileManagerFolderResponse =

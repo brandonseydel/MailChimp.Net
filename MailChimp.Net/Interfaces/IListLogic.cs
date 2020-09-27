@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IListLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -8,12 +8,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
+using MailChimp.Net.Core.Responses;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
 {
-    using System;
-
     /// <summary>
     /// The ListLogic interface.
     /// </summary>
@@ -84,5 +83,18 @@ namespace MailChimp.Net.Interfaces
         /// </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         Task<ListResponse> GetResponseAsync(ListRequest request = null);
+
+        Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null);
+
+        /// <summary>
+        /// Batch subscribe or unsubscribe list members.
+        /// </summary>
+        /// <param name="batchList">Request body parameters</param>
+        /// <param name="listId">The unique id for the list.</param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        /// <remarks>Limited up to 500 members by one request</remarks>
+        Task<BatchListResponse> BatchAsync(BatchList batchList, string listId);
     }
 }

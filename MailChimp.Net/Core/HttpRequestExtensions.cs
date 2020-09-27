@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="HttpRequestExtensions.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -6,7 +6,7 @@
 
 using System;
 using System.Net.Http;
-using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -18,6 +18,11 @@ namespace MailChimp.Net.Core
     /// </summary>
     public static class HttpRequestExtensions
     {
+        private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings()
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
         /// <summary>
         /// The patch as json async.
         /// </summary>
@@ -30,9 +35,7 @@ namespace MailChimp.Net.Core
         /// <param name="value">
         /// The value.
         /// </param>
-        /// <param name="formatter">
-        /// The formatter.
-        /// </param>
+        /// <param name="settings"></param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
@@ -41,19 +44,15 @@ namespace MailChimp.Net.Core
         public static async Task<HttpResponseMessage> PatchAsJsonAsync<T>(
             this HttpClient client, 
             string requestUri, 
-            T value, 
-            JsonMediaTypeFormatter formatter = null)
+            T value,
+            JsonSerializerSettings settings = null)
         {
-            var jsonFormatter = formatter
-                                ?? new JsonMediaTypeFormatter
-                                       {
-                                           SerializerSettings =
-                                               {
-                                                   NullValueHandling =
-                                                       NullValueHandling.Ignore
-                                               }
-                                       };
-            return await client.PatchAsync(requestUri, new ObjectContent<T>(value, jsonFormatter));
+            var content = new StringContent(
+                JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+                Encoding.UTF8,
+                "application/json");
+
+            return await client.PatchAsync(requestUri, content).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -82,8 +81,8 @@ namespace MailChimp.Net.Core
                                   RequestUri = new Uri(client.BaseAddress + requestUri), 
                                   Content = content
                               };
-
-            return await client.SendAsync(request = null);
+			client.DefaultRequestHeaders.ExpectContinue = false;
+            return await client.SendAsync(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -98,31 +97,56 @@ namespace MailChimp.Net.Core
         /// <param name="value">
         /// The value.
         /// </param>
-        /// <param name="formatter">
-        /// The formatter.
-        /// </param>
+        /// <param name="settings"></param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
         public static async Task<HttpResponseMessage> PutAsJsonAsync<T>(
-            this HttpClient client, 
-            string requestUri, 
-            T value, 
-            JsonMediaTypeFormatter formatter = null)
+            this HttpClient client,
+            string requestUri,
+            T value,
+            JsonSerializerSettings settings = null)
         {
-            var jsonFormatter = formatter
-                                ?? new JsonMediaTypeFormatter
-                                       {
-                                           SerializerSettings =
-                                               {
-                                                   NullValueHandling =
-                                                       NullValueHandling.Ignore
-                                               }
-                                       };
-            var content = new ObjectContent<T>(value, jsonFormatter);
-            return await client.PutAsync(requestUri, content);
+            var content = new StringContent(
+                JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+                Encoding.UTF8,
+                "application/json");
+
+            return await client.PutAsync(requestUri, content).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// PostAsJsonAsync
+        /// </summary>
+        /// <param name="client">
+        /// The client.
+        /// </param>
+        /// <param name="requestUri">
+        /// The request uri.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public static async Task<HttpResponseMessage> PostAsJsonAsync<T>(
+            this HttpClient client,
+            string requestUri,
+            T value,
+            JsonSerializerSettings settings = null)
+        {
+            var content = new StringContent(
+                JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+                Encoding.UTF8,
+                "application/json");
+
+            return await client.PostAsync(requestUri, content).ConfigureAwait(false);
+        }
+
     }
 }
