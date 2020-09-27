@@ -21,6 +21,11 @@ IMailChimpManager manager = new MailChimpManager(apiKey); //if you have it in co
 IMailChimpManager manager = new MailChimpManager(); //if you have it in config
 ```
 
+Hint: MailChimp needs at least TLS 1.2. To use this library you have to set TLS 1.2 in ServicePointManager
+```
+ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
+```
+
 ### Examples
 
 ```CSharp
