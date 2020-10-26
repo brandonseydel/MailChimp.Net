@@ -36,14 +36,15 @@ namespace MailChimp.Net.Core
         {
             if (!response.IsSuccessStatusCode)
             {
+                var responseContentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var error = responseContentStream.Deserialize<MailChimpApiError>();
+
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri} ");
+                    throw new MailChimpNotFoundException($"Unable to find the resource at {response.RequestMessage.RequestUri}", error, response);
                 }
 
-                var responseContentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-
-                throw new MailChimpException(responseContentStream.Deserialize<MailChimpApiError>(), response);
+                throw new MailChimpException(error, response);
             }
         }
 
