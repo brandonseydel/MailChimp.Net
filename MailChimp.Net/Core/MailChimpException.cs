@@ -19,7 +19,8 @@ namespace MailChimp.Net.Core
     /// </summary>
     public class MailChimpException : Exception
     {
-        public MailChimpException(MailChimpApiError apierror, HttpResponseMessage rawHttpResponseMessage = null) : base(formatMessage(apierror))
+        public MailChimpException(string prefix, MailChimpApiError apierror, HttpResponseMessage rawHttpResponseMessage = null) 
+            : base((prefix != null ? $"{prefix} " : "")  +  formatMessage(apierror, rawHttpResponseMessage))
         {
             Detail = apierror.Detail;
             Title = apierror.Title;
@@ -30,15 +31,21 @@ namespace MailChimp.Net.Core
 
             RawHttpResponseMessage = rawHttpResponseMessage;
         }
+        public MailChimpException(MailChimpApiError apierror, HttpResponseMessage rawHttpResponseMessage = null) : this(null, apierror, rawHttpResponseMessage)
+        {
+        }
 
-        private static string formatMessage(MailChimpApiError apierror)
+        private static string formatMessage(MailChimpApiError apierror, HttpResponseMessage rawHttpResponseMessage)
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine($"Title: {apierror.Title}");
             builder.AppendLine($"Type: {apierror.Type}");
             builder.AppendLine($"Status: {apierror.Status}");
+            builder.AppendLine($"Instance: {apierror.Instance}");
             builder.AppendLine($"Detail: {apierror.Detail}");
             builder.AppendLine("Errors: " + string.Join(" : ", apierror.Errors.Select(x => x.Field + " " + x.Message)));
+            if (rawHttpResponseMessage != null) 
+                builder.AppendLine("Request URI:" + rawHttpResponseMessage.RequestMessage.RequestUri);
             return builder.ToString();
         }
 
