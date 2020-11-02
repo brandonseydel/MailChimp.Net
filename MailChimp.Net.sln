@@ -1,16 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30524.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4538F71-1B32-41D4-B899-24E1F6132EF0}"
 	ProjectSection(SolutionItems) = preProject
+		freddie_o.ico = freddie_o.ico
+		icon.png = icon.png
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailChimp.Net", "MailChimp.Net\MailChimp.Net.csproj", "{74F62C2B-B935-4284-85DE-DF37F62A431C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailChimp.Net.Tests", "MailChimp.Net.Tests\MailChimp.Net.Tests.csproj", "{42DA36F8-AF54-4610-93A1-83E18B37CE5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailChimp.Net.Tests", "MailChimp.Net.Tests\MailChimp.Net.Tests.csproj", "{42DA36F8-AF54-4610-93A1-83E18B37CE5F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{835A7D01-F0E2-4CC8-A1EC-9524E2109E67}"
 	ProjectSection(SolutionItems) = preProject
@@ -66,5 +68,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F92031F-5473-4AB6-A34B-13FF103FED98}
 	EndGlobalSection
 EndGlobal
