@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace MailChimp.Net.Models
 {
@@ -9,6 +9,8 @@ namespace MailChimp.Net.Models
         [Description("paused")]
         Paused,
         [Description("sending")]
-        Sending
+        Sending,
+        [Description("archived")]
+        Archived
     }
 }
