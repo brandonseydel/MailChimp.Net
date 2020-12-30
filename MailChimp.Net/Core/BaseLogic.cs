@@ -5,6 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 #if HTTP_CLIENT_FACTORY 
@@ -25,17 +28,18 @@ namespace MailChimp.Net.Core
         internal MailChimpOptions _options;
 
 #if HTTP_CLIENT_FACTORY
-        private static IHttpClientFactory _httpClientFactory;
-        private  const string _MailChimpClientKey = "MailChimpDotNetClientKey";
+        private static ConcurrentDictionary<string, IHttpClientFactory> s_clientFactories = new ConcurrentDictionary<string, IHttpClientFactory>();
 
         private IHttpClientFactory GetHttpClientFactory()
         {
-            if(_httpClientFactory != null)
+            // if factory already has the key then let it go
+            if(s_clientFactories.TryGetValue(this._options.ApiKey, out var returnValue))
             {
-                return _httpClientFactory;
+                return returnValue;
             }
+
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddHttpClient(_MailChimpClientKey, client =>
+            serviceCollection.AddHttpClient(this._options.ApiKey, client =>
             {
                 client.BaseAddress = new Uri(GetBaseAddress());               
             })
@@ -46,8 +50,9 @@ namespace MailChimp.Net.Core
                 });
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            _httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-            return _httpClientFactory;
+            var factory = serviceProvider.GetService<IHttpClientFactory>();
+            s_clientFactories.TryAdd(this._options.ApiKey, factory);
+            return factory;
         }
 
 #endif
@@ -85,7 +90,7 @@ namespace MailChimp.Net.Core
 #if HTTP_CLIENT_FACTORY
         private MailChimpHttpClient FactoryProvidedHttpClient(string resource)
         {           
-            var client = GetHttpClientFactory().CreateClient(_MailChimpClientKey);
+            var client = GetHttpClientFactory().CreateClient(_options.ApiKey);
             return new MailChimpHttpClient(client, _options, resource);
         }
 #endif
