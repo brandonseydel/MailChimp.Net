@@ -49,6 +49,12 @@ namespace MailChimp.Net.Core
         /// The automation.
         /// </summary>
         [Description("automation")]
-        Automation = 32
+        Automation = 32,
+
+        /// <summary>
+        /// The automation-email.
+        /// </summary>
+        [Description("automation-email")]
+        AutomationEmail = 64
     }
 }
