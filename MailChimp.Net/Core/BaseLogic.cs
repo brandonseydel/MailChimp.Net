@@ -33,13 +33,13 @@ namespace MailChimp.Net.Core
         private IHttpClientFactory GetHttpClientFactory()
         {
             // if factory already has the key then let it go
-            if(s_clientFactories.TryGetValue(this._options.ApiKey, out var returnValue))
+            if(s_clientFactories.TryGetValue(this._options.ApiKey ?? "OAuthMode", out var returnValue))
             {
                 return returnValue;
             }
 
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddHttpClient(this._options.ApiKey, client =>
+            serviceCollection.AddHttpClient(this._options.ApiKey ?? "OAuthMode", client =>
             {
                 client.BaseAddress = new Uri(GetBaseAddress());               
             })
@@ -51,7 +51,7 @@ namespace MailChimp.Net.Core
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var factory = serviceProvider.GetService<IHttpClientFactory>();
-            s_clientFactories.TryAdd(this._options.ApiKey, factory);
+            s_clientFactories.TryAdd(this._options.ApiKey ?? "OAuthMode", factory);
             return factory;
         }
 
@@ -90,7 +90,7 @@ namespace MailChimp.Net.Core
 #if HTTP_CLIENT_FACTORY
         private MailChimpHttpClient FactoryProvidedHttpClient(string resource)
         {           
-            var client = GetHttpClientFactory().CreateClient(_options.ApiKey);
+            var client = GetHttpClientFactory().CreateClient(_options.ApiKey ?? "OAuthMode");
             return new MailChimpHttpClient(client, _options, resource);
         }
 #endif
