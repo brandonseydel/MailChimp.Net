@@ -45,7 +45,7 @@ namespace MailChimp.Net.Core
             builder.AppendLine($"Detail: {apierror.Detail}");
             builder.AppendLine("Errors: " + string.Join(" : ", apierror.Errors.Select(x => x.Field + " " + x.Message)));
             if (rawHttpResponseMessage != null) 
-                builder.AppendLine("Request URI:" + rawHttpResponseMessage.RequestMessage.RequestUri);
+                builder.AppendLine("Request URI:" + rawHttpResponseMessage.RequestMessage?.RequestUri);
             return builder.ToString();
         }
 
@@ -97,7 +97,9 @@ namespace MailChimp.Net.Core
                 data.Add("status", Status);
                 data.Add("instance", Instance);
                 data.Add("errors", Errors);
+#if NET_CORE || NETSTANDARD
                 data.Add("rawhttpresponsemessage", RawHttpResponseMessage);
+#endif
 
                 _data = data;
                 return _data;
