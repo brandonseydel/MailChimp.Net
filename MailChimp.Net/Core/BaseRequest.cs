@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -54,7 +55,7 @@ namespace MailChimp.Net.Core
 
             properties.ToList().ForEach(
                 prop =>
-                    {                        
+                    {
                         var value = prop.GetValue(this);
                         var propertyName = prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault() ?? prop.Name.ToLower();
 
@@ -62,10 +63,37 @@ namespace MailChimp.Net.Core
                         {
                             return;
                         }
+
                         var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 
+                        if (type.GetTypeInfo().IsEnum && type.GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
+                        {
+                            // Build a dictionary of all possible enum flag descriptions or default string representations
+                            var descriptions = new Dictionary<string, string>();
+                            var runtimeFields = type.GetRuntimeFields().Where(f => f.IsStatic && f.IsPublic && f.IsLiteral);
 
-                        if (type.GetTypeInfo().IsEnum)
+                            foreach (var fieldInfo in runtimeFields)
+                            {
+                                var attr = fieldInfo.GetCustomAttribute<DescriptionAttribute>();
+                                descriptions.Add(fieldInfo.Name, attr?.Description ?? fieldInfo.Name);
+                            }
+
+                            // Get all set flag descriptions or default values
+                            var setEnumValue = (Enum)value;
+                            var allFlags = Enum.GetValues(type);
+                            var setFlags = new List<Enum>();
+
+                            foreach (Enum flag in allFlags)
+                            {
+                                if (setEnumValue.HasFlag(flag))
+                                {
+                                    setFlags.Add(flag);
+                                }
+                            }
+
+                            value = setFlags.Select(flag => descriptions[flag.ToString()]);
+                        }
+                        else if (type.GetTypeInfo().IsEnum)
                         {
                             var member = type.GetRuntimeFields().FirstOrDefault(x => x.Name == (value.ToString()));
                             value =
