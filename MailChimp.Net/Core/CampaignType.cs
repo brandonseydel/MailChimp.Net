@@ -19,25 +19,25 @@ namespace MailChimp.Net.Core
         /// The regular.
         /// </summary>
         [Description("regular")]
-        Regular = 1, 
+        Regular = 1,
 
         /// <summary>
         /// The plaintext.
         /// </summary>
         [Description("plaintext")]
-        Plaintext = 2, 
+        Plaintext = 2,
 
         /// <summary>
         /// The absplit.
         /// </summary>
         [Description("absplit")]
-        Absplit = 4, 
+        Absplit = 4,
 
         /// <summary>
         /// The rss.
         /// </summary>
         [Description("rss")]
-        Rss = 8, 
+        Rss = 8,
 
         /// <summary>
         /// The variate.
@@ -55,6 +55,12 @@ namespace MailChimp.Net.Core
         /// The automation-email.
         /// </summary>
         [Description("automation-email")]
-        AutomationEmail = 64
+        AutomationEmail = 64,
+
+        /// <summary>
+        /// The variate-child.
+        /// </summary>
+        [Description("variate-child")]
+        VariateChild = 128
     }
 }
