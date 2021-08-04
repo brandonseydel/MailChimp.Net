@@ -52,8 +52,6 @@ namespace MailChimp.Net.Core
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
         public override bool CanConvert(Type objectType)
         {
             return objectType.GetTypeInfo().IsEnum;
