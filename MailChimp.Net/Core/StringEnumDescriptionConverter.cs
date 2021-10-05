@@ -19,9 +19,9 @@ namespace MailChimp.Net.Core
     public class StringEnumDescriptionConverter : JsonConverter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StringEnumDescriptionConverter"/> class. 
+        /// Initializes a new instance of the <see cref="StringEnumDescriptionConverter"/> class.
         /// Initializes a new instance of the <see cref="T:Newtonsoft.Json.Converters.StringEnumConverter"/> class.
-        /// 
+        ///
         /// </summary>
         public StringEnumDescriptionConverter()
         {
@@ -30,9 +30,9 @@ namespace MailChimp.Net.Core
 
         /// <summary>
         /// Gets or sets a value indicating whether integer values are allowed.
-        /// 
+        ///
         /// </summary>
-        /// 
+        ///
         /// <value>
         /// <c>true</c> if integers are allowed; otherwise, <c>false</c>.
         /// </value>
@@ -52,11 +52,9 @@ namespace MailChimp.Net.Core
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
         public override bool CanConvert(Type objectType)
         {
-            throw new NotImplementedException();
+            return objectType.GetTypeInfo().IsEnum;
         }
 
         /// <summary>
@@ -82,7 +80,7 @@ namespace MailChimp.Net.Core
             objectType = Nullable.GetUnderlyingType(objectType) ?? objectType;
             var eTypeVal = objectType
                         .GetRuntimeFields().Cast<MemberInfo>()
-                        .Union(objectType.GetRuntimeProperties())                        
+                        .Union(objectType.GetRuntimeProperties())
                         .Where(x => x.GetCustomAttributes(typeof(DescriptionAttribute)).Any())
                         .FirstOrDefault(x => ((DescriptionAttribute)x.GetCustomAttribute(typeof(DescriptionAttribute))).Description == (string)reader.Value);
 
@@ -91,7 +89,7 @@ namespace MailChimp.Net.Core
 
         /// <summary>
         /// Writes the JSON representation of the object.
-        /// 
+        ///
         /// </summary>
         /// <param name="writer">
         /// The <see cref="T:Newtonsoft.Json.JsonWriter"/> to write to.

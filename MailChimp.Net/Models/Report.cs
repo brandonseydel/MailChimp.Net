@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Report.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -129,8 +129,9 @@ namespace MailChimp.Net.Models
         /// Gets or sets the type.
         /// </summary>
         [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumDescriptionConverter))]
         public CampaignType Type { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the unsubscribed.
         /// </summary>
