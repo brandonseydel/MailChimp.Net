@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace MailChimp.Net.Models
 {
@@ -99,7 +99,9 @@ namespace MailChimp.Net.Models
         [Description("EmailAddress")]
         EmailAddress,
         [Description("DateMerge")]
-        DateMerge
+        DateMerge,
+        [Description("PredictedGender")]
+        PredictedGender
 
     }
 }
