@@ -152,6 +152,11 @@ namespace MailChimp.Net.Interfaces
         IListSegmentLogic ListSegments { get; }
 
         /// <summary>
+        /// Gets tags by list id
+        /// </summary>
+        ITagsLogic Tags { get; }
+
+        /// <summary>
         /// Gets or sets the template folders.
         /// </summary>
         ITemplateFolderLogic TemplateFolders { get; }
