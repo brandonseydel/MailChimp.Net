@@ -57,6 +57,7 @@ namespace MailChimp.Net
             this.MergeFields = new MergeFieldLogic(MailChimpOptions);
             this.Messages = new MessageLogic(MailChimpOptions);
             this.Notes = new NoteLogic(MailChimpOptions);
+            this.Tags = new TagsLogic(MailChimpOptions);
             this.Reports = new ReportLogic(MailChimpOptions);
             this.TemplateFolders = new TemplateFolderLogic(MailChimpOptions);
             this.Templates = new TemplateLogic(MailChimpOptions);
@@ -96,6 +97,7 @@ namespace MailChimp.Net
             this.Messages = new MessageLogic(MailChimpOptions);
             this.Notes = new NoteLogic(MailChimpOptions);
             this.Reports = new ReportLogic(MailChimpOptions);
+            this.Tags = new TagsLogic(MailChimpOptions);
             this.TemplateFolders = new TemplateFolderLogic(MailChimpOptions);
             this.Templates = new TemplateLogic(MailChimpOptions);
             this.WebHooks = new WebHookLogic(MailChimpOptions);
@@ -134,6 +136,7 @@ namespace MailChimp.Net
             this.Messages = new MessageLogic(MailChimpOptions);
             this.Notes = new NoteLogic(MailChimpOptions);
             this.Reports = new ReportLogic(MailChimpOptions);
+            this.Tags = new TagsLogic(MailChimpOptions);
             this.TemplateFolders = new TemplateFolderLogic(MailChimpOptions);
             this.Templates = new TemplateLogic(MailChimpOptions);
             this.WebHooks = new WebHookLogic(MailChimpOptions);
@@ -282,6 +285,11 @@ namespace MailChimp.Net
         /// Gets the segments.
         /// </summary>
         public IListSegmentLogic ListSegments { get; }
+
+        /// <summary>
+        /// Gets the tags by list id
+        /// </summary>
+        public ITagsLogic Tags { get; }
 
         /// <summary>
         /// Gets or sets the template folders.
