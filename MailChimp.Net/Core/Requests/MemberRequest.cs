@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MemberRequest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -47,5 +47,17 @@ namespace MailChimp.Net.Core
 
         [QueryString("interest_match")]
         public string InterestMatch { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort_field.
+        /// </summary>
+        [QueryString("sort_field")]
+        public CampaignSortField? SortField { get; set; }
+
+        /// <summary>
+        /// Gets or sets sort_dir.
+        /// </summary>
+        [QueryString("sort_dir")]
+        public MemberSortOrder? SortOrder { get; set; }
     }
 }
