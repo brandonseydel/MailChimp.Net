@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// The campaign status.
+    /// Campaign sort field.
     /// </summary>
     [Flags]
     public enum CampaignSortField
