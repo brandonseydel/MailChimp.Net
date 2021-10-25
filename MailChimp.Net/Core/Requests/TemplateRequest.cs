@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Core
 {
@@ -47,7 +48,7 @@ namespace MailChimp.Net.Core
         /// Gets or sets the type.
         /// </summary>
         [QueryString("type")]
-        public string Type { get; set; }
+        public TemplateType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the category.
