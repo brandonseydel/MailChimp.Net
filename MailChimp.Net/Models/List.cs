@@ -142,6 +142,18 @@ namespace MailChimp.Net.Models
         public bool MarketingPermissions { get; set; }
 
         /// <summary>
+        /// Whether or not to require the subscriber to confirm subscription via email.
+        /// </summary>
+        [JsonProperty("double_optin")]
+        public bool DoubleOptin { get; set; }
+
+        /// <summary>
+        /// Whether or not this list has a welcome automation connected. Welcome Automations: welcomeSeries, singleWelcome, emailFollowup.
+        /// </summary>
+        [JsonProperty("has_welcome")]
+        public bool HasWelcome { get; set; }
+
+        /// <summary>
         /// Gets or sets the visibility.
         /// </summary>
         [JsonProperty("visibility")]
