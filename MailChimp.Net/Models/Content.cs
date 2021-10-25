@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Content.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -36,5 +36,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("plain_text")]
         public string PlainText { get; set; }
+
+        /// <summary>
+        /// The Archive HTML for the campaign.
+        /// </summary>
+        [JsonProperty("archive_html")]
+        public string ArchiveHtml { get; set; }
     }
 }
