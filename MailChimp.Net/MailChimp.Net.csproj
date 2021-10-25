@@ -31,7 +31,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
     <PackageId>MailChimp.Net.V3</PackageId>
-    <Version>5.1.0</Version>
+    <Version>5.3.1</Version>
     <Authors>Brandon Seydel</Authors>
     <Company>DevSquad</Company>
     <Product>MailChimp.Net.V3</Product>
@@ -49,10 +49,14 @@
     <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-    <AssemblyVersion>5.1.0.0</AssemblyVersion>
-    <FileVersion>5.1.0.0</FileVersion>
-    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+    <AssemblyVersion>5.3.1.0</AssemblyVersion>
+    <FileVersion>5.3.1.0</FileVersion>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
 
   </PropertyGroup>
   <ItemGroup>
@@ -73,7 +77,15 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
     </ItemGroup>   
   <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

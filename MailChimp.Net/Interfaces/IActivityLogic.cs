@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IActivityLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -47,5 +47,14 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request = null);
+
+
+        /// <summary>
+        /// Retrieves all the chimp chatter activity
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ChimpChatterResponse> GetChimpChatterResponseAsync(QueryableBaseRequest request = null);
+
     }
 }
