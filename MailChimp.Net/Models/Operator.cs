@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+using System;
+using System.ComponentModel;
 
 namespace MailChimp.Net.Models
 {
@@ -71,7 +72,10 @@ namespace MailChimp.Net.Models
         [Description("static_is")]
         StaticIs,
         [Description("static_not")]
+        [Obsolete]
         StatisIsNot,
+        [Description("static_not")]
+        StaticIsNot,
         [Description("ipgeocountry")]
         IPGeoCountry,
         [Description("ipgeonotcountry")]
