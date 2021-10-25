@@ -76,5 +76,17 @@ namespace MailChimp.Net.Logic
             }
         }
 
+        /// <inheritdoc />
+        public async Task<ChimpChatterResponse> GetChimpChatterResponseAsync(QueryableBaseRequest request = null)
+        {
+            using (var client = CreateMailClient("activity-feed/"))
+            {
+                var response = await client.GetAsync($"chimp-chatter{request?.ToQueryString()}").ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+                var appResponse = await response.Content.ReadAsAsync<ChimpChatterResponse>().ConfigureAwait(false);
+                return appResponse;
+            }
+        }
     }
 }
