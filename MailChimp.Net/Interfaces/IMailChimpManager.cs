@@ -95,6 +95,8 @@ namespace MailChimp.Net.Interfaces
         /// </summary>
         IClientLogic Clients { get; }
 
+        ICustomerJourneys CustomerJourneys { get; }
+
         /// <summary>
         /// Gets or sets the e commerce stores.
         /// </summary>
@@ -170,6 +172,7 @@ namespace MailChimp.Net.Interfaces
         /// Gets the logic to access mail chimp web hooks
         /// </summary>
         IWebHookLogic WebHooks { get; }
+
         IBatchWebHookLogic BatchWebHooks { get; }
 
         /// <summary>
