@@ -18,7 +18,7 @@ namespace MailChimp.Net.Tests
     /// </summary>
     public class TemplateTest : MailChimpTest
     {
-        TemplateRequest RequestOnlyUserTemplates = new TemplateRequest { Type = "user" };
+        TemplateRequest RequestOnlyUserTemplates = new TemplateRequest { Type = TemplateType.User };
 
         /// <summary>
         /// The should_ delete_ all_ user_ templates.
@@ -128,7 +128,7 @@ namespace MailChimp.Net.Tests
             {
                 BeforeCreatedAt = DateTime.UtcNow,
                 SincedCreatedAt = DateTime.UtcNow.AddDays(-1),
-                Type = "user"
+                Type = TemplateType.User
             };
 
             var templates = await this.MailChimpManager.Templates.GetAllAsync(request);
