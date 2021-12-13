@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Report.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -114,6 +114,12 @@ namespace MailChimp.Net.Models
         public string SendTime { get; set; }
 
         /// <summary>
+        /// Gets or sets the RSS last send.
+        /// </summary>
+        [JsonProperty("rss_last_send")]
+        public string RSSLastSend { get; set; }
+
+        /// <summary>
         /// Gets or sets the share report.
         /// </summary>
         [JsonProperty("share_report")]
@@ -136,5 +142,30 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unsubscribed")]
         public int Unsubscribed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the List ID.
+        /// </summary>
+        [JsonProperty("list_id")]
+        public string ListID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the List Name.
+        /// </summary>
+        [JsonProperty("list_name")]
+        public string ListName { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the List Name.
+        /// </summary>
+        [JsonProperty("list_is_active")]
+        public bool ListIsActive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Preview Text.
+        /// </summary>
+        [JsonProperty("preview_text")]
+        public string PreviewText { get; set; }
     }
 }
