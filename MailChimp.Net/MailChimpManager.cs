@@ -62,6 +62,7 @@ namespace MailChimp.Net
             this.Templates = new TemplateLogic(MailChimpOptions);
             this.WebHooks = new WebHookLogic(MailChimpOptions);
             this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
+            this.CustomerJourneys = new CustomerJourneysLogic(MailChimpOptions);
         }
 
 #if NET_CORE
@@ -100,6 +101,7 @@ namespace MailChimp.Net
             this.Templates = new TemplateLogic(MailChimpOptions);
             this.WebHooks = new WebHookLogic(MailChimpOptions);
             this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
+            this.CustomerJourneys = new CustomerJourneysLogic(MailChimpOptions);
         }
 
 #else
@@ -138,6 +140,7 @@ namespace MailChimp.Net
             this.Templates = new TemplateLogic(MailChimpOptions);
             this.WebHooks = new WebHookLogic(MailChimpOptions);
             this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
+            this.CustomerJourneys = new CustomerJourneysLogic(MailChimpOptions);
         }
 #endif
 
@@ -300,6 +303,8 @@ namespace MailChimp.Net
 
 
         public IBatchWebHookLogic BatchWebHooks { get; }
+
+        public ICustomerJourneysLogic CustomerJourneys { get; }
 
         public int Limit
         {
