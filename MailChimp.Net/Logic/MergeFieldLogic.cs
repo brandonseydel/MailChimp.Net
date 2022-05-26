@@ -164,7 +164,7 @@ namespace MailChimp.Net.Logic
         {
             using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.PatchAsJsonAsync((mergeId ?? mergeField.MergeId).ToString(), mergeField).ConfigureAwait(false);
+                var response = await client.PatchAsJsonAsync((mergeId ?? mergeField.Id).ToString(), mergeField).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
                 var mergeResponse = await response.Content.ReadAsAsync<MergeField>().ConfigureAwait(false);

@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="InterestCategory.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The interest category.
     /// </summary>
-    public class InterestCategory
+    public class InterestCategory : Base, IId<string>
     {
         /// <summary>
         /// Gets or sets the display order.
@@ -42,5 +43,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(DisplayType)
+                .Data.Add(Title)
+                ;
+        }
     }
 }

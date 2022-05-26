@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class Order
+    public class Order : Base, IId<string>
     {
 
         public Order()
@@ -83,5 +84,13 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(OrderUrl)
+                .Postfix.AddExpression(OrderTotal)
+                ;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Automation.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -8,13 +8,14 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The automation.
     /// </summary>
-    public class Automation
+    public class Automation : Base, IId<string>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Automation"/> class.
@@ -90,5 +91,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("trigger_settings")]
         public TriggerSettings TriggerSettings { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Settings?.SubjectLine)
+                .Status.Add(Status)
+                ;
+        }
     }
 }

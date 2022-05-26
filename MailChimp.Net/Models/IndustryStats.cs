@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IndustryStats.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The industry stats.
     /// </summary>
-    public class IndustryStats
+    public class IndustryStats : Base
     {
         /// <summary>
         /// Gets or sets the abuse rate.
@@ -54,5 +55,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unsub_rate")]
         public double UnsubRate { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Type.Add(Result)
+                .Data.AddExpression(OpenRate)
+                ;
+        }
     }
 }

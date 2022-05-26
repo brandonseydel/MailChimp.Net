@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class SocialCard
+    public class SocialCard : Base
     {
         [JsonProperty("image_url")]
         public string ImageUrl { get; set; }
@@ -12,5 +13,11 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Title)
+                ;
+        }
     }
 }

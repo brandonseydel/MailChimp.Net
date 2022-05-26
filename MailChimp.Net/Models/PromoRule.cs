@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    public class PromoRule
+    public class PromoRule : Base, IId<string>
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -39,6 +40,16 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("enabled")]
         public bool Enabled { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Type, Target)
+                .Data.Add(Title)
+                .Postfix.Add(Amount)
+                .Status.IsEnabled(Enabled)
+                ;
+        }
     }
 
     public enum PromoType

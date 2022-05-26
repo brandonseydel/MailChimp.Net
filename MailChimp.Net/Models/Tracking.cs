@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Tracking.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The tracking.
     /// </summary>
-    public class Tracking
+    public class Tracking : Base
     {
         /// <summary>
         /// Gets or sets the clicktale.
@@ -63,5 +64,10 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("text_clicks")]
         public bool TextClicks { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                ;
+        }
     }
 }

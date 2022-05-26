@@ -84,7 +84,23 @@ namespace MailChimp.Net.Tests
         /// </summary>
         public MailChimpTest()
         {
-            this.MailChimpManager = new MailChimpManager("599629998b18960fa6e8a283d280ac28-us13");
+            var EV = "MAILCHIMP_API_KEY_TEST";
+
+            var ApiKey = System.Environment.GetEnvironmentVariable(EV);
+
+            if (string.IsNullOrWhiteSpace(ApiKey))
+            {
+                var Message = ""
+                    + $"WARNING: THERE ARE TESTS THAT DELETE ALL DATA.  ONLY USE TEST ACCOUNTS."
+                    + $"Please set the {EV} environmental variable to run tests.\n"
+                    + $"This can be done by running the following PowerShell command and restarting Visual Studio:\n\n"
+                    + $"[System.Environment]::SetEnvironmentVariable('{EV}','XXXXXXXXXX', [System.EnvironmentVariableTarget]::User)"
+                    ;
+
+                throw new Exception(Message);
+            }
+
+            this.MailChimpManager = new MailChimpManager(ApiKey);
             RunBeforeTestFixture().Wait();
         }
 

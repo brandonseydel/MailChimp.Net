@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IWebHookLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -97,6 +97,6 @@ namespace MailChimp.Net.Interfaces
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null);
+        Task<WebHook> UpdateAsync(string listId, WebHook mergeField, string? Id = null);
     }
 }

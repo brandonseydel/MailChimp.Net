@@ -5,13 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The setting.
     /// </summary>
-    public class Setting
+    public class Setting : Base
     {
         /// <summary>
         /// Gets or sets a value indicating whether authenticate.
@@ -108,5 +109,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("use_conversation")]
         public bool UseConversation { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(SubjectLine)
+                ;
+        }
     }
 }

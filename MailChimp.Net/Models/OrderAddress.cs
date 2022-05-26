@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
@@ -36,6 +37,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("company")]
         public string Company { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                ;
+        }
 
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
 
-    public class Options
+    public class Options : Base
     {
         public Options()
         {
@@ -25,5 +26,10 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("choices")]
         public IEnumerable<string> Choices { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                ;
+        }
     }
 }

@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SegmentOpts.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
@@ -13,7 +14,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The segment opts.
     /// </summary>
-    public class SegmentOptions
+    public class SegmentOptions : Base
     {
 
         public SegmentOptions()
@@ -40,5 +41,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("saved_segment_id")]
         public int SavedSegmentId { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Match)
+                ;
+        }
     }
 }

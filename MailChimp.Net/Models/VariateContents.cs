@@ -1,11 +1,12 @@
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// Content options for Multivariate Campaigns. Each content option must provide HTML content and may optionally provide plain text. For campaigns not testing content, only one object should be provided.
     /// </summary>
-    public class VariateContents
+    public class VariateContents : Base
     {
         /// <summary>
         /// The label used to identify the content option.
@@ -14,7 +15,7 @@ namespace MailChimp.Net.Models
         public string ContentLabel { get; set; }
 
         /// <summary>
-        /// The plain-text portion of the campaign. If left unspecified, we’ll generate this automatically.
+        /// The plain-text portion of the campaign. If left unspecified, weâ€™ll generate this automatically.
         /// </summary>
         [JsonProperty("plain_text")]
         public string PlainText { get; set; }
@@ -39,5 +40,11 @@ namespace MailChimp.Net.Models
         /// When importing a campaign, the URL for the HTML.
         /// </summary>
         public string Url { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(ContentLabel)
+                ;
+        }
     }
 }

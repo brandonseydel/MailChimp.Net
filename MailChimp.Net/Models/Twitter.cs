@@ -1,11 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Twitter.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The twitter.
     /// </summary>
-    public class Twitter
+    public class Twitter : Base
     {
         /// <summary>
         /// Gets or sets the first tweet.
@@ -44,5 +44,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("tweets")]
         public int Tweets { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(Tweets)
+                .Postfix.AddExpression(LastTweet)
+                ;
+        }
     }
 }

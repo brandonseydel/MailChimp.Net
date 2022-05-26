@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Client.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The client.
     /// </summary>
-    public class Client
+    public class Client : Base
     {
         /// <summary>
         /// Gets or sets the client name.
@@ -30,5 +31,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("members")]
         public int Members { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(ClientName)
+                ;
+        }
+
     }
 }

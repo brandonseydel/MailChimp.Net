@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class Cart
+    public class Cart : Base, IId<string>
     {
         public Cart()
         {
@@ -46,5 +47,13 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public ICollection<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(CheckoutUrl)
+                .Postfix.Add(OrderTotal)
+                ;
+        }
     }
 }

@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Timesery.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The timesery.
     /// </summary>
-    public class Timesery
+    public class Timesery : Base
     {
         /// <summary>
         /// Gets or sets the emails sent.
@@ -36,5 +37,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unique_opens")]
         public int UniqueOpens { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(EmailsSent)
+                .Data.AddExpression(UniqueOpens)
+                ;
+        }
     }
 }

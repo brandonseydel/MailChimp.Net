@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    public class FileManagerFolder
+    public class FileManagerFolder : Base, IId<int>
     {
 
         public FileManagerFolder()
@@ -29,5 +30,12 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public IEnumerable<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Name)
+                ;
+        }
     }
 }

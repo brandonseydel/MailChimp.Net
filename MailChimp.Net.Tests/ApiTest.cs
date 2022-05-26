@@ -24,14 +24,14 @@ namespace MailChimp.Net.Tests
         [Fact]
         public async Task Should_Return_API_Information()
         {
-            var apiInfo = await this.MailChimpManager.Api.GetInfoAsync().ConfigureAwait(false);
+            var apiInfo = await MailChimpManager.Api.GetInfoAsync().ConfigureAwait(false);
             Assert.NotNull(apiInfo);
         }
 
         [Fact]
         public async Task Should_Return_String_From_Ping()
         {
-            var ping = await this.MailChimpManager.Api.PingAsync().ConfigureAwait(false);
+            var ping = await MailChimpManager.Api.PingAsync().ConfigureAwait(false);
             Assert.Equal(ping.HealthStatus, Constants.MailChimpHealthCheck);
         }
     }

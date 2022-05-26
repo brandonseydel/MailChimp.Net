@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Recipients.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The recipient.
     /// </summary>
-    public class Recipient
+    public class Recipient : Base
     {
         /// <summary>
         /// Gets or sets the list id.
@@ -48,5 +49,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("recipient_count")]
         public int RecipientCount { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(SegmentText)
+                ;
+        }
     }
 }

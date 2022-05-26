@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class EmailMemberActivity
+    public class EmailMemberActivity : Base
     {
         [JsonProperty("action")]
         public string Action { get; set; }
@@ -18,5 +19,14 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("ip")]
         public string Ip { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Type.Add(Type)
+                .Prefix.Add(Action)
+                .Data.Add(Url)
+                .Postfix.Add(Ip)
+                ;
+        }
     }
 }

@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace MailChimp.Net.Models
 {
 
-    public class MemberSearchResult
+    public class MemberSearchResult : Base
     {
         public MemberSearchResult()
         {

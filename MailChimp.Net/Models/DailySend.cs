@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class DailySend
+    public class DailySend : Base
     {
         [JsonProperty("sunday")]
         public bool Sunday { get; set; }
@@ -24,5 +25,16 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("saturday")]
         public bool Saturday { get; set; }
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Status.AddFlag(Sunday)
+                .Status.AddFlag(Monday)
+                .Status.AddFlag(Tuesday)
+                .Status.AddFlag(Wednesday)
+                .Status.AddFlag(Thursday)
+                .Status.AddFlag(Friday)
+                .Status.AddFlag(Saturday)
+                ;
+        }
     }
 }

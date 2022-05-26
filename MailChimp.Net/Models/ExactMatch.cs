@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class ExactMatch
+    public class ExactMatch : Base
     {
         public ExactMatch()
         {
@@ -15,6 +16,12 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("total_items")]
         public int TotalItems { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(TotalItems)
+                ;
+        }
     }
 
 }

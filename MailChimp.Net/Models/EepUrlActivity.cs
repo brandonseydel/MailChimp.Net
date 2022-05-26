@@ -1,11 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="EepUrlActivity.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The eep url activity.
     /// </summary>
-    public class EepUrlActivity
+    public class EepUrlActivity : Base
     {
         /// <summary>
         /// Gets or sets the campaign id.
@@ -50,5 +50,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("twitter")]
         public Twitter Twitter { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(EepUrl)
+                ;
+        }
     }
 }

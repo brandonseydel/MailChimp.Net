@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Feedback.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using MailChimp.Net.Core;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 namespace MailChimp.Net.Models
@@ -15,7 +16,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The feedback.
     /// </summary>
-    public class Feedback
+    public class Feedback : Base
     {
         /// <summary>
         /// Gets or sets the block id.
@@ -83,5 +84,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Message)
+                ;
+        }
     }
 }

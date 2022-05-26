@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Domain.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The domain.
     /// </summary>
-    public class Domain
+    public class Domain : Base
     {
         /// <summary>
         /// Gets or sets the bounces.
@@ -84,5 +85,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unsubs_pct")]
         public int UnsubsPct { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(DomainName)
+                .Postfix.AddExpression(EmailsSent)
+                ;
+        }
+
     }
 }

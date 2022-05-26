@@ -1,11 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Interest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The interest.
     /// </summary>
-    public class Interest
+    public class Interest : Base, IId<string>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Interest"/> class.
@@ -64,5 +64,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("subscriber_count")]
         public string SubscriberCount { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Name)
+                ;
+        }
+
     }
 }

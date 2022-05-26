@@ -1,11 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Unsubscribe.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The unsubscribe.
     /// </summary>
-    public class Unsubscribe
+    public class Unsubscribe : Base
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Unsubscribe"/> class.
@@ -64,5 +64,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("timestamp")]
         public string Timestamp { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Type.Add(Reason)
+                .Data.Add(EmailAddress)
+                ;
+        }
     }
 }

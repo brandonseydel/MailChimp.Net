@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SentTo.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -12,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The sent to.
     /// </summary>
-    public class SentTo
+    public class SentTo : Base
     {
         /// <summary>
         /// Gets or sets the absplit group.
@@ -73,5 +74,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(EmailAddress)
+                .Status.Add(Status)
+                ;
+        }
     }
 }

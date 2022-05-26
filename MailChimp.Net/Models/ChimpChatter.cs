@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using MailChimp.Net.Core;
 using Newtonsoft.Json;
 
@@ -7,7 +8,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// Represents a single chimp chatter activity
     /// </summary>
-    public class ChimpChatter
+    public class ChimpChatter : Base
     {
 
         [JsonProperty("title")]
@@ -31,6 +32,12 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("campaign_id")]
         public string CampaignId { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Title)
+                ;
+        }
 
     }
 }

@@ -1,8 +1,9 @@
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class Schedule
+    public class Schedule : Base
     {
         [JsonProperty("hour")]
         public int Hour { get; set; }
@@ -15,5 +16,10 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("monthly_send_date")]
         public int DayOfMonthToSend { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                ;
+        }
     }
 }

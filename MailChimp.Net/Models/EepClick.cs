@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="EepClick.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -6,7 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -14,7 +14,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The eep click.
     /// </summary>
-    public class EepClick
+    public class EepClick : Base
     {
         /// <summary>
         /// Gets or sets the clicks.
@@ -39,5 +39,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("locations")]
         public IEnumerable<EepLocation> Locations { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(Clicks)
+                ;
+        }
     }
 }

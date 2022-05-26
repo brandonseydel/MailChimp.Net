@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// Choose whether the campaign should use Batch Delivery. Cannot be set to <see langword="true"/> for campaigns using Timewarp.
     /// </summary>
-    public class BatchDelivery
+    public class BatchDelivery : Base
     {
         /// <summary>
         /// The delay, in minutes, between batches.
@@ -18,5 +19,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("batch_count")]
         public int Count { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(Delay)
+                .Data.AddExpression(Count)
+                ;
+        }
     }
 }

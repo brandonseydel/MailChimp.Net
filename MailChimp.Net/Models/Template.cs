@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Template.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -8,13 +8,14 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The template.
     /// </summary>
-    public class Template
+    public class Template : Base, IId<int>
     {
         /// <summary>
         /// Gets or sets a value indicating whether active.
@@ -94,5 +95,14 @@ namespace MailChimp.Net.Models
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumDescriptionConverter))]
         public TemplateType Type { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Type)
+                .Data.Add(Name)
+                ;
+        }
+
     }
 }

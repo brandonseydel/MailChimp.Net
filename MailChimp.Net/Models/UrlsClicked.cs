@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="UrlsClicked.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -6,7 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -14,7 +14,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The url clicked.
     /// </summary>
-    public class UrlClicked
+    public class UrlClicked : Base
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlClicked"/> class.
@@ -77,5 +77,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("url")]
         public string Url { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Url)
+                .Postfix.AddExpression(UniqueClicks)
+                ;
+        }
+
     }
 }

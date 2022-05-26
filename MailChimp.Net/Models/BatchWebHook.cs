@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    public class BatchWebHook
+    public class BatchWebHook : Base, IId<string>
     {
 
         public string Id { get; set; }
@@ -11,6 +12,13 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public IEnumerable<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Url)
+                ;
+        }
 
     }
 

@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using MailChimp.Net.Core;
 
 using Newtonsoft.Json;
@@ -17,7 +17,7 @@ namespace MailChimp.Net.Models
 	/// This one differs from the MemberTag model because it has status field and no id field.
 	/// This is the format expected by MailChimp's API for managing member tags.
 	/// </summary>
-	public class Tag
+	public class Tag : Base
 	{
 		/// <summary>
 		/// Gets or sets the tag's name.
@@ -30,6 +30,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Name)
+                .Status.Add(Status)
+                ;
+        }
 
     }
 

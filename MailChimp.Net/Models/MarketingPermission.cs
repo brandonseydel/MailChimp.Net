@@ -1,9 +1,10 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class MarketingPermission
+    public class MarketingPermission : Base, IId<string>
     {
         /// <summary>
         /// Gets or sets the the id for the marketing permission on the list.
@@ -22,5 +23,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("enabled")]
         public bool Enabled { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Text)
+                .Status.IsEnabled(Enabled)
+                ;
+        }
     }
 }

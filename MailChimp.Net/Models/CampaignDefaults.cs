@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CampaignDefaults.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The campaign defaults.
     /// </summary>
-    public class CampaignDefaults
+    public class CampaignDefaults : Base
     {
         /// <summary>
         /// Gets or sets the from email.
@@ -36,5 +37,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("subject")]
         public string Subject { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Subject)
+                .Postfix.AddExpression(FromEmail)
+                ;
+        }
     }
 }

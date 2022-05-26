@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Condition.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -6,13 +6,14 @@
 
 using MailChimp.Net.Core;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The condition.
     /// </summary>
-    public class Condition
+    public class Condition : Base
     {
         /// <summary>
         /// Gets or sets the field.
@@ -36,5 +37,14 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("value")]
         public dynamic Value { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Type.Add(Type)
+                .Data.Add(Field, Operator, Value)
+                .Postfix.Add(Extra)
+                ;
+        }
+
     }
 }

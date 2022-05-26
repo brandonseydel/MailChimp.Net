@@ -11,13 +11,14 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The store.
     /// </summary>
-    public class Store
+    public class Store : Base, IId<string>
     {
         public Store()
         {
@@ -123,5 +124,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Platform)
+                .Data.Add(Name)
+                ;
+        }
     }
 }

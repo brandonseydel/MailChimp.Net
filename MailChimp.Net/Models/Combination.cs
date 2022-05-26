@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    public class Combination
+    public class Combination : Base, IId<string>
     {
         [JsonProperty("id")]
         public string Id { get; set; }

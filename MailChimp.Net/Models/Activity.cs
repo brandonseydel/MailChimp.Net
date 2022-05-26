@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Activity.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The activity.
     /// </summary>
-    public class Activity
+    public class Activity : Base
     {
         /// <summary>
         /// Gets or sets the action.
@@ -42,5 +43,14 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Type.Add(Type)
+                .Data.Add(Title)
+                .Postfix.Add(Action)
+                ;
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Hours.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,7 +11,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The hours.
     /// </summary>
-    public class Hours
+    public class Hours : Base
     {
         /// <summary>
         /// Gets or sets the send at.

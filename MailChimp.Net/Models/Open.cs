@@ -8,13 +8,14 @@ using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The Open.
     /// </summary>
-    public class Open
+    public class Open : Base
     {
         /// <summary>
         /// Gets or sets the campaign id.
@@ -69,6 +70,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("_links")]
         public IEnumerable<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(OpensCount)
+                ;
+        }
 
     }
 }

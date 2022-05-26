@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using MailChimp.Net.Core;
 
 using Newtonsoft.Json;
@@ -15,7 +15,7 @@ namespace MailChimp.Net.Models
 	/// <summary>
 	/// The member.
 	/// </summary>
-	public class Member
+	public class Member : Base, IId<string>
 	{
 		public Member()
 		{
@@ -186,5 +186,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("web_id")]
         public int WebId { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(EmailAddress)
+                .Status.Add(Status)
+                ;
+        }
     }
 }

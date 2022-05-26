@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class CampaignSearchResult
+    public class CampaignSearchResult : Base
     {
         public CampaignSearchResult()
         {
@@ -19,5 +20,11 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public IEnumerable<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(TotalItems)
+                ;
+        }
     }
 }

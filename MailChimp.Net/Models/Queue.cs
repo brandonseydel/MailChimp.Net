@@ -1,11 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Queue.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The queue.
     /// </summary>
-    public class Queue
+    public class Queue : Base, IId<string>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Queue"/> class.
@@ -64,5 +64,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("workflow_id")]
         public string WorkflowId { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(EmailAddress)
+                ;
+        }
     }
 }

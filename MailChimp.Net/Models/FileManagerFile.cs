@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="File.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,13 +11,14 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The file manager file.
     /// </summary>
-    public class FileManagerFile
+    public class FileManagerFile : Base, IId<int>
     {
 
         [JsonProperty("id")]
@@ -56,6 +57,15 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Type)
+                .Data.Add(Name)
+                .Postfix.Add(FullSizeUrl)
+                ;
+        }
     }
 
 }

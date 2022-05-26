@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class BatchSegmentMembers
+    public class BatchSegmentMembers : Base
     {
         public BatchSegmentMembers()
         {
@@ -21,5 +22,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("members_to_remove")]
         public string[] MembersToRemove { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(MembersToAdd.Length, "Add")
+                .Data.AddExpression(MembersToRemove.Length, "Remove")
+                ;
+        }
     }
 }

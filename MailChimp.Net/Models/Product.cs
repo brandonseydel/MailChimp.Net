@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    public class Product
+    public class Product : Base, IId<string>
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -40,5 +41,15 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("_links")]
         public IList<Link> Links { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Type)
+                .Data.Add(Title)
+                .Postfix.Add(Url)
+                ;
+        }
+
     }
 }

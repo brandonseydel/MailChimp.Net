@@ -8,13 +8,14 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The report.
     /// </summary>
-    public class Report
+    public class Report : Base, IId<string>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Report"/> class.
@@ -137,5 +138,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unsubscribed")]
         public int Unsubscribed { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Type)
+                .Data.Add(SubjectLine)
+                ;
+        }
     }
 }

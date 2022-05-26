@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="History.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The history.
     /// </summary>
-    public class History
+    public class History : Base
     {
         /// <summary>
         /// Gets or sets the existing.
@@ -48,5 +49,15 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("optins")]
         public int Optins { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Prefix.Add(Month)
+                .Data.AddExpression(Optins)
+                .Data.AddExpression(Existing)
+                .Data.AddExpression(Imports)
+                ;
+        }
+
     }
 }

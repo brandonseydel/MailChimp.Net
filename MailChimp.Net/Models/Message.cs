@@ -1,18 +1,25 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Message.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The message.
     /// </summary>
-    public class Message
+    public class Message : Base, IId<string>
     {
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
         /// <summary>
         /// Gets or sets the body.
         /// </summary>
@@ -48,5 +55,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("timestamp")]
         public string Timestamp { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Subject)
+                ;
+        }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    public class ListSegment
+    public class ListSegment : Base, IId<int>
     {
         public ListSegment()
         {
@@ -37,5 +38,13 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("options")]
         public SegmentOptions Options { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Type)
+                .Data.Add(Name)
+                ;
+        }
     }
 }

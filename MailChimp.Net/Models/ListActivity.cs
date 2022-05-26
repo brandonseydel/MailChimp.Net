@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class ListActivity
+    public class ListActivity : Base
     {
 
         [JsonProperty("day")]
@@ -34,5 +35,13 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("other_removes")]
         public int OtherRemoves { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Prefix.Add(Day)
+                .Data.AddExpression(Subs)
+                .Data.AddExpression(Unsubs)
+                ;
+        }
     }
 }

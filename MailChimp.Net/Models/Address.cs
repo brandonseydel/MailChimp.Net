@@ -6,13 +6,14 @@
 
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The address.
     /// </summary>
-    public class Address
+    public class Address  : Base
     {
         /// <summary>
         /// Gets or sets the address 1.
@@ -61,5 +62,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("province_code")]
         public string ProvinceCode { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Address1)
+                ;
+        }
+
     }
 }

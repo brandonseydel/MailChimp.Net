@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Referrer.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -12,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The referrer.
     /// </summary>
-    public class Referrer
+    public class Referrer : Base
     {
         /// <summary>
         /// Gets or sets the clicks.
@@ -37,5 +38,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("referrer")]
         public string Name { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Name)
+                .Postfix.AddExpression(Clicks)
+                ;
+        }
     }
 }

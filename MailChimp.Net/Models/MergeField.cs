@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace MailChimp.Net.Models
 {
 	using Newtonsoft.Json;
+    using System.Diagnostics;
 
-	public class MergeField
+    public class MergeField : Base, IId<int>
 	{
 
 		public MergeField()
@@ -15,7 +16,7 @@ namespace MailChimp.Net.Models
 		}
 
 		[JsonProperty("merge_id")]
-		public int MergeId { get; set; }
+		public int Id { get; set; }
 
 		[JsonProperty("tag")]
 		public string Tag { get; set; }
@@ -49,5 +50,14 @@ namespace MailChimp.Net.Models
 
 		[JsonProperty("_links")]
 		public IEnumerable<Link> Links { get; set; }
-	}
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Type.Add(Type)
+                .Data.Add(Name)
+                .Postfix.Add(Tag)
+                ;
+        }
+    }
 }

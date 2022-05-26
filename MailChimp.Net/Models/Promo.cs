@@ -1,8 +1,9 @@
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
-    public class Promo
+    public class Promo : Base
     {
         [JsonProperty("code")]
         public string Code { get; set; }
@@ -12,5 +13,13 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("type")]
         public string Type { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Type.Add(Type)
+                .Data.AddExpression(AmountDiscounted)
+                .Postfix.Add(Code)
+                ;
+        }
     }
 }

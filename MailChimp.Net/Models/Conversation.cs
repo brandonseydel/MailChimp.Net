@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Conversation.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The conversation.
     /// </summary>
-    public class Conversation
+    public class Conversation : Base, IId<string>
     {
         /// <summary>
         /// Gets or sets the campaign id.
@@ -72,5 +73,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unread_messages")]
         public int UnreadMessages { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Subject)
+                ;
+        }
+
     }
 }

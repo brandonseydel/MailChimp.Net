@@ -1,11 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="EmailActivity.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The email activity.
     /// </summary>
-    public class EmailActivity
+    public class EmailActivity : Base
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailActivity"/> class.
@@ -59,5 +59,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("list_id")]
         public string ListId { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(EmailAddress)
+                ;
+        }
     }
 }

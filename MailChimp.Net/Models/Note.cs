@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Note.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -6,13 +6,14 @@
 
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
 	/// <summary>
 	/// The note.
 	/// </summary>
-	public class Note
+	public class Note : Base, IId<int>
 	{
 		/// <summary>
 		/// Gets or sets the body.
@@ -61,7 +62,15 @@ namespace MailChimp.Net.Models
 		/// </summary>
 		[JsonProperty("updated_at")]
 		public DateTime? UpdatedAt { get; set; }
-	}
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Body)
+                ;
+        }
+
+    }
 
 	public class MemberLastNote
 	{

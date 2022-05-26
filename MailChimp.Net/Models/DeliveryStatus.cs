@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DeliveryStatus.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The delivery status.
     /// </summary>
-    public class DeliveryStatus
+    public class DeliveryStatus : Base
     {
         /// <summary>
         /// Gets or sets a value indicating whether enabled.
@@ -30,5 +31,12 @@ namespace MailChimp.Net.Models
 
         [JsonProperty("emails_canceled")]
         public int EmailsCanceled { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Status.Add(Status)
+                .Status.IsEnabled(Enabled)
+                ;
+        }
     }
 }

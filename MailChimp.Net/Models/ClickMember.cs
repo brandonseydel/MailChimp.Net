@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The click member.
     /// </summary>
-    public class ClickMember
+    public class ClickMember : Base
     {
         /// <summary>
         /// Gets or sets the campaign id.
@@ -56,5 +56,13 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("url_id")]
         public string UrlId { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(EmailId)
+                .Data.Add(EmailAddress)
+                ;
+        }
+
     }
 }

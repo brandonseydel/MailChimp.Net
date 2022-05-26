@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Stats.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The stats.
     /// </summary>
-    public class Stats
+    public class Stats : Base
     {
         /// <summary>
         /// Gets or sets the avg sub rate.
@@ -108,5 +109,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unsubscribe_count_since_send")]
         public int UnsubscribeCountSinceSend { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(MemberCount)
+                ;
+        }
     }
 }

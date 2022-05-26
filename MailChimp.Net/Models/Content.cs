@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -12,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The content.
     /// </summary>
-    public class Content
+    public class Content : Base
     {
         /// <summary>
         /// Gets or sets the html.
@@ -42,5 +43,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("archive_html")]
         public string ArchiveHtml { get; set; }
+        
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(PlainText)
+                ;
+        }
     }
 }

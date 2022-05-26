@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Contact.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The contact.
     /// </summary>
-    public class Contact
+    public class Contact : Base
     {
         /// <summary>
         /// Gets or sets the address 1.
@@ -60,5 +61,11 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("zip")]
         public string Zip { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.Add(Address1)
+                ;
+        }
     }
 }

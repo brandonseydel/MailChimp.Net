@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
 {
-    public class BatchList
+    public class BatchList : Base
     {
         /// <summary>
         /// An array of objects, each representing an email address and the subscription status for a specific list.
@@ -13,9 +13,10 @@ namespace MailChimp.Net.Models
         public IEnumerable<Member> Members { get; set; }
 
         /// <summary>
-        /// Whether this batch operation will change existing members’ subscription status.
+        /// Whether this batch operation will change existing membersâ€™ subscription status.
         /// </summary>
         [JsonProperty("update_existing")]
         public bool UpdateExisting { get; set; }
+
     }
 }

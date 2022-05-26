@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -13,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The email.
     /// </summary>
-    public class Email
+    public class Email : Base, IId<string>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Email"/> class.
@@ -124,5 +124,14 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("web_id")]
         public int WebId { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Settings?.Title)
+                .Status.Add(Status)
+                ;
+        }
+
     }
 }

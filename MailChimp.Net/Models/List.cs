@@ -9,13 +9,14 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The list.
     /// </summary>
-    public class List
+    public class List : Base, IId<string>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="List"/> class.
@@ -159,5 +160,14 @@ namespace MailChimp.Net.Models
         [JsonProperty("visibility")]
         [JsonConverter(typeof(StringEnumDescriptionConverter))]
         public Visibility Visibility { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Id.Add(Id)
+                .Data.Add(Name)
+                .Status.Add(Visibility)
+                ;
+        }
+
     }
 }

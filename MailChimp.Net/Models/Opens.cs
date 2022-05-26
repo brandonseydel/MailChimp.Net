@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Opens.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace MailChimp.Net.Models
@@ -12,7 +13,7 @@ namespace MailChimp.Net.Models
     /// <summary>
     /// The opens.
     /// </summary>
-    public class Opens
+    public class Opens : Base
     {
         /// <summary>
         /// Gets or sets the last open.
@@ -37,5 +38,12 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("unique_opens")]
         public int UniqueOpens { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Data.AddExpression(OpensTotal)
+                .Data.AddExpression(UniqueOpens)
+                ;
+        }
     }
 }

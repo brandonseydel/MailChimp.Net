@@ -1,13 +1,14 @@
-﻿using MailChimp.Net.Core;
+using MailChimp.Net.Core;
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// An array of objects, each showing an interaction with the email.
     /// </summary>
-    public class MemberActivity
+    public class MemberActivity : Base
     {
         /// <summary>
         /// One of the following actions: ‘open’, ‘click’, or ‘bounce’
@@ -19,5 +20,14 @@ namespace MailChimp.Net.Models
         public string Timestamp { get; set; }
         public string Url { get; set; }
         public string Ip { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                .Type.Add(Type)
+                .Prefix.Add(Action)
+                .Data.Add(Url)
+                .Postfix.Add(Ip)
+                ;
+        }
     }
 }

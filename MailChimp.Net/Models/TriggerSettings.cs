@@ -1,17 +1,18 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TriggerSettings.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MailChimp.Net.Models
 {
     /// <summary>
     /// The trigger settings.
     /// </summary>
-    public class TriggerSettings
+    public class TriggerSettings : Base
     {
         /// <summary>
         /// Gets or sets the runtime.
@@ -42,5 +43,10 @@ namespace MailChimp.Net.Models
         /// </summary>
         [JsonProperty("workflow_type")]
         public string WorkflowType { get; set; }
+
+        internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
+            return base.GetDebuggerDisplayBuilder(Builder)
+                ;
+        }
     }
 }
