@@ -52,7 +52,7 @@ namespace MailChimp.Net.Models
 
         internal override DisplayBuilder GetDebuggerDisplayBuilder(DisplayBuilder Builder) {
             return base.GetDebuggerDisplayBuilder(Builder)
-                .Data.Add(SegmentText)
+                .Data.Add(ListName)
                 ;
         }
     }
