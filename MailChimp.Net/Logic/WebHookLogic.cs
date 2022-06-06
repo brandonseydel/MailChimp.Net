@@ -137,24 +137,21 @@ namespace MailChimp.Net.Logic
         /// <param name="listId">
         /// The list id.
         /// </param>
-        /// <param name="mergeField">
-        /// The merge field.
-        /// </param>
-        /// <param name="mergeId">
-        /// The merge id.
-        /// </param>
+        /// <param name="webHook">
+        /// The web hook.
+        /// </param>        
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public async Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null)
+        public async Task<WebHook> UpdateAsync(string listId, WebHook webHook)
         {
             using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
             {
-                var response = await client.PatchAsJsonAsync((mergeId ?? mergeField.MergeId).ToString(), mergeField).ConfigureAwait(false);
+                var response = await client.PatchAsJsonAsync(webHook.Id, webHook).ConfigureAwait(false);
                 await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var mergeResponse = await response.Content.ReadAsAsync<MergeField>().ConfigureAwait(false);
-                return mergeResponse;
+                var webHookResponse = await response.Content.ReadAsAsync<WebHook>().ConfigureAwait(false);
+                return webHookResponse;
             }
         }
     }
