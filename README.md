@@ -112,6 +112,7 @@ Progress on full implementation
 - List Growth History **100%**
 - List Interest Categories **100%**
 - List Members **100%**
+- List Members - Events **50%**
 - List Segments **100%**
 - List Web Hooks **100%**
 - Template Folders **100%**
