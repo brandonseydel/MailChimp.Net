@@ -15,6 +15,9 @@ Install-Package MailChimp.Net.V3
 ```
 Using it in code
 ```CSharp
+using MailChimp.Net;
+using MailChimp.Net.Interfaces;
+
 IMailChimpManager manager = new MailChimpManager(apiKey); //if you have it in code
 
 <add key="MailChimpApiKey" value="apiKEY" />
