@@ -59,5 +59,11 @@ namespace MailChimp.Net.Core
         /// </summary>
         [QueryString("sort_dir")]
         public MemberSortOrder? SortOrder { get; set; }
+
+        [QueryString("since_last_campaign")]
+        public bool SinceLastCampaign { get; set; }
+
+        [QueryString("unsubscribed_since")]
+        public string UnsubscribedSince { get; set; }
     }
 }
