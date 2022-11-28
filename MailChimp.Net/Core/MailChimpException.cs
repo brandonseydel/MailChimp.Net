@@ -91,14 +91,14 @@ namespace MailChimp.Net.Core
                     return _data;
 
                 var data = base.Data;
-                data.Add("detail", Detail);
-                data.Add("title", Title);
-                data.Add("type", Type);
-                data.Add("status", Status);
-                data.Add("instance", Instance);
-                data.Add("errors", Errors);
+                data["detail"] = Detail;
+                data["title"] = Title;
+                data["type"] = Type;
+                data["status"] = Status;
+                data["instance"] = Instance;
+                data["errors"] = Errors;
 #if NET_CORE || NETSTANDARD
-                data.Add("rawhttpresponsemessage", RawHttpResponseMessage);
+                data["rawhttpresponsemessage"] = RawHttpResponseMessage;
 #endif
 
                 _data = data;
