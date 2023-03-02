@@ -19,23 +19,19 @@ namespace MailChimp.Net.Logic
 
         public async Task<Variant> AddAsync(Variant variant)
         {
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.PostAsJsonAsync(string.Empty, variant).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl);
+            var response = await client.PostAsJsonAsync(string.Empty, variant).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var variantResponse = await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
-                return variantResponse;
-            }
+            var variantResponse = await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
+            return variantResponse;
         }
 
         public async Task DeleteAsync(string variantId)
         {
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.DeleteAsync(variantId).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.DeleteAsync(variantId).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -61,14 +57,12 @@ namespace MailChimp.Net.Logic
         public async Task<Variant> GetAsync(string variantId, BaseRequest request = null)
         {
 
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.GetAsync(variantId + request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.GetAsync(variantId + request?.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var variantResponse = await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
-                return variantResponse;
-            }
+            var variantResponse = await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
+            return variantResponse;
         }
 
         /// <summary>
@@ -83,19 +77,17 @@ namespace MailChimp.Net.Logic
         public async Task<ProductVariantResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
 
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl);
+            var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var variantResponse = await response.Content.ReadAsAsync<ProductVariantResponse>().ConfigureAwait(false);
-                return variantResponse;
-            }
+            var variantResponse = await response.Content.ReadAsAsync<ProductVariantResponse>().ConfigureAwait(false);
+            return variantResponse;
         }
 
         /// <summary>
@@ -106,14 +98,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Variant> UpdateAsync(string variantId, Variant variant)
         {
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.PatchAsJsonAsync(variantId, variant).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.PatchAsJsonAsync(variantId, variant).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var variantResponse = await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
-                return variantResponse;
-            }
+            var variantResponse = await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
+            return variantResponse;
         }
         public string StoreId { get; set; }
     }

@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
+using MailChimp.Net.Core.Responses;
 using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces
@@ -29,15 +30,23 @@ namespace MailChimp.Net.Interfaces
 		/// The <see cref="Task"/>.
 		/// </returns>
 		Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null);
-        
-	    /// <summary>
-	    /// Search the account or a specific list for members that match the specified query terms.
-	    /// </summary>
-	    /// <param name="request"></param>
-	    /// <returns>
-	    /// The <see cref="Task"/>.
-	    /// </returns>
-	    Task<MemberSearchResult> SearchAsync(MemberSearchRequest request);
+
+        /// <summary>
+        /// Gets all the member events for the list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListEventResponse> GetEventsAsync(string listId, QueryableBaseRequest request = null);
+
+        /// <summary>
+        /// Search the account or a specific list for members that match the specified query terms.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<MemberSearchResult> SearchAsync(MemberSearchRequest request);
 
         /// <summary>
         /// The delete async.
@@ -66,6 +75,33 @@ namespace MailChimp.Net.Interfaces
         /// The <see cref="Task"/>.
         /// </returns>
         Task PermanentDeleteAsync(string listId, string emailAddressOrHash);
+
+        /// <summary>
+        /// Retrieves the repsonse for the events for the member on the specific list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="emailAddressOrHash"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListEventResponse> GetMemberEventResponseAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null);
+
+        /// <summary>
+        /// Adds a new event for the list member
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="emailAddressOrHash"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list)
+
+        /// <summary>
+        /// Retrieves the events for the member on the specific list
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="emailAddressOrHash"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ListEvent>> GetMemberEventsAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null);
 
         /// <summary>
         /// Gets the activities for a specific list

@@ -46,30 +46,28 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Note> AddOrUpdateAsync(string listId, string emailAddressOrHash, string noteId, string note)
         {
-            using (var client = CreateMailClient("lists/"))
+            using var client = CreateMailClient("lists/");
+            System.Net.Http.HttpResponseMessage response;
+            if (string.IsNullOrWhiteSpace(noteId))
             {
-                System.Net.Http.HttpResponseMessage response;
-                if (string.IsNullOrWhiteSpace(noteId))
-                {
-                    response =
-                        await
-                        client.PostAsJsonAsync(
-                            $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes", 
-                            new { note }).ConfigureAwait(false);
-                }
-                else
-                {
-                    response =
-                        await
-                        client.PatchAsJsonAsync(
-                            $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}", 
-                            new { note }).ConfigureAwait(false);
-                }
-
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                return await response.Content.ReadAsAsync<Note>().ConfigureAwait(false);
+                response =
+                    await
+                    client.PostAsJsonAsync(
+                        $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes",
+                        new { note }).ConfigureAwait(false);
             }
+            else
+            {
+                response =
+                    await
+                    client.PatchAsJsonAsync(
+                        $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}",
+                        new { note }).ConfigureAwait(false);
+            }
+
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+            return await response.Content.ReadAsAsync<Note>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -92,14 +90,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task DeleteAsync(string listId, string emailAddressOrHash, string noteId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response =
-                    await
-                    client.DeleteAsync(
-                        $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("lists/");
+            var response =
+                await
+                client.DeleteAsync(
+                    $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -146,22 +142,20 @@ namespace MailChimp.Net.Logic
             QueryableBaseRequest request = null)
         {
 
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response =
-                    await
-                    client.GetAsync(
-                        $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists/");
+            var response =
+                await
+                client.GetAsync(
+                    $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var noteResponse = await response.Content.ReadAsAsync<NoteResponse>().ConfigureAwait(false);
-                return noteResponse;
-            }
+            var noteResponse = await response.Content.ReadAsAsync<NoteResponse>().ConfigureAwait(false);
+            return noteResponse;
         }
 
 
@@ -182,14 +176,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Note> GetAsync(string listId, string emailAddressOrHash, string noteId)
         {
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response =
-                    await client.GetAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{noteId}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists/");
+            var response =
+                await client.GetAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{noteId}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Note>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Note>().ConfigureAwait(false);
         }
     }
 }

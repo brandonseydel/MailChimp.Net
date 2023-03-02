@@ -14,7 +14,7 @@ namespace MailChimp.Net.Tests
         {
             var enumTest = new EnumTest { CampaignType = CampaignType.Plaintext };
 
-            string json = JsonConvert.SerializeObject(enumTest);
+            var json = JsonConvert.SerializeObject(enumTest);
 
             Assert.Contains("plaintext", json);
         }
@@ -25,7 +25,7 @@ namespace MailChimp.Net.Tests
         [Fact]
         public void EnumsShouldDeserializeWithDescriptionAttributes()
         {
-            string json = "{ \"CampaignType\": \"plaintext\" }";
+            var json = "{ \"CampaignType\": \"plaintext\" }";
 
             var enumTest = JsonConvert.DeserializeObject<EnumTest>(json);
 
@@ -38,7 +38,7 @@ namespace MailChimp.Net.Tests
         [Fact]
         public void EnumsShouldDeserializeWithDescriptionAttributesWithHyphen()
         {
-            string json = "{ \"CampaignType\": \"automation-email\" }";
+            var json = "{ \"CampaignType\": \"automation-email\" }";
 
             var enumTest = JsonConvert.DeserializeObject<EnumTest>(json);
 

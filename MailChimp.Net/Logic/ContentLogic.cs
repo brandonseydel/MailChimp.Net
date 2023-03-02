@@ -45,13 +45,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest content)
         {
-            using (var client = CreateMailClient("campaigns/"))
-            {
-                var response = await client.PutAsJsonAsync($"{campaignId}/content", content).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("campaigns/");
+            var response = await client.PutAsJsonAsync($"{campaignId}/content", content).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -73,13 +71,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Content> GetAsync(string campaignId)
         {
-            using (var client = CreateMailClient("campaigns/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/content").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("campaigns/");
+            var response = await client.GetAsync($"{campaignId}/content").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);
         }
     }
 }

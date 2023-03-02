@@ -45,22 +45,20 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<List> AddOrUpdateAsync(List list)
         {
-            using (var client = CreateMailClient("lists/"))
+            using var client = CreateMailClient("lists/");
+            System.Net.Http.HttpResponseMessage response;
+            if (string.IsNullOrWhiteSpace(list.Id))
             {
-                System.Net.Http.HttpResponseMessage response;
-                if (string.IsNullOrWhiteSpace(list.Id))
-                {
-                    response = await client.PostAsJsonAsync(string.Empty, list).ConfigureAwait(false);
-                }
-                else
-                {
-                    response = await client.PatchAsJsonAsync(list.Id, list).ConfigureAwait(false);
-                }
-
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
+                response = await client.PostAsJsonAsync(string.Empty, list).ConfigureAwait(false);
             }
+            else
+            {
+                response = await client.PatchAsJsonAsync(list.Id, list).ConfigureAwait(false);
+            }
+
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+            return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -83,11 +81,9 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task DeleteAsync(string listId)
         {
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response = await client.DeleteAsync(listId).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("lists/");
+            var response = await client.DeleteAsync(listId).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -137,19 +133,17 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<ListResponse> GetResponseAsync(ListRequest request = null)
         {
-            request =  request ?? new ListRequest
+            request ??=  new ListRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("lists"))
-            {
-                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists");
+            var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var listResponse = await response.Content.ReadAsAsync<ListResponse>().ConfigureAwait(false);
-                return listResponse;
-            }
+            var listResponse = await response.Content.ReadAsAsync<ListResponse>().ConfigureAwait(false);
+            return listResponse;
         }
 
 
@@ -172,32 +166,28 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<List> GetAsync(string id)
         {
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response = await client.GetAsync($"{id}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists/");
+            var response = await client.GetAsync($"{id}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
         }
 
         public async Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null)
         {
             const string BaseUrl = "/lists/{0}/activity";
 
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient(string.Format(BaseUrl + "/", listId)))
-            {
-                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(string.Format(BaseUrl + "/", listId));
+            var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var listActivityResponse = await response.Content.ReadAsAsync<ListActivityResponse>().ConfigureAwait(false);
-                return listActivityResponse;
-            }
+            var listActivityResponse = await response.Content.ReadAsAsync<ListActivityResponse>().ConfigureAwait(false);
+            return listActivityResponse;
         }
 
         /// <summary>
@@ -205,13 +195,11 @@ namespace MailChimp.Net.Logic
         /// </summary>
         public async Task<BatchListResponse> BatchAsync(BatchList batchList, string listId)
         {
-            using (var client = CreateMailClient($"lists/{listId}"))
-            {
-                var response = await client.PostAsJsonAsync(string.Empty, batchList).ConfigureAwait(false);
+            using var client = CreateMailClient($"lists/{listId}");
+            var response = await client.PostAsJsonAsync(string.Empty, batchList).ConfigureAwait(false);
 
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<BatchListResponse>().ConfigureAwait(false);
-            }
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<BatchListResponse>().ConfigureAwait(false);
         }
     }
 }

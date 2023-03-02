@@ -66,27 +66,23 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response = await client.GetAsync($"{listId}/activity{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists/");
+            var response = await client.GetAsync($"{listId}/activity{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var appResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
-                return appResponse;
-            }
+            var appResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
+            return appResponse;
         }
 
         /// <inheritdoc />
         public async Task<ChimpChatterResponse> GetChimpChatterResponseAsync(QueryableBaseRequest request = null)
         {
-            using (var client = CreateMailClient("activity-feed/"))
-            {
-                var response = await client.GetAsync($"chimp-chatter{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("activity-feed/");
+            var response = await client.GetAsync($"chimp-chatter{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var appResponse = await response.Content.ReadAsAsync<ChimpChatterResponse>().ConfigureAwait(false);
-                return appResponse;
-            }
+            var appResponse = await response.Content.ReadAsAsync<ChimpChatterResponse>().ConfigureAwait(false);
+            return appResponse;
         }
     }
 }

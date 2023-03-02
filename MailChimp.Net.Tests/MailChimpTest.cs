@@ -104,7 +104,7 @@ namespace MailChimp.Net.Tests
         /// </returns>
         internal string Hash(string emailAddress)
         {
-            using (var md5 = MD5.Create()) return md5.GetHash(emailAddress);
+            using var md5 = MD5.Create(); return md5.GetHash(emailAddress);
         }
     }
 }

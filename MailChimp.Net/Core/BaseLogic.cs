@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
-#if HTTP_CLIENT_FACTORY
+#if HTTP_CLIENT_FACTORY 
 using Microsoft.Extensions.DependencyInjection;
 #endif
 
@@ -23,8 +23,6 @@ namespace MailChimp.Net.Core
     /// </summary>
     public abstract class BaseLogic
     {
-        internal const int ApiTimeout = 120;
-
         internal int _limit => _options.Limit;
 
         internal MailChimpOptions _options;
@@ -43,8 +41,7 @@ namespace MailChimp.Net.Core
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddHttpClient(this._options.ApiKey ?? "OAuthMode", client =>
             {
-                client.BaseAddress = new Uri(GetBaseAddress());
-                client.Timeout = TimeSpan.FromSeconds(ApiTimeout);
+                client.BaseAddress = new Uri(GetBaseAddress());               
             })
                 .ConfigurePrimaryHttpMessageHandler(handler =>
                 new HttpClientHandler()
@@ -83,7 +80,7 @@ namespace MailChimp.Net.Core
         protected MailChimpHttpClient CreateMailClient(string resource)
         {
 #if HTTP_CLIENT_FACTORY
-            return FactoryProvidedHttpClient(resource);
+            return FactoryProvidedHttpClient(resource);            
 #else
             return NewedUpHttpClient(resource);
 #endif
@@ -92,7 +89,7 @@ namespace MailChimp.Net.Core
 
 #if HTTP_CLIENT_FACTORY
         private MailChimpHttpClient FactoryProvidedHttpClient(string resource)
-        {
+        {           
             var client = GetHttpClientFactory().CreateClient(_options.ApiKey ?? "OAuthMode");
             return new MailChimpHttpClient(client, _options, resource);
         }
@@ -100,7 +97,7 @@ namespace MailChimp.Net.Core
 
 
         private MailChimpHttpClient NewedUpHttpClient(string resource)
-        {
+        {           
             var handler = new HttpClientHandler();
             if (handler.SupportsAutomaticDecompression)
             {
@@ -108,8 +105,7 @@ namespace MailChimp.Net.Core
             }
             var client = new HttpClient(handler)
             {
-                BaseAddress = new Uri(GetBaseAddress()),
-                Timeout = TimeSpan.FromSeconds(ApiTimeout)
+                BaseAddress = new Uri(GetBaseAddress())
             };
             return new MailChimpHttpClient(client, _options, resource);
         }
@@ -136,13 +132,13 @@ namespace MailChimp.Net.Core
         /// <paramref>
         ///         <name>s</name>
         ///     </paramref>
-        ///     is null.
+        ///     is null. 
         /// </exception>
         /// <exception cref="EncoderFallbackException">
         /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>.
+        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
         /// </exception>
         /// <exception cref="FormatException">
         /// <paramref>
@@ -154,7 +150,7 @@ namespace MailChimp.Net.Core
         {
             if (!emailAddressOrHash.Contains("@")) { return emailAddressOrHash; } //this is hashed already
 
-            using (var md5 = MD5.Create()) return md5.GetHash(emailAddressOrHash.ToLower());
+            using var md5 = MD5.Create(); return md5.GetHash(emailAddressOrHash.ToLower());
         }
     }
 }

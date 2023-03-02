@@ -79,19 +79,17 @@ namespace MailChimp.Net.Logic
         public async Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null)
         {
 
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists/");
+            var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var appResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
-                return appResponse;
-            }
+            var appResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
+            return appResponse;
         }
 
 
@@ -123,13 +121,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null)
         {
-            using (var client = CreateMailClient("lists/"))
-            {
-                var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists/");
+            var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);
         }
     }
 }

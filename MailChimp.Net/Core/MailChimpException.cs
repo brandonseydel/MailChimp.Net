@@ -37,7 +37,7 @@ namespace MailChimp.Net.Core
 
         private static string formatMessage(MailChimpApiError apierror, HttpResponseMessage rawHttpResponseMessage)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.AppendLine($"Title: {apierror.Title}");
             builder.AppendLine($"Type: {apierror.Type}");
             builder.AppendLine($"Status: {apierror.Status}");

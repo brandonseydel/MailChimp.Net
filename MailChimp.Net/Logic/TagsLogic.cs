@@ -25,19 +25,17 @@ namespace MailChimp.Net.Logic
 
         public async Task<ListTagsResponse> GetResponseAsync(string listId, TagsRequest request = null)
         {
-            request = request ?? new TagsRequest
+            request ??= new TagsRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient($"{BaseUrl}/"))
-            {
-                var response = await client.GetAsync($"{listId}/tag-search").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient($"{BaseUrl}/");
+            var response = await client.GetAsync($"{listId}/tag-search").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var listTagsResponse = await response.Content.ReadAsAsync<ListTagsResponse>().ConfigureAwait(false);
-                return listTagsResponse;
-            }
+            var listTagsResponse = await response.Content.ReadAsAsync<ListTagsResponse>().ConfigureAwait(false);
+            return listTagsResponse;
         }
     }
 }

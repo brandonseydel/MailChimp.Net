@@ -108,12 +108,10 @@ namespace MailChimp.Net.Core
         /// </returns>
         private static T Deserialize<T>(this Stream stream)
         {
-            using (var reader = new StreamReader(stream))
-            using (var jsonReader = new JsonTextReader(reader))
-            {
-                var jsonSerializer = new JsonSerializer();
-                return jsonSerializer.Deserialize<T>(jsonReader);
-            }
+            using var reader = new StreamReader(stream);
+            using var jsonReader = new JsonTextReader(reader);
+            var jsonSerializer = new JsonSerializer();
+            return jsonSerializer.Deserialize<T>(jsonReader);
         }
     }
 }

@@ -17,23 +17,19 @@ namespace MailChimp.Net.Logic
 
         public async Task<PromoCode> AddAsync(PromoCode promoCode)
         {
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.PostAsJsonAsync(string.Empty, promoCode).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl);
+            var response = await client.PostAsJsonAsync(string.Empty, promoCode).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var cartResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
-                return cartResponse;
-            }
+            var cartResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
+            return cartResponse;
         }
         
         public async Task DeleteAsync(string promoCodeID)
         {
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.DeleteAsync(promoCodeID).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.DeleteAsync(promoCodeID).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -59,14 +55,12 @@ namespace MailChimp.Net.Logic
         public async Task<PromoCode> GetAsync(string promoCodeID, BaseRequest request = null)
         {
 
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.GetAsync(promoCodeID + request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.GetAsync(promoCodeID + request?.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var lineResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
-                return lineResponse;
-            }
+            var lineResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
+            return lineResponse;
         }
 
         /// <summary>
@@ -81,19 +75,17 @@ namespace MailChimp.Net.Logic
         public async Task<StorePromoCodeResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
 
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl);
+            var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var codeResponse = await response.Content.ReadAsAsync<StorePromoCodeResponse>().ConfigureAwait(false);
-                return codeResponse;
-            }
+            var codeResponse = await response.Content.ReadAsAsync<StorePromoCodeResponse>().ConfigureAwait(false);
+            return codeResponse;
         }
 
         /// <summary>
@@ -104,14 +96,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<PromoCode> UpdateAsync(string promoCodeID, PromoCode promoCode)
         {
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.PatchAsJsonAsync(promoCodeID, promoCode).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.PatchAsJsonAsync(promoCodeID, promoCode).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var cartResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
-                return cartResponse;
-            }
+            var cartResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
+            return cartResponse;
         }
 
         public string Resource { get; set; }

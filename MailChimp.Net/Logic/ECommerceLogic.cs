@@ -78,14 +78,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Store> AddAsync(Store store)
         {
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.PostAsJsonAsync(string.Empty, store).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl);
+            var response = await client.PostAsJsonAsync(string.Empty, store).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var storeResponse = await response.Content.ReadAsAsync<Store>().ConfigureAwait(false);
-                return storeResponse;
-            }
+            var storeResponse = await response.Content.ReadAsAsync<Store>().ConfigureAwait(false);
+            return storeResponse;
         }
 
         /// <summary>
@@ -99,11 +97,9 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task DeleteAsync(string storeId)
         {
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.DeleteAsync(storeId).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.DeleteAsync(storeId).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -134,14 +130,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Store> GetAsync(string storeId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.GetAsync(storeId + request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.GetAsync(storeId + request?.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var storeResponse = await response.Content.ReadAsAsync<Store>().ConfigureAwait(false);
-                return storeResponse;
-            }
+            var storeResponse = await response.Content.ReadAsAsync<Store>().ConfigureAwait(false);
+            return storeResponse;
         }
 
         /// <summary>
@@ -155,19 +149,17 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<ECommerceResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient(BaseUrl))
-            {
-                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl);
+            var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var storeResponse = await response.Content.ReadAsAsync<ECommerceResponse>().ConfigureAwait(false);
-                return storeResponse;
-            }
+            var storeResponse = await response.Content.ReadAsAsync<ECommerceResponse>().ConfigureAwait(false);
+            return storeResponse;
         }
 
         /// <summary>
@@ -184,14 +176,12 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Store> UpdateAsync(string storeId, Store store)
         {
-            using (var client = CreateMailClient(BaseUrl + "/"))
-            {
-                var response = await client.PatchAsJsonAsync(storeId, store).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(BaseUrl + "/");
+            var response = await client.PatchAsJsonAsync(storeId, store).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var storeResponse = await response.Content.ReadAsAsync<Store>().ConfigureAwait(false);
-                return storeResponse;
-            }
+            var storeResponse = await response.Content.ReadAsAsync<Store>().ConfigureAwait(false);
+            return storeResponse;
         }
     }
 }

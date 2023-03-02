@@ -40,13 +40,11 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Message> AddAsync(string conversationId, Message message)
         {
-            using (var client = CreateMailClient("conversations/"))
-            {
-                var response = await client.PutAsJsonAsync($"{conversationId}", message).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("conversations/");
+            var response = await client.PutAsJsonAsync($"{conversationId}", message).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Message>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Message>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -80,15 +78,13 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<MessageResponse> GetResponseAsync(string conversationId, MessageRequest request = null)
         {
-            
-            using (var client = CreateMailClient($"conversations/{request?.ToQueryString()}"))
-            {
-                var response = await client.GetAsync($"{conversationId}/messages").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var listResponse = await response.Content.ReadAsAsync<MessageResponse>().ConfigureAwait(false);
-                return listResponse;
-            }
+            using var client = CreateMailClient($"conversations/{request?.ToQueryString()}");
+            var response = await client.GetAsync($"{conversationId}/messages").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+            var listResponse = await response.Content.ReadAsAsync<MessageResponse>().ConfigureAwait(false);
+            return listResponse;
         }
 
 
@@ -106,13 +102,11 @@ namespace MailChimp.Net.Logic
         /// </returns>
         public async Task<Message> GetAsync(string conversationId, string messageId)
         {
-            using (var client = CreateMailClient("conversations/"))
-            {
-                var response = await client.GetAsync($"{conversationId}/messages/{messageId}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("conversations/");
+            var response = await client.GetAsync($"{conversationId}/messages/{messageId}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Message>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Message>().ConfigureAwait(false);
         }
     }
 }

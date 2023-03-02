@@ -49,16 +49,14 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Queue> AddSubscriberAsync(string workflowId, string workflowEmailId, string emailAddress)
         {
-            using (var client = CreateMailClient("automations/"))
-            {
-                var response =
-                    await
-                    client.PostAsJsonAsync(
-                        $"{workflowId}/emails/{workflowEmailId}/queue", 
-                        new { email_address = emailAddress }).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("automations/");
+            var response =
+                await
+                client.PostAsJsonAsync(
+                    $"{workflowId}/emails/{workflowEmailId}/queue",
+                    new { email_address = emailAddress }).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -108,13 +106,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<AutomationEmailQueueResponse> GetResponseAsync(string workflowId, string workflowEmailId)
         {
-            using (var client = CreateMailClient("automations/"))
-            {
-                var response = await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var automationResponse = await response.Content.ReadAsAsync<AutomationEmailQueueResponse>().ConfigureAwait(false);
-                return automationResponse;
-            }
+            using var client = CreateMailClient("automations/");
+            var response = await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            var automationResponse = await response.Content.ReadAsAsync<AutomationEmailQueueResponse>().ConfigureAwait(false);
+            return automationResponse;
         }
 
 
@@ -143,14 +139,12 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddressOrHash)
         {
-            using (var client = CreateMailClient("automations/"))
-            {
-                var response =
-                    await
-                    client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("automations/");
+            var response =
+                await
+                client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
         }
     }
 }

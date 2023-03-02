@@ -58,13 +58,11 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<AbuseReportResponse> GetAbuseReportsAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/abuse-reports{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var reportResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
-                return reportResponse;
-            }
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/abuse-reports{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            var reportResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
+            return reportResponse;
         }
 
         /// <summary>
@@ -76,13 +74,11 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<AbuseReport> GetAbuseReportAsync(string campaignId, string reportId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/abuse-reports/${reportId}{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var reportResponse = await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);
-                return reportResponse;
-            }
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/abuse-reports/${reportId}{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            var reportResponse = await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);
+            return reportResponse;
         }
 
 
@@ -109,18 +105,16 @@ namespace MailChimp.Net.Logic
         public async Task<ReportResponse> GetResponseAsync(ReportRequest request = null)
         {
 
-            request = request ?? new ReportRequest
+            request ??= new ReportRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("reports"))
-            {
-                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
-                return reportResponse;
-            }
+            using var client = CreateMailClient("reports");
+            var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
+            return reportResponse;
         }
 
 
@@ -149,14 +143,12 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Advice>> GetCampaignAdviceAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/advice{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/advice{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var campaignAdviceReport = await response.Content.ReadAsAsync<CampaignAdviceReport>().ConfigureAwait(false);
-                return campaignAdviceReport.Advice;
-            }
+            var campaignAdviceReport = await response.Content.ReadAsAsync<CampaignAdviceReport>().ConfigureAwait(false);
+            return campaignAdviceReport.Advice;
         }
 
         /// <summary>
@@ -214,7 +206,7 @@ namespace MailChimp.Net.Logic
         public async Task<int> GetCampaignOpenReportCountAsync(string campaignId, QueryableBaseRequest request = null)
         {
             // Limit the response to the total only with the min query limit
-            request = request ?? new CampaignOpenReportRequest();
+            request ??= new CampaignOpenReportRequest();
             request.Limit = 1;
             request.FieldsToExclude = "_links,campaign_id,members,total_opens";
 
@@ -228,18 +220,16 @@ namespace MailChimp.Net.Logic
             string campaignId,
             QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/open-details{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var reportResponse = await response.Content.ReadAsAsync<CampaignOpenReportResponse>().ConfigureAwait(false);
-                return reportResponse;
-            }
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/open-details{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            var reportResponse = await response.Content.ReadAsAsync<CampaignOpenReportResponse>().ConfigureAwait(false);
+            return reportResponse;
         }
 
         /// <summary>
@@ -267,19 +257,17 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<UrlClicked>> GetClickReportAsync(string campaignId, QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/click-details{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/click-details{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var clickReportResponse = await response.Content.ReadAsAsync<ClickReportResponse>().ConfigureAwait(false);
-                return clickReportResponse.UrlsClicked;
-            }
+            var clickReportResponse = await response.Content.ReadAsAsync<ClickReportResponse>().ConfigureAwait(false);
+            return clickReportResponse.UrlsClicked;
         }
 
         /// <summary>
@@ -310,13 +298,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<UrlClicked> GetClickReportDetailsAsync(string campaignId, string linkId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/click-details/{linkId}{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/click-details/{linkId}{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<UrlClicked>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<UrlClicked>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -366,17 +352,15 @@ namespace MailChimp.Net.Logic
             string linkId, 
             string emailAddressOrHash,
             BaseRequest request = null)
-        { 
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response =
-                    await
-                    client.GetAsync(
-                        $"{campaignId}/click-details/{linkId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        {
+            using var client = CreateMailClient("reports/");
+            var response =
+                await
+                client.GetAsync(
+                    $"{campaignId}/click-details/{linkId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<ClickMember>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<ClickMember>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -410,20 +394,18 @@ namespace MailChimp.Net.Logic
             string linkId,
             QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response =
-                    await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response =
+                await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var clickReportMemberResponse = await response.Content.ReadAsAsync<ClickReportMemberResponse>().ConfigureAwait(false);
-                return clickReportMemberResponse.Members;
-            }
+            var clickReportMemberResponse = await response.Content.ReadAsAsync<ClickReportMemberResponse>().ConfigureAwait(false);
+            return clickReportMemberResponse.Members;
         }
 
         /// <summary>
@@ -451,14 +433,12 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Domain>> GetDomainPerformanceAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/domain-performance{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/domain-performance{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var domainPerformanceResponse = await response.Content.ReadAsAsync<DomainPerformanceResponse>().ConfigureAwait(false);
-                return domainPerformanceResponse.Domains;
-            }
+            var domainPerformanceResponse = await response.Content.ReadAsAsync<DomainPerformanceResponse>().ConfigureAwait(false);
+            return domainPerformanceResponse.Domains;
         }
 
         /// <summary>
@@ -486,13 +466,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<EepUrlActivity> GetEepUrlReportAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/click-details/eepurl{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/click-details/eepurl{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<EepUrlActivity>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<EepUrlActivity>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -552,19 +530,17 @@ namespace MailChimp.Net.Logic
             string campaignId, QueryableBaseRequest 
             request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/email-activity{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/email-activity{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var emailActivityResponse = await response.Content.ReadAsAsync<EmailResponse>().ConfigureAwait(false);
-                return emailActivityResponse;
-            }
+            var emailActivityResponse = await response.Content.ReadAsAsync<EmailResponse>().ConfigureAwait(false);
+            return emailActivityResponse;
         }
 
         /// <summary>
@@ -611,15 +587,13 @@ namespace MailChimp.Net.Logic
             string emailAddressOrHash,
             BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response =
-                    await
-                    client.GetAsync($"{campaignId}/email-activity/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response =
+                await
+                client.GetAsync($"{campaignId}/email-activity/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<EmailActivity>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<EmailActivity>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -647,14 +621,12 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<OpenLocation>> GetLocationsAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/locations{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/locations{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var openLocationResponse = await response.Content.ReadAsAsync<OpenLocationResponse>().ConfigureAwait(false);
-                return openLocationResponse.Locations;
-            }
+            var openLocationResponse = await response.Content.ReadAsAsync<OpenLocationResponse>().ConfigureAwait(false);
+            return openLocationResponse.Locations;
         }
 
         /// <summary>
@@ -682,13 +654,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<Report> GetReportAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync(campaignId + request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync(campaignId + request?.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Report>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Report>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -735,19 +705,17 @@ namespace MailChimp.Net.Logic
             string emailAddressOrHash,
             QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response =
-                    await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddressOrHash)}{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response =
+                await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddressOrHash)}{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<SentTo>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<SentTo>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -775,7 +743,7 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<SentTo>> GetSentToRecipientsAsync(string campaignId, QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
@@ -792,14 +760,12 @@ namespace MailChimp.Net.Logic
         /// <returns></returns>
         public async Task<SentToResponse> GetSentToRecipientsResponseAsync(string campaignId, QueryableBaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/sent-to{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/sent-to{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var sendToResponse = await response.Content.ReadAsAsync<SentToResponse>().ConfigureAwait(false);
-                return sendToResponse;
-            }
+            var sendToResponse = await response.Content.ReadAsAsync<SentToResponse>().ConfigureAwait(false);
+            return sendToResponse;
         }
 
 
@@ -828,13 +794,11 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<IEnumerable<Report>> GetSubReportAsync(string campaignId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/sub-reports{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
-                return reportResponse.Reports;
-            }
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/sub-reports{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
+            return reportResponse.Reports;
         }
 
         /// <summary>
@@ -878,14 +842,12 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddressOrHash, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response =
-                    await
-                    client.GetAsync($"{campaignId}/unsubscribed/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<Unsubscribe>().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("reports/");
+            var response =
+                await
+                client.GetAsync($"{campaignId}/unsubscribed/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<Unsubscribe>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -947,7 +909,7 @@ namespace MailChimp.Net.Logic
             QueryableBaseRequest request = null)
         {
             // Limit the response to the total only with the min query limit
-            request = request ?? new QueryableBaseRequest();
+            request ??= new QueryableBaseRequest();
             request.Limit = 1;
             request.FieldsToExclude = "_links,campaign_id,unsubscribes";
 
@@ -959,18 +921,16 @@ namespace MailChimp.Net.Logic
             string campaignId,
             QueryableBaseRequest request = null)
         {
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
-            using (var client = CreateMailClient("reports/"))
-            {
-                var response = await client.GetAsync($"{campaignId}/unsubscribed{request.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                var reportResponse = await response.Content.ReadAsAsync<UnsubscribeReportResponse>().ConfigureAwait(false);
-                return reportResponse;
-            }
+            using var client = CreateMailClient("reports/");
+            var response = await client.GetAsync($"{campaignId}/unsubscribed{request.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            var reportResponse = await response.Content.ReadAsAsync<UnsubscribeReportResponse>().ConfigureAwait(false);
+            return reportResponse;
         }
     }
 }

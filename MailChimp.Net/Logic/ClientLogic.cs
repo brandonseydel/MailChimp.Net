@@ -77,15 +77,13 @@ namespace MailChimp.Net.Logic
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
 		public async Task<ClientResponse> GetResponseAsync(string listId, BaseRequest request = null)
 		{
-			using (var client = CreateMailClient("lists/"))
-			{
-				var response = await client.GetAsync($"{listId}/clients{request?.ToQueryString()}").ConfigureAwait(false);
-				await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("lists/");
+            var response = await client.GetAsync($"{listId}/clients{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-				var appResponse = await response.Content.ReadAsAsync<ClientResponse>().ConfigureAwait(false);
-				return appResponse;
-			}
-		}
+            var appResponse = await response.Content.ReadAsAsync<ClientResponse>().ConfigureAwait(false);
+            return appResponse;
+        }
 
 
 	}

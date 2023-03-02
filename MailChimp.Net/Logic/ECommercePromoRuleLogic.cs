@@ -33,14 +33,12 @@ namespace MailChimp.Net.Logic
         public async Task<PromoRule> AddAsync(PromoRule customer)
         {
             var requestUrl = string.Format(BaseUrl, StoreId);
-            using (var client = CreateMailClient(requestUrl))
-            {
-                var response = await client.PostAsJsonAsync(string.Empty, customer).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(requestUrl);
+            var response = await client.PostAsJsonAsync(string.Empty, customer).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
-                return promoRuleResponse;
-            }
+            var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
+            return promoRuleResponse;
         }
 
         /// <summary>
@@ -52,11 +50,9 @@ namespace MailChimp.Net.Logic
         public async Task DeleteAsync(string promoRuleID)
         {
             var requestUrl = string.Format(BaseUrl, StoreId);
-            using (var client = CreateMailClient(requestUrl + "/"))
-            {
-                var response = await client.DeleteAsync(promoRuleID).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient(requestUrl + "/");
+            var response = await client.DeleteAsync(promoRuleID).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -83,14 +79,12 @@ namespace MailChimp.Net.Logic
         {
             var requestUrl = string.Format(BaseUrl, StoreId);
 
-            using (var client = CreateMailClient(requestUrl + "/"))
-            {
-                var response = await client.GetAsync(customerId + request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(requestUrl + "/");
+            var response = await client.GetAsync(customerId + request?.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
-                return promoRuleResponse;
-            }
+            var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
+            return promoRuleResponse;
         }
 
         /// <summary>
@@ -105,20 +99,18 @@ namespace MailChimp.Net.Logic
         public async Task<StorePromoRuleResponse> GetResponseAsync(QueryableBaseRequest request = null)
         {
 
-            request = request ?? new QueryableBaseRequest
+            request ??= new QueryableBaseRequest
             {
                 Limit = _limit
             };
 
             var requestUrl = string.Format(BaseUrl, StoreId);
-            using (var client = CreateMailClient(requestUrl))
-            {
-                var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(requestUrl);
+            var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var promoResponse = await response.Content.ReadAsAsync<StorePromoRuleResponse>().ConfigureAwait(false);
-                return promoResponse;
-            }
+            var promoResponse = await response.Content.ReadAsAsync<StorePromoRuleResponse>().ConfigureAwait(false);
+            return promoResponse;
         }
 
         /// <summary>
@@ -132,14 +124,12 @@ namespace MailChimp.Net.Logic
         public async Task<PromoRule> UpdateAsync(string promoRuleID, PromoRule promoRule)
         {
             var requestUrl = string.Format(BaseUrl, StoreId);
-            using (var client = CreateMailClient(requestUrl + "/"))
-            {
-                var response = await client.PatchAsJsonAsync(promoRuleID, promoRule).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient(requestUrl + "/");
+            var response = await client.PatchAsJsonAsync(promoRuleID, promoRule).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
-                return promoRuleResponse;
-            }
+            var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
+            return promoRuleResponse;
         }
 
 

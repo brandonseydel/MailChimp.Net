@@ -1,32 +1,33 @@
-    <Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AssemblyName>MailChimp.Net.Tests</AssemblyName>
-    <PackageId>MailChimp.Net.Tests</PackageId>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <AssemblyName>MailChimp.Net.Tests</AssemblyName>
+        <PackageId>MailChimp.Net.Tests</PackageId>
+        <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+        <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+        <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MailChimp.Net\MailChimp.Net.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\MailChimp.Net\MailChimp.Net.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup>
+    <ItemGroup>
+        <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+    </ItemGroup>
 
 </Project>

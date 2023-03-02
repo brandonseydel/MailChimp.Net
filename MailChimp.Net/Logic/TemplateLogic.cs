@@ -46,11 +46,9 @@ namespace MailChimp.Net.Logic
         /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
         public async Task DeleteAsync(string templateId)
         {
-            using (var client = CreateMailClient("templates/"))
-            {
-                var response = await client.DeleteAsync($"{templateId}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("templates/");
+            var response = await client.DeleteAsync($"{templateId}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -74,54 +72,44 @@ namespace MailChimp.Net.Logic
         /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
         public async Task DeleteAsync(int templateId)
         {
-            using (var client = CreateMailClient("templates/"))
-            {
-                var response = await client.DeleteAsync($"{templateId}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("templates/");
+            var response = await client.DeleteAsync($"{templateId}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         }
 
         public async Task<Template> CreateAsync(string name, string folderId, string html)
         {
-            using (var client = CreateMailClient("templates"))
-            {
-                var response = await client.PostAsJsonAsync(null, new { name, folder_id = folderId, html }).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("templates");
+            var response = await client.PostAsJsonAsync(null, new { name, folder_id = folderId, html }).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
         }
 
         public async Task<Template> UpdateAsync(string templateId, string name, string folderId, string html)
         {
-            using (var client = CreateMailClient("templates/"))
-            {
-                var response =
-                    await client.PatchAsJsonAsync(templateId, new { name, folder_id = folderId, html }).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("templates/");
+            var response =
+                await client.PatchAsJsonAsync(templateId, new { name, folder_id = folderId, html }).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
         }
 
         public async Task<Template> UpdateAsync(int templateId, string name, string folderId, string html)
         {
-            using (var client = CreateMailClient("templates/"))
-            {
-                var response =
-                    await client.PatchAsJsonAsync(templateId.ToString(), new { name, folder_id = folderId, html }).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("templates/");
+            var response =
+                await client.PatchAsJsonAsync(templateId.ToString(), new { name, folder_id = folderId, html }).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
         }
 
 
         public async Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null)
         {
-            using (var client = CreateMailClient("templates/"))
-            {
-                var response = await client.GetAsync($"{templateId}/default-content{request?.ToQueryString()}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
+            using var client = CreateMailClient("templates/");
+            var response = await client.GetAsync($"{templateId}/default-content{request?.ToQueryString()}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
         }
 
@@ -172,14 +160,12 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null)
         {
-            using (var client = CreateMailClient("templates"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("templates");
+            var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var templateResponse = await response.Content.ReadAsAsync<TemplateResponse>().ConfigureAwait(false);
-                return templateResponse;
-            }
+            var templateResponse = await response.Content.ReadAsAsync<TemplateResponse>().ConfigureAwait(false);
+            return templateResponse;
         }
 
 
@@ -202,13 +188,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Template> GetAsync(string templateId)
         {
-            using (var client = CreateMailClient("templates/"))
-            {
-                var response = await client.GetAsync($"{templateId}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("templates/");
+            var response = await client.GetAsync($"{templateId}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -230,13 +214,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Template> GetAsync(int templateId)
         {
-            using (var client = CreateMailClient("templates/"))
-            {
-                var response = await client.GetAsync($"{templateId}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("templates/");
+            var response = await client.GetAsync($"{templateId}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
         }
     }
 }

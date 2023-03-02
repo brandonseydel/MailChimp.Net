@@ -71,14 +71,12 @@ namespace MailChimp.Net.Logic
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<ConversationResponse> GetResponseAsync(ConversationRequest request = null)
         {
-            using (var client = CreateMailClient("conversations"))
-            {
-                var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("conversations");
+            var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                var conversationResponse = await response.Content.ReadAsAsync<ConversationResponse>().ConfigureAwait(false);
-                return conversationResponse;
-            }
+            var conversationResponse = await response.Content.ReadAsAsync<ConversationResponse>().ConfigureAwait(false);
+            return conversationResponse;
         }
 
 
@@ -101,13 +99,11 @@ namespace MailChimp.Net.Logic
         /// </exception>
         public async Task<Conversation> GetAsync(string id)
         {
-            using (var client = CreateMailClient("conversations/"))
-            {
-                var response = await client.GetAsync($"{id}").ConfigureAwait(false);
-                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            using var client = CreateMailClient("conversations/");
+            var response = await client.GetAsync($"{id}").ConfigureAwait(false);
+            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<Conversation>().ConfigureAwait(false);
-            }
+            return await response.Content.ReadAsAsync<Conversation>().ConfigureAwait(false);
         }
     }
 }

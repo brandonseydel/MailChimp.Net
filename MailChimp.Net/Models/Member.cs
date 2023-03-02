@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 
 using MailChimp.Net.Core;
@@ -28,28 +29,52 @@ namespace MailChimp.Net.Models
 			Tags = new List<MemberTag>();
 		}
 
-		/// <summary>
-		/// Gets or sets the email address.
-		/// </summary>
-		[JsonProperty("email_address")]
-		public string EmailAddress { get; set; }
+        /// <summary>
+        /// Gets or sets the email address.
+        /// </summary>
+        [JsonProperty("email_address")]
+        public string EmailAddress { get; set; }
 
-		/// <summary>
-		/// Gets or sets the email client.
-		/// </summary>
-		[JsonProperty("email_client")]
+        /// <summary>
+        /// Source of the member
+        /// </summary>
+        [JsonProperty("source")]
+        public string Source { get; set; }
+
+        /// <summary>
+        /// The full name of the member
+        /// </summary>
+        [JsonProperty("full_name")]
+        public string FullName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the contact id
+        /// </summary>
+        [JsonProperty("contact_id")]
+        public string ContactId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email client.
+        /// </summary>
+        [JsonProperty("email_client")]
 		public string EmailClient { get; set; }
 
-		/// <summary>
-		/// Gets or sets the email type.
-		/// </summary>
-		[JsonProperty("email_type")]
-		public string EmailType { get; set; }
+        /// <summary>
+        /// Gets or sets the email type.
+        /// </summary>
+        [JsonProperty("email_type")]
+        public string EmailType { get; set; }
 
-		/// <summary>
-		/// Gets or sets the id.
-		/// </summary>
-		[JsonProperty("id")]
+        /// <summary>
+        /// Gets or sets the constents flag
+        /// </summary>
+        [JsonProperty("consents_to_one_to_one_messaging")]
+        public bool ConsentsToOneToOneMessaging { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        [JsonProperty("id")]
 		public string Id { get; set; }
 
 		/// <summary>

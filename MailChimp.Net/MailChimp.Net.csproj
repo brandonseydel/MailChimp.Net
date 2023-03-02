@@ -1,95 +1,98 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>
-        net45;net472;netstandard1.3;netstandard2.0
-    </TargetFrameworks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
-    <PackageId>MailChimp.Net.V3</PackageId>
-    <Version>5.3.1</Version>
-    <Authors>Brandon Seydel</Authors>
-    <Company>DevSquad</Company>
-    <Product>MailChimp.Net.V3</Product>
-    <Title>MailChimp.Net.V3</Title>
-    <Description>A .NET Wrapper for Mail Chimp v3.0 API</Description>
-    <Summary>A very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.</Summary>
-    <Copyright>Copyright © 2020</Copyright>
-    <PackageProjectUrl>https://github.com/brandonseydel/MailChimp.Net</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/brandonseydel/MailChimp.Net</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-    <NeutralLanguage />
-    <PackageReleaseNotes>.NET Standard 1.3
-.NETFramework 4.5</PackageReleaseNotes>
-    <PackageIconUrl>http://logos-download.com/wp-content/uploads/2016/09/MailChimp_logo_icon_Freddie_Wink.png</PackageIconUrl>
-    <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-    <AssemblyVersion>5.3.1.0</AssemblyVersion>
-    <FileVersion>5.3.1.0</FileVersion>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <AnalysisLevel>latest</AnalysisLevel>
+    <PropertyGroup>
+        <TargetFrameworks>
+            net45;net472;netstandard1.3;netstandard2.0
+        </TargetFrameworks>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+        <RunCodeAnalysis>true</RunCodeAnalysis>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
+        <PackageId>MailChimp.Net.V3</PackageId>
+        <Version>5.3.2</Version>
+        <Authors>Brandon Seydel</Authors>
+        <Company>DevSquad</Company>
+        <Product>MailChimp.Net.V3</Product>
+        <Title>MailChimp.Net.V3</Title>
+        <Description>A .NET Wrapper for Mail Chimp v3.0 API</Description>
+        <Summary>A very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.</Summary>
+        <Copyright>Copyright © 2020</Copyright>
+        <PackageProjectUrl>https://github.com/brandonseydel/MailChimp.Net</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/brandonseydel/MailChimp.Net</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <NeutralLanguage />
+        <PackageReleaseNotes>
+            .NET Standard 1.3
+            .NETFramework 4.5
+        </PackageReleaseNotes>
+        <PackageIconUrl>http://logos-download.com/wp-content/uploads/2016/09/MailChimp_logo_icon_Freddie_Wink.png</PackageIconUrl>
+        <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
+        <PackageLicenseUrl></PackageLicenseUrl>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+        <AssemblyVersion>5.3.2.0</AssemblyVersion>
+        <FileVersion>5.3.2.0</FileVersion>
+        <EnableNETAnalyzers>True</EnableNETAnalyzers>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <AnalysisLevel>latest</AnalysisLevel>
 
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3' And '$(TargetFramework)' != 'netstandard2.0'">
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3' And '$(TargetFramework)' != 'netstandard2.0'">
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net472'">
         <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.8" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.8" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
-    </ItemGroup>   
-  <ItemGroup>
-    <None Include="..\icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="..\icon.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="..\LICENSE.txt">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="..\README.md">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
 
 
 
