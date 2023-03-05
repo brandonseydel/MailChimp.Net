@@ -32,14 +32,14 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
         <PackageId>MailChimp.Net.V3</PackageId>
-        <Version>5.3.2</Version>
+        <Version>5.4.1</Version>
         <Authors>Brandon Seydel</Authors>
         <Company>DevSquad</Company>
         <Product>MailChimp.Net.V3</Product>
         <Title>MailChimp.Net.V3</Title>
         <Description>A .NET Wrapper for Mail Chimp v3.0 API</Description>
         <Summary>A very fast, thin, and intuitive .NET Wrapper for the Mail Chimp v3.0 API.</Summary>
-        <Copyright>Copyright © 2020</Copyright>
+        <Copyright>Copyright © 2023</Copyright>
         <PackageProjectUrl>https://github.com/brandonseydel/MailChimp.Net</PackageProjectUrl>
         <RepositoryUrl>https://github.com/brandonseydel/MailChimp.Net</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
@@ -53,8 +53,8 @@
         <PackageLicenseUrl></PackageLicenseUrl>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-        <AssemblyVersion>5.3.2.0</AssemblyVersion>
-        <FileVersion>5.3.2.0</FileVersion>
+        <AssemblyVersion>5.4.1</AssemblyVersion>
+        <FileVersion>5.4.1</FileVersion>
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -32,14 +32,6 @@ namespace MailChimp.Net.Interfaces
 		Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null);
 
         /// <summary>
-        /// Gets all the member events for the list
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<ListEventResponse> GetEventsAsync(string listId, QueryableBaseRequest request = null);
-
-        /// <summary>
         /// Search the account or a specific list for members that match the specified query terms.
         /// </summary>
         /// <param name="request"></param>
@@ -92,7 +84,7 @@ namespace MailChimp.Net.Interfaces
         /// <param name="emailAddressOrHash"></param>
         /// <param name="list"></param>
         /// <returns></returns>
-        Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list)
+        Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list);
 
         /// <summary>
         /// Retrieves the events for the member on the specific list

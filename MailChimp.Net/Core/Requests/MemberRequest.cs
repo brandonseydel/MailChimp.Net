@@ -61,7 +61,7 @@ namespace MailChimp.Net.Core
         public MemberSortOrder? SortOrder { get; set; }
 
         [QueryString("since_last_campaign")]
-        public bool SinceLastCampaign { get; set; }
+        public bool? SinceLastCampaign { get; set; }
 
         [QueryString("unsubscribed_since")]
         public string UnsubscribedSince { get; set; }
