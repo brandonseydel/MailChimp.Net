@@ -39,10 +39,12 @@ public class MailChimpHttpClient : IDisposable
         _resource = resource;
     }
 
-    public void Dispose() =>
+    public void Dispose()
+    {
 #if !HTTP_CLIENT_FACTORY
         _httpClient.Dispose();
 #endif
+    }
 
 
     /// <summary>
