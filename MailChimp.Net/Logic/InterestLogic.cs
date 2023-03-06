@@ -171,9 +171,9 @@ namespace MailChimp.Net.Logic
         /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
         /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
         public async Task<Interest> GetAsync(
-            string listId, 
-            string interestCategoryId, 
-            string interestId, 
+            string listId,
+            string interestCategoryId,
+            string interestId,
             BaseRequest request = null)
         {
             using var client = CreateMailClient("lists/");
@@ -194,16 +194,15 @@ namespace MailChimp.Net.Logic
                 response = await client.PostAsJsonAsync(
                                      $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests",
                                      list).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
             }
-            else
-            {
-                response = await client.PatchAsJsonAsync(
+            response = await client.PatchAsJsonAsync(
                                     $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests/{list.Id}",
                                     list).ConfigureAwait(false);
-            }
-
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
+            return list;
+
         }
 
 

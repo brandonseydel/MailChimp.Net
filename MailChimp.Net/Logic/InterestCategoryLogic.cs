@@ -47,15 +47,13 @@ namespace MailChimp.Net.Logic
             if (string.IsNullOrWhiteSpace(category.Id))
             {
                 response = await client.PostAsJsonAsync(string.Empty, category).ConfigureAwait(false);
-            }
-            else
-            {
-                response = await client.PatchAsJsonAsync(category.Id, category).ConfigureAwait(false);
+                await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<InterestCategory>().ConfigureAwait(false);
             }
 
+            response = await client.PatchAsJsonAsync(category.Id, category).ConfigureAwait(false);
             await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            return await response.Content.ReadAsAsync<InterestCategory>().ConfigureAwait(false);
+            return category;
         }
 
         /// <summary>
