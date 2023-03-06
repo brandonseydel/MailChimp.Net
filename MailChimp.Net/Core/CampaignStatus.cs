@@ -7,42 +7,41 @@
 using System;
 using System.ComponentModel;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The campaign status.
+/// </summary>
+[Flags]
+public enum CampaignStatus
 {
     /// <summary>
-    /// The campaign status.
+    /// The save.
     /// </summary>
-    [Flags]
-    public enum CampaignStatus
-    {
-        /// <summary>
-        /// The save.
-        /// </summary>
-        [Description("save")]
-        Save = 1, 
+    [Description("save")]
+    Save = 1, 
 
-        /// <summary>
-        /// The paused.
-        /// </summary>
-        [Description("paused")]
-        Paused = 2, 
+    /// <summary>
+    /// The paused.
+    /// </summary>
+    [Description("paused")]
+    Paused = 2, 
 
-        /// <summary>
-        /// The schedule.
-        /// </summary>
-        [Description("schedule")]
-        Schedule = 4, 
+    /// <summary>
+    /// The schedule.
+    /// </summary>
+    [Description("schedule")]
+    Schedule = 4, 
 
-        /// <summary>
-        /// The sending.
-        /// </summary>
-        [Description("sending")]
-        Sending = 8, 
+    /// <summary>
+    /// The sending.
+    /// </summary>
+    [Description("sending")]
+    Sending = 8, 
 
-        /// <summary>
-        /// The sent.
-        /// </summary>
-        [Description("sent")]
-        Sent = 16
-    }
+    /// <summary>
+    /// The sent.
+    /// </summary>
+    [Description("sent")]
+    Sent = 16
 }

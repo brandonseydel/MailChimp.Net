@@ -6,25 +6,24 @@
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The content request.
+/// </summary>
+public class CampaignTestRequest
 {
+
     /// <summary>
-    /// The content request.
+    /// Gets or sets the array of test email addresses
     /// </summary>
-    public class CampaignTestRequest
-    {
+    [JsonProperty("test_emails")]
+    public string[] Emails { get; set; }
 
-        /// <summary>
-        /// Gets or sets the array of test email addresses
-        /// </summary>
-        [JsonProperty("test_emails")]
-        public string[] Emails { get; set; }
+    /// <summary>
+    /// Email type 'html' or 'plain_test'
+    /// </summary>
+    [JsonProperty("send_type")]
+    public string EmailType { get; set; }
 
-        /// <summary>
-        /// Email type 'html' or 'plain_test'
-        /// </summary>
-        [JsonProperty("send_type")]
-        public string EmailType { get; set; }
-
-    }
 }

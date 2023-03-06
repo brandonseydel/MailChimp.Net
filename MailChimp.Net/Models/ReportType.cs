@@ -1,6 +1,5 @@
-﻿namespace MailChimp.Net.Models
+﻿namespace MailChimp.Net.Models;
+
+public class ReportType
 {
-    public class ReportType
-    {
-    }
 }

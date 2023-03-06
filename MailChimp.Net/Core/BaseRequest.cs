@@ -15,114 +15,113 @@ using System.Reflection;
 using System.Text;
 #pragma warning disable 1584,1711,1572,1581,1580
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The base request.
+/// </summary>
+public class BaseRequest
 {
     /// <summary>
-    /// The base request.
+    /// Gets or sets the fields to exclude.
     /// </summary>
-    public class BaseRequest
+    [QueryString("exclude_fields")]
+    public string FieldsToExclude { get; set; }
+
+    /// <summary>
+    /// Gets or sets the fields to include.
+    /// </summary>
+    [QueryString("fields")]
+    public string FieldsToInclude { get; set; }
+
+    /// <summary>
+    /// The to query string.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="action" /> is null.</exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+    /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
+    public virtual string ToQueryString()
     {
-        /// <summary>
-        /// Gets or sets the fields to exclude.
-        /// </summary>
-        [QueryString("exclude_fields")]
-        public string FieldsToExclude { get; set; }
+        var properties = GetType().GetRuntimeProperties();//.GetProperties();
 
-        /// <summary>
-        /// Gets or sets the fields to include.
-        /// </summary>
-        [QueryString("fields")]
-        public string FieldsToInclude { get; set; }
+        var sb = new StringBuilder();
+        sb.Append("?");
+        var secondProperty = false;
 
-        /// <summary>
-        /// The to query string.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-        /// <exception cref="ArgumentNullException"><paramref name="action" /> is null.</exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
-        public virtual string ToQueryString()
-        {
-            var properties = GetType().GetRuntimeProperties();//.GetProperties();
+        properties.ToList().ForEach(
+            prop =>
+                {
+                    var value = prop.GetValue(this);
+                    var propertyName = prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault() ?? prop.Name.ToLower();
 
-            var sb = new StringBuilder();
-            sb.Append("?");
-            var secondProperty = false;
-
-            properties.ToList().ForEach(
-                prop =>
+                    if (value == null)
                     {
-                        var value = prop.GetValue(this);
-                        var propertyName = prop.GetCustomAttributes<QueryStringAttribute>().Select(x => x.Name).FirstOrDefault() ?? prop.Name.ToLower();
+                        return;
+                    }
 
-                        if (value == null)
+                    var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+
+                    if (type.GetTypeInfo().IsEnum && type.GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
+                    {
+                        // Build a dictionary of all possible enum flag descriptions or default string representations
+                        var descriptions = new Dictionary<string, string>();
+                        var runtimeFields = type.GetRuntimeFields().Where(f => f.IsStatic && f.IsPublic && f.IsLiteral);
+
+                        foreach (var fieldInfo in runtimeFields)
                         {
-                            return;
+                            var attr = fieldInfo.GetCustomAttribute<DescriptionAttribute>();
+                            descriptions.Add(fieldInfo.Name, attr?.Description ?? fieldInfo.Name);
                         }
 
-                        var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                        // Get all set flag descriptions or default values
+                        var setEnumValue = (Enum)value;
+                        var allFlags = Enum.GetValues(type);
+                        var setFlags = new List<Enum>();
 
-                        if (type.GetTypeInfo().IsEnum && type.GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
+                        foreach (Enum flag in allFlags)
                         {
-                            // Build a dictionary of all possible enum flag descriptions or default string representations
-                            var descriptions = new Dictionary<string, string>();
-                            var runtimeFields = type.GetRuntimeFields().Where(f => f.IsStatic && f.IsPublic && f.IsLiteral);
-
-                            foreach (var fieldInfo in runtimeFields)
+                            if (setEnumValue.HasFlag(flag))
                             {
-                                var attr = fieldInfo.GetCustomAttribute<DescriptionAttribute>();
-                                descriptions.Add(fieldInfo.Name, attr?.Description ?? fieldInfo.Name);
+                                setFlags.Add(flag);
                             }
-
-                            // Get all set flag descriptions or default values
-                            var setEnumValue = (Enum)value;
-                            var allFlags = Enum.GetValues(type);
-                            var setFlags = new List<Enum>();
-
-                            foreach (Enum flag in allFlags)
-                            {
-                                if (setEnumValue.HasFlag(flag))
-                                {
-                                    setFlags.Add(flag);
-                                }
-                            }
-
-                            value = setFlags.Select(flag => descriptions[flag.ToString()]);
-                        }
-                        else if (type.GetTypeInfo().IsEnum)
-                        {
-                            var member = type.GetRuntimeFields().FirstOrDefault(x => x.Name == (value.ToString()));
-                            value =
-                                member?
-                                      .GetCustomAttributes(typeof(DescriptionAttribute), false)
-                                      .OfType<DescriptionAttribute>()
-                                      .FirstOrDefault()?.Description ?? value;
                         }
 
-                        if (secondProperty)
-                        {
-                            sb.Append("&");
-                        }
+                        value = setFlags.Select(flag => descriptions[flag.ToString()]);
+                    }
+                    else if (type.GetTypeInfo().IsEnum)
+                    {
+                        var member = type.GetRuntimeFields().FirstOrDefault(x => x.Name == (value.ToString()));
+                        value =
+                            member?
+                                  .GetCustomAttributes(typeof(DescriptionAttribute), false)
+                                  .OfType<DescriptionAttribute>()
+                                  .FirstOrDefault()?.Description ?? value;
+                    }
 
-                        value = value is DateTime time ? time.ToString(@"yyyy-MM-dd HH:mm:ss", CultureInfo.CurrentCulture) :
-                                value is IEnumerable && !(value is string) ? string.Join(",", ((IEnumerable)value).Cast<object>()) :
-                                value;
+                    if (secondProperty)
+                    {
+                        sb.Append("&");
+                    }
 
-                        //We don't want to add anything if after all this work their is still no data :(
-                        if (string.IsNullOrWhiteSpace(value.ToString()))
-                        {
-                            return;
-                        }
+                    value = value is DateTime time ? time.ToString(@"yyyy-MM-dd HH:mm:ss", CultureInfo.CurrentCulture) :
+                            value is IEnumerable && !(value is string) ? string.Join(",", ((IEnumerable)value).Cast<object>()) :
+                            value;
 
-                        sb.Append($"{propertyName}={value}");
-                        secondProperty = true;
-                    });
+                    //We don't want to add anything if after all this work their is still no data :(
+                    if (string.IsNullOrWhiteSpace(value.ToString()))
+                    {
+                        return;
+                    }
 
-            return sb.ToString();
-        }
+                    sb.Append($"{propertyName}={value}");
+                    secondProperty = true;
+                });
+
+        return sb.ToString();
     }
 }

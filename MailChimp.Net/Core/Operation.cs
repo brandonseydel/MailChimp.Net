@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
-{
+namespace MailChimp.Net.Core;
+
 	public class Operation
 	{
 		public Operation()
@@ -37,4 +37,3 @@ namespace MailChimp.Net.Core
 		[JsonProperty("operation_id")]
 		public string OperationId { get; set; }
 	}
-}

@@ -6,23 +6,22 @@
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The authorized app created response.
+/// </summary>
+public class AuthorizedAppCreatedResponse
 {
     /// <summary>
-    /// The authorized app created response.
+    /// Gets or sets the access token.
     /// </summary>
-    public class AuthorizedAppCreatedResponse
-    {
-        /// <summary>
-        /// Gets or sets the access token.
-        /// </summary>
-        [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
+    [JsonProperty("access_token")]
+    public string AccessToken { get; set; }
 
-        /// <summary>
-        /// Gets or sets the viewer token.
-        /// </summary>
-        [JsonProperty("viewer_token")]
-        public string ViewerToken { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the viewer token.
+    /// </summary>
+    [JsonProperty("viewer_token")]
+    public string ViewerToken { get; set; }
 }

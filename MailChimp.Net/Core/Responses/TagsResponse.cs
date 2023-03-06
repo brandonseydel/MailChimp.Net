@@ -10,8 +10,8 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
-{
+namespace MailChimp.Net.Core;
+
 	public class TagsResponse
 	{
 		public TagsResponse()
@@ -31,4 +31,3 @@ namespace MailChimp.Net.Core
 		[JsonProperty("total_items")]
 		public int NumberOfTags { get; set; }
 	}
-}

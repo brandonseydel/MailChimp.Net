@@ -7,8 +7,8 @@
 using Newtonsoft.Json;
 using System;
 
-namespace MailChimp.Net.Models
-{
+namespace MailChimp.Net.Models;
+
 	/// <summary>
 	/// The note.
 	/// </summary>
@@ -68,7 +68,7 @@ namespace MailChimp.Net.Models
 		public MemberLastNote()
 		{
 			Body = string.Empty;
-            CreatedAt = null;
+        CreatedAt = null;
 			CreatedBy = string.Empty;
 		}
 
@@ -97,4 +97,3 @@ namespace MailChimp.Net.Models
 		public string CreatedBy { get; set; }
 
 	}
-}

@@ -11,8 +11,8 @@ using MailChimp.Net.Core;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models
-{
+namespace MailChimp.Net.Models;
+
 	/// <summary>
 	/// The member.
 	/// </summary>
@@ -29,52 +29,52 @@ namespace MailChimp.Net.Models
 			Tags = new List<MemberTag>();
 		}
 
-        /// <summary>
-        /// Gets or sets the email address.
-        /// </summary>
-        [JsonProperty("email_address")]
-        public string EmailAddress { get; set; }
+    /// <summary>
+    /// Gets or sets the email address.
+    /// </summary>
+    [JsonProperty("email_address")]
+    public string EmailAddress { get; set; }
 
-        /// <summary>
-        /// Source of the member
-        /// </summary>
-        [JsonProperty("source")]
-        public string Source { get; set; }
+    /// <summary>
+    /// Source of the member
+    /// </summary>
+    [JsonProperty("source")]
+    public string Source { get; set; }
 
-        /// <summary>
-        /// The full name of the member
-        /// </summary>
-        [JsonProperty("full_name")]
-        public string FullName { get; set; }
+    /// <summary>
+    /// The full name of the member
+    /// </summary>
+    [JsonProperty("full_name")]
+    public string FullName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the contact id
-        /// </summary>
-        [JsonProperty("contact_id")]
-        public string ContactId { get; set; }
+    /// <summary>
+    /// Gets or sets the contact id
+    /// </summary>
+    [JsonProperty("contact_id")]
+    public string ContactId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the email client.
-        /// </summary>
-        [JsonProperty("email_client")]
+    /// <summary>
+    /// Gets or sets the email client.
+    /// </summary>
+    [JsonProperty("email_client")]
 		public string EmailClient { get; set; }
 
-        /// <summary>
-        /// Gets or sets the email type.
-        /// </summary>
-        [JsonProperty("email_type")]
-        public string EmailType { get; set; }
+    /// <summary>
+    /// Gets or sets the email type.
+    /// </summary>
+    [JsonProperty("email_type")]
+    public string EmailType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the constents flag
-        /// </summary>
-        [JsonProperty("consents_to_one_to_one_messaging")]
-        public bool ConsentsToOneToOneMessaging { get; set; }
+    /// <summary>
+    /// Gets or sets the constents flag
+    /// </summary>
+    [JsonProperty("consents_to_one_to_one_messaging")]
+    public bool ConsentsToOneToOneMessaging { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [JsonProperty("id")]
+    /// <summary>
+    /// Gets or sets the id.
+    /// </summary>
+    [JsonProperty("id")]
 		public string Id { get; set; }
 
 		/// <summary>
@@ -153,7 +153,7 @@ namespace MailChimp.Net.Models
 		/// Gets or sets the tags.
 		/// </summary>
 		[JsonProperty("tags")]
-        [JsonConverter(typeof(MemberTagListJsonConverter))] // This converted is used to serialize the tag list to a simple array of strings for PUT/POST requests
+    [JsonConverter(typeof(MemberTagListJsonConverter))] // This converted is used to serialize the tag list to a simple array of strings for PUT/POST requests
 		public List<MemberTag> Tags { get; set; }
 
 		/// <summary>
@@ -176,7 +176,7 @@ namespace MailChimp.Net.Models
 		public Status Status { get; set; }
 
 		[JsonProperty("status_if_new")]
- 		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+		[JsonConverter(typeof(StringEnumDescriptionConverter))]
 		public Status StatusIfNew { get; set; }
 
 		[JsonProperty("unsubscribe_reason")]
@@ -206,10 +206,9 @@ namespace MailChimp.Net.Models
 		[JsonProperty("vip")]
 		public bool Vip { get; set; }
 
-        /// <summary>
-        /// Gets the ID used in the Mailchimp web application. <para>View this member in your Mailchimp account at https://{dc}.admin.mailchimp.com/lists/members/view?id={web_id}.</para>
-        /// </summary>
-        [JsonProperty("web_id")]
-        public int WebId { get; set; }
-    }
+    /// <summary>
+    /// Gets the ID used in the Mailchimp web application. <para>View this member in your Mailchimp account at https://{dc}.admin.mailchimp.com/lists/members/view?id={web_id}.</para>
+    /// </summary>
+    [JsonProperty("web_id")]
+    public int WebId { get; set; }
 }

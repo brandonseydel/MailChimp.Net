@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 
-namespace MailChimp.Net.Interfaces
-{
+namespace MailChimp.Net.Interfaces;
+
 	/// <summary>
 	/// The BatchOperationLogic interface.
 	/// </summary>
@@ -26,4 +26,3 @@ namespace MailChimp.Net.Interfaces
 	    Task DeleteAsync(string batchId);
 
 	}
-}

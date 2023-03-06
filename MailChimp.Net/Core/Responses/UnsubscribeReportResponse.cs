@@ -10,31 +10,30 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The unsubscribe report response.
+/// </summary>
+public class UnsubscribeReportResponse : BaseResponse
 {
     /// <summary>
-    /// The unsubscribe report response.
+    /// Initializes a new instance of the <see cref="UnsubscribeReportResponse"/> class.
     /// </summary>
-    public class UnsubscribeReportResponse : BaseResponse
+    public UnsubscribeReportResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnsubscribeReportResponse"/> class.
-        /// </summary>
-        public UnsubscribeReportResponse()
-        {
-            Unsubscribes = new HashSet<Unsubscribe>();
-        }
-
-        /// <summary>
-        /// Gets or sets the campaign id.
-        /// </summary>
-        [JsonProperty("campaign_id")]
-        public string CampaignId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unsubscribes.
-        /// </summary>
-        [JsonProperty("unsubscribes")]
-        public IEnumerable<Unsubscribe> Unsubscribes { get; set; }
+        Unsubscribes = new HashSet<Unsubscribe>();
     }
+
+    /// <summary>
+    /// Gets or sets the campaign id.
+    /// </summary>
+    [JsonProperty("campaign_id")]
+    public string CampaignId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the unsubscribes.
+    /// </summary>
+    [JsonProperty("unsubscribes")]
+    public IEnumerable<Unsubscribe> Unsubscribes { get; set; }
 }

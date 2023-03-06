@@ -10,8 +10,8 @@ using MailChimp.Net.Core;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models
-{
+namespace MailChimp.Net.Models;
+
 	/// <summary>
 	/// The tag for a member
 	/// </summary>
@@ -29,4 +29,3 @@ namespace MailChimp.Net.Models
 		[JsonProperty("name")]
 		public string Name { get; set; }
 	}
-}

@@ -1,8 +1,8 @@
 using System;
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
-{
+namespace MailChimp.Net.Core;
+
 	public class Batch
 	{
 		/// <summary>
@@ -61,4 +61,3 @@ namespace MailChimp.Net.Core
 		[JsonProperty("response_body_url")]
 		public string ResponseBodyUrl { get; set; }
 	}
-}

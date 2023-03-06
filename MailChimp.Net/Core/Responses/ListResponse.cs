@@ -9,25 +9,24 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The list response.
+/// </summary>
+public class ListResponse : BaseResponse
 {
     /// <summary>
-    /// The list response.
+    /// Initializes a new instance of the <see cref="ListResponse"/> class.
     /// </summary>
-    public class ListResponse : BaseResponse
+    public ListResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ListResponse"/> class.
-        /// </summary>
-        public ListResponse()
-        {
-            Lists = new HashSet<List>();
-        }
-
-        /// <summary>
-        /// Gets or sets the lists.
-        /// </summary>
-        [JsonProperty("lists")]
-        public IEnumerable<List> Lists { get; set; }
+        Lists = new HashSet<List>();
     }
+
+    /// <summary>
+    /// Gets or sets the lists.
+    /// </summary>
+    [JsonProperty("lists")]
+    public IEnumerable<List> Lists { get; set; }
 }

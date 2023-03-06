@@ -8,31 +8,30 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+/// <summary>
+/// The runtime.
+/// </summary>
+public class Runtime
 {
     /// <summary>
-    /// The runtime.
+    /// Initializes a new instance of the <see cref="Runtime"/> class.
     /// </summary>
-    public class Runtime
+    public Runtime()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Runtime"/> class.
-        /// </summary>
-        public Runtime()
-        {
-            Days = new HashSet<string>();
-        }
-
-        /// <summary>
-        /// Gets or sets the days.
-        /// </summary>
-        [JsonProperty("days")]
-        public IEnumerable<string> Days { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hours.
-        /// </summary>
-        [JsonProperty("hours")]
-        public Hours Hours { get; set; }
+        Days = new HashSet<string>();
     }
+
+    /// <summary>
+    /// Gets or sets the days.
+    /// </summary>
+    [JsonProperty("days")]
+    public IEnumerable<string> Days { get; set; }
+
+    /// <summary>
+    /// Gets or sets the hours.
+    /// </summary>
+    [JsonProperty("hours")]
+    public Hours Hours { get; set; }
 }

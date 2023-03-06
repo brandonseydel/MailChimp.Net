@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace MailChimp.Net.Models
-{
+namespace MailChimp.Net.Models;
+
 	using Newtonsoft.Json;
 
 	public class MergeField
@@ -50,4 +50,3 @@ namespace MailChimp.Net.Models
 		[JsonProperty("_links")]
 		public IEnumerable<Link> Links { get; set; }
 	}
-}

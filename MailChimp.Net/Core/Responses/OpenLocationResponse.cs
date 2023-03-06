@@ -10,31 +10,30 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The open location response.
+/// </summary>
+public class OpenLocationResponse : BaseResponse
 {
     /// <summary>
-    /// The open location response.
+    /// Initializes a new instance of the <see cref="OpenLocationResponse"/> class.
     /// </summary>
-    public class OpenLocationResponse : BaseResponse
+    public OpenLocationResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OpenLocationResponse"/> class.
-        /// </summary>
-        public OpenLocationResponse()
-        {
-            Locations = new HashSet<OpenLocation>();
-        }
-
-        /// <summary>
-        /// Gets or sets the campaign id.
-        /// </summary>
-        [JsonProperty("campaign_id")]
-        public string CampaignId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the locations.
-        /// </summary>
-        [JsonProperty("locations")]
-        public IEnumerable<OpenLocation> Locations { get; set; }
+        Locations = new HashSet<OpenLocation>();
     }
+
+    /// <summary>
+    /// Gets or sets the campaign id.
+    /// </summary>
+    [JsonProperty("campaign_id")]
+    public string CampaignId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the locations.
+    /// </summary>
+    [JsonProperty("locations")]
+    public IEnumerable<OpenLocation> Locations { get; set; }
 }

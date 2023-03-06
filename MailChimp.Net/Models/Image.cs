@@ -1,20 +1,19 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+public class Image
 {
-    public class Image
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
+    [JsonProperty("id")]
+    public string Id { get; set; }
 
-        [JsonProperty("url")]
-        public string Url { get; set; }
+    [JsonProperty("url")]
+    public string Url { get; set; }
 
-        [JsonProperty("variant_ids")]
-        public IList<string> VariantIds { get; set; }
+    [JsonProperty("variant_ids")]
+    public IList<string> VariantIds { get; set; }
 
-        [JsonProperty("_links")]
-        public IList<Link> Links { get; set; }
-    }
+    [JsonProperty("_links")]
+    public IList<Link> Links { get; set; }
 }

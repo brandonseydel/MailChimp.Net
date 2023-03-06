@@ -8,34 +8,33 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace MailChimp.Net.Logic
+namespace MailChimp.Net.Logic;
+
+internal class TagsLogic : BaseLogic, ITagsLogic
 {
-    internal class TagsLogic : BaseLogic, ITagsLogic
+    private const string BaseUrl = "lists";
+    public TagsLogic(MailChimpOptions mailChimpConfiguration)
+        : base(mailChimpConfiguration)
     {
-        private const string BaseUrl = "lists";
-        public TagsLogic(MailChimpOptions mailChimpConfiguration)
-            : base(mailChimpConfiguration)
+    }
+
+    public async Task<IEnumerable<ListTag>> GetAllAsync(string listId, TagsRequest request = null)
+    {
+        return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Tags;
+    }
+
+    public async Task<ListTagsResponse> GetResponseAsync(string listId, TagsRequest request = null)
+    {
+        request ??= new TagsRequest
         {
-        }
+            Limit = _limit
+        };
 
-        public async Task<IEnumerable<ListTag>> GetAllAsync(string listId, TagsRequest request = null)
-        {
-            return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Tags;
-        }
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/tag-search").ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-        public async Task<ListTagsResponse> GetResponseAsync(string listId, TagsRequest request = null)
-        {
-            request ??= new TagsRequest
-            {
-                Limit = _limit
-            };
-
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.GetAsync($"{listId}/tag-search").ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var listTagsResponse = await response.Content.ReadAsAsync<ListTagsResponse>().ConfigureAwait(false);
-            return listTagsResponse;
-        }
+        var listTagsResponse = await response.Content.ReadAsAsync<ListTagsResponse>().ConfigureAwait(false);
+        return listTagsResponse;
     }
 }

@@ -6,8 +6,8 @@
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models
-{
+namespace MailChimp.Net.Models;
+
 	/// <summary>
 	/// The location.
 	/// </summary>
@@ -54,4 +54,3 @@ namespace MailChimp.Net.Models
 		[JsonProperty("timezone")]
 		public string Timezone { get; set; }
 	}
-}

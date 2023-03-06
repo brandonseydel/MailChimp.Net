@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>MailChimp.Net.V3</id>
-        <version>5.3.2.0</version>
+        <version>5.4.0.0</version>
         <title>MailChimp.Net.V3</title>
         <authors>Brandon Seydel (DevSquad)</authors>
         <owners>MailChimp.Net.V3</owners>

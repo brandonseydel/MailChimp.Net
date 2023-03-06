@@ -5,18 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models
-{
-    /// <summary>
-    /// The ping response
-    /// </summary>
-    public class Ping
-    {      
+namespace MailChimp.Net.Models;
 
-        /// <summary>
-        /// Gets the health status from Mail Chimp
-        /// </summary>
-        [JsonProperty("health_status")]
-        public string HealthStatus { get; set; }
-    }
+/// <summary>
+/// The ping response
+/// </summary>
+public class Ping
+{      
+
+    /// <summary>
+    /// Gets the health status from Mail Chimp
+    /// </summary>
+    [JsonProperty("health_status")]
+    public string HealthStatus { get; set; }
 }

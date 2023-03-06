@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+public enum TemplateType
 {
-    public enum TemplateType
-    {
-        [Description("user")]
-        User,
-        [Description("base")]
-        Base,
-        [Description("gallery")]
-        Gallery
-    }
+    [Description("user")]
+    User,
+    [Description("base")]
+    Base,
+    [Description("gallery")]
+    Gallery
 }

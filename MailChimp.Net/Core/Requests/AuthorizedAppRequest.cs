@@ -3,11 +3,10 @@
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MailChimp.Net.Core
-{
-    /// <summary>
-    /// The authorized app request.
-    /// </summary>
-    public class AuthorizedAppRequest : QueryableBaseRequest
-    {}
-}
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The authorized app request.
+/// </summary>
+public class AuthorizedAppRequest : QueryableBaseRequest
+{}

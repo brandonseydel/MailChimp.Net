@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BaseResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -10,31 +10,30 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The base response.
+/// </summary>
+public abstract class BaseResponse
 {
     /// <summary>
-    /// The base response.
+    /// Initializes a new instance of the <see cref="BaseResponse"/> class.
     /// </summary>
-    public abstract class BaseResponse
+    protected BaseResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseResponse"/> class.
-        /// </summary>
-        protected BaseResponse()
-        {
-            Links = new HashSet<Link>();
-        }
-
-        /// <summary>
-        /// Gets or sets the links.
-        /// </summary>
-        [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total items.
-        /// </summary>
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
+        Links = new HashSet<Link>();
     }
+
+    /// <summary>
+    /// Gets or sets the links.
+    /// </summary>
+    [JsonProperty("_links")]
+    public IEnumerable<Link> Links { get; set; }
+
+    /// <summary>
+    /// Gets or sets the total items.
+    /// </summary>
+    [JsonProperty("total_items")]
+    public int TotalItems { get; set; }
 }

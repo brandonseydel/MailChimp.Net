@@ -1,7 +1,6 @@
-﻿namespace MailChimp.Net.Models
+﻿namespace MailChimp.Net.Models;
+
+public class Section
 {
-    public class Section
-    {
-        public string Ribbon { get; set; }
-    }
+    public string Ribbon { get; set; }
 }

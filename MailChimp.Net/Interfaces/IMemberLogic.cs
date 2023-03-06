@@ -10,12 +10,12 @@ using MailChimp.Net.Core;
 using MailChimp.Net.Core.Responses;
 using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Interfaces
-{
-    /// <summary>
-    /// The MemberLogic interface.
-    /// </summary>
-    public interface IMemberLogic
+namespace MailChimp.Net.Interfaces;
+
+/// <summary>
+/// The MemberLogic interface.
+/// </summary>
+public interface IMemberLogic
 	{
 		/// <summary>
 		/// The add or update async.
@@ -31,78 +31,78 @@ namespace MailChimp.Net.Interfaces
 		/// </returns>
 		Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null);
 
-        /// <summary>
-        /// Search the account or a specific list for members that match the specified query terms.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task<MemberSearchResult> SearchAsync(MemberSearchRequest request);
+    /// <summary>
+    /// Search the account or a specific list for members that match the specified query terms.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task<MemberSearchResult> SearchAsync(MemberSearchRequest request);
 
-        /// <summary>
-        /// The delete async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task DeleteAsync(string listId, string emailAddressOrHash);
+    /// <summary>
+    /// The delete async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task DeleteAsync(string listId, string emailAddressOrHash);
 
-        /// <summary>
-        /// The permanent delete async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task PermanentDeleteAsync(string listId, string emailAddressOrHash);
+    /// <summary>
+    /// The permanent delete async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task PermanentDeleteAsync(string listId, string emailAddressOrHash);
 
-        /// <summary>
-        /// Retrieves the repsonse for the events for the member on the specific list
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="emailAddressOrHash"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<ListEventResponse> GetMemberEventResponseAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null);
+    /// <summary>
+    /// Retrieves the repsonse for the events for the member on the specific list
+    /// </summary>
+    /// <param name="listId"></param>
+    /// <param name="emailAddressOrHash"></param>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    Task<ListEventResponse> GetMemberEventResponseAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null);
 
-        /// <summary>
-        /// Adds a new event for the list member
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="emailAddressOrHash"></param>
-        /// <param name="list"></param>
-        /// <returns></returns>
-        Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list);
+    /// <summary>
+    /// Adds a new event for the list member
+    /// </summary>
+    /// <param name="listId"></param>
+    /// <param name="emailAddressOrHash"></param>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list);
 
-        /// <summary>
-        /// Retrieves the events for the member on the specific list
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="emailAddressOrHash"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<IEnumerable<ListEvent>> GetMemberEventsAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null);
+    /// <summary>
+    /// Retrieves the events for the member on the specific list
+    /// </summary>
+    /// <param name="listId"></param>
+    /// <param name="emailAddressOrHash"></param>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    Task<IEnumerable<ListEvent>> GetMemberEventsAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null);
 
-        /// <summary>
-        /// Gets the activities for a specific list
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="emailAddressOrHash"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
+    /// <summary>
+    /// Gets the activities for a specific list
+    /// </summary>
+    /// <param name="listId"></param>
+    /// <param name="emailAddressOrHash"></param>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
 		/// Gets the tags asynchronous.
@@ -113,57 +113,57 @@ namespace MailChimp.Net.Interfaces
 		/// <returns></returns>
 		Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
-        /// <summary>
-        /// Adds member tags asynchronous.
-        /// </summary>
-        /// <param name="listId">The list identifier.</param>
-        /// <param name="emailAddressOrHash">The email address or hash.</param>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null);
+    /// <summary>
+    /// Adds member tags asynchronous.
+    /// </summary>
+    /// <param name="listId">The list identifier.</param>
+    /// <param name="emailAddressOrHash">The email address or hash.</param>
+    /// <param name="request">The request.</param>
+    /// <returns></returns>
+    Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null);
 
-        /// <summary>
-        /// The get all async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="memberRequest"></param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
+    /// <summary>
+    /// The get all async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="memberRequest"></param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null);
 
-        /// <summary>
-        /// Get the total number of members in the list
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        Task<int> GetTotalItems(string listId, Status? status);
+    /// <summary>
+    /// Get the total number of members in the list
+    /// </summary>
+    /// <param name="listId"></param>
+    /// <param name="status"></param>
+    /// <returns></returns>
+    Task<int> GetTotalItems(string listId, Status? status);
 
-        /// <summary>
+    /// <summary>
 		/// Get the total number of members in a list based on a MemberRequest model
 		/// </summary>
 		/// <param name="listId"></param>
 		/// <param name="memberRequest"></param>
 		/// <returns></returns>
-        Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest);
+    Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest);
 
-        /// <summary>
-        /// The get async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <param name="request"></param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
+    /// <summary>
+    /// The get async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <param name="request"></param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null);
 
 		/// <summary>
 		/// The check if exists async.
@@ -196,4 +196,3 @@ namespace MailChimp.Net.Interfaces
 
 		string Hash(string emailAddress);
 	}
-}

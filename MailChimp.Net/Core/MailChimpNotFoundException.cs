@@ -2,14 +2,13 @@ using System;
 using System.Net.Http;
 using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+public class MailChimpNotFoundException : MailChimpException
 {
-    public class MailChimpNotFoundException : MailChimpException
+
+
+    public MailChimpNotFoundException(string message, MailChimpApiError error, HttpResponseMessage response) : base(message,error,response)
     {
-
-
-        public MailChimpNotFoundException(string message, MailChimpApiError error, HttpResponseMessage response) : base(message,error,response)
-        {
-        }
     }
 }

@@ -1,6 +1,5 @@
-﻿namespace MailChimp.Net.Interfaces
+﻿namespace MailChimp.Net.Interfaces;
+
+public class IECommerceOrderLineLogic
 {
-    public class IECommerceOrderLineLogic
-    {
-    }
 }

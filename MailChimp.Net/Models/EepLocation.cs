@@ -3,21 +3,20 @@
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+/// <summary>
+/// The eep location.
+/// </summary>
+public class EepLocation
 {
     /// <summary>
-    /// The eep location.
+    /// Gets or sets the country.
     /// </summary>
-    public class EepLocation
-    {
-        /// <summary>
-        /// Gets or sets the country.
-        /// </summary>
-        public string Country { get; set; }
+    public string Country { get; set; }
 
-        /// <summary>
-        /// Gets or sets the region.
-        /// </summary>
-        public string Region { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the region.
+    /// </summary>
+    public string Region { get; set; }
 }
