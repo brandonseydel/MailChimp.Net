@@ -37,10 +37,7 @@ internal class ECommerceLineLogic : BaseLogic, IECommerceLineLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Line>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Lines;
-    }
+    public async Task<IEnumerable<Line>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Lines;
 
     /// <summary>
     /// The get async.

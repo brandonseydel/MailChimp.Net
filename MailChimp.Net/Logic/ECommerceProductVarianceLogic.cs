@@ -39,10 +39,7 @@ internal class ECommerceProductVarianceLogic : BaseLogic, IECommerceProductVaria
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Variant>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Variants;
-    }
+    public async Task<IEnumerable<Variant>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Variants;
 
     /// <summary>
     /// The get async.

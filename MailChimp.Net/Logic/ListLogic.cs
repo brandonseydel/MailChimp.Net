@@ -106,10 +106,7 @@ internal class ListLogic : BaseLogic, IListLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Lists;
-    }
+    public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Lists;
 
     /// <summary>
     /// The get all async.

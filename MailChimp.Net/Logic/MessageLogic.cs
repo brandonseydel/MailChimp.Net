@@ -59,10 +59,7 @@ internal class MessageLogic : BaseLogic, IMessageLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IEnumerable<Message>> GetAllAsync(string conversationId, MessageRequest request = null)
-    {
-        return (await GetResponseAsync(conversationId, request).ConfigureAwait(false))?.Messages;
-    }
+    public async Task<IEnumerable<Message>> GetAllAsync(string conversationId, MessageRequest request = null) => (await GetResponseAsync(conversationId, request).ConfigureAwait(false))?.Messages;
 
     /// <summary>
     /// The get all async.

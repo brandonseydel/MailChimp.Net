@@ -41,10 +41,7 @@ public class ActivityLogic : BaseLogic, IActivityLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request = null)
-    {
-        return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Activities;
-    }
+    public async Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Activities;
 
     /// <summary>
     /// The get all async.

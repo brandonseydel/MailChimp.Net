@@ -77,10 +77,7 @@ public class WebHookLogic : BaseLogic, IWebHookLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IEnumerable<WebHook>> GetAllAsync(string listId)
-    {
-        return (await GetResponseAsync(listId).ConfigureAwait(false))?.Webhooks;
-    }
+    public async Task<IEnumerable<WebHook>> GetAllAsync(string listId) => (await GetResponseAsync(listId).ConfigureAwait(false))?.Webhooks;
 
     /// <summary>
     /// The get async.

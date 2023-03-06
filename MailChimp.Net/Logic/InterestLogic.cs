@@ -86,10 +86,7 @@ public class InterestLogic : BaseLogic, IInterestLogic
     public async Task<IEnumerable<Interest>> GetAllAsync(
         string listId,
         string interestCategoryId,
-        QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(listId, interestCategoryId, request).ConfigureAwait(false))?.Interests;
-    }
+        QueryableBaseRequest request = null) => (await GetResponseAsync(listId, interestCategoryId, request).ConfigureAwait(false))?.Interests;
 
 
     /// <summary>

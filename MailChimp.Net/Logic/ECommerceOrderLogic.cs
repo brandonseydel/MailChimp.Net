@@ -40,15 +40,12 @@ internal class ECommerceOrderLogic : BaseLogic, IECommerceOrderLogic
         return orderResponse;
     }
 
-    public IECommerceLineLogic Lines(string orderId)
+    public IECommerceLineLogic Lines(string orderId) => new ECommerceLineLogic(_options)
     {
-        return new ECommerceLineLogic(_options)
-        {
-            Resource = "orders",
-            ResourceId = orderId,
-            StoreId = StoreId
-        };
-    }
+        Resource = "orders",
+        ResourceId = orderId,
+        StoreId = StoreId
+    };
 
     /// <summary>
     /// Deletes an order
@@ -68,10 +65,7 @@ internal class ECommerceOrderLogic : BaseLogic, IECommerceOrderLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Orders;
-    }
+    public async Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Orders;
 
     /// <summary>
     /// The get async.

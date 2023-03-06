@@ -26,15 +26,9 @@ public class MemberTagListJsonConverter : JsonConverter
         writer.WriteEndArray();
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-    {
-        throw new NotImplementedException();
-    }
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => throw new NotImplementedException();
 
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType == typeof(List<MemberTag>);
-    }
+    public override bool CanConvert(Type objectType) => objectType == typeof(List<MemberTag>);
 
     public override bool CanRead => false;
 }

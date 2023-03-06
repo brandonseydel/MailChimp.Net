@@ -133,10 +133,7 @@ internal class TemplateLogic : BaseLogic, ITemplateLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Templates;
-    }
+    public async Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Templates;
 
     /// <summary>
     /// The get all async.

@@ -47,10 +47,7 @@ public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.AbuseReports;
-    }
+    public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.AbuseReports;
 
 
     /// <summary>

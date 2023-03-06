@@ -40,15 +40,12 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
         return cartResponse;
     }
 
-    public IECommerceLineLogic Lines(string cartId)
+    public IECommerceLineLogic Lines(string cartId) => new ECommerceLineLogic(_options)
     {
-        return new ECommerceLineLogic(_options)
-        {
-            Resource = "carts",
-            ResourceId = cartId,
-            StoreId = StoreId
-        };
-    }
+        Resource = "carts",
+        ResourceId = cartId,
+        StoreId = StoreId
+    };
 
     /// <summary>
     /// The delete async.
@@ -69,10 +66,7 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Cart>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Carts;
-    }
+    public async Task<IEnumerable<Cart>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Carts;
 
     /// <summary>
     /// The get async.

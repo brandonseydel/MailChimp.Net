@@ -124,13 +124,11 @@ public class ECommerceLogicTest : MailChimpTest
         return await this.MailChimpManager.ECommerceStores.Customers(storeId).AddAsync(customer).ConfigureAwait(false);
     }
 
-    private Product GetTestProduct()
+    private Product GetTestProduct() => new Product
     {
-        return new Product
-        {
-            Id = "1",
-            Title = "Test",
-            Variants = new List<Variant>
+        Id = "1",
+        Title = "Test",
+        Variants = new List<Variant>
             {
                 new Variant
                 {
@@ -140,6 +138,5 @@ public class ECommerceLogicTest : MailChimpTest
                     Price=TestProductPrice
                 }
             }
-        };
-    }
+    };
 }

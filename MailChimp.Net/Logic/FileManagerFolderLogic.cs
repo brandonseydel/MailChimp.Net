@@ -36,10 +36,7 @@ internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
     }
 
 
-    public async Task<IEnumerable<FileManagerFolder>> GetAllAsync(FileManagerRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
-    }
+    public async Task<IEnumerable<FileManagerFolder>> GetAllAsync(FileManagerRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
 
     public async Task<FileManagerFolderResponse> GetResponseAsync(FileManagerRequest request = null)
     {

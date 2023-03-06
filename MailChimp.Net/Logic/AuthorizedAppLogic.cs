@@ -73,10 +73,7 @@ internal class AuthorizedAppLogic : BaseLogic, IAuthorizedAppLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<App>> GetAllAsync(AuthorizedAppRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Apps;
-    }
+    public async Task<IEnumerable<App>> GetAllAsync(AuthorizedAppRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Apps;
 
     /// <summary>
     /// The get all async.

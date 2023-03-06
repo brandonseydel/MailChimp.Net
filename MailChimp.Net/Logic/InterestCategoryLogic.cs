@@ -107,10 +107,7 @@ public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<IEnumerable<InterestCategory>> GetAllAsync(
         string listId,
-        InterestCategoryRequest request = null)
-    {
-        return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Categories;
-    }
+        InterestCategoryRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Categories;
 
     /// <summary>
     /// The get all async.

@@ -26,10 +26,7 @@ public class ListSegmentLogic : BaseLogic, IListSegmentLogic
         return segmentResponse;
     }
 
-    public async Task<IEnumerable<ListSegment>> GetAllAsync(string listId, ListSegmentRequest request = null)
-    {
-        return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Segments;
-    }
+    public async Task<IEnumerable<ListSegment>> GetAllAsync(string listId, ListSegmentRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Segments;
 
     public async Task<ListSegment> GetAsync(string listId, int segmentId)
     {
@@ -119,10 +116,7 @@ public class ListSegmentLogic : BaseLogic, IListSegmentLogic
         return memberResponse;
     }
 
-    public async Task<IEnumerable<Member>> GetAllMembersAsync(string listId, string segmentId, QueryableBaseRequest request = null)
-    {
-        return (await GetMemberResponseAsync(listId, segmentId, request).ConfigureAwait(false))?.Members;
-    }
+    public async Task<IEnumerable<Member>> GetAllMembersAsync(string listId, string segmentId, QueryableBaseRequest request = null) => (await GetMemberResponseAsync(listId, segmentId, request).ConfigureAwait(false))?.Members;
 
 
 

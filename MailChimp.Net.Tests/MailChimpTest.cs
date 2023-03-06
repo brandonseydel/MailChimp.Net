@@ -25,7 +25,7 @@ public abstract class MailChimpTest
     /// </summary>
     protected IMailChimpManager MailChimpManager;
 
-    internal List GetMailChimpList(string listName = "TestList") => new List
+    internal List GetMailChimpList(string listName = "TestList") => new()
     {
         Name = listName,
         PermissionReminder = "none",
@@ -88,10 +88,7 @@ public abstract class MailChimpTest
         RunBeforeTestFixture().Wait();
     }
 
-    internal virtual Task RunBeforeTestFixture()
-    {
-        return Task.CompletedTask;
-    }
+    internal virtual Task RunBeforeTestFixture() => Task.CompletedTask;
 
     /// <summary>
     /// The hash.

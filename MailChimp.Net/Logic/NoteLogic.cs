@@ -116,10 +116,7 @@ public class NoteLogic : BaseLogic, INoteLogic
     public async Task<IEnumerable<Note>> GetAllAsync(
         string listId,
         string emailAddress,
-        QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(listId, emailAddress, request).ConfigureAwait(false))?.Notes;
-    }
+        QueryableBaseRequest request = null) => (await GetResponseAsync(listId, emailAddress, request).ConfigureAwait(false))?.Notes;
 
     /// <summary>
     /// The get all async.

@@ -53,9 +53,5 @@ public class BatchWebHookLogic : BaseLogic, IBatchWebHookLogic
         return batchWebHookResponse;
     }
 
-    public async Task<IEnumerable<BatchWebHook>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await this.GetResponseAsync(request).ConfigureAwait(false))?.WebHooks;
-
-    }
+    public async Task<IEnumerable<BatchWebHook>> GetAllAsync(QueryableBaseRequest request = null) => (await this.GetResponseAsync(request).ConfigureAwait(false))?.WebHooks;
 }

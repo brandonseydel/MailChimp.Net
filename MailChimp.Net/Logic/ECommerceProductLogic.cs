@@ -24,14 +24,11 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     {
     }
 
-    public IECommerceProductVarianceLogic Variances(string productId)
+    public IECommerceProductVarianceLogic Variances(string productId) => new ECommerceProductVarianceLogic(_options)
     {
-        return new ECommerceProductVarianceLogic(_options)
-        {
-            StoreId = StoreId,
-            ProductId = productId
-        };
-    }
+        StoreId = StoreId,
+        ProductId = productId
+    };
 
     /// <summary>
     /// Adds a product to the given store by id
@@ -62,10 +59,7 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Products;
-    }
+    public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Products;
 
     /// <summary>
     /// The get async.

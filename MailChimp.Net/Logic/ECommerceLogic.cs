@@ -20,52 +20,37 @@ public class ECommerceLogic : BaseLogic, IECommerceLogic
     /// <summary>
     /// The base url.
     /// </summary>
-    private string BaseUrl = "ecommerce/stores";
+    private readonly string BaseUrl = "ecommerce/stores";
 
     public ECommerceLogic(MailChimpOptions mailChimpConfiguration)
         : base(mailChimpConfiguration)
     {
     }
 
-    public IECommerceCartLogic Carts(string storeId)
+    public IECommerceCartLogic Carts(string storeId) => new ECommerceCartLogic(_options)
     {
-        return new ECommerceCartLogic(_options)
-        {
-            StoreId = storeId
-        };
-    }
+        StoreId = storeId
+    };
 
-    public IECommerceCustomerLogic Customers(string storeId)
+    public IECommerceCustomerLogic Customers(string storeId) => new ECommerceCustomerLogic(_options)
     {
-        return new ECommerceCustomerLogic(_options)
-        {
-            StoreId = storeId
-        };
-    }
+        StoreId = storeId
+    };
 
-    public IECommerceProductLogic Products(string storeId)
+    public IECommerceProductLogic Products(string storeId) => new ECommerceProductLogic(_options)
     {
-        return new ECommerceProductLogic(_options)
-        {
-            StoreId = storeId
-        };
-    }
+        StoreId = storeId
+    };
 
-    public IECommerceOrderLogic Orders(string storeId)
+    public IECommerceOrderLogic Orders(string storeId) => new ECommerceOrderLogic(_options)
     {
-        return new ECommerceOrderLogic(_options)
-        {
-            StoreId = storeId
-        };
-    }
+        StoreId = storeId
+    };
 
-    public IECommercePromoRuleLogic PromoRules(string storeId)
+    public IECommercePromoRuleLogic PromoRules(string storeId) => new ECommercePromoRuleLogic(_options)
     {
-        return new ECommercePromoRuleLogic(_options)
-        {
-            StoreId = storeId
-        };
-    }
+        StoreId = storeId
+    };
 
     /// <summary>
     /// The add async.
@@ -111,10 +96,7 @@ public class ECommerceLogic : BaseLogic, IECommerceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IEnumerable<Store>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Stores;
-    }
+    public async Task<IEnumerable<Store>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Stores;
 
     /// <summary>
     /// The get async.

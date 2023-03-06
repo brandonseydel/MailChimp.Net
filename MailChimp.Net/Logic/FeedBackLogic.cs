@@ -104,10 +104,7 @@ internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null)
-    {
-        return (await GetResponseAsync(campaignId, request).ConfigureAwait(false))?.Feedback;
-    }
+    public async Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null) => (await GetResponseAsync(campaignId, request).ConfigureAwait(false))?.Feedback;
 
 
     /// <summary>

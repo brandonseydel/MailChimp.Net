@@ -47,10 +47,7 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName)
-    {
-        return await AddFileAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileName);
-    }
+    public async Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName) => await AddFileAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileName);
     public async Task<FileManagerFile> AddFileAsync(string name, int folderId, string fileName)
     {
         using var fs = File.OpenRead(fileName);
@@ -64,10 +61,7 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> AddAsync(string name, string folderId, string base64String)
-    {
-        return await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, base64String);
-    }
+    public async Task<FileManagerFile> AddAsync(string name, string folderId, string base64String) => await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, base64String);
     public async Task<FileManagerFile> AddAsync(string name, int folderId, string base64String)
     {
         using var client = CreateMailClient(BaseUrl);
@@ -79,10 +73,7 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream)
-    {
-        return await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileStream);
-    }
+    public async Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream) => await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileStream);
     public async Task<FileManagerFile> AddAsync(string name, int folderId, Stream fileStream)
     {
         using var client = CreateMailClient(BaseUrl);
@@ -94,10 +85,7 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
 
-    public async Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Files;
-    }
+    public async Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Files;
 
     public async Task<FileManagerFileResponse> GetResponseAsync(FileManagerRequest request = null)
     {
@@ -136,10 +124,7 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName)
-    {
-        return await UpdateFileAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, fileName);
-    }
+    public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName) => await UpdateFileAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, fileName);
     public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, int folderId, string fileName)
     {
         using var fs = File.OpenRead(fileName);
@@ -152,10 +137,7 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String)
-    {
-        return await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, base64String);
-    }
+    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String) => await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, base64String);
     public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, string base64String)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
@@ -166,10 +148,7 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
         return folder;
     }
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream)
-    {
-        return await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, stream);
-    }
+    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream) => await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, stream);
     public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, Stream stream)
     {
         using var client = CreateMailClient($"{BaseUrl}/");

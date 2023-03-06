@@ -60,10 +60,7 @@ internal class ECommerceCustomerLogic : BaseLogic, IECommerceCustomerLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Customer>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Customers;
-    }
+    public async Task<IEnumerable<Customer>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Customers;
 
     /// <summary>
     /// The get async.

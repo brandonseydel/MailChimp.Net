@@ -45,10 +45,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Reports;
-    }
+    public async Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Reports;
 
     /// <summary>
     /// Get a list of abuse complaints for a specific campaign.
@@ -496,12 +493,9 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<EmailActivity>> GetEmailActivitiesAsync(            
+    public async Task<IEnumerable<EmailActivity>> GetEmailActivitiesAsync(
         string campaignId,
-        QueryableBaseRequest request = null)
-    {
-        return (await GetEmailActivitiesResponseAsync(campaignId, request).ConfigureAwait(false))?.EmailActivities;
-    }
+        QueryableBaseRequest request = null) => (await GetEmailActivitiesResponseAsync(campaignId, request).ConfigureAwait(false))?.EmailActivities;
 
     /// <summary>
     /// The get email activities async.

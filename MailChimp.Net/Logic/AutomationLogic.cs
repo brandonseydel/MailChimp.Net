@@ -44,10 +44,7 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Automations;
-    }
+    public async Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Automations;
 
 
     /// <summary>

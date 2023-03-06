@@ -37,10 +37,7 @@ internal class ECommercePromoCodeLogic : BaseLogic, IEcommercePromoCodeLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<PromoCode>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.PromoCodes;
-    }
+    public async Task<IEnumerable<PromoCode>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.PromoCodes;
 
     /// <summary>
     /// The get async.

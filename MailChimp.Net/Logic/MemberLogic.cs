@@ -324,10 +324,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-    public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null)
-    {
-        return (await GetResponseAsync(listId, memberRequest).ConfigureAwait(false))?.Members;
-    }
+    public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null) => (await GetResponseAsync(listId, memberRequest).ConfigureAwait(false))?.Members;
 
     /// <exception cref="ArgumentNullException"><paramref>
     ///         <name>uriString</name>

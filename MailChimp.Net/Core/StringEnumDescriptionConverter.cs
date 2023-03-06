@@ -52,10 +52,7 @@ public class StringEnumDescriptionConverter : JsonConverter
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType.GetTypeInfo().IsEnum;
-    }
+    public override bool CanConvert(Type objectType) => objectType.GetTypeInfo().IsEnum;
 
     /// <summary>
     /// The read json.

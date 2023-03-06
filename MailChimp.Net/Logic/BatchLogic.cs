@@ -32,12 +32,9 @@ internal class BatchLogic : BaseLogic, IBatchLogic
         return await response.Content.ReadAsAsync<Batch>().ConfigureAwait(false);
     }
 
-		public async Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null)
-		{
-			return (await GetResponseAsync(request).ConfigureAwait(false))?.Batches;
-		}
+    public async Task<IEnumerable<Batch>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Batches;
 
-		public async Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null)
+    public async Task<BatchResponse> GetResponseAsync(QueryableBaseRequest request = null)
 		{
 			request ??= new QueryableBaseRequest
 			{

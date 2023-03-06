@@ -38,10 +38,7 @@ internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
     }
 
 
-    public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
-    }
+    public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
 
     public async Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
     {

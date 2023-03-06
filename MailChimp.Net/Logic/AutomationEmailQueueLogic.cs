@@ -79,10 +79,7 @@ internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<IEnumerable<Queue>> GetAllAsync(string workflowId, string workflowEmailId)
-    {
-        return (await GetResponseAsync(workflowId, workflowEmailId).ConfigureAwait(false))?.Queues;            
-    }
+    public async Task<IEnumerable<Queue>> GetAllAsync(string workflowId, string workflowEmailId) => (await GetResponseAsync(workflowId, workflowEmailId).ConfigureAwait(false))?.Queues;
 
     /// <summary>
     /// The get all async.

@@ -60,10 +60,7 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<PromoRule>> GetAllAsync(QueryableBaseRequest request = null)
-    {
-        return (await GetResponseAsync(request).ConfigureAwait(false))?.PromoRules;
-    }
+    public async Task<IEnumerable<PromoRule>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.PromoRules;
 
     /// <summary>
     /// The get async.
@@ -133,14 +130,11 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     }
 
 
-    public IEcommercePromoCodeLogic Codes(string promoRuleID)
+    public IEcommercePromoCodeLogic Codes(string promoRuleID) => new ECommercePromoCodeLogic(_options)
     {
-        return new ECommercePromoCodeLogic(_options)
-        {
-            Resource = "promo-rules",
-            ResourceId = promoRuleID,
-            StoreId = StoreId
-        };
-    }
+        Resource = "promo-rules",
+        ResourceId = promoRuleID,
+        StoreId = StoreId
+    };
     public string StoreId { get; set; }
 }

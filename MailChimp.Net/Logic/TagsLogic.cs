@@ -18,10 +18,7 @@ internal class TagsLogic : BaseLogic, ITagsLogic
     {
     }
 
-    public async Task<IEnumerable<ListTag>> GetAllAsync(string listId, TagsRequest request = null)
-    {
-        return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Tags;
-    }
+    public async Task<IEnumerable<ListTag>> GetAllAsync(string listId, TagsRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Tags;
 
     public async Task<ListTagsResponse> GetResponseAsync(string listId, TagsRequest request = null)
     {
