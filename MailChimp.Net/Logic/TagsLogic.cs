@@ -1,4 +1,4 @@
-﻿using MailChimp.Net.Core;
+using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 using System;
@@ -27,8 +27,8 @@ internal class TagsLogic : BaseLogic, ITagsLogic
             Limit = _limit
         };
 
-        using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{listId}/tag-search").ConfigureAwait(false);
+        using var client = CreateMailClient($"{BaseUrl}/{listId}/tag-search");
+        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listTagsResponse = await response.Content.ReadAsAsync<ListTagsResponse>().ConfigureAwait(false);
