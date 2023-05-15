@@ -152,7 +152,7 @@ public class MailChimpHttpClient : IDisposable
         var request = new HttpRequestMessage(method,_resource + requestUri);
         if (method.Method == "PATCH")
         {
-            request.Headers.ExpectContinue = true;
+            request.Headers.ExpectContinue = false;
         }
         request.Headers.Add("Authorization", _options.AuthHeader);
         if (contentOrNull != null)
