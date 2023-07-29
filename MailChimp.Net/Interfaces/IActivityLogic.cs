@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -29,7 +30,7 @@ public interface IActivityLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request = null);
+    Task<IEnumerable<Activity>> GetAllAsync(string listId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -46,7 +47,7 @@ public interface IActivityLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request = null);
+    Task<ActivityResponse> GetResponseAsync(string listId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
 
     /// <summary>
@@ -54,6 +55,6 @@ public interface IActivityLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<ChimpChatterResponse> GetChimpChatterResponseAsync(QueryableBaseRequest request = null);
+    Task<ChimpChatterResponse> GetChimpChatterResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
 }

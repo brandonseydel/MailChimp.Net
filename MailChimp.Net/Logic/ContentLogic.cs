@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -43,10 +44,10 @@ internal class ContentLogic : BaseLogic, IContentLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest content)
+    public async Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest content, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("campaigns/");
-        var response = await client.PutAsJsonAsync($"{campaignId}/content", content).ConfigureAwait(false);
+        var response = await client.PutAsJsonAsync($"{campaignId}/content", content, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);
@@ -69,10 +70,10 @@ internal class ContentLogic : BaseLogic, IContentLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Content> GetAsync(string campaignId)
+    public async Task<Content> GetAsync(string campaignId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("campaigns/");
-        var response = await client.GetAsync($"{campaignId}/content").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/content", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Content>().ConfigureAwait(false);

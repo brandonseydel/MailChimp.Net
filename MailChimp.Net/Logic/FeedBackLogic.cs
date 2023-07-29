@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -44,10 +45,10 @@ internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Feedback> AddOrUpdateAsync(string campaignId, Feedback feedback)
+    public async Task<Feedback> AddOrUpdateAsync(string campaignId, Feedback feedback, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("campaigns/");
-        var response = await client.PostAsJsonAsync($"{campaignId}/feedback/{feedback?.FeedbackId}", feedback).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync($"{campaignId}/feedback/{feedback?.FeedbackId}", feedback, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Feedback>().ConfigureAwait(false);
@@ -74,10 +75,10 @@ internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task DeleteAsync(string campaignId, string feedbackId)
+    public async Task DeleteAsync(string campaignId, string feedbackId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("campaigns/");
-        var response = await client.DeleteAsync($"{campaignId}/feedback/{feedbackId}").ConfigureAwait(false);
+        var response = await client.DeleteAsync($"{campaignId}/feedback/{feedbackId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -104,7 +105,8 @@ internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null) => (await GetResponseAsync(campaignId, request).ConfigureAwait(false))?.Feedback;
+    public async Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false))?.Feedback;
 
 
     /// <summary>
@@ -130,10 +132,10 @@ internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<FeedBackResponse> GetResponseAsync(string campaignId, FeedbackRequest request = null)
+    public async Task<FeedBackResponse> GetResponseAsync(string campaignId, FeedbackRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("campaigns/");
-        var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/feedback{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listResponse = await response.Content.ReadAsAsync<FeedBackResponse>().ConfigureAwait(false);
@@ -161,10 +163,10 @@ internal class FeedBackLogic : BaseLogic, IFeedbackLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Feedback> GetAsync(string campaignId, string feedBackId)
+    public async Task<Feedback> GetAsync(string campaignId, string feedBackId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("campaigns/");
-        var response = await client.GetAsync($"{campaignId}/feedback/{feedBackId}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/feedback/{feedBackId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Feedback>().ConfigureAwait(false);

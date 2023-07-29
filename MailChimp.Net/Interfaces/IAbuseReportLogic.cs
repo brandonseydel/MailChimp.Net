@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IAbuseReportLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -29,7 +30,7 @@ public interface IAbuseReportLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null);
+    Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -46,7 +47,7 @@ public interface IAbuseReportLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null);
+    Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -71,5 +72,5 @@ public interface IAbuseReportLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null);
+    Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 }

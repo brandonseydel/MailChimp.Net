@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -15,20 +16,20 @@ internal class ECommercePromoCodeLogic : BaseLogic, IEcommercePromoCodeLogic
     {
     }
 
-    public async Task<PromoCode> AddAsync(PromoCode promoCode)
+    public async Task<PromoCode> AddAsync(PromoCode promoCode, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, promoCode).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, promoCode, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var cartResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
         return cartResponse;
     }
     
-    public async Task DeleteAsync(string promoCodeID)
+    public async Task DeleteAsync(string promoCodeID, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(BaseUrl + "/");
-        var response = await client.DeleteAsync(promoCodeID).ConfigureAwait(false);
+        var response = await client.DeleteAsync(promoCodeID, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -37,7 +38,8 @@ internal class ECommercePromoCodeLogic : BaseLogic, IEcommercePromoCodeLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<PromoCode>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.PromoCodes;
+    public async Task<IEnumerable<PromoCode>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.PromoCodes;
 
     /// <summary>
     /// The get async.
@@ -49,11 +51,11 @@ internal class ECommercePromoCodeLogic : BaseLogic, IEcommercePromoCodeLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<PromoCode> GetAsync(string promoCodeID, BaseRequest request = null)
+    public async Task<PromoCode> GetAsync(string promoCodeID, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
 
         using var client = CreateMailClient(BaseUrl + "/");
-        var response = await client.GetAsync(promoCodeID + request?.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(promoCodeID + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var lineResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);
@@ -69,7 +71,7 @@ internal class ECommercePromoCodeLogic : BaseLogic, IEcommercePromoCodeLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<StorePromoCodeResponse> GetResponseAsync(QueryableBaseRequest request = null)
+    public async Task<StorePromoCodeResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
 
         request ??= new QueryableBaseRequest
@@ -78,7 +80,7 @@ internal class ECommercePromoCodeLogic : BaseLogic, IEcommercePromoCodeLogic
         };
 
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var codeResponse = await response.Content.ReadAsAsync<StorePromoCodeResponse>().ConfigureAwait(false);
@@ -91,10 +93,10 @@ internal class ECommercePromoCodeLogic : BaseLogic, IEcommercePromoCodeLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<PromoCode> UpdateAsync(string promoCodeID, PromoCode promoCode)
+    public async Task<PromoCode> UpdateAsync(string promoCodeID, PromoCode promoCode, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(BaseUrl + "/");
-        var response = await client.PatchAsJsonAsync(promoCodeID, promoCode).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync(promoCodeID, promoCode, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var cartResponse = await response.Content.ReadAsAsync<PromoCode>().ConfigureAwait(false);

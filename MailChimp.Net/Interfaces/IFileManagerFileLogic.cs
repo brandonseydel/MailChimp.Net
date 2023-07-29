@@ -9,6 +9,7 @@ namespace MailChimp.Net.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Core;
@@ -35,7 +36,7 @@ public interface IFileManagerFileLogic
     /// The <see cref="Task"/>.
     /// </returns>
     [Obsolete("This method is deprecated.")]
-    Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName);
+    Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The add async.
@@ -53,7 +54,7 @@ public interface IFileManagerFileLogic
     /// The <see cref="Task"/>.
     /// </returns>
     [Obsolete("This method is deprecated.")]
-    Task<FileManagerFile> AddAsync(string name, string folderId, string base64String);
+    Task<FileManagerFile> AddAsync(string name, string folderId, string base64String, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The add async.
@@ -71,7 +72,7 @@ public interface IFileManagerFileLogic
     /// The <see cref="Task"/>.
     /// </returns>
     [Obsolete("This method is deprecated.")]
-    Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream);
+    Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The add file async.
@@ -88,7 +89,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<FileManagerFile> AddFileAsync(string name, int folderId, string fileName);
+    Task<FileManagerFile> AddFileAsync(string name, int folderId, string fileName, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The add async.
@@ -105,7 +106,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<FileManagerFile> AddAsync(string name, int folderId, string base64String);
+    Task<FileManagerFile> AddAsync(string name, int folderId, string base64String, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The add async.
@@ -122,7 +123,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<FileManagerFile> AddAsync(string name, int folderId, Stream fileStream);
+    Task<FileManagerFile> AddAsync(string name, int folderId, Stream fileStream, CancellationToken cancellationToken = default);
 
 
 
@@ -135,7 +136,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerRequest request = null);
+    Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -149,7 +150,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<FileManagerFile> GetAsync(string fileId, BaseRequest request = null);
+    Task<FileManagerFile> GetAsync(string fileId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -160,7 +161,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string fileId);
+    Task DeleteAsync(string fileId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update file async.
@@ -181,7 +182,7 @@ public interface IFileManagerFileLogic
     /// The <see cref="Task"/>.
     /// </returns>
     [Obsolete("This method is deprecated.")]
-    Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName);
+    Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -202,7 +203,7 @@ public interface IFileManagerFileLogic
     /// The <see cref="Task"/>.
     /// </returns>
     [Obsolete("This method is deprecated.")]
-    Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String);
+    Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -223,7 +224,7 @@ public interface IFileManagerFileLogic
     /// The <see cref="Task"/>.
     /// </returns>
     [Obsolete("This method is deprecated.")]
-    Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream);
+    Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream, CancellationToken cancellationToken = default);
 
 
     /// <summary>
@@ -244,7 +245,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<FileManagerFile> UpdateFileAsync(string fileId, string name, int folderId, string fileName);
+    Task<FileManagerFile> UpdateFileAsync(string fileId, string name, int folderId, string fileName, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -264,7 +265,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, string base64String);
+    Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, string base64String, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -284,7 +285,7 @@ public interface IFileManagerFileLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, Stream stream);
+    Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, Stream stream, CancellationToken cancellationToken = default);
 
-    Task<FileManagerFileResponse> GetResponseAsync(FileManagerRequest request = null);
+    Task<FileManagerFileResponse> GetResponseAsync(FileManagerRequest request = null, CancellationToken cancellationToken = default);
 }

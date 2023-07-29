@@ -10,6 +10,7 @@ using MailChimp.Net.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MailChimp.Net.Logic;
@@ -47,13 +48,14 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName) => await AddFileAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileName);
-    public async Task<FileManagerFile> AddFileAsync(string name, int folderId, string fileName)
+    public async Task<FileManagerFile> AddFileAsync(string name, string folderId, string fileName, CancellationToken cancellationToken = default) 
+        => await AddFileAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileName, cancellationToken);
+    public async Task<FileManagerFile> AddFileAsync(string name, int folderId, string fileName, CancellationToken cancellationToken = default)
     {
         using var fs = File.OpenRead(fileName);
         using var client = CreateMailClient(BaseUrl);
 
-        var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = ConvertToBase64(fs) }).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = ConvertToBase64(fs) }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFile = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
@@ -61,11 +63,12 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> AddAsync(string name, string folderId, string base64String) => await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, base64String);
-    public async Task<FileManagerFile> AddAsync(string name, int folderId, string base64String)
+    public async Task<FileManagerFile> AddAsync(string name, string folderId, string base64String, CancellationToken cancellationToken = default) 
+        => await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, base64String, cancellationToken);
+    public async Task<FileManagerFile> AddAsync(string name, int folderId, string base64String, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = base64String }).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = base64String }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFile = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
@@ -73,11 +76,11 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream) => await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileStream);
-    public async Task<FileManagerFile> AddAsync(string name, int folderId, Stream fileStream)
+    public async Task<FileManagerFile> AddAsync(string name, string folderId, Stream fileStream, CancellationToken cancellationToken = default) => await AddAsync(name, int.TryParse(folderId, out var result) ? result : 0, fileStream);
+    public async Task<FileManagerFile> AddAsync(string name, int folderId, Stream fileStream, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = ConvertToBase64(fileStream) }).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, new { name, folder_id = folderId, file_data = ConvertToBase64(fileStream) }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFile = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
@@ -85,9 +88,10 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
 
-    public async Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Files;
+    public async Task<IEnumerable<FileManagerFile>> GetAllAsync(FileManagerRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Files;
 
-    public async Task<FileManagerFileResponse> GetResponseAsync(FileManagerRequest request = null)
+    public async Task<FileManagerFileResponse> GetResponseAsync(FileManagerRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new FileManagerRequest
         {
@@ -95,41 +99,37 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
         };
 
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFileResponse = await response.Content.ReadAsAsync<FileManagerFileResponse>().ConfigureAwait(false);
         return fileManagerFileResponse;
     }
 
-
-
-
-    public async Task<FileManagerFile> GetAsync(string fileId, BaseRequest request = null)
+    public async Task<FileManagerFile> GetAsync(string fileId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{fileId}{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{fileId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFile = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
         return fileManagerFile;
     }
 
-
-
-    public async Task DeleteAsync(string fileId)
+    public async Task DeleteAsync(string fileId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.DeleteAsync($"{fileId}").ConfigureAwait(false);
+        var response = await client.DeleteAsync($"{fileId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName) => await UpdateFileAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, fileName);
-    public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, int folderId, string fileName)
+    public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, string folderId, string fileName, CancellationToken cancellationToken = default) 
+        => await UpdateFileAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, fileName, cancellationToken);
+    public async Task<FileManagerFile> UpdateFileAsync(string fileId, string name, int folderId, string fileName, CancellationToken cancellationToken = default)
     {
         using var fs = File.OpenRead(fileName);
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = ConvertToBase64(fs) }).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = ConvertToBase64(fs) }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var folder = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
@@ -137,22 +137,24 @@ internal class FileManagerFileLogic : BaseLogic, IFileManagerFileLogic
     }
 
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String) => await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, base64String);
-    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, string base64String)
+    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, string base64String, CancellationToken cancellationToken = default) 
+        => await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, base64String, cancellationToken);
+    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, string base64String, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = base64String }).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = base64String },cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var folder = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);
         return folder;
     }
     [Obsolete("This method is deprecated.")]
-    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream) => await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, stream);
-    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, Stream stream)
+    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, string folderId, Stream stream, CancellationToken cancellationToken = default) 
+        => await UpdateAsync(fileId, name, int.TryParse(folderId, out var result) ? result : 0, stream, cancellationToken);
+    public async Task<FileManagerFile> UpdateAsync(string fileId, string name, int folderId, Stream stream, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = ConvertToBase64(stream) }).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync($"{fileId}", new { name, folder_id = folderId, file_data = ConvertToBase64(stream) }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var folder = await response.Content.ReadAsAsync<FileManagerFile>().ConfigureAwait(false);

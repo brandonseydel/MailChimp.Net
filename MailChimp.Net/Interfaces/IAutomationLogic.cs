@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IAutomationLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -26,7 +27,7 @@ public interface IAutomationLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null);
+    Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -37,7 +38,7 @@ public interface IAutomationLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Automation> GetAsync(string workflowId);
+    Task<Automation> GetAsync(string workflowId, CancellationToken cancellationToken = default);
 
 
     /// <summary>
@@ -52,7 +53,7 @@ public interface IAutomationLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Automation> UpdateAsync(string workflowId, Automation automation);
+    Task<Automation> UpdateAsync(string workflowId, Automation automation, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The pause async.
@@ -63,7 +64,7 @@ public interface IAutomationLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task PauseAsync(string workflowId);
+    Task PauseAsync(string workflowId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The start async.
@@ -74,7 +75,7 @@ public interface IAutomationLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task StartAsync(string workflowId);
+    Task StartAsync(string workflowId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -96,5 +97,5 @@ public interface IAutomationLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    Task<AutomationResponse> GetResponseAsync(QueryableBaseRequest request = null);
+    Task<AutomationResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 }

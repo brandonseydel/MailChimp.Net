@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -40,18 +41,18 @@ public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<InterestCategory> AddOrUpdateAsync(InterestCategory category, string listId)
+    public async Task<InterestCategory> AddOrUpdateAsync(InterestCategory category, string listId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"lists/{listId}/interest-categories/");
         System.Net.Http.HttpResponseMessage response;
         if (string.IsNullOrWhiteSpace(category.Id))
         {
-            response = await client.PostAsJsonAsync(string.Empty, category).ConfigureAwait(false);
+            response = await client.PostAsJsonAsync(string.Empty, category, cancellationToken).ConfigureAwait(false);
             await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             return await response.Content.ReadAsAsync<InterestCategory>().ConfigureAwait(false);
         }
 
-        response = await client.PatchAsJsonAsync(category.Id, category).ConfigureAwait(false);
+        response = await client.PatchAsJsonAsync(category.Id, category, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return category;
     }
@@ -75,10 +76,10 @@ public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task DeleteAsync(string listId, string categoryId)
+    public async Task DeleteAsync(string listId, string categoryId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"lists/{listId}/interest-categories/");
-        var response = await client.DeleteAsync(categoryId).ConfigureAwait(false);
+        var response = await client.DeleteAsync(categoryId, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -107,7 +108,8 @@ public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<IEnumerable<InterestCategory>> GetAllAsync(
         string listId,
-        InterestCategoryRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Categories;
+        InterestCategoryRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(listId, request, cancellationToken).ConfigureAwait(false))?.Categories;
 
     /// <summary>
     /// The get all async.
@@ -134,7 +136,7 @@ public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<InterestCategoryResponse> GetResponseAsync(
         string listId,
-        InterestCategoryRequest request = null)
+        InterestCategoryRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new InterestCategoryRequest
         {
@@ -142,7 +144,7 @@ public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
         };
 
         using var client = CreateMailClient($"lists/{listId}/interest-categories");
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listResponse = await response.Content.ReadAsAsync<InterestCategoryResponse>().ConfigureAwait(false);
@@ -168,10 +170,10 @@ public class InterestCategoryLogic : BaseLogic, IInterestCategoryLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<InterestCategory> GetAsync(string listId, string id)
+    public async Task<InterestCategory> GetAsync(string listId, string id, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"lists/{listId}/interest-categories/");
-        var response = await client.GetAsync($"{id}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{id}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<InterestCategory>().ConfigureAwait(false);

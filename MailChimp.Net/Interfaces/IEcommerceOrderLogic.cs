@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
@@ -13,7 +14,7 @@ public interface IECommerceOrderLogic
     /// <param name="storeId"></param>
     /// <param name="order"></param>
     /// <returns></returns>
-    Task<Order> AddAsync(Order order);
+    Task<Order> AddAsync(Order order, CancellationToken cancellationToken = default);
 
     IECommerceLineLogic Lines(string orderId);
 
@@ -26,7 +27,7 @@ public interface IECommerceOrderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string orderId);
+    Task DeleteAsync(string orderId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets only the orders from the response object
@@ -34,7 +35,7 @@ public interface IECommerceOrderLogic
     /// <param name="storeId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null);
+    Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -48,7 +49,7 @@ public interface IECommerceOrderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Order> GetAsync(string orderId, BaseRequest request = null);
+    Task<Order> GetAsync(string orderId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get response async.
@@ -59,7 +60,7 @@ public interface IECommerceOrderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null);
+    Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -73,7 +74,7 @@ public interface IECommerceOrderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Order> UpdateAsync(string orderId, Order order);
+    Task<Order> UpdateAsync(string orderId, Order order, CancellationToken cancellationToken = default);
 
     string StoreId { get; set; }
 }

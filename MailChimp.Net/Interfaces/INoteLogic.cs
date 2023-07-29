@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="INoteLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -35,7 +36,7 @@ public interface INoteLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Note> AddOrUpdateAsync(string listId, string emailAddressOrHash, string noteId, string note);
+    Task<Note> AddOrUpdateAsync(string listId, string emailAddressOrHash, string noteId, string note, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -55,7 +56,7 @@ public interface INoteLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string listId, string emailAddressOrHash, string noteId, BaseRequest request = null);
+    Task DeleteAsync(string listId, string emailAddressOrHash, string noteId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -72,7 +73,7 @@ public interface INoteLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Note>> GetAllAsync(string listId, string emailAddress, QueryableBaseRequest request = null);
+    Task<IEnumerable<Note>> GetAllAsync(string listId, string emailAddress, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -89,7 +90,7 @@ public interface INoteLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Note> GetAsync(string listId, string emailAddressOrHash, string noteId);
+    Task<Note> GetAsync(string listId, string emailAddressOrHash, string noteId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -109,5 +110,5 @@ public interface INoteLogic
     Task<NoteResponse> GetResponseAsync(
         string listId,
         string emailAddressOrHash,
-        QueryableBaseRequest request = null);
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 }

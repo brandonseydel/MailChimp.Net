@@ -1,9 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IContentLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -28,7 +29,7 @@ public interface IContentLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest request = null);
+    Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -39,5 +40,5 @@ public interface IContentLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Content> GetAsync(string campaignId);
+    Task<Content> GetAsync(string campaignId, CancellationToken cancellationToken = default);
 }

@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Core.Responses;
@@ -43,17 +44,17 @@ internal class ListLogic : BaseLogic, IListLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<List> AddOrUpdateAsync(List list)
+    public async Task<List> AddOrUpdateAsync(List list, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
         System.Net.Http.HttpResponseMessage response;
         if (string.IsNullOrWhiteSpace(list.Id))
         {
-            response = await client.PostAsJsonAsync(string.Empty, list).ConfigureAwait(false);
+            response = await client.PostAsJsonAsync(string.Empty, list, cancellationToken).ConfigureAwait(false);
         }
         else
         {
-            response = await client.PatchAsJsonAsync(list.Id, list).ConfigureAwait(false);
+            response = await client.PatchAsJsonAsync(list.Id, list, cancellationToken).ConfigureAwait(false);
         }
 
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -79,10 +80,10 @@ internal class ListLogic : BaseLogic, IListLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task DeleteAsync(string listId)
+    public async Task DeleteAsync(string listId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
-        var response = await client.DeleteAsync(listId).ConfigureAwait(false);
+        var response = await client.DeleteAsync(listId, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -106,7 +107,8 @@ internal class ListLogic : BaseLogic, IListLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Lists;
+    public async Task<IEnumerable<List>> GetAllAsync(ListRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Lists;
 
     /// <summary>
     /// The get all async.
@@ -128,7 +130,7 @@ internal class ListLogic : BaseLogic, IListLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<ListResponse> GetResponseAsync(ListRequest request = null)
+    public async Task<ListResponse> GetResponseAsync(ListRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??=  new ListRequest
         {
@@ -136,7 +138,7 @@ internal class ListLogic : BaseLogic, IListLogic
         };
 
         using var client = CreateMailClient("lists");
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listResponse = await response.Content.ReadAsAsync<ListResponse>().ConfigureAwait(false);
@@ -161,16 +163,16 @@ internal class ListLogic : BaseLogic, IListLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<List> GetAsync(string id)
+    public async Task<List> GetAsync(string id, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
-        var response = await client.GetAsync($"{id}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{id}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<List>().ConfigureAwait(false);
     }
 
-    public async Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null)
+    public async Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         const string BaseUrl = "/lists/{0}/activity";
 
@@ -180,7 +182,7 @@ internal class ListLogic : BaseLogic, IListLogic
         };
 
         using var client = CreateMailClient(string.Format(BaseUrl + "/", listId));
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listActivityResponse = await response.Content.ReadAsAsync<ListActivityResponse>().ConfigureAwait(false);
@@ -190,10 +192,10 @@ internal class ListLogic : BaseLogic, IListLogic
     /// <summary>
     /// Batch subscribe or unsubscribe list members.
     /// </summary>
-    public async Task<BatchListResponse> BatchAsync(BatchList batchList, string listId)
+    public async Task<BatchListResponse> BatchAsync(BatchList batchList, string listId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"lists/{listId}");
-        var response = await client.PostAsJsonAsync(string.Empty, batchList).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, batchList, cancellationToken).ConfigureAwait(false);
 
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<BatchListResponse>().ConfigureAwait(false);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
@@ -15,9 +16,9 @@ public interface IECommerceProductLogic
     /// <param name="storeId"></param>
     /// <param name="product"></param>
     /// <returns></returns>
-    Task<Product> AddAsync(Product product);
+    Task<Product> AddAsync(Product product, CancellationToken cancellationToken = default);
 
-    Task DeleteAsync(string productId);
+    Task DeleteAsync(string productId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets only the products from the response object
@@ -25,7 +26,7 @@ public interface IECommerceProductLogic
     /// <param name="storeId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null);
+    Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -39,7 +40,7 @@ public interface IECommerceProductLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Product> GetAsync(string productId, BaseRequest request = null);
+    Task<Product> GetAsync(string productId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get response async.
@@ -50,7 +51,7 @@ public interface IECommerceProductLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null);
+    Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -64,7 +65,7 @@ public interface IECommerceProductLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Product> UpdateAsync(string productId, Product product);
+    Task<Product> UpdateAsync(string productId, Product product, CancellationToken cancellationToken = default);
 
     IECommerceProductVarianceLogic Variances(string productId);
 }

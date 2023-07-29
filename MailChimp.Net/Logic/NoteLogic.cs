@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -44,7 +45,7 @@ public class NoteLogic : BaseLogic, INoteLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<Note> AddOrUpdateAsync(string listId, string emailAddressOrHash, string noteId, string note)
+    public async Task<Note> AddOrUpdateAsync(string listId, string emailAddressOrHash, string noteId, string note, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
         System.Net.Http.HttpResponseMessage response;
@@ -54,7 +55,7 @@ public class NoteLogic : BaseLogic, INoteLogic
                 await
                 client.PostAsJsonAsync(
                     $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes",
-                    new { note }).ConfigureAwait(false);
+                    new { note }, cancellationToken).ConfigureAwait(false);
         }
         else
         {
@@ -62,7 +63,7 @@ public class NoteLogic : BaseLogic, INoteLogic
                 await
                 client.PatchAsJsonAsync(
                     $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}",
-                    new { note }).ConfigureAwait(false);
+                    new { note }, cancellationToken).ConfigureAwait(false);
         }
 
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
@@ -88,13 +89,13 @@ public class NoteLogic : BaseLogic, INoteLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task DeleteAsync(string listId, string emailAddressOrHash, string noteId, BaseRequest request = null)
+    public async Task DeleteAsync(string listId, string emailAddressOrHash, string noteId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
         var response =
             await
             client.DeleteAsync(
-                $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}{request?.ToQueryString()}").ConfigureAwait(false);
+                $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes/{noteId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -116,7 +117,8 @@ public class NoteLogic : BaseLogic, INoteLogic
     public async Task<IEnumerable<Note>> GetAllAsync(
         string listId,
         string emailAddress,
-        QueryableBaseRequest request = null) => (await GetResponseAsync(listId, emailAddress, request).ConfigureAwait(false))?.Notes;
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(listId, emailAddress, request, cancellationToken).ConfigureAwait(false))?.Notes;
 
     /// <summary>
     /// The get all async.
@@ -136,7 +138,7 @@ public class NoteLogic : BaseLogic, INoteLogic
     public async Task<NoteResponse> GetResponseAsync(
         string listId,
         string emailAddressOrHash,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
 
         request ??= new QueryableBaseRequest
@@ -148,7 +150,7 @@ public class NoteLogic : BaseLogic, INoteLogic
         var response =
             await
             client.GetAsync(
-                $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{request.ToQueryString()}").ConfigureAwait(false);
+                $"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var noteResponse = await response.Content.ReadAsAsync<NoteResponse>().ConfigureAwait(false);
@@ -171,11 +173,11 @@ public class NoteLogic : BaseLogic, INoteLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<Note> GetAsync(string listId, string emailAddressOrHash, string noteId)
+    public async Task<Note> GetAsync(string listId, string emailAddressOrHash, string noteId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
         var response =
-            await client.GetAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{noteId}").ConfigureAwait(false);
+            await client.GetAsync($"{listId}/members/{this.Hash(emailAddressOrHash)}/notes{noteId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Note>().ConfigureAwait(false);

@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -41,10 +42,10 @@ internal class AutomationSubscriberLogic : BaseLogic, IAutomationSubscriberLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<IEnumerable<Subscriber>> GetRemovedSubscribersAsync(string workflowId)
+    public async Task<IEnumerable<Subscriber>> GetRemovedSubscribersAsync(string workflowId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync($"{workflowId}/removed-subscribers").ConfigureAwait(false);
+        var response = await client.GetAsync($"{workflowId}/removed-subscribers", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var automationResponse = await response.Content.ReadAsAsync<AutomationSubscriberResponse>().ConfigureAwait(false);
         return automationResponse.Subscribers;
@@ -68,10 +69,10 @@ internal class AutomationSubscriberLogic : BaseLogic, IAutomationSubscriberLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<AutomationSubscriberResponse> GetRemovedSubscribersResponseAsync(string workflowId)
+    public async Task<AutomationSubscriberResponse> GetRemovedSubscribersResponseAsync(string workflowId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync($"{workflowId}/removed-subscribers").ConfigureAwait(false);
+        var response = await client.GetAsync($"{workflowId}/removed-subscribers", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var automationResponse = await response.Content.ReadAsAsync<AutomationSubscriberResponse>().ConfigureAwait(false);
         return automationResponse;
@@ -98,12 +99,12 @@ internal class AutomationSubscriberLogic : BaseLogic, IAutomationSubscriberLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Subscriber> RemoveSubscriberAsync(string workflowId, string emailAddress)
+    public async Task<Subscriber> RemoveSubscriberAsync(string workflowId, string emailAddress, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
         var response =
             await
-            client.PostAsJsonAsync($"{workflowId}/removed-subscribers", new { email_address = emailAddress }).ConfigureAwait(false);
+            client.PostAsJsonAsync($"{workflowId}/removed-subscribers", new { email_address = emailAddress }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Subscriber>().ConfigureAwait(false);
     }

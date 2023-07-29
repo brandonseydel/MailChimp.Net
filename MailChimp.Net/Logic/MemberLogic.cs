@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using MailChimp.Net.Core.Responses;
+using System.Threading;
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 // ReSharper disable UnusedMember.Local
@@ -66,12 +67,12 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     ///     </paramref>
     /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
     /// </exception>
-    public async Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null)
+    public async Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
         if (marketingPermissions != null)
         {
-            var getListResponse = await client.GetAsync($"{listId}").ConfigureAwait(false);
+            var getListResponse = await client.GetAsync($"{listId}", cancellationToken).ConfigureAwait(false);
             await getListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
             var list = await getListResponse.Content.ReadAsAsync<List>().ConfigureAwait(false);
@@ -82,7 +83,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
             {
                 var currentListMarketingPermissions = new List<MarketingPermission>();
 
-                var members = (await GetResponseAsync(list.Id, null).ConfigureAwait(false))?.Members;
+                var members = (await GetResponseAsync(list.Id, null, cancellationToken).ConfigureAwait(false))?.Members;
 
                 if (!members.Any())
                 {
@@ -97,7 +98,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
                                     { "FNAME", "DUMMY" },
                                     { "LNAME", "MEMBER" }
                             }
-                        });
+                        }, cancellationToken: cancellationToken);
 
                     currentListMarketingPermissions = dummyMember.MarketingPermissions.ToList();
 
@@ -121,7 +122,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
         }
 
         var memberId = member.Id ?? Hash(member.EmailAddress.ToLower());
-        var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member).ConfigureAwait(false);
+        var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member, cancellationToken).ConfigureAwait(false);
 
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
@@ -130,18 +131,18 @@ internal class MemberLogic : BaseLogic, IMemberLogic
 
 
     /// <inheritdoc />
-    public async Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list)
+    public async Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list, CancellationToken cancellationToken = default)
     {
         var BaseUrl = $"/lists/{listId}/members/{Hash(emailAddressOrHash)}/events";
 
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, list).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, list, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
 
     /// <inheritdoc />
-    public async Task<ListEventResponse> GetMemberEventResponseAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null)
+    public async Task<ListEventResponse> GetMemberEventResponseAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         var BaseUrl = $"/lists/{listId}/members/{Hash(emailAddressOrHash)}/events";
         request ??= new QueryableBaseRequest
@@ -150,7 +151,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
         };
 
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listEventResponse = await response.Content.ReadAsAsync<ListEventResponse>().ConfigureAwait(false);
@@ -158,17 +159,18 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<ListEvent>> GetMemberEventsAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null) => (await this.GetMemberEventResponseAsync(listId, emailAddressOrHash, request).ConfigureAwait(false)).Events;
+    public async Task<IEnumerable<ListEvent>> GetMemberEventsAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await this.GetMemberEventResponseAsync(listId, emailAddressOrHash, request, cancellationToken).ConfigureAwait(false)).Events;
 
 
     /// Search the account or a specific list for members that match the specified query terms.
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<MemberSearchResult> SearchAsync(MemberSearchRequest request = null)
+    public async Task<MemberSearchResult> SearchAsync(MemberSearchRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"search-members{request?.ToQueryString()}");
-        var response = await client.GetAsync("").ConfigureAwait(false);
+        var response = await client.GetAsync("", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<MemberSearchResult>().ConfigureAwait(false);
     }
@@ -210,10 +212,10 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     ///     </paramref>
     /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
     /// </exception>
-    public async Task DeleteAsync(string listId, string emailAddressOrHash)
+    public async Task DeleteAsync(string listId, string emailAddressOrHash, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddressOrHash)}").ConfigureAwait(false);
+        var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddressOrHash)}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -254,10 +256,10 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     ///     </paramref>
     /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
     /// </exception>
-    public async Task PermanentDeleteAsync(string listId, string emailAddressOrHash)
+    public async Task PermanentDeleteAsync(string listId, string emailAddressOrHash, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.PostAsync($"{listId}/members/{Hash(emailAddressOrHash)}/actions/delete-permanent", null).ConfigureAwait(false);
+        var response = await client.PostAsync($"{listId}/members/{Hash(emailAddressOrHash)}/actions/delete-permanent", null, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -293,10 +295,11 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     public async Task<IEnumerable<Activity>> GetActivitiesAsync(
         string listId,
         string emailAddressOrHash,
-        BaseRequest request = null)
+        BaseRequest request = null,
+        CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/activity{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/activity{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var activityResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
         return activityResponse.Activities;
@@ -324,7 +327,8 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-    public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null) => (await GetResponseAsync(listId, memberRequest).ConfigureAwait(false))?.Members;
+    public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(listId, memberRequest, cancellationToken).ConfigureAwait(false))?.Members;
 
     /// <exception cref="ArgumentNullException"><paramref>
     ///         <name>uriString</name>
@@ -338,7 +342,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-    public async Task<MemberResponse> GetResponseAsync(string listId, MemberRequest memberRequest = null)
+    public async Task<MemberResponse> GetResponseAsync(string listId, MemberRequest memberRequest = null, CancellationToken cancellationToken = default)
     {
         memberRequest ??= new MemberRequest
         {
@@ -346,7 +350,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
         };
 
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
@@ -371,12 +375,12 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<int> GetTotalItems(string listId, Status? status)
+    public async Task<int> GetTotalItems(string listId, Status? status, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
         var memberRequest = new MemberRequest { Status = status, FieldsToInclude = "total_items" };
 
-        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
@@ -401,12 +405,12 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest)
+    public async Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
         memberRequest.FieldsToInclude = "total_items";
 
-        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
@@ -453,10 +457,10 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-    public async Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null)
+    public async Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
     }
@@ -474,10 +478,10 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// </returns></param>
     /// <param name="request"></param>
     /// <param name="falseIfUnsubscribed"></param>
-    public async Task<bool> ExistsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, bool falseIfUnsubscribed = true)
+    public async Task<bool> ExistsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, bool falseIfUnsubscribed = true, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         if (response.IsSuccessStatusCode)
         {
             if (falseIfUnsubscribed)
@@ -522,29 +526,29 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null)
+    private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/goals{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/goals{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var goalResponse = await response.Content.ReadAsAsync<GoalResponse>().ConfigureAwait(false);
         return goalResponse.Goals;
     }
 
-    public async Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null)
+    public async Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var tagsResponse = await response.Content.ReadAsAsync<TagsResponse>().ConfigureAwait(false);
         return tagsResponse.Tags;
     }
 
-    public async Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null)
+    public async Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
         var res = await client
-            .PostAsJsonAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", tags)
+            .PostAsJsonAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", tags, cancellationToken)
             .ConfigureAwait(false);
 
         await res.EnsureSuccessMailChimpAsync().ConfigureAwait(false);

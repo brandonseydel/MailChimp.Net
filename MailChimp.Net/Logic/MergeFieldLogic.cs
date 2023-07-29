@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MergeFieldLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -40,10 +41,10 @@ public class MergeFieldLogic : BaseLogic, IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<MergeField> AddAsync(string listId, MergeField member)
+    public async Task<MergeField> AddAsync(string listId, MergeField member, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(string.Format(BaseUrl, listId));
-        var response = await client.PostAsJsonAsync(string.Empty, member).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, member, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var mergeResponse = await response.Content.ReadAsAsync<MergeField>().ConfigureAwait(false);
@@ -62,10 +63,10 @@ public class MergeFieldLogic : BaseLogic, IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task DeleteAsync(string listId, int mergeId)
+    public async Task DeleteAsync(string listId, int mergeId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(string.Format(BaseUrl + "/", listId));
-        var response = await client.DeleteAsync(mergeId.ToString()).ConfigureAwait(false);
+        var response = await client.DeleteAsync(mergeId.ToString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -79,14 +80,14 @@ public class MergeFieldLogic : BaseLogic, IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request = null)
+    public async Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new MergeFieldRequest
         {
             Limit = _limit
         };
 
-        return (await GetResponseAsync(listId, request).ConfigureAwait(false))?.MergeFields;
+        return (await GetResponseAsync(listId, request, cancellationToken).ConfigureAwait(false))?.MergeFields;
     }
 
     /// <summary>
@@ -102,10 +103,10 @@ public class MergeFieldLogic : BaseLogic, IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request = null)
+    public async Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(string.Format(BaseUrl + "/", listId));
-        var response = await client.GetAsync(mergeId + request?.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(mergeId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var mergeResponse = await response.Content.ReadAsAsync<MergeField>().ConfigureAwait(false);
@@ -122,7 +123,7 @@ public class MergeFieldLogic : BaseLogic, IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request = null)
+    public async Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new MergeFieldRequest
         {
@@ -130,7 +131,7 @@ public class MergeFieldLogic : BaseLogic, IMergeFieldLogic
         };
 
         using var client = CreateMailClient(string.Format(BaseUrl, listId));
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var mergeResponse = await response.Content.ReadAsAsync<MergeFieldResponse>().ConfigureAwait(false);
@@ -152,10 +153,10 @@ public class MergeFieldLogic : BaseLogic, IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null)
+    public async Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(string.Format(BaseUrl + "/", listId));
-        var response = await client.PatchAsJsonAsync((mergeId ?? mergeField.MergeId).ToString(), mergeField).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync((mergeId ?? mergeField.MergeId).ToString(), mergeField, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var mergeResponse = await response.Content.ReadAsAsync<MergeField>().ConfigureAwait(false);

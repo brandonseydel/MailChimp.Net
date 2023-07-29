@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ICampaignFolderLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,6 +7,7 @@
 namespace MailChimp.Net.Interfaces;
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Core;
@@ -26,7 +27,7 @@ public interface ICampaignFolderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Folder> AddAsync(string name);
+    Task<Folder> AddAsync(string name, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -37,7 +38,7 @@ public interface ICampaignFolderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null);
+    Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -51,7 +52,7 @@ public interface ICampaignFolderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Folder> GetAsync(string folderId, BaseRequest request = null);
+    Task<Folder> GetAsync(string folderId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -62,7 +63,7 @@ public interface ICampaignFolderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string folderId);
+    Task DeleteAsync(string folderId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -76,7 +77,7 @@ public interface ICampaignFolderLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Folder> UpdateAsync(string folderId, string name);
+    Task<Folder> UpdateAsync(string folderId, string name, CancellationToken cancellationToken = default);
 
-    Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null);
+    Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 }

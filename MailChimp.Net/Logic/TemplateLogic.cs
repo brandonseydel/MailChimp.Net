@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -44,10 +45,10 @@ internal class TemplateLogic : BaseLogic, ITemplateLogic
     /// </exception>
     /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
     /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
-    public async Task DeleteAsync(string templateId)
+    public async Task DeleteAsync(string templateId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates/");
-        var response = await client.DeleteAsync($"{templateId}").ConfigureAwait(false);
+        var response = await client.DeleteAsync($"{templateId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -70,44 +71,44 @@ internal class TemplateLogic : BaseLogic, ITemplateLogic
     /// </exception>
     /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
     /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
-    public async Task DeleteAsync(int templateId)
+    public async Task DeleteAsync(int templateId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates/");
-        var response = await client.DeleteAsync($"{templateId}").ConfigureAwait(false);
+        var response = await client.DeleteAsync($"{templateId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
-    public async Task<Template> CreateAsync(string name, string folderId, string html)
+    public async Task<Template> CreateAsync(string name, string folderId, string html, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates");
-        var response = await client.PostAsJsonAsync(null, new { name, folder_id = folderId, html }).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(null, new { name, folder_id = folderId, html }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
     }
 
-    public async Task<Template> UpdateAsync(string templateId, string name, string folderId, string html)
+    public async Task<Template> UpdateAsync(string templateId, string name, string folderId, string html, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates/");
         var response =
-            await client.PatchAsJsonAsync(templateId, new { name, folder_id = folderId, html }).ConfigureAwait(false);
+            await client.PatchAsJsonAsync(templateId, new { name, folder_id = folderId, html }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
     }
 
-    public async Task<Template> UpdateAsync(int templateId, string name, string folderId, string html)
+    public async Task<Template> UpdateAsync(int templateId, string name, string folderId, string html, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates/");
         var response =
-            await client.PatchAsJsonAsync(templateId.ToString(), new { name, folder_id = folderId, html }).ConfigureAwait(false);
+            await client.PatchAsJsonAsync(templateId.ToString(), new { name, folder_id = folderId, html }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
     }
 
 
-    public async Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null)
+    public async Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates/");
-        var response = await client.GetAsync($"{templateId}/default-content{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{templateId}/default-content{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -133,7 +134,8 @@ internal class TemplateLogic : BaseLogic, ITemplateLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Templates;
+    public async Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Templates;
 
     /// <summary>
     /// The get all async.
@@ -155,10 +157,10 @@ internal class TemplateLogic : BaseLogic, ITemplateLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null)
+    public async Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates");
-        var response = await client.GetAsync(request?.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var templateResponse = await response.Content.ReadAsAsync<TemplateResponse>().ConfigureAwait(false);
@@ -183,10 +185,10 @@ internal class TemplateLogic : BaseLogic, ITemplateLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Template> GetAsync(string templateId)
+    public async Task<Template> GetAsync(string templateId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates/");
-        var response = await client.GetAsync($"{templateId}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{templateId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);
@@ -209,10 +211,10 @@ internal class TemplateLogic : BaseLogic, ITemplateLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Template> GetAsync(int templateId)
+    public async Task<Template> GetAsync(int templateId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("templates/");
-        var response = await client.GetAsync($"{templateId}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{templateId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Template>().ConfigureAwait(false);

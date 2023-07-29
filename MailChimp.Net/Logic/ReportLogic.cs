@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -20,7 +21,7 @@ namespace MailChimp.Net.Logic;
 internal class ReportLogic : BaseLogic, IReportLogic
 {
 
-    public ReportLogic(MailChimpOptions mailChimpConfiguration)
+    public ReportLogic(MailChimpOptions mailChimpConfiguration, CancellationToken cancellationToken = default)
         : base(mailChimpConfiguration)
     {
     }
@@ -45,7 +46,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Reports;
+    public async Task<IEnumerable<Report>> GetAllReportsAsync(ReportRequest request = null, CancellationToken cancellationToken = default) => (await GetResponseAsync(request).ConfigureAwait(false))?.Reports;
 
     /// <summary>
     /// Get a list of abuse complaints for a specific campaign.
@@ -53,10 +54,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <param name="campaignId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<AbuseReportResponse> GetAbuseReportsAsync(string campaignId, BaseRequest request = null)
+    public async Task<AbuseReportResponse> GetAbuseReportsAsync(string campaignId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/abuse-reports{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/abuse-reports{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var reportResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
         return reportResponse;
@@ -69,10 +70,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <param name="reportId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<AbuseReport> GetAbuseReportAsync(string campaignId, string reportId, BaseRequest request = null)
+    public async Task<AbuseReport> GetAbuseReportAsync(string campaignId, string reportId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/abuse-reports/${reportId}{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/abuse-reports/${reportId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var reportResponse = await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);
         return reportResponse;
@@ -99,7 +100,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<ReportResponse> GetResponseAsync(ReportRequest request = null)
+    public async Task<ReportResponse> GetResponseAsync(ReportRequest request = null, CancellationToken cancellationToken = default)
     {
 
         request ??= new ReportRequest
@@ -108,7 +109,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
         };
 
         using var client = CreateMailClient("reports");
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
         return reportResponse;
@@ -138,10 +139,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Advice>> GetCampaignAdviceAsync(string campaignId, BaseRequest request = null)
+    public async Task<IEnumerable<Advice>> GetCampaignAdviceAsync(string campaignId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/advice{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/advice{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var campaignAdviceReport = await response.Content.ReadAsAsync<CampaignAdviceReport>().ConfigureAwait(false);
@@ -171,9 +172,9 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Open>> GetCampaignOpenReportAsync(string campaignId, QueryableBaseRequest request = null)
+    public async Task<IEnumerable<Open>> GetCampaignOpenReportAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
-        var campaignOpenReport = await GetCampaignOpenReportResponseAsync(campaignId, request).ConfigureAwait(false);
+        var campaignOpenReport = await GetCampaignOpenReportResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false);
         return campaignOpenReport.Members;
     }
 
@@ -200,14 +201,14 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<int> GetCampaignOpenReportCountAsync(string campaignId, QueryableBaseRequest request = null)
+    public async Task<int> GetCampaignOpenReportCountAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         // Limit the response to the total only with the min query limit
         request ??= new CampaignOpenReportRequest();
         request.Limit = 1;
         request.FieldsToExclude = "_links,campaign_id,members,total_opens";
 
-        var campaignOpenReport = await GetCampaignOpenReportResponseAsync(campaignId, request).ConfigureAwait(false);
+        var campaignOpenReport = await GetCampaignOpenReportResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false);
         return campaignOpenReport.TotalItems;
     }
 
@@ -215,7 +216,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
 
     private async Task<CampaignOpenReportResponse> GetCampaignOpenReportResponseAsync(
         string campaignId,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -223,7 +224,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
         };
 
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/open-details{request.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/open-details{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var reportResponse = await response.Content.ReadAsAsync<CampaignOpenReportResponse>().ConfigureAwait(false);
         return reportResponse;
@@ -252,7 +253,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<UrlClicked>> GetClickReportAsync(string campaignId, QueryableBaseRequest request = null)
+    public async Task<IEnumerable<UrlClicked>> GetClickReportAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -260,7 +261,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
         };
 
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/click-details{request.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/click-details{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var clickReportResponse = await response.Content.ReadAsAsync<ClickReportResponse>().ConfigureAwait(false);
@@ -293,10 +294,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<UrlClicked> GetClickReportDetailsAsync(string campaignId, string linkId, BaseRequest request = null)
+    public async Task<UrlClicked> GetClickReportDetailsAsync(string campaignId, string linkId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/click-details/{linkId}{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/click-details/{linkId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<UrlClicked>().ConfigureAwait(false);
@@ -348,13 +349,13 @@ internal class ReportLogic : BaseLogic, IReportLogic
         string campaignId, 
         string linkId, 
         string emailAddressOrHash,
-        BaseRequest request = null)
+        BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
         var response =
             await
             client.GetAsync(
-                $"{campaignId}/click-details/{linkId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+                $"{campaignId}/click-details/{linkId}/members/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<ClickMember>().ConfigureAwait(false);
@@ -389,7 +390,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     public async Task<IEnumerable<ClickMember>> GetClickReportMembersAsync(             
         string campaignId, 
         string linkId,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -398,7 +399,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
 
         using var client = CreateMailClient("reports/");
         var response =
-            await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request.ToQueryString()}").ConfigureAwait(false);
+            await client.GetAsync($"{campaignId}/click-details/{linkId}/members{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var clickReportMemberResponse = await response.Content.ReadAsAsync<ClickReportMemberResponse>().ConfigureAwait(false);
@@ -428,10 +429,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Domain>> GetDomainPerformanceAsync(string campaignId, BaseRequest request = null)
+    public async Task<IEnumerable<Domain>> GetDomainPerformanceAsync(string campaignId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/domain-performance{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/domain-performance{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var domainPerformanceResponse = await response.Content.ReadAsAsync<DomainPerformanceResponse>().ConfigureAwait(false);
@@ -461,10 +462,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<EepUrlActivity> GetEepUrlReportAsync(string campaignId, BaseRequest request = null)
+    public async Task<EepUrlActivity> GetEepUrlReportAsync(string campaignId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/click-details/eepurl{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/click-details/eepurl{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<EepUrlActivity>().ConfigureAwait(false);
@@ -495,7 +496,8 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<IEnumerable<EmailActivity>> GetEmailActivitiesAsync(
         string campaignId,
-        QueryableBaseRequest request = null) => (await GetEmailActivitiesResponseAsync(campaignId, request).ConfigureAwait(false))?.EmailActivities;
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetEmailActivitiesResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false))?.EmailActivities;
 
     /// <summary>
     /// The get email activities async.
@@ -522,7 +524,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<EmailResponse> GetEmailActivitiesResponseAsync(
         string campaignId, QueryableBaseRequest 
-        request = null)
+        request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -530,7 +532,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
         };
 
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/email-activity{request.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/email-activity{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var emailActivityResponse = await response.Content.ReadAsAsync<EmailResponse>().ConfigureAwait(false);
@@ -579,12 +581,12 @@ internal class ReportLogic : BaseLogic, IReportLogic
     public async Task<EmailActivity> GetEmailActivityAsync(
         string campaignId, 
         string emailAddressOrHash,
-        BaseRequest request = null)
+        BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
         var response =
             await
-            client.GetAsync($"{campaignId}/email-activity/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+            client.GetAsync($"{campaignId}/email-activity/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<EmailActivity>().ConfigureAwait(false);
@@ -613,10 +615,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<OpenLocation>> GetLocationsAsync(string campaignId, BaseRequest request = null)
+    public async Task<IEnumerable<OpenLocation>> GetLocationsAsync(string campaignId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/locations{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/locations{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var openLocationResponse = await response.Content.ReadAsAsync<OpenLocationResponse>().ConfigureAwait(false);
@@ -646,10 +648,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<Report> GetReportAsync(string campaignId, BaseRequest request = null)
+    public async Task<Report> GetReportAsync(string campaignId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync(campaignId + request?.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(campaignId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Report>().ConfigureAwait(false);
@@ -697,7 +699,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     public async Task<SentTo> GetSentToRecipientAsync(
         string campaignId, 
         string emailAddressOrHash,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -706,7 +708,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
 
         using var client = CreateMailClient("reports/");
         var response =
-            await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddressOrHash)}{request.ToQueryString()}").ConfigureAwait(false);
+            await client.GetAsync($"{campaignId}/sent-to/{this.Hash(emailAddressOrHash)}{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<SentTo>().ConfigureAwait(false);
@@ -735,14 +737,14 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<SentTo>> GetSentToRecipientsAsync(string campaignId, QueryableBaseRequest request = null)
+    public async Task<IEnumerable<SentTo>> GetSentToRecipientsAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
             Limit = _limit
         };
 
-        return (await GetSentToRecipientsResponseAsync(campaignId, request).ConfigureAwait(false))?.Recipients;
+        return (await GetSentToRecipientsResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false))?.Recipients;
     }
 
 
@@ -752,10 +754,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <param name="campaignId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<SentToResponse> GetSentToRecipientsResponseAsync(string campaignId, QueryableBaseRequest request = null)
+    public async Task<SentToResponse> GetSentToRecipientsResponseAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/sent-to{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/sent-to{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var sendToResponse = await response.Content.ReadAsAsync<SentToResponse>().ConfigureAwait(false);
@@ -786,10 +788,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Report>> GetSubReportAsync(string campaignId, BaseRequest request = null)
+    public async Task<IEnumerable<Report>> GetSubReportAsync(string campaignId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/sub-reports{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/sub-reports{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var reportResponse = await response.Content.ReadAsAsync<ReportResponse>().ConfigureAwait(false);
         return reportResponse.Reports;
@@ -834,12 +836,12 @@ internal class ReportLogic : BaseLogic, IReportLogic
     ///     </paramref>
     /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
     /// </exception>
-    public async Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddressOrHash, BaseRequest request = null)
+    public async Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
         var response =
             await
-            client.GetAsync($"{campaignId}/unsubscribed/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}").ConfigureAwait(false);
+            client.GetAsync($"{campaignId}/unsubscribed/{this.Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Unsubscribe>().ConfigureAwait(false);
     }
@@ -869,9 +871,9 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<IEnumerable<Unsubscribe>> GetUnsubscribesAsync(
         string campaignId,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
-        var reportResponse = await GetUnsubscribesReportResponseAsync(campaignId, request).ConfigureAwait(false);
+        var reportResponse = await GetUnsubscribesReportResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false);
         return reportResponse.Unsubscribes;
     }
 
@@ -900,20 +902,20 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<int> GetUnsubscribesCountAsync(
         string campaignId,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         // Limit the response to the total only with the min query limit
         request ??= new QueryableBaseRequest();
         request.Limit = 1;
         request.FieldsToExclude = "_links,campaign_id,unsubscribes";
 
-        var reportResponse = await GetUnsubscribesReportResponseAsync(campaignId, request).ConfigureAwait(false);
+        var reportResponse = await GetUnsubscribesReportResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false);
         return reportResponse.TotalItems;
     }
 
     private async Task<UnsubscribeReportResponse> GetUnsubscribesReportResponseAsync(
         string campaignId,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -921,7 +923,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
         };
 
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/unsubscribed{request.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/unsubscribed{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var reportResponse = await response.Content.ReadAsAsync<UnsubscribeReportResponse>().ConfigureAwait(false);
         return reportResponse;

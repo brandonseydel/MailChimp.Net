@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IMessageLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -29,7 +30,7 @@ public interface IMessageLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Message> AddAsync(string conversationId, Message member);
+    Task<Message> AddAsync(string conversationId, Message member, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -43,7 +44,7 @@ public interface IMessageLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Message>> GetAllAsync(string conversationId, MessageRequest request = null);
+    Task<IEnumerable<Message>> GetAllAsync(string conversationId, MessageRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -57,7 +58,7 @@ public interface IMessageLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Message> GetAsync(string conversationId, string messageId);
+    Task<Message> GetAsync(string conversationId, string messageId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -71,5 +72,5 @@ public interface IMessageLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<MessageResponse> GetResponseAsync(string conversationId, MessageRequest request = null);
+    Task<MessageResponse> GetResponseAsync(string conversationId, MessageRequest request = null, CancellationToken cancellationToken = default);
 }

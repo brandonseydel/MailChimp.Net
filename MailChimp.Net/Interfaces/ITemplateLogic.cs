@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
@@ -26,10 +27,10 @@ public interface ITemplateLogic
     /// <returns>
     ///     The <see cref="Task" />.
     /// </returns>
-    Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null);
+    Task<IEnumerable<Template>> GetAllAsync(TemplateRequest request = null, CancellationToken cancellationToken = default);
 
-    Task<Template> CreateAsync(string name, string folderId, string html);
-    Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null);
+    Task<Template> CreateAsync(string name, string folderId, string html, CancellationToken cancellationToken = default);
+    Task<object> GetDefaultContentAsync(string templateId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     The get async.
@@ -40,7 +41,7 @@ public interface ITemplateLogic
     /// <returns>
     ///     The <see cref="Task" />.
     /// </returns>
-    Task<Template> GetAsync(int templateId);
+    Task<Template> GetAsync(int templateId, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     The get all async.
@@ -108,7 +109,7 @@ public interface ITemplateLogic
     ///     Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null);
+    Task<TemplateResponse> GetResponseAsync(TemplateRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     The delete async.
@@ -147,9 +148,9 @@ public interface ITemplateLogic
     ///     The request message was already sent by the
     ///     <see cref="T:System.Net.Http.HttpClient" /> instance.
     /// </exception>
-    Task DeleteAsync(int templateId);
+    Task DeleteAsync(int templateId, CancellationToken cancellationToken = default);
 
-    Task<Template> UpdateAsync(int templateId, string name, string folderId, string html);
+    Task<Template> UpdateAsync(int templateId, string name, string folderId, string html, CancellationToken cancellationToken = default);
 
 
     /// <summary>
@@ -162,7 +163,7 @@ public interface ITemplateLogic
     ///     The <see cref="Task" />.
     /// </returns>
     [Obsolete("TemplateId is officially declared as int.")]
-    Task<Template> GetAsync(string templateId);
+    Task<Template> GetAsync(string templateId, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     The delete async.
@@ -202,9 +203,9 @@ public interface ITemplateLogic
     ///     <see cref="T:System.Net.Http.HttpClient" /> instance.
     /// </exception>
     [Obsolete("TemplateId is officially declared as int.")]
-    Task DeleteAsync(string templateId);
+    Task DeleteAsync(string templateId, CancellationToken cancellationToken = default);
 
     [Obsolete("TemplateId is officially declared as int.")]
-    Task<Template> UpdateAsync(string templateId, string name, string folderId, string html);
+    Task<Template> UpdateAsync(string templateId, string name, string folderId, string html, CancellationToken cancellationToken = default);
 
 }

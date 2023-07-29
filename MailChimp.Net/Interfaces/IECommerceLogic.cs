@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -23,7 +24,7 @@ public interface IECommerceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Store> AddAsync(Store store);
+    Task<Store> AddAsync(Store store, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -34,7 +35,7 @@ public interface IECommerceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string storeId);
+    Task DeleteAsync(string storeId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -45,7 +46,7 @@ public interface IECommerceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Store>> GetAllAsync(QueryableBaseRequest request = null);
+    Task<IEnumerable<Store>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -59,7 +60,7 @@ public interface IECommerceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Store> GetAsync(string storeId, BaseRequest request = null);
+    Task<Store> GetAsync(string storeId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get response async.
@@ -70,7 +71,7 @@ public interface IECommerceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<ECommerceResponse> GetResponseAsync(QueryableBaseRequest request = null);
+    Task<ECommerceResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -84,5 +85,5 @@ public interface IECommerceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Store> UpdateAsync(string storeId, Store store);
+    Task<Store> UpdateAsync(string storeId, Store store, CancellationToken cancellationToken = default);
 }

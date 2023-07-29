@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IAutomationEmailLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,7 +11,7 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces;
 
-
+using System.Threading;
 using Core;
 
 /// <summary>
@@ -28,7 +28,7 @@ public interface IAutomationEmailLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Email>> GetAllAsync(string workflowId);
+    Task<IEnumerable<Email>> GetAllAsync(string workflowId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -42,7 +42,7 @@ public interface IAutomationEmailLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Email> GetAsync(string workflowId, string workflowEmailId);
+    Task<Email> GetAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The pause async.
@@ -56,7 +56,7 @@ public interface IAutomationEmailLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task PauseAsync(string workflowId, string workflowEmailId);
+    Task PauseAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The start async.
@@ -70,7 +70,7 @@ public interface IAutomationEmailLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task StartAsync(string workflowId, string workflowEmailId);
+    Task StartAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -89,5 +89,5 @@ public interface IAutomationEmailLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    Task<AutomationEmailResponse> GetResponseAsync(string workflowId);
+    Task<AutomationEmailResponse> GetResponseAsync(string workflowId, CancellationToken cancellationToken = default);
 }
