@@ -31,5 +31,5 @@ public class ListEvent
     /// An optional list of properties
     /// </summary>
     [JsonProperty("properties")]
-    IDictionary<string, object> Properties { get; set; }
+    public IDictionary<string, object> Properties { get; set; }
 }
