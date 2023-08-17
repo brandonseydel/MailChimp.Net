@@ -110,6 +110,7 @@ public class BaseRequest
 
                     value = value is DateTime time ? time.ToString(@"yyyy-MM-dd HH:mm:ss", CultureInfo.CurrentCulture) :
                             value is IEnumerable && !(value is string) ? string.Join(",", ((IEnumerable)value).Cast<object>()) :
+                            value is bool b ? (b ? "true" : "") :
                             value;
 
                     //We don't want to add anything if after all this work their is still no data :(

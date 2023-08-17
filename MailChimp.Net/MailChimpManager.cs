@@ -42,6 +42,7 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
         this.Campaigns = new CampaignLogic(MailChimpOptions);
         this.CampaignFolders = new CampaignFolderLogic(MailChimpOptions);
         this.Clients = new ClientLogic(MailChimpOptions);
+        this.ConnectedWebsites = new ConnectedWebsiteLogic(MailChimpOptions);
         this.Content = new ContentLogic(MailChimpOptions);
         this.Conversations = new ConversationLogic(MailChimpOptions);
         this.ECommerceStores = new ECommerceLogic(MailChimpOptions);
@@ -81,6 +82,7 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
         this.Campaigns = new CampaignLogic(MailChimpOptions);
         this.CampaignFolders = new CampaignFolderLogic(MailChimpOptions);
         this.Clients = new ClientLogic(MailChimpOptions);
+        this.ConnectedWebsites = new ConnectedWebsiteLogic(MailChimpOptions);
         this.Content = new ContentLogic(MailChimpOptions);
         this.Conversations = new ConversationLogic(MailChimpOptions);
         this.ECommerceStores = new ECommerceLogic(MailChimpOptions);
@@ -120,6 +122,7 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
         this.Campaigns = new CampaignLogic(MailChimpOptions);
         this.CampaignFolders = new CampaignFolderLogic(MailChimpOptions);
         this.Clients = new ClientLogic(MailChimpOptions);
+        this.ConnectedWebsites = new ConnectedWebsiteLogic(MailChimpOptions);
         this.Content = new ContentLogic(MailChimpOptions);
         this.Conversations = new ConversationLogic(MailChimpOptions);
         this.ECommerceStores = new ECommerceLogic(MailChimpOptions);
@@ -205,6 +208,11 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
     /// Gets the clients.
     /// </summary>
     public IClientLogic Clients { get; }
+
+    /// <summary>
+    /// Get the connected websites.
+    /// </summary>
+    public IConnectedWebsiteLogic ConnectedWebsites { get; }
 
     /// <summary>
     /// Gets the content.

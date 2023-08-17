@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using MailChimp.Net.Core;
+using System;
 
 namespace MailChimp.Net.Models;
 
@@ -69,8 +70,14 @@ public class Order
     [JsonProperty("billing_address")]
     public OrderAddress BillingAddress { get; set; }
 
+    [JsonProperty("created_at")]
+    public DateTime? CreatedAt { get; set; }
+
+    [JsonProperty("updated_at")]
+    public DateTime? UpdatedAt { get; set; }
+
     [JsonProperty("updated_at_foreign")]
-    public string UpdatedAtForeign { get; set; }
+    public DateTime? UpdatedAtForeign { get; set; }
 
     [JsonProperty("promos")]
     public IList<Promo> Promos { get; set; }

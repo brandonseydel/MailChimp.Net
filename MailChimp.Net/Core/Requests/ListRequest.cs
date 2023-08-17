@@ -20,7 +20,7 @@ public class ListRequest : QueryableBaseRequest
     public DateTime? SinceDateCreated { get; set; }
 
     [QueryString("before_campaign_last_sent")]
-    public string  BeforeCampaignLastSent { get; set; }
+    public string BeforeCampaignLastSent { get; set; }
 
     [QueryString("since_campaign_last_sent")]
     public string SinceCampaignLastSent { get; set; }
