@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IFeedbackLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -29,7 +30,7 @@ public interface IFeedbackLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Feedback> AddOrUpdateAsync(string campaignId, Feedback feedback);
+    Task<Feedback> AddOrUpdateAsync(string campaignId, Feedback feedback, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -43,7 +44,7 @@ public interface IFeedbackLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string campaignId, string feedbackId);
+    Task DeleteAsync(string campaignId, string feedbackId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -57,7 +58,7 @@ public interface IFeedbackLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null);
+    Task<IEnumerable<Feedback>> GetAllAsync(string campaignId, FeedbackRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -71,7 +72,7 @@ public interface IFeedbackLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Feedback> GetAsync(string campaignId, string feedbackId);
+    Task<Feedback> GetAsync(string campaignId, string feedbackId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -96,5 +97,5 @@ public interface IFeedbackLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    Task<FeedBackResponse> GetResponseAsync(string campaignId, FeedbackRequest request = null);
+    Task<FeedBackResponse> GetResponseAsync(string campaignId, FeedbackRequest request = null, CancellationToken cancellationToken = default);
 }

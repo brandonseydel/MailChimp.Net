@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CampaignFolderLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,7 +11,7 @@ using MailChimp.Net.Interfaces;
 namespace MailChimp.Net.Logic;
 
 using System.Collections.Generic;
-
+using System.Threading;
 using Models;
 
 /// <summary>
@@ -27,10 +27,10 @@ internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
     {
     }
 
-    public async Task<Folder> AddAsync(string name)
+    public async Task<Folder> AddAsync(string name, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, new { name }).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, new { name }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var foldeResponse = await response.Content.ReadAsAsync<Folder>().ConfigureAwait(false);
@@ -38,9 +38,10 @@ internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
     }
 
 
-    public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
+    public async Task<IEnumerable<Folder>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Folders;
 
-    public async Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null)
+    public async Task<CampaignFolderResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -48,7 +49,7 @@ internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
         };
 
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var campaignFolderResponse = await response.Content.ReadAsAsync<CampaignFolderResponse>().ConfigureAwait(false);
@@ -57,10 +58,10 @@ internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
 
 
 
-    public async Task<Folder> GetAsync(string folderId, BaseRequest request = null)
+    public async Task<Folder> GetAsync(string folderId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync(folderId).ConfigureAwait(false);
+        var response = await client.GetAsync(folderId, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var folder = await response.Content.ReadAsAsync<Folder>().ConfigureAwait(false);
@@ -69,17 +70,17 @@ internal class CampaignFolderLogic : BaseLogic, ICampaignFolderLogic
 
 
 
-    public async Task DeleteAsync(string folderId)
+    public async Task DeleteAsync(string folderId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.DeleteAsync($"{folderId}").ConfigureAwait(false);
+        var response = await client.DeleteAsync($"{folderId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
-    public async Task<Folder> UpdateAsync(string folderId, string name)
+    public async Task<Folder> UpdateAsync(string folderId, string name, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.PatchAsJsonAsync($"{folderId}", new { name }).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync($"{folderId}", new { name }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var folder = await response.Content.ReadAsAsync<Folder>().ConfigureAwait(false);

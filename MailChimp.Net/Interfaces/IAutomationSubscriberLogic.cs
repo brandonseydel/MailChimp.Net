@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IAutomationSubscriberLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,7 +11,7 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces;
 
-
+using System.Threading;
 using Core;
 
 /// <summary>
@@ -28,7 +28,7 @@ public interface IAutomationSubscriberLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Subscriber>> GetRemovedSubscribersAsync(string workflowId);
+    Task<IEnumerable<Subscriber>> GetRemovedSubscribersAsync(string workflowId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The remove subscriber async.
@@ -42,7 +42,7 @@ public interface IAutomationSubscriberLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Subscriber> RemoveSubscriberAsync(string workflowId, string emailAddress);
+    Task<Subscriber> RemoveSubscriberAsync(string workflowId, string emailAddress, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get removed subscribers async.
@@ -61,5 +61,5 @@ public interface IAutomationSubscriberLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    Task<AutomationSubscriberResponse> GetRemovedSubscribersResponseAsync(string workflowId);
+    Task<AutomationSubscriberResponse> GetRemovedSubscribersResponseAsync(string workflowId, CancellationToken cancellationToken = default);
 }

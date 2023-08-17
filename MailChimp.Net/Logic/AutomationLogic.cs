@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -19,7 +20,7 @@ namespace MailChimp.Net.Logic;
 internal class AutomationLogic : BaseLogic, IAutomationLogic
 {
 
-    public AutomationLogic(MailChimpOptions mailChimpConfiguration)
+    public AutomationLogic(MailChimpOptions mailChimpConfiguration, CancellationToken cancellationToken = default)
         : base(mailChimpConfiguration)
     {
     }
@@ -44,7 +45,8 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Automations;
+    public async Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Automations;
 
 
     /// <summary>
@@ -67,7 +69,7 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<AutomationResponse> GetResponseAsync(QueryableBaseRequest request = null)
+    public async Task<AutomationResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -75,7 +77,7 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
         };
 
         using var client = CreateMailClient("automations");
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var automationResponse = await response.Content.ReadAsAsync<AutomationResponse>().ConfigureAwait(false);
         return automationResponse;
@@ -99,10 +101,10 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Automation> GetAsync(string workflowId)
+    public async Task<Automation> GetAsync(string workflowId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync(workflowId).ConfigureAwait(false);
+        var response = await client.GetAsync(workflowId, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Automation>().ConfigureAwait(false);
     }
@@ -127,10 +129,10 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-    public async Task<Automation> UpdateAsync(string workflowId, Automation automation)
+    public async Task<Automation> UpdateAsync(string workflowId, Automation automation, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.PatchAsJsonAsync($"{workflowId}", automation).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync($"{workflowId}", automation, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<Automation>().ConfigureAwait(false);
@@ -153,10 +155,10 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task PauseAsync(string workflowId)
+    public async Task PauseAsync(string workflowId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync($"{workflowId}/actions/pause-all-emails").ConfigureAwait(false);
+        var response = await client.GetAsync($"{workflowId}/actions/pause-all-emails", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -177,10 +179,10 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task StartAsync(string workflowId)
+    public async Task StartAsync(string workflowId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync($"{workflowId}/actions/start-all-emails").ConfigureAwait(false);
+        var response = await client.GetAsync($"{workflowId}/actions/start-all-emails", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 }

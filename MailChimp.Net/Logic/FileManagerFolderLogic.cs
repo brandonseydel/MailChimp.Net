@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileManagerFolderLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -8,6 +8,7 @@ using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -25,10 +26,10 @@ internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
     {
     }
 
-    public async Task<FileManagerFolder> AddAsync(string name)
+    public async Task<FileManagerFolder> AddAsync(string name, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, new { name }).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, new { name }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFolder = await response.Content.ReadAsAsync<FileManagerFolder>().ConfigureAwait(false);
@@ -36,9 +37,9 @@ internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
     }
 
 
-    public async Task<IEnumerable<FileManagerFolder>> GetAllAsync(FileManagerRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
+    public async Task<IEnumerable<FileManagerFolder>> GetAllAsync(FileManagerRequest request = null, CancellationToken cancellationToken = default) => (await GetResponseAsync(request).ConfigureAwait(false))?.Folders;
 
-    public async Task<FileManagerFolderResponse> GetResponseAsync(FileManagerRequest request = null)
+    public async Task<FileManagerFolderResponse> GetResponseAsync(FileManagerRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new FileManagerRequest
         {
@@ -46,7 +47,7 @@ internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
         };
 
         using var client = CreateMailClient(BaseUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFolderResponse =
@@ -55,10 +56,10 @@ internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
     }
 
 
-    public async Task<FileManagerFolder> GetAsync(string folderId, BaseRequest request = null)
+    public async Task<FileManagerFolder> GetAsync(string folderId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.GetAsync($"{folderId}{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{folderId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var fileManagerFolder = await response.Content.ReadAsAsync<FileManagerFolder>().ConfigureAwait(false);
@@ -66,18 +67,18 @@ internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
     }
 
 
-    public async Task DeleteAsync(string folderId)
+    public async Task DeleteAsync(string folderId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.DeleteAsync($"{folderId}").ConfigureAwait(false);
+        var response = await client.DeleteAsync($"{folderId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
 
-    public async Task<FileManagerFolder> UpdateAsync(string name, string folderId)
+    public async Task<FileManagerFolder> UpdateAsync(string name, string folderId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
-        var response = await client.PatchAsJsonAsync($"{folderId}", new { name }).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync($"{folderId}", new { name }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var folder = await response.Content.ReadAsAsync<FileManagerFolder>().ConfigureAwait(false);
         return folder;

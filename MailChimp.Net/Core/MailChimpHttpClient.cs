@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MailChimp.Net.Core;
@@ -31,7 +32,7 @@ public class MailChimpHttpClient : IDisposable
         _httpClient = httpClient;
         _options = options;
 
-        if(resource != null && resource.StartsWith("/"))
+        if (resource != null && resource.StartsWith("/"))
         {
             resource = resource.Substring(1);
         }
@@ -56,7 +57,8 @@ public class MailChimpHttpClient : IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<HttpResponseMessage> DeleteAsync(string requestUri) => SendAsync(HttpMethod.Delete, requestUri, contentOrNull: null);
+    public Task<HttpResponseMessage> DeleteAsync(string requestUri, CancellationToken cancellationToken) 
+        => SendAsync(HttpMethod.Delete, requestUri, contentOrNull: null, cancellationToken);
 
     /// <summary>
     /// Get request
@@ -67,7 +69,8 @@ public class MailChimpHttpClient : IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<HttpResponseMessage> GetAsync(string requestUri) => SendAsync(HttpMethod.Get, requestUri, contentOrNull: null);
+    public Task<HttpResponseMessage> GetAsync(string requestUri, CancellationToken cancellationToken) 
+        => SendAsync(HttpMethod.Get, requestUri, contentOrNull: null, cancellationToken);
 
     /// <summary>
     /// Post request
@@ -81,7 +84,8 @@ public class MailChimpHttpClient : IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<HttpResponseMessage> PostAsync(string requestUri, HttpContent httpContent) => SendAsync(HttpMethod.Post, requestUri, contentOrNull: httpContent);
+    public Task<HttpResponseMessage> PostAsync(string requestUri, HttpContent httpContent, CancellationToken cancellationToken) 
+        => SendAsync(HttpMethod.Post, requestUri, contentOrNull: httpContent, cancellationToken);
 
     /// <summary>
     /// The put as json async.
@@ -98,11 +102,8 @@ public class MailChimpHttpClient : IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<HttpResponseMessage> PutAsJsonAsync<T>(
-
-        string requestUri,
-        T value,
-        JsonSerializerSettings settings = null) => SendAsync(HttpMethod.Put, requestUri, GetStringContent(value, settings));
+    public Task<HttpResponseMessage> PutAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken, JsonSerializerSettings settings = null) 
+        => SendAsync(HttpMethod.Put, requestUri, GetStringContent(value, settings), cancellationToken);
 
     /// <summary>
     /// The patch as json async.
@@ -119,11 +120,9 @@ public class MailChimpHttpClient : IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<HttpResponseMessage> PatchAsJsonAsync<T>(
+    public Task<HttpResponseMessage> PatchAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken, JsonSerializerSettings settings = null) 
+        => SendAsync(new HttpMethod("PATCH"), requestUri, GetStringContent(value, settings), cancellationToken);
 
-        string requestUri,
-        T value,
-        JsonSerializerSettings settings = null) => SendAsync(new HttpMethod("PATCH"), requestUri, GetStringContent(value, settings));
     /// <summary>
     /// PostAsJsonAsync
     /// </summary>     
@@ -138,18 +137,15 @@ public class MailChimpHttpClient : IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<HttpResponseMessage> PostAsJsonAsync<T>(
-        string requestUri,
-        T value,
-        JsonSerializerSettings settings = null) => SendAsync(HttpMethod.Post, requestUri, GetStringContent(value, settings));
+    public Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken, JsonSerializerSettings settings = null) 
+        => SendAsync(HttpMethod.Post, requestUri, GetStringContent(value, settings), cancellationToken);
 
-    private StringContent GetStringContent<T>(T value, JsonSerializerSettings settings) => new StringContent(JsonConvert.SerializeObject(value, settings ?? JsonSettings),
-            Encoding.UTF8,
-            "application/json");
+    private StringContent GetStringContent<T>(T value, JsonSerializerSettings settings) 
+        => new StringContent(JsonConvert.SerializeObject(value, settings ?? JsonSettings), Encoding.UTF8, "application/json");
 
-    private Task<HttpResponseMessage> SendAsync(HttpMethod method, string requestUri, HttpContent contentOrNull)
+    private Task<HttpResponseMessage> SendAsync(HttpMethod method, string requestUri, HttpContent contentOrNull, CancellationToken cancellationToken)
     {
-        var request = new HttpRequestMessage(method,_resource + requestUri);
+        var request = new HttpRequestMessage(method, _resource + requestUri);
         if (method.Method == "PATCH")
         {
             request.Headers.ExpectContinue = false;
@@ -159,7 +155,7 @@ public class MailChimpHttpClient : IDisposable
         {
             request.Content = contentOrNull;
         }
-        return _httpClient.SendAsync(request);
+        return _httpClient.SendAsync(request, cancellationToken);
     }
 
 }

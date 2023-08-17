@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -30,11 +31,11 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     /// </summary>
     /// <param name="customer"></param>
     /// <returns></returns>
-    public async Task<PromoRule> AddAsync(PromoRule customer)
+    public async Task<PromoRule> AddAsync(PromoRule customer, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, customer).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, customer, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
@@ -47,11 +48,11 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task DeleteAsync(string promoRuleID)
+    public async Task DeleteAsync(string promoRuleID, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.DeleteAsync(promoRuleID).ConfigureAwait(false);
+        var response = await client.DeleteAsync(promoRuleID, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -60,7 +61,8 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<PromoRule>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.PromoRules;
+    public async Task<IEnumerable<PromoRule>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.PromoRules;
 
     /// <summary>
     /// The get async.
@@ -72,12 +74,12 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<PromoRule> GetAsync(string customerId, BaseRequest request = null)
+    public async Task<PromoRule> GetAsync(string customerId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
 
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.GetAsync(customerId + request?.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(customerId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);
@@ -93,7 +95,7 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<StorePromoRuleResponse> GetResponseAsync(QueryableBaseRequest request = null)
+    public async Task<StorePromoRuleResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
 
         request ??= new QueryableBaseRequest
@@ -103,7 +105,7 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
 
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var promoResponse = await response.Content.ReadAsAsync<StorePromoRuleResponse>().ConfigureAwait(false);
@@ -118,11 +120,11 @@ internal class ECommercePromoRuleLogic : BaseLogic, IECommercePromoRuleLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<PromoRule> UpdateAsync(string promoRuleID, PromoRule promoRule)
+    public async Task<PromoRule> UpdateAsync(string promoRuleID, PromoRule promoRule, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.PatchAsJsonAsync(promoRuleID, promoRule).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync(promoRuleID, promoRule, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var promoRuleResponse = await response.Content.ReadAsAsync<PromoRule>().ConfigureAwait(false);

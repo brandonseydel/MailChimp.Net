@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IWebHookLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -6,6 +6,7 @@
 
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -30,7 +31,7 @@ public interface IWebHookLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<WebHook> AddAsync(string listId, WebHook webhook);
+    Task<WebHook> AddAsync(string listId, WebHook webhook, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -44,7 +45,7 @@ public interface IWebHookLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string listId, string webhookId);
+    Task DeleteAsync(string listId, string webhookId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -55,7 +56,7 @@ public interface IWebHookLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<WebHook>> GetAllAsync(string listId);
+    Task<IEnumerable<WebHook>> GetAllAsync(string listId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -69,7 +70,7 @@ public interface IWebHookLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<WebHook> GetAsync(string listId, string webhookId);
+    Task<WebHook> GetAsync(string listId, string webhookId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get response async.
@@ -80,7 +81,7 @@ public interface IWebHookLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<WebHookResponse> GetResponseAsync(string listId);
+    Task<WebHookResponse> GetResponseAsync(string listId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -97,5 +98,5 @@ public interface IWebHookLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null);
+    Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null, CancellationToken cancellationToken = default);
 }

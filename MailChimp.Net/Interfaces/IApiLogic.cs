@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Models;
@@ -21,7 +22,7 @@ public interface IApiLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<ApiInfo> GetInfoAsync();
+    Task<ApiInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 
-    Task<Ping> PingAsync();
+    Task<Ping> PingAsync(CancellationToken cancellationToken = default);
 }

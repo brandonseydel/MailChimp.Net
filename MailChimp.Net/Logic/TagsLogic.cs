@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MailChimp.Net.Logic;
@@ -18,9 +19,10 @@ internal class TagsLogic : BaseLogic, ITagsLogic
     {
     }
 
-    public async Task<IEnumerable<ListTag>> GetAllAsync(string listId, TagsRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Tags;
+    public async Task<IEnumerable<ListTag>> GetAllAsync(string listId, TagsRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(listId, request, cancellationToken).ConfigureAwait(false))?.Tags;
 
-    public async Task<ListTagsResponse> GetResponseAsync(string listId, TagsRequest request = null)
+    public async Task<ListTagsResponse> GetResponseAsync(string listId, TagsRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new TagsRequest
         {
@@ -28,7 +30,7 @@ internal class TagsLogic : BaseLogic, ITagsLogic
         };
 
         using var client = CreateMailClient($"{BaseUrl}/{listId}/tag-search");
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listTagsResponse = await response.Content.ReadAsAsync<ListTagsResponse>().ConfigureAwait(false);

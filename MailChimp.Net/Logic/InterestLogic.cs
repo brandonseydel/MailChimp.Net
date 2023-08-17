@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -48,12 +49,12 @@ public class InterestLogic : BaseLogic, IInterestLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task DeleteAsync(string listId, string interestCategoryId, string interestId)
+    public async Task DeleteAsync(string listId, string interestCategoryId, string interestId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
         var response =
             await
-            client.DeleteAsync($"{listId}/interest-categories/{interestCategoryId}/interests/{interestId}").ConfigureAwait(false);
+            client.DeleteAsync($"{listId}/interest-categories/{interestCategoryId}/interests/{interestId}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -86,7 +87,8 @@ public class InterestLogic : BaseLogic, IInterestLogic
     public async Task<IEnumerable<Interest>> GetAllAsync(
         string listId,
         string interestCategoryId,
-        QueryableBaseRequest request = null) => (await GetResponseAsync(listId, interestCategoryId, request).ConfigureAwait(false))?.Interests;
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(listId, interestCategoryId, request, cancellationToken).ConfigureAwait(false))?.Interests;
 
 
     /// <summary>
@@ -118,7 +120,7 @@ public class InterestLogic : BaseLogic, IInterestLogic
     public async Task<InterestResponse> GetResponseAsync(
         string listId,
         string interestCategoryId,
-        QueryableBaseRequest request = null)
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
 
         request ??= new QueryableBaseRequest
@@ -130,7 +132,7 @@ public class InterestLogic : BaseLogic, IInterestLogic
         var response =
             await
             client.GetAsync(
-                $"{listId}/interest-categories/{interestCategoryId}/interests{request.ToQueryString()}").ConfigureAwait(false);
+                $"{listId}/interest-categories/{interestCategoryId}/interests{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var listResponse = await response.Content.ReadAsAsync<InterestResponse>().ConfigureAwait(false);
@@ -171,18 +173,18 @@ public class InterestLogic : BaseLogic, IInterestLogic
         string listId,
         string interestCategoryId,
         string interestId,
-        BaseRequest request = null)
+        BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
         var response =
             await
             client.GetAsync(
-                $"{listId}/interest-categories/{interestCategoryId}/interests/{interestId}{request?.ToQueryString()}").ConfigureAwait(false);
+                $"{listId}/interest-categories/{interestCategoryId}/interests/{interestId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
     }
 
-    public async Task<Interest> AddOrUpdateAsync(Interest list)
+    public async Task<Interest> AddOrUpdateAsync(Interest list, CancellationToken cancellationToken)
     {
         using var client = CreateMailClient("lists/");
         System.Net.Http.HttpResponseMessage response;
@@ -190,13 +192,13 @@ public class InterestLogic : BaseLogic, IInterestLogic
         {
             response = await client.PostAsJsonAsync(
                                  $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests",
-                                 list).ConfigureAwait(false);
+                                 list, cancellationToken).ConfigureAwait(false);
             await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
             return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
         }
         response = await client.PatchAsJsonAsync(
                                 $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests/{list.Id}",
-                                list).ConfigureAwait(false);
+                                list, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return list;
 
@@ -220,14 +222,14 @@ public class InterestLogic : BaseLogic, IInterestLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Interest> UpdateAsync(Interest list)
+    public async Task<Interest> UpdateAsync(Interest list, CancellationToken cancellationToken)
     {
         using var client = CreateMailClient("lists/");
         var response =
             await
             client.PatchAsJsonAsync(
                 $"{list.ListId}/interest-categories/{list.InterestCategoryId}/interests/{list.Id}",
-                list).ConfigureAwait(false);
+                list, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Interest>().ConfigureAwait(false);
     }

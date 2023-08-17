@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IClientLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -29,7 +30,7 @@ public interface IClientLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Client>> GetAllAsync(string listId, BaseRequest request = null);
+    Task<IEnumerable<Client>> GetAllAsync(string listId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -54,5 +55,5 @@ public interface IClientLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    Task<ClientResponse> GetResponseAsync(string listId, BaseRequest request = null);
+    Task<ClientResponse> GetResponseAsync(string listId, BaseRequest request = null, CancellationToken cancellationToken = default);
 }

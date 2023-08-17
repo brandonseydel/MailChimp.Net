@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -27,7 +28,7 @@ public interface IListLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<List> AddOrUpdateAsync(List list);
+    Task<List> AddOrUpdateAsync(List list, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -38,7 +39,7 @@ public interface IListLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string listId);
+    Task DeleteAsync(string listId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -49,7 +50,7 @@ public interface IListLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<List>> GetAllAsync(ListRequest request = null);
+    Task<IEnumerable<List>> GetAllAsync(ListRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -60,7 +61,7 @@ public interface IListLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<List> GetAsync(string id);
+    Task<List> GetAsync(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -82,7 +83,7 @@ public interface IListLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    Task<ListResponse> GetResponseAsync(ListRequest request = null);
+    Task<ListResponse> GetResponseAsync(ListRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -90,7 +91,7 @@ public interface IListLogic
     /// <param name="listId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null);
+    Task<ListActivityResponse> GetActivityAsync(string listId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Batch subscribe or unsubscribe list members.
@@ -101,5 +102,5 @@ public interface IListLogic
     /// The <see cref="Task"/>.
     /// </returns>
     /// <remarks>Limited up to 500 members by one request</remarks>
-    Task<BatchListResponse> BatchAsync(BatchList batchList, string listId);
+    Task<BatchListResponse> BatchAsync(BatchList batchList, string listId, CancellationToken cancellationToken = default);
 }

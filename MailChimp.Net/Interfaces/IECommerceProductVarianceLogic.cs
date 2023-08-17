@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
@@ -10,8 +11,8 @@ public interface IECommerceProductVarianceLogic
     string BaseUrl { get; }
     string ProductId { get; set; }
     string StoreId { get; set; }
-    Task<Variant> AddAsync(Variant variant);
-    Task DeleteAsync(string variantId);
+    Task<Variant> AddAsync(Variant variant, CancellationToken cancellationToken = default);
+    Task DeleteAsync(string variantId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets only the carts from the response object
@@ -19,7 +20,7 @@ public interface IECommerceProductVarianceLogic
     /// <param name="storeId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<IEnumerable<Variant>> GetAllAsync(QueryableBaseRequest request = null);
+    Task<IEnumerable<Variant>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -33,7 +34,7 @@ public interface IECommerceProductVarianceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Variant> GetAsync(string variantId, BaseRequest request = null);
+    Task<Variant> GetAsync(string variantId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get response async.
@@ -44,7 +45,7 @@ public interface IECommerceProductVarianceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<ProductVariantResponse> GetResponseAsync(QueryableBaseRequest request = null);
+    Task<ProductVariantResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -58,5 +59,5 @@ public interface IECommerceProductVarianceLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Variant> UpdateAsync(string variantId, Variant variant);
+    Task<Variant> UpdateAsync(string variantId, Variant variant, CancellationToken cancellationToken = default);
 }

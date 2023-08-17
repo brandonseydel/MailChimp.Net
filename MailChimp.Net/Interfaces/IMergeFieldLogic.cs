@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IMergeFieldLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -29,7 +30,7 @@ public interface IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<MergeField> AddAsync(string listId, MergeField member);
+    Task<MergeField> AddAsync(string listId, MergeField member, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The delete async.
@@ -43,7 +44,7 @@ public interface IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string listId, int mergeId);
+    Task DeleteAsync(string listId, int mergeId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -55,7 +56,7 @@ public interface IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request = null);
+    Task<IEnumerable<MergeField>> GetAllAsync(string listId, MergeFieldRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -67,7 +68,7 @@ public interface IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request = null);
+    Task<MergeFieldResponse> GetResponseAsync(string listId, MergeFieldRequest request = null, CancellationToken cancellationToken = default);
 
 
     /// <summary>
@@ -83,7 +84,7 @@ public interface IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request = null);
+    Task<MergeField> GetAsync(string listId, int mergeId, MergeFieldRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -97,5 +98,5 @@ public interface IMergeFieldLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null);
+    Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null, CancellationToken cancellationToken = default);
 }

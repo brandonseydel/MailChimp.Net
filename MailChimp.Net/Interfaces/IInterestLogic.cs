@@ -1,10 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IInterestLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -32,10 +33,10 @@ public interface IInterestLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task DeleteAsync(string listId, string interestCategoryId, string interestId);
+    Task DeleteAsync(string listId, string interestCategoryId, string interestId, CancellationToken cancellationToken = default);
 
 
-    Task<Interest> AddOrUpdateAsync(Interest list);
+    Task<Interest> AddOrUpdateAsync(Interest list, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -52,7 +53,7 @@ public interface IInterestLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Interest>> GetAllAsync(string listId, string interestCategoryId, QueryableBaseRequest request = null);
+    Task<IEnumerable<Interest>> GetAllAsync(string listId, string interestCategoryId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -72,7 +73,7 @@ public interface IInterestLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Interest> GetAsync(string listId, string interestCategoryId, string interestId, BaseRequest request = null);
+    Task<Interest> GetAsync(string listId, string interestCategoryId, string interestId, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The update async.
@@ -83,7 +84,7 @@ public interface IInterestLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Interest> UpdateAsync(Interest list);
+    Task<Interest> UpdateAsync(Interest list, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -114,5 +115,5 @@ public interface IInterestLogic
     Task<InterestResponse> GetResponseAsync(
         string listId,
         string interestCategoryId,
-        QueryableBaseRequest request = null);
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 }

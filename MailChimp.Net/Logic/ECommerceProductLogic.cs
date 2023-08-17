@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -18,7 +19,7 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     /// The base url.
     /// </summary>
     private const string BaseUrl = "ecommerce/stores/{0}/products";
-    
+
     public ECommerceProductLogic(MailChimpOptions mailChimpConfiguration)
         : base(mailChimpConfiguration)
     {
@@ -35,22 +36,22 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     /// </summary>
     /// <param name="product"></param>
     /// <returns></returns>
-    public async Task<Product> AddAsync(Product product)
+    public async Task<Product> AddAsync(Product product, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, product).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, product, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
         return productResponse;
     }
-    
-    public async Task DeleteAsync(string productId)
+
+    public async Task DeleteAsync(string productId, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.DeleteAsync(productId).ConfigureAwait(false);
+        var response = await client.DeleteAsync(productId, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -59,7 +60,8 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Products;
+    public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Products;
 
     /// <summary>
     /// The get async.
@@ -71,12 +73,12 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<Product> GetAsync(string productId, BaseRequest request = null)
+    public async Task<Product> GetAsync(string productId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
 
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.GetAsync(productId + request?.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(productId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
@@ -92,7 +94,7 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null)
+    public async Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         request ??= new QueryableBaseRequest
         {
@@ -101,7 +103,7 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
 
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var productResponse = await response.Content.ReadAsAsync<StoreProductResponse>().ConfigureAwait(false);
@@ -116,12 +118,12 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<Product> UpdateAsync(string productId, Product product)
+    public async Task<Product> UpdateAsync(string productId, Product product, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{string.Format(BaseUrl, StoreId)}/{productId}";
 
         using var client = CreateMailClient(requestUrl);
-        var response = await client.PatchAsJsonAsync("", product).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync("", product, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
         return productResponse;

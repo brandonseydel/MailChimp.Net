@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -47,7 +48,8 @@ public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.AbuseReports;
+    public async Task<IEnumerable<AbuseReport>> GetAllAsync(string listId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(listId, request, cancellationToken).ConfigureAwait(false))?.AbuseReports;
 
 
     /// <summary>
@@ -73,7 +75,7 @@ public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null)
+    public async Task<AbuseReportResponse> GetResponseAsync(string listId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
 
         request ??= new QueryableBaseRequest
@@ -82,7 +84,7 @@ public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
         };
 
         using var client = CreateMailClient("lists/");
-        var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/abuse-reports{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var appResponse = await response.Content.ReadAsAsync<AbuseReportResponse>().ConfigureAwait(false);
@@ -116,10 +118,10 @@ public class AbuseReportLogic : BaseLogic, IAbuseReportLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null)
+    public async Task<AbuseReport> GetAsync(string listId, string reportId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("lists/");
-        var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/abuse-reports{reportId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         return await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);

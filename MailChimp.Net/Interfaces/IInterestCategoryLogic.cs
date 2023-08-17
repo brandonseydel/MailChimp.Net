@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MailChimp.Net.Core;
@@ -23,7 +24,7 @@ public interface IInterestCategoryLogic
     /// <param name="category"></param>
     /// <param name="listId"></param>
     /// <returns></returns>
-    Task<InterestCategory> AddOrUpdateAsync(InterestCategory category, string listId);
+    Task<InterestCategory> AddOrUpdateAsync(InterestCategory category, string listId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a cateogry for a list
@@ -31,7 +32,7 @@ public interface IInterestCategoryLogic
     /// <param name="listId"></param>
     /// <param name="categoryId"></param>
     /// <returns></returns>
-    Task DeleteAsync(string listId, string categoryId);
+    Task DeleteAsync(string listId, string categoryId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -45,7 +46,7 @@ public interface IInterestCategoryLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<InterestCategory>> GetAllAsync(string listId, InterestCategoryRequest request = null);
+    Task<IEnumerable<InterestCategory>> GetAllAsync(string listId, InterestCategoryRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a specific category for a list.
@@ -53,7 +54,7 @@ public interface IInterestCategoryLogic
     /// <param name="listId"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<InterestCategory> GetAsync(string listId, string id);
+    Task<InterestCategory> GetAsync(string listId, string id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -80,5 +81,5 @@ public interface IInterestCategoryLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     Task<InterestCategoryResponse> GetResponseAsync(
         string listId,
-        InterestCategoryRequest request = null);
+        InterestCategoryRequest request = null, CancellationToken cancellationToken = default);
 }

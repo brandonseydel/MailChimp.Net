@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -17,7 +18,7 @@ namespace MailChimp.Net.Logic;
 /// The client logic.
 /// </summary>
 public class ClientLogic : BaseLogic, IClientLogic
-	{
+{
 
     public ClientLogic(MailChimpOptions mailChimpConfiguration)
         : base(mailChimpConfiguration)
@@ -47,7 +48,8 @@ public class ClientLogic : BaseLogic, IClientLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<IEnumerable<Client>> GetAllAsync(string listId, BaseRequest request = null) => (await GetResponseAsync(listId, request).ConfigureAwait(false))?.Clients;
+    public async Task<IEnumerable<Client>> GetAllAsync(string listId, BaseRequest request = null, CancellationToken cancellationToken = default)
+        => (await GetResponseAsync(listId, request, cancellationToken).ConfigureAwait(false))?.Clients;
 
     /// <summary>
     /// The get all async.
@@ -72,15 +74,13 @@ public class ClientLogic : BaseLogic, IClientLogic
     /// </exception>
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-    public async Task<ClientResponse> GetResponseAsync(string listId, BaseRequest request = null)
-		{
+    public async Task<ClientResponse> GetResponseAsync(string listId, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
         using var client = CreateMailClient("lists/");
-        var response = await client.GetAsync($"{listId}/clients{request?.ToQueryString()}").ConfigureAwait(false);
+        var response = await client.GetAsync($"{listId}/clients{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var appResponse = await response.Content.ReadAsAsync<ClientResponse>().ConfigureAwait(false);
         return appResponse;
     }
-
-
-	}
+}

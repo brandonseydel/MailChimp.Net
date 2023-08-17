@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -29,11 +30,11 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
     /// </summary>
     /// <param name="cart"></param>
     /// <returns></returns>
-    public async Task<Cart> AddAsync(Cart cart)
+    public async Task<Cart> AddAsync(Cart cart, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl);
-        var response = await client.PostAsJsonAsync(string.Empty, cart).ConfigureAwait(false);
+        var response = await client.PostAsJsonAsync(string.Empty, cart, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var cartResponse = await response.Content.ReadAsAsync<Cart>().ConfigureAwait(false);
@@ -53,11 +54,11 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task DeleteAsync(string cartId)
+    public async Task DeleteAsync(string cartId, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.DeleteAsync(cartId).ConfigureAwait(false);
+        var response = await client.DeleteAsync(cartId, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -66,7 +67,8 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<Cart>> GetAllAsync(QueryableBaseRequest request = null) => (await GetResponseAsync(request).ConfigureAwait(false))?.Carts;
+    public async Task<IEnumerable<Cart>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Carts;
 
     /// <summary>
     /// The get async.
@@ -78,12 +80,12 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<Cart> GetAsync(string cartId, BaseRequest request = null)
+    public async Task<Cart> GetAsync(string cartId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
 
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.GetAsync(cartId + request?.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(cartId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var cartResponse = await response.Content.ReadAsAsync<Cart>().ConfigureAwait(false);
@@ -99,7 +101,7 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<CartResponse> GetResponseAsync(QueryableBaseRequest request = null)
+    public async Task<CartResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
     {
 
         request ??= new QueryableBaseRequest
@@ -109,7 +111,7 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
 
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl);
-        var response = await client.GetAsync(request.ToQueryString()).ConfigureAwait(false);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var cartResponse = await response.Content.ReadAsAsync<CartResponse>().ConfigureAwait(false);
@@ -124,11 +126,11 @@ internal class ECommerceCartLogic : BaseLogic, IECommerceCartLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<Cart> UpdateAsync(string cartId, Cart cart)
+    public async Task<Cart> UpdateAsync(string cartId, Cart cart, CancellationToken cancellationToken = default)
     {
         var requestUrl = string.Format(BaseUrl, StoreId);
         using var client = CreateMailClient(requestUrl + "/");
-        var response = await client.PatchAsJsonAsync(cartId, cart).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync(cartId, cart, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
         var cartResponse = await response.Content.ReadAsAsync<Cart>().ConfigureAwait(false);

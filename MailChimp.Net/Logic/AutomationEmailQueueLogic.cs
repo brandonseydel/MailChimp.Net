@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
@@ -47,14 +48,14 @@ internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Queue> AddSubscriberAsync(string workflowId, string workflowEmailId, string emailAddress)
+    public async Task<Queue> AddSubscriberAsync(string workflowId, string workflowEmailId, string emailAddress, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
         var response =
             await
             client.PostAsJsonAsync(
                 $"{workflowId}/emails/{workflowEmailId}/queue",
-                new { email_address = emailAddress }).ConfigureAwait(false);
+                new { email_address = emailAddress }, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
     }
@@ -79,7 +80,7 @@ internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<IEnumerable<Queue>> GetAllAsync(string workflowId, string workflowEmailId) => (await GetResponseAsync(workflowId, workflowEmailId).ConfigureAwait(false))?.Queues;
+    public async Task<IEnumerable<Queue>> GetAllAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default) => (await GetResponseAsync(workflowId, workflowEmailId).ConfigureAwait(false))?.Queues;
 
     /// <summary>
     /// The get all async.
@@ -101,10 +102,10 @@ internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<AutomationEmailQueueResponse> GetResponseAsync(string workflowId, string workflowEmailId)
+    public async Task<AutomationEmailQueueResponse> GetResponseAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue").ConfigureAwait(false);
+        var response = await client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var automationResponse = await response.Content.ReadAsAsync<AutomationEmailQueueResponse>().ConfigureAwait(false);
         return automationResponse;
@@ -134,12 +135,12 @@ internal class AutomationEmailQueueLogic : BaseLogic, IAutomationEmailQueueLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    public async Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddressOrHash)
+    public async Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddressOrHash, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
         var response =
             await
-            client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddressOrHash)}").ConfigureAwait(false);
+            client.GetAsync($"{workflowId}/emails/{workflowEmailId}/queue/{this.Hash(emailAddressOrHash)}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         return await response.Content.ReadAsAsync<Queue>().ConfigureAwait(false);
     }

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IAutomationEmailQueueLogic.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -11,7 +11,7 @@ using MailChimp.Net.Models;
 
 namespace MailChimp.Net.Interfaces;
 
-
+using System.Threading;
 using Core;
 
 /// <summary>
@@ -34,7 +34,7 @@ public interface IAutomationEmailQueueLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Queue> AddSubscriberAsync(string workflowId, string workflowEmailId, string emailAddress);
+    Task<Queue> AddSubscriberAsync(string workflowId, string workflowEmailId, string emailAddress, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -48,7 +48,7 @@ public interface IAutomationEmailQueueLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<IEnumerable<Queue>> GetAllAsync(string workflowId, string workflowEmailId);
+    Task<IEnumerable<Queue>> GetAllAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get async.
@@ -65,7 +65,7 @@ public interface IAutomationEmailQueueLogic
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddressOrHash);
+    Task<Queue> GetAsync(string workflowId, string workflowEmailId, string emailAddressOrHash, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// The get all async.
@@ -87,5 +87,5 @@ public interface IAutomationEmailQueueLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    Task<AutomationEmailQueueResponse> GetResponseAsync(string workflowId, string workflowEmailId);
+    Task<AutomationEmailQueueResponse> GetResponseAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default);
 }
