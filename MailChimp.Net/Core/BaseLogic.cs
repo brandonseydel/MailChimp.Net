@@ -29,17 +29,18 @@ public abstract class BaseLogic
 
 #if HTTP_CLIENT_FACTORY
     private static readonly ConcurrentDictionary<string, IHttpClientFactory> s_clientFactories = new();
+    private readonly string _httpClientKey;
 
     private IHttpClientFactory GetHttpClientFactory()
     {
         // if factory already has the key then let it go
-        if(s_clientFactories.TryGetValue(this._options.ApiKey ?? "OAuthMode", out var returnValue))
+        if(s_clientFactories.TryGetValue(_httpClientKey, out var returnValue))
         {
             return returnValue;
         }
 
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddHttpClient(this._options.ApiKey ?? "OAuthMode", client =>
+        serviceCollection.AddHttpClient(_httpClientKey, client =>
         {
             client.BaseAddress = new Uri(GetBaseAddress());               
         })
@@ -51,7 +52,7 @@ public abstract class BaseLogic
 
         var serviceProvider = serviceCollection.BuildServiceProvider();
         var factory = serviceProvider.GetService<IHttpClientFactory>();
-        s_clientFactories.TryAdd(this._options.ApiKey ?? "OAuthMode", factory);
+        s_clientFactories.TryAdd(_httpClientKey, factory);
         return factory;
     }
 
@@ -61,6 +62,9 @@ public abstract class BaseLogic
     protected BaseLogic(MailChimpOptions options)
     {
         _options = options;
+#if HTTP_CLIENT_FACTORY
+        _httpClientKey = options.ApiKey ?? $"OAuthMode_{options.DataCenter}";
+#endif
     }
 
     /// <summary>
@@ -89,7 +93,7 @@ public abstract class BaseLogic
 #if HTTP_CLIENT_FACTORY
     private MailChimpHttpClient FactoryProvidedHttpClient(string resource)
     {           
-        var client = GetHttpClientFactory().CreateClient(_options.ApiKey ?? "OAuthMode");
+        var client = GetHttpClientFactory().CreateClient(_httpClientKey);
         return new MailChimpHttpClient(client, _options, resource);
     }
 #endif
