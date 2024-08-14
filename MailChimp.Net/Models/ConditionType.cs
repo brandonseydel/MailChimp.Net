@@ -101,6 +101,7 @@ public enum ConditionType
     [Description("DateMerge")]
     DateMerge,
     [Description("PredictedGender")]
-    PredictedGender
-
+    PredictedGender,
+    [Description("EcommSpent")]
+    EcommSpent
 }
