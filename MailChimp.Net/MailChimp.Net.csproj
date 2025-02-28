@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFrameworks>
-            net472
+            net45;net472;netstandard1.3;netstandard2.0
         </TargetFrameworks>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
@@ -32,7 +32,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
         <PackageId>MailChimp.Net.V3</PackageId>
-        <Version>5.5.0</Version>
+        <Version>5.7.0</Version>
         <Authors>Brandon Seydel</Authors>
         <Company>DevSquad</Company>
         <Product>MailChimp.Net.V3</Product>
@@ -53,8 +53,8 @@
         <PackageLicenseUrl></PackageLicenseUrl>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-        <AssemblyVersion>5.5.0</AssemblyVersion>
-        <FileVersion>5.5.0</FileVersion>
+        <AssemblyVersion>5.7.0</AssemblyVersion>
+        <FileVersion>5.7.0</FileVersion>
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
