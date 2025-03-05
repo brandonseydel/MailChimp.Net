@@ -11,7 +11,7 @@ public class MergeFields
     public string LastName { get; set; }
 
     [JsonProperty("ADDRESS")]
-    public string Address { get; set; }
+    public AddressResponse Address { get; set; }
 
     [JsonProperty("PHONE")]
     public string Phone { get; set; }
