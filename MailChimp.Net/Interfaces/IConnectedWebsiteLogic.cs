@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MailChimp.Net.Interfaces;
-
-public interface IConnectedWebsiteLogic
+namespace MailChimp.Net.Interfaces
 {
-    Task<IEnumerable<Site>> GetAllAsync(CancellationToken cancellationToken = default);
-    Task<Site> AddAsync(string foreignId, string domain, CancellationToken cancellationToken = default);
+    public interface IConnectedWebsiteLogic
+    {
+        Task<IEnumerable<Site>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task<Site> AddAsync(string foreignId, string domain, CancellationToken cancellationToken = default);
+    }
 }

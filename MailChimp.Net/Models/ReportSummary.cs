@@ -6,50 +6,51 @@
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models;
-
-/// <summary>
-/// The report summary.
-/// </summary>
-public class ReportSummary
+namespace MailChimp.Net.Models
 {
     /// <summary>
-    /// Gets or sets the click rate.
+    /// The report summary.
     /// </summary>
-    [JsonProperty("click_rate")]
-    public double ClickRate { get; set; }
+    public class ReportSummary
+    {
+        /// <summary>
+        /// Gets or sets the click rate.
+        /// </summary>
+        [JsonProperty("click_rate")]
+        public double ClickRate { get; set; }
 
-    /// <summary>
-    /// Gets or sets the clicks.
-    /// </summary>
-    [JsonProperty("clicks")]
-    public int Clicks { get; set; }
+        /// <summary>
+        /// Gets or sets the clicks.
+        /// </summary>
+        [JsonProperty("clicks")]
+        public int Clicks { get; set; }
 
-    /// <summary>
-    /// Gets or sets the open rate.
-    /// </summary>
-    [JsonProperty("open_rate")]
-    public double OpenRate { get; set; }
+        /// <summary>
+        /// Gets or sets the open rate.
+        /// </summary>
+        [JsonProperty("open_rate")]
+        public double OpenRate { get; set; }
 
-    /// <summary>
-    /// Gets or sets the opens.
-    /// </summary>
-    [JsonProperty("opens")]
-    public int Opens { get; set; }
+        /// <summary>
+        /// Gets or sets the opens.
+        /// </summary>
+        [JsonProperty("opens")]
+        public int Opens { get; set; }
 
-    /// <summary>
-    /// Gets or sets the subscriber clicks.
-    /// </summary>
-    [JsonProperty("subscriber_clicks")]
-    public int SubscriberClicks { get; set; }
+        /// <summary>
+        /// Gets or sets the subscriber clicks.
+        /// </summary>
+        [JsonProperty("subscriber_clicks")]
+        public int SubscriberClicks { get; set; }
 
-    /// <summary>
-    /// Gets or sets the unique opens.
-    /// </summary>
-    [JsonProperty("unique_opens")]
-    public int UniqueOpens { get; set; }       
+        /// <summary>
+        /// Gets or sets the unique opens.
+        /// </summary>
+        [JsonProperty("unique_opens")]
+        public int UniqueOpens { get; set; }       
 
-    [JsonProperty("ecommerce")]
-    public Ecommerce Ecommerce { get; set; }
+        [JsonProperty("ecommerce")]
+        public Ecommerce Ecommerce { get; set; }
 
+    }
 }

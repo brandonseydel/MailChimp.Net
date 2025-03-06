@@ -10,16 +10,17 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The campaign response.
-/// </summary>
-public class CampaignResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Gets or sets the campaigns.
+    /// The campaign response.
     /// </summary>
-    [JsonProperty("campaigns")]
-    public IEnumerable<Campaign> Campaigns { get; set; }
+    public class CampaignResponse : BaseResponse
+    {
+        /// <summary>
+        /// Gets or sets the campaigns.
+        /// </summary>
+        [JsonProperty("campaigns")]
+        public IEnumerable<Campaign> Campaigns { get; set; }
+    }
 }

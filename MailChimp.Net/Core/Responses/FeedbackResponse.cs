@@ -10,30 +10,31 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The feed back response.
-/// </summary>
-public class FeedBackResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="FeedBackResponse"/> class.
+    /// The feed back response.
     /// </summary>
-    public FeedBackResponse()
+    public class FeedBackResponse : BaseResponse
     {
-        Feedback = new HashSet<Feedback>();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FeedBackResponse"/> class.
+        /// </summary>
+        public FeedBackResponse()
+        {
+            Feedback = new HashSet<Feedback>();
+        }
+
+        /// <summary>
+        /// Gets or sets the campaign id.
+        /// </summary>
+        [JsonProperty("campaign_id")]
+        public string CampaignId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the feedback.
+        /// </summary>
+        [JsonProperty("feedback")]
+        public IEnumerable<Feedback> Feedback { get; set; }
     }
-
-    /// <summary>
-    /// Gets or sets the campaign id.
-    /// </summary>
-    [JsonProperty("campaign_id")]
-    public string CampaignId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the feedback.
-    /// </summary>
-    [JsonProperty("feedback")]
-    public IEnumerable<Feedback> Feedback { get; set; }
 }

@@ -6,34 +6,35 @@
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models;
-
-/// <summary>
-/// The delay.
-/// </summary>
-public class Delay
+namespace MailChimp.Net.Models
 {
     /// <summary>
-    /// Gets or sets the action.
+    /// The delay.
     /// </summary>
-    [JsonProperty("action")]
-    public string Action { get; set; }
+    public class Delay
+    {
+        /// <summary>
+        /// Gets or sets the action.
+        /// </summary>
+        [JsonProperty("action")]
+        public string Action { get; set; }
 
-    /// <summary>
-    /// Gets or sets the amount.
-    /// </summary>
-    [JsonProperty("amount")]
-    public int Amount { get; set; }
+        /// <summary>
+        /// Gets or sets the amount.
+        /// </summary>
+        [JsonProperty("amount")]
+        public int Amount { get; set; }
 
-    /// <summary>
-    /// Gets or sets the direction.
-    /// </summary>
-    [JsonProperty("direction")]
-    public string Direction { get; set; }
+        /// <summary>
+        /// Gets or sets the direction.
+        /// </summary>
+        [JsonProperty("direction")]
+        public string Direction { get; set; }
 
-    /// <summary>
-    /// Gets or sets the type.
-    /// </summary>
-    [JsonProperty("type")]
-    public string Type { get; set; }
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        [JsonProperty("type")]
+        public string Type { get; set; }
+    }
 }

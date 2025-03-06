@@ -10,24 +10,25 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The automation response.
-/// </summary>
-public class AutomationResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AutomationResponse"/> class.
+    /// The automation response.
     /// </summary>
-    public AutomationResponse()
+    public class AutomationResponse : BaseResponse
     {
-        Automations = new HashSet<Automation>();
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AutomationResponse"/> class.
+        /// </summary>
+        public AutomationResponse()
+        {
+            Automations = new HashSet<Automation>();
+        }
 
-    /// <summary>
-    /// Gets or sets the automations.
-    /// </summary>
-    [JsonProperty("automations")]
-    public IEnumerable<Automation> Automations { get; set; }
+        /// <summary>
+        /// Gets or sets the automations.
+        /// </summary>
+        [JsonProperty("automations")]
+        public IEnumerable<Automation> Automations { get; set; }
+    }
 }

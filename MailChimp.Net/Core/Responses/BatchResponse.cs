@@ -10,13 +10,14 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The batch response.
-/// </summary>
-public class BatchResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
-    [JsonProperty("batches")]
-    public IEnumerable<Batch> Batches { get; set; }
+    /// <summary>
+    /// The batch response.
+    /// </summary>
+    public class BatchResponse : BaseResponse
+    {
+        [JsonProperty("batches")]
+        public IEnumerable<Batch> Batches { get; set; }
+    }
 }

@@ -10,35 +10,36 @@ using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Interfaces;
-
-/// <summary>
-/// The ContentLogic interface.
-/// </summary>
-public interface IContentLogic
+namespace MailChimp.Net.Interfaces
 {
     /// <summary>
-    /// The add or update async.
+    /// The ContentLogic interface.
     /// </summary>
-    /// <param name="campaignId">
-    /// The campaign id.
-    /// </param>
-    /// <param name="request">
-    /// The request.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest request = null, CancellationToken cancellationToken = default);
+    public interface IContentLogic
+    {
+        /// <summary>
+        /// The add or update async.
+        /// </summary>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<Content> AddOrUpdateAsync(string campaignId, ContentRequest request = null, CancellationToken cancellationToken = default);
 
-    /// <summary>
-    /// The get async.
-    /// </summary>
-    /// <param name="campaignId">
-    /// The campaign id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    Task<Content> GetAsync(string campaignId, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// The get async.
+        /// </summary>
+        /// <param name="campaignId">
+        /// The campaign id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<Content> GetAsync(string campaignId, CancellationToken cancellationToken = default);
+    }
 }

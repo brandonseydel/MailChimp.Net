@@ -10,30 +10,31 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The member response.
-/// </summary>
-public class MemberResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MemberResponse"/> class.
+    /// The member response.
     /// </summary>
-    public MemberResponse()
+    public class MemberResponse : BaseResponse
     {
-        Members = new HashSet<Member>();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemberResponse"/> class.
+        /// </summary>
+        public MemberResponse()
+        {
+            Members = new HashSet<Member>();
+        }
+
+        /// <summary>
+        /// Gets or sets the list id.
+        /// </summary>
+        [JsonProperty("list_id")]
+        public string ListId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the members.
+        /// </summary>
+        [JsonProperty("members")]
+        public IEnumerable<Member> Members { get; set; }
     }
-
-    /// <summary>
-    /// Gets or sets the list id.
-    /// </summary>
-    [JsonProperty("list_id")]
-    public string ListId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the members.
-    /// </summary>
-    [JsonProperty("members")]
-    public IEnumerable<Member> Members { get; set; }
 }

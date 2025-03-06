@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models;
-
-public class Combination
+namespace MailChimp.Net.Models
 {
-    [JsonProperty("id")]
-    public string Id { get; set; }
+    public class Combination
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
 }

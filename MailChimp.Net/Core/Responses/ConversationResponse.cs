@@ -10,24 +10,25 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The conversation response.
-/// </summary>
-public class ConversationResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ConversationResponse"/> class.
+    /// The conversation response.
     /// </summary>
-    public ConversationResponse()
+    public class ConversationResponse : BaseResponse
     {
-        Conversations = new HashSet<Conversation>();
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConversationResponse"/> class.
+        /// </summary>
+        public ConversationResponse()
+        {
+            Conversations = new HashSet<Conversation>();
+        }
 
-    /// <summary>
-    /// Gets or sets the conversations.
-    /// </summary>
-    [JsonProperty("conversations")]
-    public IEnumerable<Conversation> Conversations { get; set; }
+        /// <summary>
+        /// Gets or sets the conversations.
+        /// </summary>
+        [JsonProperty("conversations")]
+        public IEnumerable<Conversation> Conversations { get; set; }
+    }
 }

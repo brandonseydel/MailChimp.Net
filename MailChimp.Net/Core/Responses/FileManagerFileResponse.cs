@@ -3,19 +3,20 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-public class FileManagerFileResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
-
-    public FileManagerFileResponse()
+    public class FileManagerFileResponse : BaseResponse
     {
-        Files = new HashSet<FileManagerFile>();
+
+        public FileManagerFileResponse()
+        {
+            Files = new HashSet<FileManagerFile>();
+        }
+
+        [JsonProperty("files")]
+        public IEnumerable<FileManagerFile> Files { get; set; }
+
+        [JsonProperty("total_file_size")]
+        public int TotalFileSize { get; set; }
     }
-
-    [JsonProperty("files")]
-    public IEnumerable<FileManagerFile> Files { get; set; }
-
-    [JsonProperty("total_file_size")]
-    public int TotalFileSize { get; set; }
 }

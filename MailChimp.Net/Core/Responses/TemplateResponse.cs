@@ -10,24 +10,25 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The template response.
-/// </summary>
-public class TemplateResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="TemplateResponse"/> class.
+    /// The template response.
     /// </summary>
-    public TemplateResponse()
+    public class TemplateResponse : BaseResponse
     {
-        Templates = new HashSet<Template>();
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemplateResponse"/> class.
+        /// </summary>
+        public TemplateResponse()
+        {
+            Templates = new HashSet<Template>();
+        }
 
-    /// <summary>
-    /// Gets or sets the templates.
-    /// </summary>
-    [JsonProperty("templates")]
-    public IEnumerable<Template> Templates { get; set; }
+        /// <summary>
+        /// Gets or sets the templates.
+        /// </summary>
+        [JsonProperty("templates")]
+        public IEnumerable<Template> Templates { get; set; }
+    }
 }
