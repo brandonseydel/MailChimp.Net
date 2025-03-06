@@ -28,7 +28,7 @@ namespace MailChimp.Net.Core
         internal MailChimpOptions _options;
 
 #if HTTP_CLIENT_FACTORY
-    private static readonly ConcurrentDictionary<string, IHttpClientFactory> s_clientFactories = new();
+    private static readonly ConcurrentDictionary<string, IHttpClientFactory> s_clientFactories = new ConcurrentDictionary<string, IHttpClientFactory>();
     private readonly string _httpClientKey;
 
     private IHttpClientFactory GetHttpClientFactory()

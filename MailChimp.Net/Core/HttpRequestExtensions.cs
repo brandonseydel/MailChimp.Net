@@ -18,7 +18,7 @@ namespace MailChimp.Net.Core
     /// </summary>
     public static class HttpRequestExtensions
     {
-        private static readonly JsonSerializerSettings JsonSettings = new()
+        private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore
         };

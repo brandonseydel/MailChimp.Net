@@ -18,7 +18,7 @@ namespace MailChimp.Net.Tests
     /// </summary>
     public class TemplateTest : MailChimpTest
     {
-        readonly TemplateRequest RequestOnlyUserTemplates = new() { Type = TemplateType.User };
+        readonly TemplateRequest RequestOnlyUserTemplates = new TemplateRequest { Type = TemplateType.User };
 
         /// <summary>
         /// The should_ delete_ all_ user_ templates.

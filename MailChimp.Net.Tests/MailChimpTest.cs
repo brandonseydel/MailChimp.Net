@@ -25,7 +25,8 @@ namespace MailChimp.Net.Tests
         /// </summary>
         protected IMailChimpManager MailChimpManager;
 
-        internal List GetMailChimpList(string listName = "TestList") => new()
+        internal List GetMailChimpList(string listName = "TestList") =>
+            new List
         {
             Name = listName,
             PermissionReminder = "none",
