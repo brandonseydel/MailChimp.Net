@@ -1,8 +1,9 @@
 ﻿using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Core;
-
-public class DefaultContentResponse
+namespace MailChimp.Net.Core
 {
-    public Section Sections { get; set; }
+    public class DefaultContentResponse
+    {
+        public Section Sections { get; set; }
+    }
 }

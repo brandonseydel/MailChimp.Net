@@ -10,36 +10,37 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The domain performance response.
-/// </summary>
-public class DomainPerformanceResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DomainPerformanceResponse"/> class.
+    /// The domain performance response.
     /// </summary>
-    public DomainPerformanceResponse()
+    public class DomainPerformanceResponse : BaseResponse
     {
-        Domains = new HashSet<Domain>();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DomainPerformanceResponse"/> class.
+        /// </summary>
+        public DomainPerformanceResponse()
+        {
+            Domains = new HashSet<Domain>();
+        }
+
+        /// <summary>
+        /// Gets or sets the campaign id.
+        /// </summary>
+        [JsonProperty("campaign_id")]
+        public string CampaignId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the domains.
+        /// </summary>
+        [JsonProperty("domains")]
+        public IEnumerable<Domain> Domains { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total sent.
+        /// </summary>
+        [JsonProperty("total_sent")]
+        public int TotalSent { get; set; }
     }
-
-    /// <summary>
-    /// Gets or sets the campaign id.
-    /// </summary>
-    [JsonProperty("campaign_id")]
-    public string CampaignId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the domains.
-    /// </summary>
-    [JsonProperty("domains")]
-    public IEnumerable<Domain> Domains { get; set; }
-
-    /// <summary>
-    /// Gets or sets the total sent.
-    /// </summary>
-    [JsonProperty("total_sent")]
-    public int TotalSent { get; set; }
 }

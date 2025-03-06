@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MailChimp.Net.Core;
-
-public class ListTagsResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
-    [JsonProperty("tags")]
-    public IEnumerable<ListTag> Tags { get; set; }
+    public class ListTagsResponse : BaseResponse
+    {
+        [JsonProperty("tags")]
+        public IEnumerable<ListTag> Tags { get; set; }
+    }
 }

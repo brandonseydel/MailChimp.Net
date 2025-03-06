@@ -8,25 +8,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 #endif
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The mail manager base.
-/// </summary>
-public abstract class MailManagerBase
+namespace MailChimp.Net.Core
 {
-    protected readonly MailChimpOptions MailChimpOptions;
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
+    /// The mail manager base.
     /// </summary>
-    /// <param name="apiKey">
-    /// The api key.
-    /// </param>
-    public MailManagerBase(string apiKey) => MailChimpOptions = new MailChimpOptions
+    public abstract class MailManagerBase
     {
-        ApiKey = apiKey,
-    };
+        protected readonly MailChimpOptions MailChimpOptions;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
+        /// </summary>
+        /// <param name="apiKey">
+        /// The api key.
+        /// </param>
+        public MailManagerBase(string apiKey) => MailChimpOptions = new MailChimpOptions
+        {
+            ApiKey = apiKey,
+        };
 
 #if NET_CORE
 
@@ -39,14 +39,15 @@ public abstract class MailManagerBase
     protected MailManagerBase(IOptions<MailChimpOptions> optionsAccessor) => MailChimpOptions = optionsAccessor.Value;
 
 #else
-    protected MailManagerBase(MailChimpOptions options) => MailChimpOptions = options;
+        protected MailManagerBase(MailChimpOptions options) => MailChimpOptions = options;
 #endif
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
-    /// </summary>
-    protected MailManagerBase()
-    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MailManagerBase"/> class.
+        /// </summary>
+        protected MailManagerBase()
+        {
 
+        }
     }
 }

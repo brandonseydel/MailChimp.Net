@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel;
 
-namespace MailChimp.Net.Models;
-
-public enum CampaignAction
+namespace MailChimp.Net.Models
 {
-    [Description("cancel-send")]
-    CancelSend,
-    Pause,
-    Replicate,
-    Resume,
-    Schedule,
-    Send,
-    Test,
-    Unschedule
+    public enum CampaignAction
+    {
+        [Description("cancel-send")]
+        CancelSend,
+        Pause,
+        Replicate,
+        Resume,
+        Schedule,
+        Send,
+        Test,
+        Unschedule
+    }
 }

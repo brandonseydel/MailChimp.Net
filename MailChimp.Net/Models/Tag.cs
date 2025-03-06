@@ -10,40 +10,41 @@ using MailChimp.Net.Core;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models;
-
-	/// <summary>
-	/// The tag for a member
-	/// This one differs from the MemberTag model because it has status field and no id field.
-	/// This is the format expected by MailChimp's API for managing member tags.
-	/// </summary>
-	public class Tag
-	{
-		/// <summary>
-		/// Gets or sets the tag's name.
-		/// </summary>
-		[JsonProperty("name")]
-		public string Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the tag's status(active/inactive).
-    /// </summary>
-    [JsonProperty("status")]
-    public string Status { get; set; }
-
-}
-
-/// <summary>
-/// We need this only for the serialization purpose, to wrap the list of type Tag into a list with JsonPropery "tags"
-/// expected format: {tags: [{name: "tagName1", status: "active"}, {name: "tagName2", status: "inactive"}]}
-/// </summary>
-public class Tags
+namespace MailChimp.Net.Models
 {
-    public Tags()
+    /// <summary>
+    /// The tag for a member
+    /// This one differs from the MemberTag model because it has status field and no id field.
+    /// This is the format expected by MailChimp's API for managing member tags.
+    /// </summary>
+    public class Tag
     {
-        MemberTags = new List<Tag>();
+        /// <summary>
+        /// Gets or sets the tag's name.
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tag's status(active/inactive).
+        /// </summary>
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
     }
 
-    [JsonProperty("tags")]
-    public List<Tag> MemberTags { get; set; }
+    /// <summary>
+    /// We need this only for the serialization purpose, to wrap the list of type Tag into a list with JsonPropery "tags"
+    /// expected format: {tags: [{name: "tagName1", status: "active"}, {name: "tagName2", status: "inactive"}]}
+    /// </summary>
+    public class Tags
+    {
+        public Tags()
+        {
+            MemberTags = new List<Tag>();
+        }
+
+        [JsonProperty("tags")]
+        public List<Tag> MemberTags { get; set; }
+    }
 }

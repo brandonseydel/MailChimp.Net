@@ -3,10 +3,11 @@
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The feedback request.
-/// </summary>
-public class FeedbackRequest : BaseRequest
-{}
+namespace MailChimp.Net.Core
+{
+    /// <summary>
+    /// The feedback request.
+    /// </summary>
+    public class FeedbackRequest : BaseRequest
+    {}
+}

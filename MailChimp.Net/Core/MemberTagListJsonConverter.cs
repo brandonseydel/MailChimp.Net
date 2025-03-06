@@ -6,29 +6,30 @@ using System.Threading.Tasks;
 using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// This Converter is used to serialize MemberTag lists to the appropriate form
-/// for PUT/POST requests. In these request, MailChimp requires just a simple array of tag names.
-/// </summary>
-public class MemberTagListJsonConverter : JsonConverter
+namespace MailChimp.Net.Core
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    /// <summary>
+    /// This Converter is used to serialize MemberTag lists to the appropriate form
+    /// for PUT/POST requests. In these request, MailChimp requires just a simple array of tag names.
+    /// </summary>
+    public class MemberTagListJsonConverter : JsonConverter
     {
-        var memberTags = (List<MemberTag>)value;
-
-        writer.WriteStartArray();
-        foreach (var tag in memberTags)
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteToken(JsonToken.String, tag.Name);
+            var memberTags = (List<MemberTag>)value;
+
+            writer.WriteStartArray();
+            foreach (var tag in memberTags)
+            {
+                writer.WriteToken(JsonToken.String, tag.Name);
+            }
+            writer.WriteEndArray();
         }
-        writer.WriteEndArray();
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => throw new NotImplementedException();
+
+        public override bool CanConvert(Type objectType) => objectType == typeof(List<MemberTag>);
+
+        public override bool CanRead => false;
     }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => throw new NotImplementedException();
-
-    public override bool CanConvert(Type objectType) => objectType == typeof(List<MemberTag>);
-
-    public override bool CanRead => false;
 }

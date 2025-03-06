@@ -6,28 +6,29 @@
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models;
-
-/// <summary>
-/// The delivery status.
-/// </summary>
-public class DeliveryStatus
+namespace MailChimp.Net.Models
 {
     /// <summary>
-    /// Gets or sets a value indicating whether enabled.
+    /// The delivery status.
     /// </summary>
-    [JsonProperty("enabled")]
-    public bool Enabled { get; set; }
+    public class DeliveryStatus
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether enabled.
+        /// </summary>
+        [JsonProperty("enabled")]
+        public bool Enabled { get; set; }
 
-    [JsonProperty("can_cancel")]
-    public bool CanCancel { get; set; }
+        [JsonProperty("can_cancel")]
+        public bool CanCancel { get; set; }
 
-    [JsonProperty("status")]
-    public string Status { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
 
-    [JsonProperty("emails_sent")]
-    public int EmailsSent { get; set; }
+        [JsonProperty("emails_sent")]
+        public int EmailsSent { get; set; }
 
-    [JsonProperty("emails_canceled")]
-    public int EmailsCanceled { get; set; }
+        [JsonProperty("emails_canceled")]
+        public int EmailsCanceled { get; set; }
+    }
 }

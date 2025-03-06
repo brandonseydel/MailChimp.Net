@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MailChimp.Net.Core;
-
-public static class Constants
+namespace MailChimp.Net.Core
 {
-    public const string MailChimpHealthCheck = "Everything's Chimpy!";
+    public static class Constants
+    {
+        public const string MailChimpHealthCheck = "Everything's Chimpy!";
+    }
 }

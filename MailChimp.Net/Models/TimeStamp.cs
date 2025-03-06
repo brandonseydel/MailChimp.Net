@@ -8,18 +8,19 @@ using Newtonsoft.Json;
 
 using System;
 
-namespace MailChimp.Net.Models;
-
-/// <summary>
-/// The TimeStamp.
-/// </summary>
-public class TimeStamp
+namespace MailChimp.Net.Models
 {
-
     /// <summary>
-    /// Gets or sets the Timestamp.
+    /// The TimeStamp.
     /// </summary>
-    [JsonProperty("timestamp")]
-    public DateTime Timestamp { get; set; }
+    public class TimeStamp
+    {
 
+        /// <summary>
+        /// Gets or sets the Timestamp.
+        /// </summary>
+        [JsonProperty("timestamp")]
+        public DateTime Timestamp { get; set; }
+
+    }
 }
