@@ -1,13 +1,12 @@
-﻿namespace MailChimp.Net.Models
+﻿namespace MailChimp.Net.Models;
+
+public enum Method
 {
-    public enum Method
-    {
-        GET,
-        PUT,
-        POST,
-        PATCH,
-        DELETE,
-        OPTIONS,
-        HEAD
-    }
+    GET,
+    PUT,
+    POST,
+    PATCH,
+    DELETE,
+    OPTIONS,
+    HEAD
 }

@@ -8,24 +8,23 @@ using System.Threading.Tasks;
 
 using Xunit;
 
-namespace MailChimp.Net.Tests
+namespace MailChimp.Net.Tests;
+
+/// <summary>
+/// The conversation test.
+/// </summary>
+public class ConversationTest : MailChimpTest
 {
     /// <summary>
-    /// The conversation test.
+    /// The should_ return_ conversations.
     /// </summary>
-    public class ConversationTest : MailChimpTest
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    [Fact]
+    public async Task Should_Return_Conversations()
     {
-        /// <summary>
-        /// The should_ return_ conversations.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        [Fact]
-        public async Task Should_Return_Conversations()
-        {
-            var conversations = await this.MailChimpManager.Conversations.GetAllAsync();
-            Assert.NotNull(conversations);
-        }
+        var conversations = await this.MailChimpManager.Conversations.GetAllAsync();
+        Assert.NotNull(conversations);
     }
 }

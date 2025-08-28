@@ -17,541 +17,540 @@ using System.Threading;
 #pragma warning disable 1584, 1711, 1572, 1581, 1580
 
 // ReSharper disable UnusedMember.Local
-namespace MailChimp.Net.Logic
+namespace MailChimp.Net.Logic;
+
+/// <summary>
+/// The member logic.
+/// </summary>
+internal class MemberLogic : BaseLogic, IMemberLogic
 {
-    /// <summary>
-    /// The member logic.
-    /// </summary>
-    internal class MemberLogic : BaseLogic, IMemberLogic
+    private const string BaseUrl = "lists";
+
+    public MemberLogic(MailChimpOptions mailChimpConfiguration)
+        : base(mailChimpConfiguration)
     {
-        private const string BaseUrl = "lists";
+    }
 
-        public MemberLogic(MailChimpOptions mailChimpConfiguration)
-            : base(mailChimpConfiguration)
+    /// <summary>
+    /// The add or update async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="member">
+    /// The member.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
+    /// <exception cref="ObjectDisposedException">
+    /// The object has already been disposed.
+    /// </exception>
+    /// <exception cref="EncoderFallbackException">
+    /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
+    /// </exception>
+    /// <exception cref="FormatException">
+    /// <paramref>
+    ///         <name>format</name>
+    ///     </paramref>
+    /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
+    /// </exception>
+    public async Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        if (marketingPermissions != null)
         {
-        }
+            var getListResponse = await client.GetAsync($"{listId}", cancellationToken).ConfigureAwait(false);
+            await getListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-        /// <summary>
-        /// The add or update async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="member">
-        /// The member.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
-        /// <exception cref="ObjectDisposedException">
-        /// The object has already been disposed.
-        /// </exception>
-        /// <exception cref="EncoderFallbackException">
-        /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
-        /// </exception>
-        /// <exception cref="FormatException">
-        /// <paramref>
-        ///         <name>format</name>
-        ///     </paramref>
-        /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
-        /// </exception>
-        public async Task<Member> AddOrUpdateAsync(string listId, Member member, IList<MarketingPermissionText> marketingPermissions = null, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            if (marketingPermissions != null)
+            var list = await getListResponse.Content.ReadAsAsync<List>().ConfigureAwait(false);
+
+            await getListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+            if (list.MarketingPermissions)
             {
-                var getListResponse = await client.GetAsync($"{listId}", cancellationToken).ConfigureAwait(false);
-                await getListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+                var currentListMarketingPermissions = new List<MarketingPermission>();
 
-                var list = await getListResponse.Content.ReadAsAsync<List>().ConfigureAwait(false);
+                var members = (await GetResponseAsync(list.Id, null, cancellationToken).ConfigureAwait(false))?.Members;
 
-                await getListResponse.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-                if (list.MarketingPermissions)
+                if (!members.Any())
                 {
-                    var currentListMarketingPermissions = new List<MarketingPermission>();
-
-                    var members = (await GetResponseAsync(list.Id, null, cancellationToken).ConfigureAwait(false))?.Members;
-
-                    if (!members.Any())
-                    {
-                        var dummyMember = await AddOrUpdateAsync(listId,
-                            new Member
+                    var dummyMember = await AddOrUpdateAsync(listId,
+                        new Member
+                        {
+                            EmailAddress = $"dummyMember{DateTime.Now.Ticks}@test.com",
+                            StatusIfNew = Status.Subscribed,
+                            Status = Status.Subscribed,
+                            MergeFields = new Dictionary<string, object>
                             {
-                                EmailAddress = $"dummyMember{DateTime.Now.Ticks}@test.com",
-                                StatusIfNew = Status.Subscribed,
-                                Status = Status.Subscribed,
-                                MergeFields = new Dictionary<string, object>
-                                {
                                     { "FNAME", "DUMMY" },
                                     { "LNAME", "MEMBER" }
-                                }
-                            }, cancellationToken: cancellationToken);
+                            }
+                        }, cancellationToken: cancellationToken);
 
-                        currentListMarketingPermissions = dummyMember.MarketingPermissions.ToList();
+                    currentListMarketingPermissions = dummyMember.MarketingPermissions.ToList();
 
-                        await DeleteAsync(list.Id, dummyMember.EmailAddress);
-                    }
-                    else
-                    {
-                        currentListMarketingPermissions = members.First().MarketingPermissions.ToList();
-                    }
-
-                    member.MarketingPermissions = currentListMarketingPermissions.Select(marketingPermission =>
-                    {
-                        if (marketingPermissions.Contains(MarketingPermissionTextHelpers.GetMarketingPermissions()[marketingPermission.Text]))
-                            marketingPermission.Enabled = true;
-                        else
-                            marketingPermission.Enabled = false;
-
-                        return marketingPermission;
-                    });
+                    await DeleteAsync(list.Id, dummyMember.EmailAddress);
                 }
-            }
-
-            var memberId = member.Id ?? Hash(member.EmailAddress.ToLower());
-            var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member, cancellationToken).ConfigureAwait(false);
-
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
-        }
-
-
-        /// <inheritdoc />
-        public async Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list, CancellationToken cancellationToken = default)
-        {
-            var BaseUrl = $"/lists/{listId}/members/{Hash(emailAddressOrHash)}/events";
-
-            using var client = CreateMailClient(BaseUrl);
-            var response = await client.PostAsJsonAsync(string.Empty, list, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-        }
-
-
-        /// <inheritdoc />
-        public async Task<ListEventResponse> GetMemberEventResponseAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            var BaseUrl = $"/lists/{listId}/members/{Hash(emailAddressOrHash)}/events";
-            request ??= new QueryableBaseRequest
-            {
-                Limit = _limit
-            };
-
-            using var client = CreateMailClient(BaseUrl);
-            var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var listEventResponse = await response.Content.ReadAsAsync<ListEventResponse>().ConfigureAwait(false);
-            return listEventResponse;
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<ListEvent>> GetMemberEventsAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
-            => (await this.GetMemberEventResponseAsync(listId, emailAddressOrHash, request, cancellationToken).ConfigureAwait(false)).Events;
-
-
-        /// Search the account or a specific list for members that match the specified query terms.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<MemberSearchResult> SearchAsync(MemberSearchRequest request = null, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"search-members{request?.ToQueryString()}");
-            var response = await client.GetAsync("", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            return await response.Content.ReadAsAsync<MemberSearchResult>().ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// The delete async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
-        /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// The object has already been disposed.
-        /// </exception>
-        /// <exception cref="EncoderFallbackException">
-        /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
-        /// </exception>
-        /// <exception cref="FormatException">
-        /// <paramref>
-        ///         <name>format</name>
-        ///     </paramref>
-        /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
-        /// </exception>
-        public async Task DeleteAsync(string listId, string emailAddressOrHash, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddressOrHash)}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// The permanent delete async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
-        /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// The object has already been disposed.
-        /// </exception>
-        /// <exception cref="EncoderFallbackException">
-        /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
-        /// </exception>
-        /// <exception cref="FormatException">
-        /// <paramref>
-        ///         <name>format</name>
-        ///     </paramref>
-        /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
-        /// </exception>
-        public async Task PermanentDeleteAsync(string listId, string emailAddressOrHash, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.PostAsync($"{listId}/members/{Hash(emailAddressOrHash)}/actions/delete-permanent", null, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// The get activities async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <param name="request">
-        /// The request.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="requestUri" /> was null.</exception>
-        /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="FormatException">
-        /// <paramref>
-        ///         <name>format</name>
-        ///     </paramref>
-        /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-        public async Task<IEnumerable<Activity>> GetActivitiesAsync(
-            string listId,
-            string emailAddressOrHash,
-            BaseRequest request = null,
-            CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/activity{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            var activityResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
-            return activityResponse.Activities;
-        }
-
-        /// <summary>
-        /// The get all async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="memberRequest"></param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-        public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null, CancellationToken cancellationToken = default) 
-            => (await GetResponseAsync(listId, memberRequest, cancellationToken).ConfigureAwait(false))?.Members;
-
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-        public async Task<MemberResponse> GetResponseAsync(string listId, MemberRequest memberRequest = null, CancellationToken cancellationToken = default)
-        {
-            memberRequest ??= new MemberRequest
-            {
-                Limit = _limit
-            };
-
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
-            return listResponse;
-        }
-
-        /// <summary>
-        /// Get the total number of members in the list
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
-        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<int> GetTotalItems(string listId, Status? status, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var memberRequest = new MemberRequest { Status = status, FieldsToInclude = "total_items" };
-
-            var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
-            return listResponse.TotalItems;
-        }
-
-        /// <summary>
-        /// Get the total number of members in the list based on a full member request
-        /// </summary>
-        /// <param name="listId"></param>
-        /// <param name="memberRequest"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
-        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        public async Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            memberRequest.FieldsToInclude = "total_items";
-
-            var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
-            return listResponse.TotalItems;
-        }
-
-        /// <summary>
-        /// The get async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <param name="request"></param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
-        /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// The object has already been disposed.
-        /// </exception>
-        /// <exception cref="EncoderFallbackException">
-        /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
-        /// </exception>
-        /// <exception cref="FormatException">
-        /// <paramref>
-        ///         <name>format</name>
-        ///     </paramref>
-        /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
-        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        public async Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// The get async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns></param>
-        /// <param name="request"></param>
-        /// <param name="falseIfUnsubscribed"></param>
-        public async Task<bool> ExistsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, bool falseIfUnsubscribed = true, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                if (falseIfUnsubscribed)
+                else
                 {
-                    var member = await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
-                    return member.Status != Status.Unsubscribed;
+                    currentListMarketingPermissions = members.First().MarketingPermissions.ToList();
                 }
 
-                return true;
-            }
+                member.MarketingPermissions = currentListMarketingPermissions.Select(marketingPermission =>
+                {
+                    if (marketingPermissions.Contains(MarketingPermissionTextHelpers.GetMarketingPermissions()[marketingPermission.Text]))
+                        marketingPermission.Enabled = true;
+                    else
+                        marketingPermission.Enabled = false;
 
-            if (response.StatusCode == HttpStatusCode.NotFound)
+                    return marketingPermission;
+                });
+            }
+        }
+
+        var memberId = member.Id ?? Hash(member.EmailAddress.ToLower());
+        var response = await client.PutAsJsonAsync($"{listId}/members/{memberId}", member, cancellationToken).ConfigureAwait(false);
+
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
+    }
+
+
+    /// <inheritdoc />
+    public async Task AddEventAsync(string listId, string emailAddressOrHash, ListEvent list, CancellationToken cancellationToken = default)
+    {
+        var BaseUrl = $"/lists/{listId}/members/{Hash(emailAddressOrHash)}/events";
+
+        using var client = CreateMailClient(BaseUrl);
+        var response = await client.PostAsJsonAsync(string.Empty, list, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
+
+    /// <inheritdoc />
+    public async Task<ListEventResponse> GetMemberEventResponseAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        var BaseUrl = $"/lists/{listId}/members/{Hash(emailAddressOrHash)}/events";
+        request ??= new QueryableBaseRequest
+        {
+            Limit = _limit
+        };
+
+        using var client = CreateMailClient(BaseUrl);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var listEventResponse = await response.Content.ReadAsAsync<ListEventResponse>().ConfigureAwait(false);
+        return listEventResponse;
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<ListEvent>> GetMemberEventsAsync(string listId, string emailAddressOrHash, QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await this.GetMemberEventResponseAsync(listId, emailAddressOrHash, request, cancellationToken).ConfigureAwait(false)).Events;
+
+
+    /// Search the account or a specific list for members that match the specified query terms.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public async Task<MemberSearchResult> SearchAsync(MemberSearchRequest request = null, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"search-members{request?.ToQueryString()}");
+        var response = await client.GetAsync("", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<MemberSearchResult>().ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// The delete async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
+    /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="ObjectDisposedException">
+    /// The object has already been disposed.
+    /// </exception>
+    /// <exception cref="EncoderFallbackException">
+    /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
+    /// </exception>
+    /// <exception cref="FormatException">
+    /// <paramref>
+    ///         <name>format</name>
+    ///     </paramref>
+    /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
+    /// </exception>
+    public async Task DeleteAsync(string listId, string emailAddressOrHash, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.DeleteAsync($"{listId}/members/{Hash(emailAddressOrHash)}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// The permanent delete async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="InvalidOperationException">The request message was already sent by the <see cref="T:System.Net.Http.HttpClient" /> instance.</exception>
+    /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="ObjectDisposedException">
+    /// The object has already been disposed.
+    /// </exception>
+    /// <exception cref="EncoderFallbackException">
+    /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
+    /// </exception>
+    /// <exception cref="FormatException">
+    /// <paramref>
+    ///         <name>format</name>
+    ///     </paramref>
+    /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
+    /// </exception>
+    public async Task PermanentDeleteAsync(string listId, string emailAddressOrHash, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.PostAsync($"{listId}/members/{Hash(emailAddressOrHash)}/actions/delete-permanent", null, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// The get activities async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <param name="request">
+    /// The request.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="requestUri" /> was null.</exception>
+    /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="FormatException">
+    /// <paramref>
+    ///         <name>format</name>
+    ///     </paramref>
+    /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+    public async Task<IEnumerable<Activity>> GetActivitiesAsync(
+        string listId,
+        string emailAddressOrHash,
+        BaseRequest request = null,
+        CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/activity{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        var activityResponse = await response.Content.ReadAsAsync<ActivityResponse>().ConfigureAwait(false);
+        return activityResponse.Activities;
+    }
+
+    /// <summary>
+    /// The get all async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="memberRequest"></param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+    /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+    public async Task<IEnumerable<Member>> GetAllAsync(string listId, MemberRequest memberRequest = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(listId, memberRequest, cancellationToken).ConfigureAwait(false))?.Members;
+
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+    /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+    public async Task<MemberResponse> GetResponseAsync(string listId, MemberRequest memberRequest = null, CancellationToken cancellationToken = default)
+    {
+        memberRequest ??= new MemberRequest
+        {
+            Limit = _limit
+        };
+
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
+        return listResponse;
+    }
+
+    /// <summary>
+    /// Get the total number of members in the list
+    /// </summary>
+    /// <param name="listId"></param>
+    /// <param name="status"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
+    /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+    public async Task<int> GetTotalItems(string listId, Status? status, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var memberRequest = new MemberRequest { Status = status, FieldsToInclude = "total_items" };
+
+        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
+        return listResponse.TotalItems;
+    }
+
+    /// <summary>
+    /// Get the total number of members in the list based on a full member request
+    /// </summary>
+    /// <param name="listId"></param>
+    /// <param name="memberRequest"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
+    /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+    public async Task<int> GetTotalItemsByRequest(string listId, MemberRequest memberRequest, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        memberRequest.FieldsToInclude = "total_items";
+
+        var response = await client.GetAsync($"{listId}/members{memberRequest.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var listResponse = await response.Content.ReadAsAsync<MemberResponse>().ConfigureAwait(false);
+        return listResponse.TotalItems;
+    }
+
+    /// <summary>
+    /// The get async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <param name="request"></param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="UriFormatException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.FormatException" />, instead.<paramref name="uriString" /> is empty.-or- The scheme specified in <paramref name="uriString" /> is not correctly formed. See <see cref="M:System.Uri.CheckSchemeName(System.String)" />.-or- <paramref name="uriString" /> contains too many slashes.-or- The password specified in <paramref name="uriString" /> is not valid.-or- The host name specified in <paramref name="uriString" /> is not valid.-or- The file name specified in <paramref name="uriString" /> is not valid. -or- The user name specified in <paramref name="uriString" /> is not valid.-or- The host or authority name specified in <paramref name="uriString" /> cannot be terminated by backslashes.-or- The port number specified in <paramref name="uriString" /> is not valid or cannot be parsed.-or- The length of <paramref name="uriString" /> exceeds 65519 characters.-or- The length of the scheme specified in <paramref name="uriString" /> exceeds 1023 characters.-or- There is an invalid character sequence in <paramref name="uriString" />.-or- The MS-DOS path specified in <paramref name="uriString" /> must start with c:\\.</exception>
+    /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    /// <exception cref="ObjectDisposedException">
+    /// The object has already been disposed.
+    /// </exception>
+    /// <exception cref="EncoderFallbackException">
+    /// A fallback occurred (see Character Encoding in the .NET Framework for complete explanation)-and-<see cref="P:System.Text.Encoding.EncoderFallback"/> is set to <see cref="T:System.Text.EncoderExceptionFallback"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity"/>. 
+    /// </exception>
+    /// <exception cref="FormatException">
+    /// <paramref>
+    ///         <name>format</name>
+    ///     </paramref>
+    /// includes an unsupported specifier. Supported format specifiers are listed in the Remarks section.
+    /// </exception>
+    /// <exception cref="InvalidOperationException">This member belongs to a type that is loaded into the reflection-only context. See How to: Load Assemblies into the Reflection-Only Context.</exception>
+    /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    public async Task<Member> GetAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// The get async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns></param>
+    /// <param name="request"></param>
+    /// <param name="falseIfUnsubscribed"></param>
+    public async Task<bool> ExistsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, bool falseIfUnsubscribed = true, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        if (response.IsSuccessStatusCode)
+        {
+            if (falseIfUnsubscribed)
             {
-                return false;
+                var member = await response.Content.ReadAsAsync<Member>().ConfigureAwait(false);
+                return member.Status != Status.Unsubscribed;
             }
 
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+            return true;
+        }
+
+        if (response.StatusCode == HttpStatusCode.NotFound)
+        {
             return false;
         }
 
-        /// <summary>
-        /// The get goals async.
-        /// </summary>
-        /// <param name="listId">
-        /// The list id.
-        /// </param>
-        /// <param name="emailAddressOrHash">
-        /// The email address.
-        /// </param>
-        /// <param name="request">
-        /// The request.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref>
-        ///         <name>uriString</name>
-        ///     </paramref>
-        ///     is null. </exception>
-        /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
-        /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
-        /// <exception cref="MailChimpException">
-        /// Custom Mail Chimp Exception
-        /// </exception>
-        private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/goals{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            var goalResponse = await response.Content.ReadAsAsync<GoalResponse>().ConfigureAwait(false);
-            return goalResponse.Goals;
-        }
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return false;
+    }
 
-        public async Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            var tagsResponse = await response.Content.ReadAsAsync<TagsResponse>().ConfigureAwait(false);
-            return tagsResponse.Tags;
-        }
+    /// <summary>
+    /// The get goals async.
+    /// </summary>
+    /// <param name="listId">
+    /// The list id.
+    /// </param>
+    /// <param name="emailAddressOrHash">
+    /// The email address.
+    /// </param>
+    /// <param name="request">
+    /// The request.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref>
+    ///         <name>uriString</name>
+    ///     </paramref>
+    ///     is null. </exception>
+    /// <exception cref="TargetInvocationException">The algorithm was used with Federal Information Processing Standards (FIPS) mode enabled, but is not FIPS compatible.</exception>
+    /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
+    /// <exception cref="MailChimpException">
+    /// Custom Mail Chimp Exception
+    /// </exception>
+    private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/goals{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        var goalResponse = await response.Content.ReadAsAsync<GoalResponse>().ConfigureAwait(false);
+        return goalResponse.Goals;
+    }
 
-        public async Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            using var client = CreateMailClient($"{BaseUrl}/");
-            var res = await client
-                .PostAsJsonAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", tags, cancellationToken)
-                .ConfigureAwait(false);
+    public async Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        var tagsResponse = await response.Content.ReadAsAsync<TagsResponse>().ConfigureAwait(false);
+        return tagsResponse.Tags;
+    }
 
-            await res.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-        }
+    public async Task AddTagsAsync(string listId, string emailAddressOrHash, Tags tags, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var res = await client
+            .PostAsJsonAsync($"{listId}/members/{Hash(emailAddressOrHash)}/tags{request?.ToQueryString()}", tags, cancellationToken)
+            .ConfigureAwait(false);
+
+        await res.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 }

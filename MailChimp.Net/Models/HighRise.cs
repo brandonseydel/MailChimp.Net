@@ -1,6 +1,5 @@
-﻿namespace MailChimp.Net.Models
+﻿namespace MailChimp.Net.Models;
+
+public class HighRise : CrmCampaign
 {
-    public class HighRise : CrmCampaign
-    {
-    }
 }

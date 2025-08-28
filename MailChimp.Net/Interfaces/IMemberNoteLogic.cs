@@ -4,11 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MailChimp.Net.Interfaces
-{
-    /// <summary>
-    /// The MemberNoteLogic interface.
-    /// </summary>
-    public interface IMemberNoteLogic
-    {}
-}
+namespace MailChimp.Net.Interfaces;
+
+/// <summary>
+/// The MemberNoteLogic interface.
+/// </summary>
+public interface IMemberNoteLogic
+{}

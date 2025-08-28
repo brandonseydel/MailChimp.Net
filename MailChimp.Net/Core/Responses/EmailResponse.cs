@@ -10,31 +10,30 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The email response.
+/// </summary>
+public class EmailResponse : BaseResponse
 {
     /// <summary>
-    /// The email response.
+    /// Initializes a new instance of the <see cref="EmailResponse"/> class.
     /// </summary>
-    public class EmailResponse : BaseResponse
+    public EmailResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmailResponse"/> class.
-        /// </summary>
-        public EmailResponse()
-        {
-            EmailActivities = new HashSet<EmailActivity>();
-        }
-
-        /// <summary>
-        /// Gets or sets the campaign id.
-        /// </summary>
-        [JsonProperty("campaign_id")]
-        public string CampaignId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the email activities.
-        /// </summary>
-        [JsonProperty("emails")]
-        public IEnumerable<EmailActivity> EmailActivities { get; set; }
+        EmailActivities = new HashSet<EmailActivity>();
     }
+
+    /// <summary>
+    /// Gets or sets the campaign id.
+    /// </summary>
+    [JsonProperty("campaign_id")]
+    public string CampaignId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the email activities.
+    /// </summary>
+    [JsonProperty("emails")]
+    public IEnumerable<EmailActivity> EmailActivities { get; set; }
 }

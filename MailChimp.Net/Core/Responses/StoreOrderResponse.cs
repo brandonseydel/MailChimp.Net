@@ -2,20 +2,19 @@
 using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+public class StoreOrderResponse : BaseResponse
 {
-    public class StoreOrderResponse : BaseResponse
+
+    public StoreOrderResponse()
     {
-
-        public StoreOrderResponse()
-        {
-            Orders = new List<Order>();
-        }
-
-        [JsonProperty("store_id")]
-        public string StoreId { get; set; }
-
-        [JsonProperty("orders")]
-        public IList<Order> Orders { get; set; }
+        Orders = new List<Order>();
     }
+
+    [JsonProperty("store_id")]
+    public string StoreId { get; set; }
+
+    [JsonProperty("orders")]
+    public IList<Order> Orders { get; set; }
 }

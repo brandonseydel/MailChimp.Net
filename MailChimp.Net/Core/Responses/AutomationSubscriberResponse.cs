@@ -10,37 +10,36 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The automation subscriber response.
+/// </summary>
+public class AutomationSubscriberResponse
 {
     /// <summary>
-    /// The automation subscriber response.
+    /// Initializes a new instance of the <see cref="AutomationSubscriberResponse"/> class.
     /// </summary>
-    public class AutomationSubscriberResponse
+    public AutomationSubscriberResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AutomationSubscriberResponse"/> class.
-        /// </summary>
-        public AutomationSubscriberResponse()
-        {
-            Subscribers = new HashSet<Subscriber>();
-        }
-
-        /// <summary>
-        /// Gets or sets the subscribers.
-        /// </summary>
-        [JsonProperty("subscribers")]
-        public IEnumerable<Subscriber> Subscribers { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total items.
-        /// </summary>
-        [JsonProperty("total_items")]
-        public int TotalItems { get; set; }
-
-        /// <summary>
-        /// Gets or sets the workflow id.
-        /// </summary>
-        [JsonProperty("workflow_id")]
-        public string WorkflowId { get; set; }
+        Subscribers = new HashSet<Subscriber>();
     }
+
+    /// <summary>
+    /// Gets or sets the subscribers.
+    /// </summary>
+    [JsonProperty("subscribers")]
+    public IEnumerable<Subscriber> Subscribers { get; set; }
+
+    /// <summary>
+    /// Gets or sets the total items.
+    /// </summary>
+    [JsonProperty("total_items")]
+    public int TotalItems { get; set; }
+
+    /// <summary>
+    /// Gets or sets the workflow id.
+    /// </summary>
+    [JsonProperty("workflow_id")]
+    public string WorkflowId { get; set; }
 }

@@ -10,17 +10,16 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The authorized app response.
+/// </summary>
+public class AuthorizedAppResponse : BaseResponse
 {
     /// <summary>
-    /// The authorized app response.
+    /// Gets or sets the apps.
     /// </summary>
-    public class AuthorizedAppResponse : BaseResponse
-    {
-        /// <summary>
-        /// Gets or sets the apps.
-        /// </summary>
-        [JsonProperty("apps")]
-        public IEnumerable<App> Apps { get; set; }
-    }
+    [JsonProperty("apps")]
+    public IEnumerable<App> Apps { get; set; }
 }

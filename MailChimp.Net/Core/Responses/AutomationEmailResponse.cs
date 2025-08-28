@@ -10,31 +10,30 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The automation email response.
+/// </summary>
+public class AutomationEmailResponse : BaseResponse
 {
     /// <summary>
-    /// The automation email response.
+    /// Initializes a new instance of the <see cref="AutomationEmailResponse"/> class.
     /// </summary>
-    public class AutomationEmailResponse : BaseResponse
+    public AutomationEmailResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AutomationEmailResponse"/> class.
-        /// </summary>
-        public AutomationEmailResponse()
-        {
-            Emails = new HashSet<Email>();
-        }
-
-        /// <summary>
-        /// Gets or sets the emails.
-        /// </summary>
-        [JsonProperty("emails")]
-        public IEnumerable<Email> Emails { get; set; }
-
-        /// <summary>
-        /// Gets or sets the workflow id.
-        /// </summary>
-        [JsonProperty("workflow_id")]
-        public string WorkflowId { get; set; }
+        Emails = new HashSet<Email>();
     }
+
+    /// <summary>
+    /// Gets or sets the emails.
+    /// </summary>
+    [JsonProperty("emails")]
+    public IEnumerable<Email> Emails { get; set; }
+
+    /// <summary>
+    /// Gets or sets the workflow id.
+    /// </summary>
+    [JsonProperty("workflow_id")]
+    public string WorkflowId { get; set; }
 }

@@ -11,129 +11,128 @@ using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Logic
+namespace MailChimp.Net.Logic;
+
+internal class ECommerceOrderLogic : BaseLogic, IECommerceOrderLogic
 {
-    internal class ECommerceOrderLogic : BaseLogic, IECommerceOrderLogic
+    /// <summary>
+    /// The base url.
+    /// </summary>
+    private const string BaseUrl = "ecommerce/stores/{0}/orders";
+
+    public ECommerceOrderLogic(MailChimpOptions mailChimpConfiguration)
+        : base(mailChimpConfiguration)
     {
-        /// <summary>
-        /// The base url.
-        /// </summary>
-        private const string BaseUrl = "ecommerce/stores/{0}/orders";
+    }
 
-        public ECommerceOrderLogic(MailChimpOptions mailChimpConfiguration)
-            : base(mailChimpConfiguration)
+    /// <summary>
+    /// Adds a order to the given store by id
+    /// </summary>
+    /// <param name="order"></param>
+    /// <returns></returns>
+    public async Task<Order> AddAsync(Order order, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl);
+        var response = await client.PostAsJsonAsync(string.Empty, order, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var orderResponse = await response.Content.ReadAsAsync<Order>().ConfigureAwait(false);
+        return orderResponse;
+    }
+
+    public IECommerceLineLogic Lines(string orderId) => new ECommerceLineLogic(_options)
+    {
+        Resource = "orders",
+        ResourceId = orderId,
+        StoreId = StoreId
+    };
+
+    /// <summary>
+    /// Deletes an order
+    /// </summary>
+    /// <param name="orderId"></param>
+    /// <returns></returns>
+    public async Task DeleteAsync(string orderId, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl + "/");
+        var response = await client.DeleteAsync(orderId, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Gets only the orders from the response object
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public async Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null, CancellationToken cancellationToken = default) => (await GetResponseAsync(request).ConfigureAwait(false))?.Orders;
+
+    /// <summary>
+    /// The get async.
+    /// </summary>
+    /// <param name="orderId"></param>
+    /// <param name="request">
+    /// The request.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<Order> GetAsync(string orderId, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+
+        using var client = CreateMailClient(requestUrl + "/");
+        var response = await client.GetAsync(orderId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var orderResponse = await response.Content.ReadAsAsync<Order>().ConfigureAwait(false);
+        return orderResponse;
+    }
+
+    /// <summary>
+    /// The get response async.
+    /// </summary>
+    /// <param name="request">
+    /// The request.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null, CancellationToken cancellationToken = default)
+    {
+
+        request ??= new OrderRequest
         {
-        }
-
-        /// <summary>
-        /// Adds a order to the given store by id
-        /// </summary>
-        /// <param name="order"></param>
-        /// <returns></returns>
-        public async Task<Order> AddAsync(Order order, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = string.Format(BaseUrl, StoreId);
-            using var client = CreateMailClient(requestUrl);
-            var response = await client.PostAsJsonAsync(string.Empty, order, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var orderResponse = await response.Content.ReadAsAsync<Order>().ConfigureAwait(false);
-            return orderResponse;
-        }
-
-        public IECommerceLineLogic Lines(string orderId) => new ECommerceLineLogic(_options)
-        {
-            Resource = "orders",
-            ResourceId = orderId,
-            StoreId = StoreId
+            Limit = _limit
         };
 
-        /// <summary>
-        /// Deletes an order
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
-        public async Task DeleteAsync(string orderId, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = string.Format(BaseUrl, StoreId);
-            using var client = CreateMailClient(requestUrl + "/");
-            var response = await client.DeleteAsync(orderId, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-        }
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-        /// <summary>
-        /// Gets only the orders from the response object
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Order>> GetAllAsync(OrderRequest request = null, CancellationToken cancellationToken = default) => (await GetResponseAsync(request).ConfigureAwait(false))?.Orders;
-
-        /// <summary>
-        /// The get async.
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <param name="request">
-        /// The request.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public async Task<Order> GetAsync(string orderId, BaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = string.Format(BaseUrl, StoreId);
-
-            using var client = CreateMailClient(requestUrl + "/");
-            var response = await client.GetAsync(orderId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var orderResponse = await response.Content.ReadAsAsync<Order>().ConfigureAwait(false);
-            return orderResponse;
-        }
-
-        /// <summary>
-        /// The get response async.
-        /// </summary>
-        /// <param name="request">
-        /// The request.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public async Task<StoreOrderResponse> GetResponseAsync(OrderRequest request = null, CancellationToken cancellationToken = default)
-        {
-
-            request ??= new OrderRequest
-            {
-                Limit = _limit
-            };
-
-            var requestUrl = string.Format(BaseUrl, StoreId);
-            using var client = CreateMailClient(requestUrl);
-            var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var orderResponse = await response.Content.ReadAsAsync<StoreOrderResponse>().ConfigureAwait(false);
-            return orderResponse;
-        }
-
-
-        /// <summary>
-        /// Updates an order
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <param name="order"></param>
-        /// <returns></returns>
-        public async Task<Order> UpdateAsync(string orderId, Order order, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = string.Format(BaseUrl, StoreId);
-            using var client = CreateMailClient(requestUrl + "/");
-            var response = await client.PatchAsJsonAsync(orderId, order, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var orderResponse = await response.Content.ReadAsAsync<Order>().ConfigureAwait(false);
-            return orderResponse;
-        }
-
-        public string StoreId { get; set; }
+        var orderResponse = await response.Content.ReadAsAsync<StoreOrderResponse>().ConfigureAwait(false);
+        return orderResponse;
     }
+
+
+    /// <summary>
+    /// Updates an order
+    /// </summary>
+    /// <param name="orderId"></param>
+    /// <param name="order"></param>
+    /// <returns></returns>
+    public async Task<Order> UpdateAsync(string orderId, Order order, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl + "/");
+        var response = await client.PatchAsJsonAsync(orderId, order, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var orderResponse = await response.Content.ReadAsAsync<Order>().ConfigureAwait(false);
+        return orderResponse;
+    }
+
+    public string StoreId { get; set; }
 }
