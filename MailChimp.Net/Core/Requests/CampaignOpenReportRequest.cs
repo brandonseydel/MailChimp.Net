@@ -1,10 +1,9 @@
 using System;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+public class CampaignOpenReportRequest : QueryableBaseRequest
 {
-    public class CampaignOpenReportRequest : QueryableBaseRequest
-    {
-        [QueryString("since")]
-        public DateTime? Since { get; set; }
-    }
+    [QueryString("since")]
+    public DateTime? Since { get; set; }
 }

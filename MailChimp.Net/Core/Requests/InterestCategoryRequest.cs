@@ -4,17 +4,16 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The interest category request.
+/// </summary>
+public class InterestCategoryRequest : QueryableBaseRequest
 {
     /// <summary>
-    /// The interest category request.
+    /// Gets or sets the type.
     /// </summary>
-    public class InterestCategoryRequest : QueryableBaseRequest
-    {
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        [QueryString("type")]
-        public string Type { get; set; }
-    }
+    [QueryString("type")]
+    public string Type { get; set; }
 }

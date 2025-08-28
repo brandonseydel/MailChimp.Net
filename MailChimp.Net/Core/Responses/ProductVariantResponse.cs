@@ -2,23 +2,22 @@
 using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+public class ProductVariantResponse : BaseResponse
 {
-    public class ProductVariantResponse : BaseResponse
+
+    public ProductVariantResponse()
     {
-
-        public ProductVariantResponse()
-        {
-            Variants = new List<Variant>();
-        }
-
-        [JsonProperty("store_id")]
-        public string StoreId { get; set; }
-
-        [JsonProperty("product_id")]
-        public string ProductId { get; set; }
-
-        [JsonProperty("variants")]
-        public IList<Variant> Variants { get; set; }
+        Variants = new List<Variant>();
     }
+
+    [JsonProperty("store_id")]
+    public string StoreId { get; set; }
+
+    [JsonProperty("product_id")]
+    public string ProductId { get; set; }
+
+    [JsonProperty("variants")]
+    public IList<Variant> Variants { get; set; }
 }

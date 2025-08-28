@@ -1,8 +1,7 @@
-﻿namespace MailChimp.Net.Core
+﻿namespace MailChimp.Net.Core;
+
+public class OrderRequest : QueryableBaseRequest
 {
-    public class OrderRequest : QueryableBaseRequest
-    {
-        [QueryString("customer_id")]
-        public string CustomerId { get; set; }
-    }
+    [QueryString("customer_id")]
+    public string CustomerId { get; set; }
 }

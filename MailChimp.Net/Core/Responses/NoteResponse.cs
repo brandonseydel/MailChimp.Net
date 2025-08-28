@@ -10,37 +10,36 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The note response.
+/// </summary>
+public class NoteResponse : BaseResponse
 {
     /// <summary>
-    /// The note response.
+    /// Initializes a new instance of the <see cref="NoteResponse"/> class.
     /// </summary>
-    public class NoteResponse : BaseResponse
+    public NoteResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NoteResponse"/> class.
-        /// </summary>
-        public NoteResponse()
-        {
-            Notes = new HashSet<Note>();
-        }
-
-        /// <summary>
-        /// Gets or sets the email id.
-        /// </summary>
-        [JsonProperty("email_id")]
-        public string EmailId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the list id.
-        /// </summary>
-        [JsonProperty("list_id")]
-        public string ListId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the notes.
-        /// </summary>
-        [JsonProperty("notes")]
-        public IEnumerable<Note> Notes { get; set; }
+        Notes = new HashSet<Note>();
     }
+
+    /// <summary>
+    /// Gets or sets the email id.
+    /// </summary>
+    [JsonProperty("email_id")]
+    public string EmailId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the list id.
+    /// </summary>
+    [JsonProperty("list_id")]
+    public string ListId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the notes.
+    /// </summary>
+    [JsonProperty("notes")]
+    public IEnumerable<Note> Notes { get; set; }
 }

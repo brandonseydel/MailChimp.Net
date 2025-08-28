@@ -1,53 +1,52 @@
 ﻿using System.Collections.Generic;
 
-namespace MailChimp.Net.Models
-{
-    using Newtonsoft.Json;
+namespace MailChimp.Net.Models;
 
-    public class MergeField
-    {
+	using Newtonsoft.Json;
 
-        public MergeField()
-        {
-            Links = new HashSet<Link>();
-            HelpText = string.Empty;
-            DefaultValue = string.Empty;
-        }
+	public class MergeField
+	{
 
-        [JsonProperty("merge_id")]
-        public int MergeId { get; set; }
+		public MergeField()
+		{
+			Links = new HashSet<Link>();
+			HelpText = string.Empty;
+			DefaultValue = string.Empty;
+		}
 
-        [JsonProperty("tag")]
-        public string Tag { get; set; }
+		[JsonProperty("merge_id")]
+		public int MergeId { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+		[JsonProperty("tag")]
+		public string Tag { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
+		[JsonProperty("name")]
+		public string Name { get; set; }
 
-        [JsonProperty("required")]
-        public bool Required { get; set; }
+		[JsonProperty("type")]
+		public string Type { get; set; }
 
-        [JsonProperty("default_value")]
-        public string DefaultValue { get; set; }
+		[JsonProperty("required")]
+		public bool Required { get; set; }
 
-        [JsonProperty("public")]
-        public bool Public { get; set; }
+		[JsonProperty("default_value")]
+		public string DefaultValue { get; set; }
 
-        [JsonProperty("display_order")]
-        public int DisplayOrder { get; set; }
+		[JsonProperty("public")]
+		public bool Public { get; set; }
 
-        [JsonProperty("options")]
-        public Options Options { get; set; }
+		[JsonProperty("display_order")]
+		public int DisplayOrder { get; set; }
 
-        [JsonProperty("help_text")]
-        public string HelpText { get; set; }
+		[JsonProperty("options")]
+		public Options Options { get; set; }
 
-        [JsonProperty("list_id")]
-        public string ListId { get; set; }
+		[JsonProperty("help_text")]
+		public string HelpText { get; set; }
 
-        [JsonProperty("_links")]
-        public IEnumerable<Link> Links { get; set; }
-    }
-}
+		[JsonProperty("list_id")]
+		public string ListId { get; set; }
+
+		[JsonProperty("_links")]
+		public IEnumerable<Link> Links { get; set; }
+	}

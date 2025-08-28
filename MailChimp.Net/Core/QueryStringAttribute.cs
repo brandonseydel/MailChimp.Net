@@ -6,27 +6,26 @@
 
 using System;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The query string attribute.
+/// </summary>
+public class QueryStringAttribute : Attribute
 {
     /// <summary>
-    /// The query string attribute.
+    /// Initializes a new instance of the <see cref="QueryStringAttribute"/> class.
     /// </summary>
-    public class QueryStringAttribute : Attribute
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    public QueryStringAttribute(string name)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="QueryStringAttribute"/> class.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        public QueryStringAttribute(string name)
-        {
-            Name = name;
-        }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; private set; }
+        Name = name;
     }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    public string Name { get; private set; }
 }

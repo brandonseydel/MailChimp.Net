@@ -10,25 +10,24 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The template folder response.
+/// </summary>
+public class TemplateFolderResponse : BaseResponse
 {
     /// <summary>
-    /// The template folder response.
+    /// Initializes a new instance of the <see cref="TemplateFolderResponse"/> class.
     /// </summary>
-    public class TemplateFolderResponse : BaseResponse
+    public TemplateFolderResponse()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemplateFolderResponse"/> class.
-        /// </summary>
-        public TemplateFolderResponse()
-        {
-            Folders = new HashSet<Folder>();
-        }
-
-        /// <summary>
-        /// Gets or sets the folders.
-        /// </summary>
-        [JsonProperty("folders")]
-        public IEnumerable<Folder> Folders { get; set; }
+        Folders = new HashSet<Folder>();
     }
+
+    /// <summary>
+    /// Gets or sets the folders.
+    /// </summary>
+    [JsonProperty("folders")]
+    public IEnumerable<Folder> Folders { get; set; }
 }

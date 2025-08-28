@@ -6,17 +6,16 @@
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+/// <summary>
+/// The hours.
+/// </summary>
+public class Hours
 {
     /// <summary>
-    /// The hours.
+    /// Gets or sets the send at.
     /// </summary>
-    public class Hours
-    {
-        /// <summary>
-        /// Gets or sets the send at.
-        /// </summary>
-        [JsonProperty("send_at")]
-        public string SendAt { get; set; }
-    }
+    [JsonProperty("send_at")]
+    public string SendAt { get; set; }
 }

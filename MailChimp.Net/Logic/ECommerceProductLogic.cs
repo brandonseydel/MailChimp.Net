@@ -11,124 +11,123 @@ using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Logic
+namespace MailChimp.Net.Logic;
+
+internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
 {
-    internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
+    /// <summary>
+    /// The base url.
+    /// </summary>
+    private const string BaseUrl = "ecommerce/stores/{0}/products";
+
+    public ECommerceProductLogic(MailChimpOptions mailChimpConfiguration)
+        : base(mailChimpConfiguration)
     {
-        /// <summary>
-        /// The base url.
-        /// </summary>
-        private const string BaseUrl = "ecommerce/stores/{0}/products";
+    }
 
-        public ECommerceProductLogic(MailChimpOptions mailChimpConfiguration)
-            : base(mailChimpConfiguration)
-        {
-        }
+    public IECommerceProductVarianceLogic Variances(string productId) => new ECommerceProductVarianceLogic(_options)
+    {
+        StoreId = StoreId,
+        ProductId = productId
+    };
 
-        public IECommerceProductVarianceLogic Variances(string productId) => new ECommerceProductVarianceLogic(_options)
+    /// <summary>
+    /// Adds a product to the given store by id
+    /// </summary>
+    /// <param name="product"></param>
+    /// <returns></returns>
+    public async Task<Product> AddAsync(Product product, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl);
+        var response = await client.PostAsJsonAsync(string.Empty, product, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
+        return productResponse;
+    }
+
+    public async Task DeleteAsync(string productId, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl + "/");
+        var response = await client.DeleteAsync(productId, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Gets only the products from the response object
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Products;
+
+    /// <summary>
+    /// The get async.
+    /// </summary>
+    /// <param name="productId"></param>
+    /// <param name="request">
+    /// The request.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<Product> GetAsync(string productId, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+
+        using var client = CreateMailClient(requestUrl + "/");
+        var response = await client.GetAsync(productId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+
+        var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
+        return productResponse;
+    }
+
+    /// <summary>
+    /// The get response async.
+    /// </summary>
+    /// <param name="request">
+    /// The request.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        request ??= new QueryableBaseRequest
         {
-            StoreId = StoreId,
-            ProductId = productId
+            Limit = _limit
         };
 
-        /// <summary>
-        /// Adds a product to the given store by id
-        /// </summary>
-        /// <param name="product"></param>
-        /// <returns></returns>
-        public async Task<Product> AddAsync(Product product, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = string.Format(BaseUrl, StoreId);
-            using var client = CreateMailClient(requestUrl);
-            var response = await client.PostAsJsonAsync(string.Empty, product, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl);
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-            var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
-            return productResponse;
-        }
-
-        public async Task DeleteAsync(string productId, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = string.Format(BaseUrl, StoreId);
-            using var client = CreateMailClient(requestUrl + "/");
-            var response = await client.DeleteAsync(productId, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets only the products from the response object
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Product>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
-            => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Products;
-
-        /// <summary>
-        /// The get async.
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="request">
-        /// The request.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public async Task<Product> GetAsync(string productId, BaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = string.Format(BaseUrl, StoreId);
-
-            using var client = CreateMailClient(requestUrl + "/");
-            var response = await client.GetAsync(productId + request?.ToQueryString(), cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
-            return productResponse;
-        }
-
-        /// <summary>
-        /// The get response async.
-        /// </summary>
-        /// <param name="request">
-        /// The request.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public async Task<StoreProductResponse> GetResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
-        {
-            request ??= new QueryableBaseRequest
-            {
-                Limit = _limit
-            };
-
-            var requestUrl = string.Format(BaseUrl, StoreId);
-            using var client = CreateMailClient(requestUrl);
-            var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-
-            var productResponse = await response.Content.ReadAsAsync<StoreProductResponse>().ConfigureAwait(false);
-            return productResponse;
-        }
-
-        /// <summary>
-        /// The update async.
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="product"></param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public async Task<Product> UpdateAsync(string productId, Product product, CancellationToken cancellationToken = default)
-        {
-            var requestUrl = $"{string.Format(BaseUrl, StoreId)}/{productId}";
-
-            using var client = CreateMailClient(requestUrl);
-            var response = await client.PatchAsJsonAsync("", product, cancellationToken).ConfigureAwait(false);
-            await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
-            var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
-            return productResponse;
-        }
-
-        public string StoreId { get; set; }
+        var productResponse = await response.Content.ReadAsAsync<StoreProductResponse>().ConfigureAwait(false);
+        return productResponse;
     }
+
+    /// <summary>
+    /// The update async.
+    /// </summary>
+    /// <param name="productId"></param>
+    /// <param name="product"></param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<Product> UpdateAsync(string productId, Product product, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = $"{string.Format(BaseUrl, StoreId)}/{productId}";
+
+        using var client = CreateMailClient(requestUrl);
+        var response = await client.PatchAsJsonAsync("", product, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
+        return productResponse;
+    }
+
+    public string StoreId { get; set; }
 }

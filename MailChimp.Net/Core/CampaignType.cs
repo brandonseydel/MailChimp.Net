@@ -7,60 +7,59 @@
 using System;
 using System.ComponentModel;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The campaign type.
+/// </summary>
+[Flags]
+public enum CampaignType
 {
     /// <summary>
-    /// The campaign type.
+    /// The regular.
     /// </summary>
-    [Flags]
-    public enum CampaignType
-    {
-        /// <summary>
-        /// The regular.
-        /// </summary>
-        [Description("regular")]
-        Regular = 1,
+    [Description("regular")]
+    Regular = 1,
 
-        /// <summary>
-        /// The plaintext.
-        /// </summary>
-        [Description("plaintext")]
-        Plaintext = 2,
+    /// <summary>
+    /// The plaintext.
+    /// </summary>
+    [Description("plaintext")]
+    Plaintext = 2,
 
-        /// <summary>
-        /// The absplit.
-        /// </summary>
-        [Description("absplit")]
-        Absplit = 4,
+    /// <summary>
+    /// The absplit.
+    /// </summary>
+    [Description("absplit")]
+    Absplit = 4,
 
-        /// <summary>
-        /// The rss.
-        /// </summary>
-        [Description("rss")]
-        Rss = 8,
+    /// <summary>
+    /// The rss.
+    /// </summary>
+    [Description("rss")]
+    Rss = 8,
 
-        /// <summary>
-        /// The variate.
-        /// </summary>
-        [Description("variate")]
-        Variate = 16,
+    /// <summary>
+    /// The variate.
+    /// </summary>
+    [Description("variate")]
+    Variate = 16,
 
-        /// <summary>
-        /// The automation.
-        /// </summary>
-        [Description("automation")]
-        Automation = 32,
+    /// <summary>
+    /// The automation.
+    /// </summary>
+    [Description("automation")]
+    Automation = 32,
 
-        /// <summary>
-        /// The automation-email.
-        /// </summary>
-        [Description("automation-email")]
-        AutomationEmail = 64,
+    /// <summary>
+    /// The automation-email.
+    /// </summary>
+    [Description("automation-email")]
+    AutomationEmail = 64,
 
-        /// <summary>
-        /// The variate-child.
-        /// </summary>
-        [Description("variate-child")]
-        VariateChild = 128
-    }
+    /// <summary>
+    /// The variate-child.
+    /// </summary>
+    [Description("variate-child")]
+    VariateChild = 128
 }

@@ -2,25 +2,24 @@
 using System;
 using System.ComponentModel;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// Campaign sort field.
+/// </summary>
+[Flags]
+public enum CampaignSortField
 {
     /// <summary>
-    /// Campaign sort field.
+    /// The send time.
     /// </summary>
-    [Flags]
-    public enum CampaignSortField
-    {
-        /// <summary>
-        /// The send time.
-        /// </summary>
-        [Description("send_time")]
-        SendTime = 1,
+    [Description("send_time")]
+    SendTime = 1,
 
-        /// <summary>
-        /// The send time.
-        /// </summary>
-        [Description("create_time")]
-        CreateTime = 2
+    /// <summary>
+    /// The send time.
+    /// </summary>
+    [Description("create_time")]
+    CreateTime = 2
 
-    }
 }

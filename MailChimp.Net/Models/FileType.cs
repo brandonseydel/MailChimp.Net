@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+public enum FileType
 {
-    public enum FileType
-    {
-        [Description("image")]
-        Image,
-        [Description("file")]
-        File
-    }
+    [Description("image")]
+    Image,
+    [Description("file")]
+    File
 }

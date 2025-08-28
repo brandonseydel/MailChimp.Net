@@ -9,21 +9,20 @@ using System.Threading.Tasks;
 
 using MailChimp.Net.Models;
 
-namespace MailChimp.Net.Interfaces
+namespace MailChimp.Net.Interfaces;
+
+/// <summary>
+/// The ApiLogic interface.
+/// </summary>
+public interface IApiLogic
 {
     /// <summary>
-    /// The ApiLogic interface.
+    /// The get info.
     /// </summary>
-    public interface IApiLogic
-    {
-        /// <summary>
-        /// The get info.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task<ApiInfo> GetInfoAsync(CancellationToken cancellationToken = default);
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task<ApiInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 
-        Task<Ping> PingAsync(CancellationToken cancellationToken = default);
-    }
+    Task<Ping> PingAsync(CancellationToken cancellationToken = default);
 }

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+public class TagsRequest : QueryableBaseRequest
 {
-    public class TagsRequest : QueryableBaseRequest
-    {
-        [QueryString("list_id")]
-        public string ListId { get; set; }
-    }
+    [QueryString("list_id")]
+    public string ListId { get; set; }
 }

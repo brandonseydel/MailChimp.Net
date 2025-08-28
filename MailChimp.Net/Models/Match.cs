@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+
+public enum Match
 {
-    public enum Match
-    {
-        [Description("any")]
-        Any,
-        [Description("all")]
-        All,
-        [Description("")]
-        Empty
-    }
+    [Description("any")]
+    Any,
+    [Description("all")]
+    All,
+    [Description("")]
+    Empty
 }

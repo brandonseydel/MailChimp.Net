@@ -6,29 +6,28 @@
 
 using System.ComponentModel;
 
-namespace MailChimp.Net.Core
+namespace MailChimp.Net.Core;
+
+/// <summary>
+/// The result.
+/// </summary>
+public enum Result
 {
     /// <summary>
-    /// The result.
+    /// The success.
     /// </summary>
-    public enum Result
-    {
-        /// <summary>
-        /// The success.
-        /// </summary>
-        [Description("success")]
-        Success, 
+    [Description("success")]
+    Success, 
 
-        /// <summary>
-        /// The warning.
-        /// </summary>
-        [Description("warning")]
-        Warning, 
+    /// <summary>
+    /// The warning.
+    /// </summary>
+    [Description("warning")]
+    Warning, 
 
-        /// <summary>
-        /// The error.
-        /// </summary>
-        [Description("error")]
-        Error
-    }
+    /// <summary>
+    /// The error.
+    /// </summary>
+    [Description("error")]
+    Error
 }

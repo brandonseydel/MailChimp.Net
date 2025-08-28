@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 
-namespace MailChimp.Net.Models
+namespace MailChimp.Net.Models;
+
+public enum Visibility
 {
-    public enum Visibility
-    {
-        [Description("pub")]
-        Public,
-        [Description("prv")]
-        Private
-    }
+    [Description("pub")]
+    Public,
+    [Description("prv")]
+    Private
 }
