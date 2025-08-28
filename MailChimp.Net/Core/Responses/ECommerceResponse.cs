@@ -2,11 +2,12 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace MailChimp.Net.Core;
-
-public class ECommerceResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
+    public class ECommerceResponse : BaseResponse
+    {
 
-    [JsonProperty("stores")]
-    public IEnumerable<Store> Stores { get; set; }
+        [JsonProperty("stores")]
+        public IEnumerable<Store> Stores { get; set; }
+    }
 }

@@ -13,27 +13,27 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-
-/// <summary>
-/// The campaign folder response.
-/// </summary>
-public class CampaignFolderResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CampaignFolderResponse"/> class.
+    /// The campaign folder response.
     /// </summary>
-    public CampaignFolderResponse()
+    public class CampaignFolderResponse : BaseResponse
     {
-        Folders = new HashSet<Folder>();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CampaignFolderResponse"/> class.
+        /// </summary>
+        public CampaignFolderResponse()
+        {
+            Folders = new HashSet<Folder>();
+        }
+
+        /// <summary>
+        /// Gets or Sets an array of objects representing campaign folders.
+        /// </summary>
+        [JsonProperty("folders")]
+        public IEnumerable<Folder> Folders { get; set; }
+
     }
-
-    /// <summary>
-    /// Gets or Sets an array of objects representing campaign folders.
-    /// </summary>
-    [JsonProperty("folders")]
-    public IEnumerable<Folder> Folders { get; set; }
-
 }
 

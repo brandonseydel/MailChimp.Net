@@ -1,9 +1,10 @@
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Models;
-
-public class Outreach
+namespace MailChimp.Net.Models
 {
-    [JsonProperty("id")]
-    public string Id { get; set; }
+    public class Outreach
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
 }

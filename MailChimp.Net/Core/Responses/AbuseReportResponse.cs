@@ -10,33 +10,34 @@ using MailChimp.Net.Models;
 
 using Newtonsoft.Json;
 
-namespace MailChimp.Net.Core;
-
-/// <summary>
-/// The abuse report response.
-/// </summary>
-public class AbuseReportResponse : BaseResponse
+namespace MailChimp.Net.Core
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AbuseReportResponse"/> class.
+    /// The abuse report response.
     /// </summary>
-    public AbuseReportResponse()
+    public class AbuseReportResponse : BaseResponse
     {
-        AbuseReports = new HashSet<AbuseReport>();
-        Links = new HashSet<Link>();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AbuseReportResponse"/> class.
+        /// </summary>
+        public AbuseReportResponse()
+        {
+            AbuseReports = new HashSet<AbuseReport>();
+            Links = new HashSet<Link>();
+        }
+
+        /// <summary>
+        /// Gets or sets the abuse reports.
+        /// </summary>
+        [JsonProperty("abuse_reports")]
+        public IEnumerable<AbuseReport> AbuseReports { get; set; }
+    
+
+        /// <summary>
+        /// Gets or sets the list id.
+        /// </summary>
+        [JsonProperty("list_id")]
+        public string ListId { get; set; }
+    
     }
-
-    /// <summary>
-    /// Gets or sets the abuse reports.
-    /// </summary>
-    [JsonProperty("abuse_reports")]
-    public IEnumerable<AbuseReport> AbuseReports { get; set; }
-    
-
-    /// <summary>
-    /// Gets or sets the list id.
-    /// </summary>
-    [JsonProperty("list_id")]
-    public string ListId { get; set; }
-    
 }
