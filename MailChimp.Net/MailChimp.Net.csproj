@@ -32,7 +32,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
         <PackageId>MailChimp.Net.V3</PackageId>
-        <Version>5.7.0</Version>
+        <Version>5.8.2</Version>
         <Authors>Brandon Seydel</Authors>
         <Company>DevSquad</Company>
         <Product>MailChimp.Net.V3</Product>
@@ -45,16 +45,15 @@
         <RepositoryType>Git</RepositoryType>
         <NeutralLanguage />
         <PackageReleaseNotes>
-            .NET Standard 1.3
-            .NETFramework 4.5
+            Push fix for merge field
         </PackageReleaseNotes>
         <PackageIconUrl>http://logos-download.com/wp-content/uploads/2016/09/MailChimp_logo_icon_Freddie_Wink.png</PackageIconUrl>
         <PackageTags>MailChimp Mail Chimp 3.0 v3.0 MailChimp.Net.V3 MailChimpv3.0 MailChimpv3 MailChimp3</PackageTags>
         <PackageLicenseUrl></PackageLicenseUrl>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-        <AssemblyVersion>5.7.0</AssemblyVersion>
-        <FileVersion>5.7.0</FileVersion>
+        <AssemblyVersion>5.8.2</AssemblyVersion>
+        <FileVersion>5.8.2</FileVersion>
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
