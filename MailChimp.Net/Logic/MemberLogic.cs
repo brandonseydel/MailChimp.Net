@@ -83,7 +83,7 @@ internal class MemberLogic : BaseLogic, IMemberLogic
             {
                 var currentListMarketingPermissions = new List<MarketingPermission>();
 
-                var members = (await GetResponseAsync(list.Id, null, cancellationToken).ConfigureAwait(false))?.Members;
+                var members = (await GetResponseAsync(list.Id, new MailChimp.Net.Core.MemberRequest { Limit = 1, Status = Status.Subscribed }, cancellationToken).ConfigureAwait(false))?.Members;
 
                 if (!members.Any())
                 {
