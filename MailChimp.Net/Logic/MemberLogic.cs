@@ -526,13 +526,22 @@ internal class MemberLogic : BaseLogic, IMemberLogic
     /// <exception cref="MailChimpException">
     /// Custom Mail Chimp Exception
     /// </exception>
-    private async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient($"{BaseUrl}/");
         var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/goals{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var goalResponse = await response.Content.ReadAsAsync<GoalResponse>().ConfigureAwait(false);
         return goalResponse.Goals;
+    }
+
+    public async Task<IEnumerable<MemberActivityFeedItem>> GetActivityFeedAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{listId}/members/{Hash(emailAddressOrHash)}/activity-feed{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        var feedResponse = await response.Content.ReadAsAsync<MemberActivityFeedResponse>().ConfigureAwait(false);
+        return feedResponse.Activity;
     }
 
     public async Task<IEnumerable<MemberTag>> GetTagsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default)

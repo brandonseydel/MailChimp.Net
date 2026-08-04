@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using MailChimp.Net.Core;
 using System;
 
@@ -15,79 +14,79 @@ public class Order
         Promos = new List<Promo>();
     }
 
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
-    [JsonProperty("customer")]
+    [MailChimpJsonProperty("customer")]
     public Customer Customer { get; set; }
 
-    [JsonProperty("store_id")]
+    [MailChimpJsonProperty("store_id")]
     public string StoreId { get; set; }
 
-    [JsonProperty("campaign_id")]
+    [MailChimpJsonProperty("campaign_id")]
     public string CampaignId { get; set; }
 
-    [JsonProperty("landing_site")]
+    [MailChimpJsonProperty("landing_site")]
     public string LandingSite { get; set; }
 
-    [JsonProperty("financial_status")]
+    [MailChimpJsonProperty("financial_status")]
     public string FinancialStatus { get; set; }
 
-    [JsonProperty("fulfillment_status")]
+    [MailChimpJsonProperty("fulfillment_status")]
     public string FulfillmentStatus { get; set; }
 
-    [JsonProperty("currency_code")]
-    [JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("currency_code")]
+    [MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public CurrencyCode CurrencyCode { get; set; }
 
-    [JsonProperty("order_total")]
+    [MailChimpJsonProperty("order_total")]
     public decimal OrderTotal { get; set; }
 
-    [JsonProperty("order_url")]
+    [MailChimpJsonProperty("order_url")]
     public string OrderUrl { get; set; }
 
-    [JsonProperty("discount_total")]
+    [MailChimpJsonProperty("discount_total")]
     public decimal? DiscountTotal { get; set; }
 
-    [JsonProperty("tax_total")]
+    [MailChimpJsonProperty("tax_total")]
     public decimal? TaxTotal { get; set; }
 
-    [JsonProperty("shipping_total")]
+    [MailChimpJsonProperty("shipping_total")]
     public decimal? ShippingTotal { get; set; }
 
-    [JsonProperty("tracking_code")]
+    [MailChimpJsonProperty("tracking_code")]
     public string TrackingCode { get; set; }
 
-    [JsonProperty("processed_at_foreign")]
+    [MailChimpJsonProperty("processed_at_foreign")]
     public string ProcessedAtForeign { get; set; }
 
-    [JsonProperty("cancelled_at_foreign")]
+    [MailChimpJsonProperty("cancelled_at_foreign")]
     public string CancelledAtForeign { get; set; }
 
-    [JsonProperty("shipping_address")]
+    [MailChimpJsonProperty("shipping_address")]
     public OrderAddress ShippingAddress { get; set; }
 
-    [JsonProperty("billing_address")]
+    [MailChimpJsonProperty("billing_address")]
     public OrderAddress BillingAddress { get; set; }
 
-    [JsonProperty("created_at")]
+    [MailChimpJsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
 
-    [JsonProperty("updated_at")]
+    [MailChimpJsonProperty("updated_at")]
     public DateTime? UpdatedAt { get; set; }
 
-    [JsonProperty("updated_at_foreign")]
+    [MailChimpJsonProperty("updated_at_foreign")]
     public DateTime? UpdatedAtForeign { get; set; }
 
-    [JsonProperty("promos")]
+    [MailChimpJsonProperty("promos")]
     public IList<Promo> Promos { get; set; }
 
-    [JsonProperty("lines")]
+    [MailChimpJsonProperty("lines")]
     public IList<Line> Lines { get; set; }
     
-    [JsonProperty("outreach")]
+    [MailChimpJsonProperty("outreach")]
     public Outreach Outreach { get; set; }
 
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IList<Link> Links { get; set; }
 }

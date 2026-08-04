@@ -24,7 +24,9 @@ public class ConversationTest : MailChimpTest
     [Fact]
     public async Task Should_Return_Conversations()
     {
+#pragma warning disable CS0618 // Conversations kept for backward compatibility coverage
         var conversations = await this.MailChimpManager.Conversations.GetAllAsync();
+#pragma warning restore CS0618
         Assert.NotNull(conversations);
     }
 }

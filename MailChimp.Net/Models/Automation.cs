@@ -6,7 +6,6 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
 using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
@@ -27,67 +26,67 @@ public class Automation
     /// <summary>
     /// Gets or sets the create time.
     /// </summary>
-    [JsonProperty("create_time")]
+    [MailChimpJsonProperty("create_time")]
     public string CreateTime { get; set; }
 
     /// <summary>
     /// Gets or sets the emails sent.
     /// </summary>
-    [JsonProperty("emails_sent")]
+    [MailChimpJsonProperty("emails_sent")]
     public int EmailsSent { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the recipients.
     /// </summary>
-    [JsonProperty("recipients")]
+    [MailChimpJsonProperty("recipients")]
     public Recipient Recipients { get; set; }
 
     /// <summary>
     /// Gets or sets the report summary.
     /// </summary>
-    [JsonProperty("report_summary")]
+    [MailChimpJsonProperty("report_summary")]
     public ReportSummary ReportSummary { get; set; }
 
     /// <summary>
     /// Gets or sets the settings.
     /// </summary>
-    [JsonProperty("settings")]
+    [MailChimpJsonProperty("settings")]
     public Setting Settings { get; set; }
 
     /// <summary>
     /// Gets or sets the start time.
     /// </summary>
-    [JsonProperty("start_time")]
+    [MailChimpJsonProperty("start_time")]
     public string StartTime { get; set; }
 
     /// <summary>
     /// Gets or sets the status.
     /// </summary>
-    [JsonProperty("status")]
-		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("status")]
+		[MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public AutomationStatus Status { get; set; }
 
     /// <summary>
     /// Gets or sets the tracking.
     /// </summary>
-    [JsonProperty("tracking")]
+    [MailChimpJsonProperty("tracking")]
     public Tracking Tracking { get; set; }
 
     /// <summary>
     /// Gets or sets the trigger settings.
     /// </summary>
-    [JsonProperty("trigger_settings")]
+    [MailChimpJsonProperty("trigger_settings")]
     public TriggerSettings TriggerSettings { get; set; }
 }

@@ -83,4 +83,20 @@ internal class FileManagerFolderLogic : BaseLogic, IFileManagerFolderLogic
         var folder = await response.Content.ReadAsAsync<FileManagerFolder>().ConfigureAwait(false);
         return folder;
     }
+
+    public async Task<IEnumerable<FileManagerFile>> GetFilesAsync(string folderId, FileManagerRequest request = null, CancellationToken cancellationToken = default)
+        => (await GetFilesResponseAsync(folderId, request, cancellationToken).ConfigureAwait(false))?.Files;
+
+    public async Task<FileManagerFileResponse> GetFilesResponseAsync(string folderId, FileManagerRequest request = null, CancellationToken cancellationToken = default)
+    {
+        request ??= new FileManagerRequest
+        {
+            Limit = _limit
+        };
+
+        using var client = CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync($"{folderId}/files{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<FileManagerFileResponse>().ConfigureAwait(false);
+    }
 }

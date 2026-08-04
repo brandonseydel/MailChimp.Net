@@ -38,6 +38,7 @@ public interface IMailChimpManager
     /// <summary>
     /// Gets the conversations.
     /// </summary>
+    [Obsolete("Mailchimp Conversations is deprecated in favor of Mailchimp Inbox. See https://mailchimp.com/help/about-inbox/")]
     IConversationLogic Conversations { get; }
 
     /// <summary>
@@ -96,6 +97,11 @@ public interface IMailChimpManager
     IClientLogic Clients { get; }
 
     /// <summary>
+    /// Gets the connected websites.
+    /// </summary>
+    IConnectedWebsiteLogic ConnectedWebsites { get; }
+
+    /// <summary>
     /// Gets or sets the e commerce stores.
     /// </summary>
     IECommerceLogic ECommerceStores { get; }
@@ -139,6 +145,7 @@ public interface IMailChimpManager
     /// <summary>
     /// Gets or sets the messages.
     /// </summary>
+    [Obsolete("Mailchimp Conversations Messages is deprecated in favor of Mailchimp Inbox. See https://mailchimp.com/help/about-inbox/")]
     IMessageLogic Messages { get; }
 
     /// <summary>
@@ -176,6 +183,61 @@ public interface IMailChimpManager
     /// Gets othe batch logic layer to talk to Mail Chimp
     /// </summary>
     IBatchLogic Batches { get; }
+
+    /// <summary>
+    /// Customer Journeys / Automation flow triggers.
+    /// </summary>
+    ICustomerJourneyLogic CustomerJourneys { get; }
+
+    /// <summary>
+    /// Landing pages.
+    /// </summary>
+    ILandingPageLogic LandingPages { get; }
+
+    /// <summary>
+    /// Verified sending domains.
+    /// </summary>
+    IVerifiedDomainLogic VerifiedDomains { get; }
+
+    /// <summary>
+    /// List surveys.
+    /// </summary>
+    IListSurveyLogic Surveys { get; }
+
+    /// <summary>
+    /// Non-campaign reporting (landing pages, surveys, facebook ads).
+    /// </summary>
+    IReportingLogic Reporting { get; }
+
+    /// <summary>
+    /// Facebook ads.
+    /// </summary>
+    IFacebookAdLogic FacebookAds { get; }
+
+    /// <summary>
+    /// SMS campaigns.
+    /// </summary>
+    ISmsCampaignLogic SmsCampaigns { get; }
+
+    /// <summary>
+    /// Account exports.
+    /// </summary>
+    IAccountExportLogic AccountExports { get; }
+
+    /// <summary>
+    /// List locations.
+    /// </summary>
+    IListLocationLogic ListLocations { get; }
+
+    /// <summary>
+    /// List signup forms.
+    /// </summary>
+    ISignupFormLogic SignupForms { get; }
+
+    /// <summary>
+    /// Audiences Endpoints (BETA).
+    /// </summary>
+    IAudienceLogic Audiences { get; }
 
     IMailChimpManager Configure(Action<MailChimpOptions> options);
 }

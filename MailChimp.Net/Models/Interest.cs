@@ -6,8 +6,7 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -26,42 +25,42 @@ public class Interest
     /// <summary>
     /// Gets or sets the display order.
     /// </summary>
-    [JsonProperty("display_order")]
+    [MailChimpJsonProperty("display_order")]
     public int DisplayOrder { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the interest category id.
     /// </summary>
-    [JsonProperty("category_id")]
+    [MailChimpJsonProperty("category_id")]
     public string InterestCategoryId { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
-    [JsonProperty("name")]
+    [MailChimpJsonProperty("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Gets or sets the subscriber count.
     /// </summary>
-    [JsonProperty("subscriber_count")]
+    [MailChimpJsonProperty("subscriber_count")]
     public string SubscriberCount { get; set; }
 }

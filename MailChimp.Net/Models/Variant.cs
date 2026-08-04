@@ -1,44 +1,43 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 public class Variant
 {
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
 
-    [JsonProperty("url")]
+    [MailChimpJsonProperty("url")]
     public string Url { get; set; }
 
-    [JsonProperty("sku")]
+    [MailChimpJsonProperty("sku")]
     public string Sku { get; set; }
 
-    [JsonProperty("price")]
+    [MailChimpJsonProperty("price")]
     public decimal? Price { get; set; }
 
-    [JsonProperty("inventory_quantity")]
+    [MailChimpJsonProperty("inventory_quantity")]
     public int? InventoryQuantity { get; set; }
 
-    [JsonProperty("image_url")]
+    [MailChimpJsonProperty("image_url")]
     public string ImageUrl { get; set; }
 
-    [JsonProperty("backorders")]
+    [MailChimpJsonProperty("backorders")]
     public string Backorders { get; set; }
 
-    [JsonProperty("visibility")]
+    [MailChimpJsonProperty("visibility")]
     public string Visibility { get; set; }
 
-    [JsonProperty("created_at")]
+    [MailChimpJsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
 
-    [JsonProperty("updated_at")]
+    [MailChimpJsonProperty("updated_at")]
     public DateTime? UpdatedAt { get; set; }
 
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IList<Link> Links { get; set; }
 }

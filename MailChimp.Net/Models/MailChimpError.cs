@@ -1,28 +1,28 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class MailChimpApiError
 {
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Type { get; set; }
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
-    [JsonProperty("status")]
+    [MailChimpJsonProperty("status")]
     public int Status { get; set; }
-    [JsonProperty("detail")]
+    [MailChimpJsonProperty("detail")]
     public string Detail { get; set; }
-    [JsonProperty("instance")]
+    [MailChimpJsonProperty("instance")]
     public string Instance { get; set; }
-    [JsonProperty("errors")]
+    [MailChimpJsonProperty("errors")]
     public List<MailChimpError> Errors { get; set; } = new List<MailChimpError>();
 }
 
 public class MailChimpError
 {
-    [JsonProperty("field")]
+    [MailChimpJsonProperty("field")]
     public string Field { get; set; }
-    [JsonProperty("message")]
+    [MailChimpJsonProperty("message")]
     public string Message { get; set; }
 }

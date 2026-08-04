@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TemplateResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,8 +7,6 @@
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -28,6 +26,6 @@ public class TemplateResponse : BaseResponse
     /// <summary>
     /// Gets or sets the templates.
     /// </summary>
-    [JsonProperty("templates")]
+    [MailChimpJsonProperty("templates")]
     public IEnumerable<Template> Templates { get; set; }
 }

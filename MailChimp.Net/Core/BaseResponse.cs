@@ -8,8 +8,6 @@ using System.Collections.Generic;
 
 using MailChimp.Net.Models;
 
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Core;
 
 /// <summary>
@@ -28,12 +26,12 @@ public abstract class BaseResponse
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the total items.
     /// </summary>
-    [JsonProperty("total_items")]
+    [MailChimpJsonProperty("total_items")]
     public int TotalItems { get; set; }
 }

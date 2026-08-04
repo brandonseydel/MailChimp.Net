@@ -1,15 +1,15 @@
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class Promo
 {
-    [JsonProperty("code")]
+    [MailChimpJsonProperty("code")]
     public string Code { get; set; }
 
-    [JsonProperty("amount_discounted")]
+    [MailChimpJsonProperty("amount_discounted")]
     public decimal AmountDiscounted { get; set; }
 
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Type { get; set; }
 }

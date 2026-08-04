@@ -6,8 +6,7 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -26,24 +25,24 @@ public class Folder
     /// <summary>
     /// Gets or sets the count.
     /// </summary>
-    [JsonProperty("count")]
+    [MailChimpJsonProperty("count")]
     public int Count { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
-    [JsonProperty("name")]
+    [MailChimpJsonProperty("name")]
     public string Name { get; set; }
 }

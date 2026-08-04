@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,54 +16,54 @@ public class ApiInfo
     /// <summary>
     /// Gets or sets the account id.
     /// </summary>
-    [JsonProperty("account_id")]
+    [MailChimpJsonProperty("account_id")]
     public string AccountId { get; set; }
 
-    [JsonProperty("login_id")]
+    [MailChimpJsonProperty("login_id")]
     public string LoginId { get; set; }
     /// <summary>
     /// Gets or sets the account name.
     /// </summary>
-    [JsonProperty("account_name")]
+    [MailChimpJsonProperty("account_name")]
     public string AccountName { get; set; }
-    [JsonProperty("email")]
+    [MailChimpJsonProperty("email")]
     public string Email { get; set; }
-    [JsonProperty("first_name")]
+    [MailChimpJsonProperty("first_name")]
     public string FirstName { get; set; }
-    [JsonProperty("last_name")]
+    [MailChimpJsonProperty("last_name")]
     public string LastName { get; set; }
-    [JsonProperty("username")]
+    [MailChimpJsonProperty("username")]
     public string UserName { get; set; }
-    [JsonProperty("avatar_url")]
+    [MailChimpJsonProperty("avatar_url")]
     public string AvatarUrl { get; set; }
-    [JsonProperty("role")]
+    [MailChimpJsonProperty("role")]
     public string Role { get; set; }
-    [JsonProperty("member_since")]
+    [MailChimpJsonProperty("member_since")]
     public string MemberSince { get; set; }
-    [JsonProperty("pricing_plan_type")]
+    [MailChimpJsonProperty("pricing_plan_type")]
     public string PricingPlanType { get; set; }
-    [JsonProperty("first_payment")]
+    [MailChimpJsonProperty("first_payment")]
     public string FirstPayment { get; set; }
-    [JsonProperty("account_timezone")]
+    [MailChimpJsonProperty("account_timezone")]
     public string AccountTimezone { get; set; }
-    [JsonProperty("account_industry")]
+    [MailChimpJsonProperty("account_industry")]
     public string AccountIndustry { get; set; }
-    [JsonProperty("pro_enabled")]
+    [MailChimpJsonProperty("pro_enabled")]
     public bool ProEnabled { get; set; }
 
-    [JsonProperty("industry_stats")]
+    [MailChimpJsonProperty("industry_stats")]
     public IndustryStats IndustryStats { get; set; }
 
     /// <summary>
     /// Gets or sets the contact.
     /// </summary>
-    [JsonProperty("contact")]
+    [MailChimpJsonProperty("contact")]
     public ApiContact Contact { get; set; }
 
     /// <summary>
     /// Gets or sets the last login.
     /// </summary>
-    [JsonProperty("last_login")]
+    [MailChimpJsonProperty("last_login")]
     public string LastLogin { get; set; }
 
 
@@ -71,12 +71,12 @@ public class ApiInfo
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public Link[] Links { get; set; }
 
     /// <summary>
     /// Gets or sets the total subscribers.
     /// </summary>
-    [JsonProperty("total_subscribers")]
+    [MailChimpJsonProperty("total_subscribers")]
     public int TotalSubscribers { get; set; }
 }

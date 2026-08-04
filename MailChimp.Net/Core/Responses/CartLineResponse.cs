@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using MailChimp.Net.Models;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Core;
 
 public class CartLineResponse
@@ -13,18 +11,18 @@ public class CartLineResponse
         Links = new List<Link>();
     }
 
-    [JsonProperty("store_id")]
+    [MailChimpJsonProperty("store_id")]
     public string StoreId { get; set; }
 
-    [JsonProperty("cart_id")]
+    [MailChimpJsonProperty("cart_id")]
     public string CartId { get; set; }
 
-    [JsonProperty("lines")]
+    [MailChimpJsonProperty("lines")]
     public ICollection<Line> Lines { get; set; }
 
-    [JsonProperty("total_items")]
+    [MailChimpJsonProperty("total_items")]
     public int TotalItems { get; set; }
 
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public ICollection<Link> Links { get; set; }
 }

@@ -86,4 +86,14 @@ public interface IECommerceLogic
     /// The <see cref="Task"/>.
     /// </returns>
     Task<Store> UpdateAsync(string storeId, Store store, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// List account-level ecommerce orders across stores.
+    /// </summary>
+    Task<IEnumerable<Order>> GetAccountOrdersAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// List account-level ecommerce orders across stores (full response).
+    /// </summary>
+    Task<StoreOrderResponse> GetAccountOrdersResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 }

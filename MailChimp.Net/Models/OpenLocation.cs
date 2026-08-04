@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,18 +16,18 @@ public class OpenLocation
     /// <summary>
     /// Gets or sets the country code.
     /// </summary>
-    [JsonProperty("country_code")]
+    [MailChimpJsonProperty("country_code")]
     public string CountryCode { get; set; }
 
     /// <summary>
     /// Gets or sets the opens.
     /// </summary>
-    [JsonProperty("opens")]
+    [MailChimpJsonProperty("opens")]
     public int Opens { get; set; }
 
     /// <summary>
     /// Gets or sets the region.
     /// </summary>
-    [JsonProperty("region")]
+    [MailChimpJsonProperty("region")]
     public string Region { get; set; }
 }

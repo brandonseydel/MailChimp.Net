@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 public class ListSegment
@@ -11,30 +10,30 @@ public class ListSegment
         Links = new HashSet<Link>();
     }
 
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public int Id { get; set; }
 
-    [JsonProperty("name")]
+    [MailChimpJsonProperty("name")]
     public string Name { get; set; }
 
-    [JsonProperty("member_count")]
+    [MailChimpJsonProperty("member_count")]
     public int MemberCount { get; set; }
 
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Type { get; set; }
 
-    [JsonProperty("created_at")]
+    [MailChimpJsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
 
-    [JsonProperty("updated_at")]
+    [MailChimpJsonProperty("updated_at")]
     public DateTime? UpdatedAt { get; set; }
 
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
-    [JsonProperty("options")]
+    [MailChimpJsonProperty("options")]
     public SegmentOptions Options { get; set; }
 }

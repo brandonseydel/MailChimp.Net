@@ -73,6 +73,16 @@ public interface IAutomationEmailLogic
     Task StartAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Delete a workflow email.
+    /// </summary>
+    Task DeleteAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Update a workflow email.
+    /// </summary>
+    Task<Email> UpdateAsync(string workflowId, string workflowEmailId, Email email, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// The get all async.
     /// </summary>
     /// <param name="workflowId">

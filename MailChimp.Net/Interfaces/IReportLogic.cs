@@ -43,4 +43,6 @@ public interface IReportLogic
     Task<Unsubscribe> GetUnsubscriberAsync(string campaignId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default);
     Task<IEnumerable<Unsubscribe>> GetUnsubscribesAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
     Task<int> GetUnsubscribesCountAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
+    Task<IEnumerable<EcommerceProductActivity>> GetEcommerceProductActivityAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
+    Task<EcommerceProductActivityResponse> GetEcommerceProductActivityResponseAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default);
 }

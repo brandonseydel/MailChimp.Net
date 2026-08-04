@@ -153,4 +153,19 @@ internal class AutomationEmailLogic : BaseLogic, IAutomationEmailLogic
         var response = await client.PostAsync($"{workflowId}/emails/{workflowEmailId}/actions/start", null, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
+
+    public async Task DeleteAsync(string workflowId, string workflowEmailId, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient("automations/");
+        var response = await client.DeleteAsync($"{workflowId}/emails/{workflowEmailId}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
+    public async Task<Email> UpdateAsync(string workflowId, string workflowEmailId, Email email, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient("automations/");
+        var response = await client.PatchAsJsonAsync($"{workflowId}/emails/{workflowEmailId}", email, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<Email>().ConfigureAwait(false);
+    }
 }

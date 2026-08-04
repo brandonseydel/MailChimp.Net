@@ -1,43 +1,42 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 public class Product
 {
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
 
-    [JsonProperty("handle")]
+    [MailChimpJsonProperty("handle")]
     public string Handle { get; set; }
 
-    [JsonProperty("url")]
+    [MailChimpJsonProperty("url")]
     public string Url { get; set; }
 
-    [JsonProperty("description")]
+    [MailChimpJsonProperty("description")]
     public string Description { get; set; }
 
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Type { get; set; }
 
-    [JsonProperty("vendor")]
+    [MailChimpJsonProperty("vendor")]
     public string Vendor { get; set; }
 
-    [JsonProperty("image_url")]
+    [MailChimpJsonProperty("image_url")]
     public string ImageUrl { get; set; }
 
-    [JsonProperty("variants")]
+    [MailChimpJsonProperty("variants")]
     public IList<Variant> Variants { get; set; }
 
-    [JsonProperty("published_at_foreign")]
+    [MailChimpJsonProperty("published_at_foreign")]
     public string PublishedAtForeign { get; set; }
 
-    [JsonProperty("images")]
+    [MailChimpJsonProperty("images")]
     public IList<Image> Images { get; set; }
 
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IList<Link> Links { get; set; }
 }

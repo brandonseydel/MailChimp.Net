@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,18 +16,18 @@ public class Bounces
     /// <summary>
     /// Gets or sets the hard bounces.
     /// </summary>
-    [JsonProperty("hard_bounces")]
+    [MailChimpJsonProperty("hard_bounces")]
     public int HardBounces { get; set; }
 
     /// <summary>
     /// Gets or sets the soft bounces.
     /// </summary>
-    [JsonProperty("soft_bounces")]
+    [MailChimpJsonProperty("soft_bounces")]
     public int SoftBounces { get; set; }
 
     /// <summary>
     /// Gets or sets the syntax errors.
     /// </summary>
-    [JsonProperty("syntax_errors")]
+    [MailChimpJsonProperty("syntax_errors")]
     public int SyntaxErrors { get; set; }
 }

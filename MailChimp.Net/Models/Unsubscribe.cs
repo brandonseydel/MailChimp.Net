@@ -6,8 +6,7 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -26,42 +25,42 @@ public class Unsubscribe
     /// <summary>
     /// Gets or sets the campaign id.
     /// </summary>
-    [JsonProperty("campaign_id")]
+    [MailChimpJsonProperty("campaign_id")]
     public string CampaignId { get; set; }
 
     /// <summary>
     /// Gets or sets the email address.
     /// </summary>
-    [JsonProperty("email_address")]
+    [MailChimpJsonProperty("email_address")]
     public string EmailAddress { get; set; }
 
     /// <summary>
     /// Gets or sets the email id.
     /// </summary>
-    [JsonProperty("email_id")]
+    [MailChimpJsonProperty("email_id")]
     public string EmailId { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the reason.
     /// </summary>
-    [JsonProperty("reason")]
+    [MailChimpJsonProperty("reason")]
     public string Reason { get; set; }
 
     /// <summary>
     /// Gets or sets the timestamp.
     /// </summary>
-    [JsonProperty("timestamp")]
+    [MailChimpJsonProperty("timestamp")]
     public string Timestamp { get; set; }
 }

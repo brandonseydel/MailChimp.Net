@@ -1,7 +1,5 @@
 ﻿using MailChimp.Net.Core;
 
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -13,7 +11,7 @@ public class MemberActivity
     /// One of the following actions: ‘open’, ‘click’, or ‘bounce’
     /// </summary>
     
-    [JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public EmailAction? Action { get; set; }
     public string Type { get; set; }
     public string Timestamp { get; set; }

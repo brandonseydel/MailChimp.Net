@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class Source
 {
-    [JsonProperty("user")]
+    [MailChimpJsonProperty("user")]
     public bool User { get; set; }
 
-    [JsonProperty("admin")]
+    [MailChimpJsonProperty("admin")]
     public bool Admin { get; set; }
 
-    [JsonProperty("api")]
+    [MailChimpJsonProperty("api")]
     public bool Api { get; set; }
 }

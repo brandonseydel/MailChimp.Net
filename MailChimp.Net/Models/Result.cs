@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class Result
 {
-    [JsonProperty("campaign")]
+    [MailChimpJsonProperty("campaign")]
     public Campaign Campaign { get; set; }
 
-    [JsonProperty("snippet")]
+    [MailChimpJsonProperty("snippet")]
     public string Snippet { get; set; }
 }

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,18 +16,18 @@ public class CheckList
     /// <summary>
     /// Gets or sets the details.
     /// </summary>
-    [JsonProperty("details")]
+    [MailChimpJsonProperty("details")]
     public string Details { get; set; }
 
     /// <summary>
     /// Gets or sets the heading.
     /// </summary>
-    [JsonProperty("heading")]
+    [MailChimpJsonProperty("heading")]
     public string Heading { get; set; }
 
     /// <summary>
     /// Gets or sets the type.
     /// </summary>
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public Core.Result Type { get; set; }
 }

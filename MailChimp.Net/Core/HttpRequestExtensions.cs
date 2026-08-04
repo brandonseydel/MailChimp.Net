@@ -8,8 +8,9 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+#if !NET10_0_OR_GREATER
 using Newtonsoft.Json;
+#endif
 
 namespace MailChimp.Net.Core;
 
@@ -18,11 +19,6 @@ namespace MailChimp.Net.Core;
 /// </summary>
 public static class HttpRequestExtensions
 {
-    private static readonly JsonSerializerSettings JsonSettings = new()
-    {
-        NullValueHandling = NullValueHandling.Ignore
-    };
-
     /// <summary>
     /// The patch as json async.
     /// </summary>
@@ -35,12 +31,25 @@ public static class HttpRequestExtensions
     /// <param name="value">
     /// The value.
     /// </param>
-    /// <param name="settings"></param>
     /// <typeparam name="T">
     /// </typeparam>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
+#if NET10_0_OR_GREATER
+    public static async Task<HttpResponseMessage> PatchAsJsonAsync<T>(
+        this HttpClient client,
+        string requestUri,
+        T value)
+    {
+        var content = new StringContent(
+            MailChimpSerializer.Serialize(value),
+            Encoding.UTF8,
+            "application/json");
+
+        return await client.PatchAsync(requestUri, content).ConfigureAwait(false);
+    }
+#else
     public static async Task<HttpResponseMessage> PatchAsJsonAsync<T>(
         this HttpClient client, 
         string requestUri, 
@@ -48,12 +57,13 @@ public static class HttpRequestExtensions
         JsonSerializerSettings settings = null)
     {
         var content = new StringContent(
-            JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+            MailChimpSerializer.Serialize(value, settings),
             Encoding.UTF8,
             "application/json");
 
         return await client.PatchAsync(requestUri, content).ConfigureAwait(false);
     }
+#endif
 
     /// <summary>
     /// The patch async.
@@ -97,12 +107,25 @@ public static class HttpRequestExtensions
     /// <param name="value">
     /// The value.
     /// </param>
-    /// <param name="settings"></param>
     /// <typeparam name="T">
     /// </typeparam>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
+#if NET10_0_OR_GREATER
+    public static async Task<HttpResponseMessage> PutAsJsonAsync<T>(
+        this HttpClient client,
+        string requestUri,
+        T value)
+    {
+        var content = new StringContent(
+            MailChimpSerializer.Serialize(value),
+            Encoding.UTF8,
+            "application/json");
+
+        return await client.PutAsync(requestUri, content).ConfigureAwait(false);
+    }
+#else
     public static async Task<HttpResponseMessage> PutAsJsonAsync<T>(
         this HttpClient client,
         string requestUri,
@@ -110,12 +133,13 @@ public static class HttpRequestExtensions
         JsonSerializerSettings settings = null)
     {
         var content = new StringContent(
-            JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+            MailChimpSerializer.Serialize(value, settings),
             Encoding.UTF8,
             "application/json");
 
         return await client.PutAsync(requestUri, content).ConfigureAwait(false);
     }
+#endif
 
     /// <summary>
     /// PostAsJsonAsync
@@ -134,6 +158,20 @@ public static class HttpRequestExtensions
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
+#if NET10_0_OR_GREATER
+    public static async Task<HttpResponseMessage> PostAsJsonAsync<T>(
+        this HttpClient client,
+        string requestUri,
+        T value)
+    {
+        var content = new StringContent(
+            MailChimpSerializer.Serialize(value),
+            Encoding.UTF8,
+            "application/json");
+
+        return await client.PostAsync(requestUri, content).ConfigureAwait(false);
+    }
+#else
     public static async Task<HttpResponseMessage> PostAsJsonAsync<T>(
         this HttpClient client,
         string requestUri,
@@ -141,11 +179,12 @@ public static class HttpRequestExtensions
         JsonSerializerSettings settings = null)
     {
         var content = new StringContent(
-            JsonConvert.SerializeObject(value, settings ?? JsonSettings),
+            MailChimpSerializer.Serialize(value, settings),
             Encoding.UTF8,
             "application/json");
 
         return await client.PostAsync(requestUri, content).ConfigureAwait(false);
     }
+#endif
 
 }

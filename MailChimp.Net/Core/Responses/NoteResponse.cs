@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="NoteResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,8 +7,6 @@
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -28,18 +26,18 @@ public class NoteResponse : BaseResponse
     /// <summary>
     /// Gets or sets the email id.
     /// </summary>
-    [JsonProperty("email_id")]
+    [MailChimpJsonProperty("email_id")]
     public string EmailId { get; set; }
 
     /// <summary>
     /// Gets or sets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the notes.
     /// </summary>
-    [JsonProperty("notes")]
+    [MailChimpJsonProperty("notes")]
     public IEnumerable<Note> Notes { get; set; }
 }

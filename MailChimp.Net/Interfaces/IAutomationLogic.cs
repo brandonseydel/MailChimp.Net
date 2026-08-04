@@ -19,6 +19,16 @@ namespace MailChimp.Net.Interfaces;
 public interface IAutomationLogic
 {
     /// <summary>
+    /// Create a new automation workflow.
+    /// </summary>
+    Task<Automation> AddAsync(Automation automation, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Archive an automation workflow.
+    /// </summary>
+    Task ArchiveAsync(string workflowId, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// The get all async.
     /// </summary>
     /// <param name="request">

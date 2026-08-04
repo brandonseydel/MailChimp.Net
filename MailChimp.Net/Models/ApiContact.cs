@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,42 +16,42 @@ public class ApiContact
     /// <summary>
     /// Gets or sets the company.
     /// </summary>
-    [JsonProperty("company")]
+    [MailChimpJsonProperty("company")]
     public string Company { get; set; }
 
     /// <summary>
     /// Gets or sets the address 1.
     /// </summary>
-    [JsonProperty("addr1")]
+    [MailChimpJsonProperty("addr1")]
     public string Address1 { get; set; }
 
     /// <summary>
     /// Gets or sets the address 2.
     /// </summary>
-    [JsonProperty("addr2")]
+    [MailChimpJsonProperty("addr2")]
     public string Address2 { get; set; }
 
     /// <summary>
     /// Gets or sets the city.
     /// </summary>
-    [JsonProperty("city")]
+    [MailChimpJsonProperty("city")]
     public string City { get; set; }
 
     /// <summary>
     /// Gets or sets the state.
     /// </summary>
-    [JsonProperty("state")]
+    [MailChimpJsonProperty("state")]
     public string State { get; set; }
 
     /// <summary>
     /// Gets or sets the zip.
     /// </summary>
-    [JsonProperty("zip")]
+    [MailChimpJsonProperty("zip")]
     public string Zip { get; set; }
 
     /// <summary>
     /// Gets or sets the country.
     /// </summary>
-    [JsonProperty("country")]
+    [MailChimpJsonProperty("country")]
     public string Country { get; set; }
 }

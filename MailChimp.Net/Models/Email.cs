@@ -6,8 +6,7 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -26,102 +25,102 @@ public class Email
     /// <summary>
     /// Gets or sets the archive url.
     /// </summary>
-    [JsonProperty("archive_url")]
+    [MailChimpJsonProperty("archive_url")]
     public string ArchiveUrl { get; set; }
 
     /// <summary>
     /// Gets or sets the content type.
     /// </summary>
-    [JsonProperty("content_type")]
+    [MailChimpJsonProperty("content_type")]
     public string ContentType { get; set; }
 
     /// <summary>
     /// Gets or sets the create time.
     /// </summary>
-    [JsonProperty("create_time")]
+    [MailChimpJsonProperty("create_time")]
     public string CreateTime { get; set; }
 
     /// <summary>
     /// Gets or sets the delay.
     /// </summary>
-    [JsonProperty("delay")]
+    [MailChimpJsonProperty("delay")]
     public Delay Delay { get; set; }
 
     /// <summary>
     /// Gets or sets the emails sent.
     /// </summary>
-    [JsonProperty("emails_sent")]
+    [MailChimpJsonProperty("emails_sent")]
     public int EmailsSent { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the position.
     /// </summary>
-    [JsonProperty("position")]
+    [MailChimpJsonProperty("position")]
     public int Position { get; set; }
 
     /// <summary>
     /// Gets or sets the recipients.
     /// </summary>
-    [JsonProperty("recipients")]
+    [MailChimpJsonProperty("recipients")]
     public Recipient Recipients { get; set; }
 
     /// <summary>
     /// Gets or sets the report summary.
     /// </summary>
-    [JsonProperty("report_summary")]
+    [MailChimpJsonProperty("report_summary")]
     public ReportSummary ReportSummary { get; set; }
 
     /// <summary>
     /// Gets or sets the send time.
     /// </summary>
-    [JsonProperty("send_time")]
+    [MailChimpJsonProperty("send_time")]
     public string SendTime { get; set; }
 
     /// <summary>
     /// Gets or sets the settings.
     /// </summary>
-    [JsonProperty("settings")]
+    [MailChimpJsonProperty("settings")]
     public Setting Settings { get; set; }
 
     /// <summary>
     /// Gets or sets the start time.
     /// </summary>
-    [JsonProperty("start_time")]
+    [MailChimpJsonProperty("start_time")]
     public string StartTime { get; set; }
 
     /// <summary>
     /// Gets or sets the status.
     /// </summary>
-    [JsonProperty("status")]
+    [MailChimpJsonProperty("status")]
     public string Status { get; set; }
 
     /// <summary>
     /// Gets or sets the tracking.
     /// </summary>
-    [JsonProperty("tracking")]
+    [MailChimpJsonProperty("tracking")]
     public Tracking Tracking { get; set; }
 
     /// <summary>
     /// Gets or sets the workflow id.
     /// </summary>
-    [JsonProperty("workflow_id")]
+    [MailChimpJsonProperty("workflow_id")]
     public string WorkflowId { get; set; }
     
     /// <summary>
     /// Gets or sets the web id.
     /// </summary>
-    [JsonProperty("web_id")]
+    [MailChimpJsonProperty("web_id")]
     public int WebId { get; set; }
 }

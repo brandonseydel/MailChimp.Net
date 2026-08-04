@@ -6,8 +6,7 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -26,12 +25,12 @@ public class Runtime
     /// <summary>
     /// Gets or sets the days.
     /// </summary>
-    [JsonProperty("days")]
+    [MailChimpJsonProperty("days")]
     public IEnumerable<string> Days { get; set; }
 
     /// <summary>
     /// Gets or sets the hours.
     /// </summary>
-    [JsonProperty("hours")]
+    [MailChimpJsonProperty("hours")]
     public Hours Hours { get; set; }
 }

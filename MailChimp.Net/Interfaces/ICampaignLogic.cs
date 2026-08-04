@@ -111,6 +111,26 @@ public interface ICampaignLogic
     /// <returns></returns>
     Task ExecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Pause an RSS campaign.
+    /// </summary>
+    Task PauseAsync(string campaignId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Resume an RSS campaign.
+    /// </summary>
+    Task ResumeAsync(string campaignId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Create a resend campaign.
+    /// </summary>
+    Task CreateResendAsync(string campaignId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Search campaigns for the specified query terms.
+    /// </summary>
+    Task<CampaignSearchResult> SearchAsync(CampaignSearchRequest request = null, CancellationToken cancellationToken = default);
+
     ///<summary>
     /// The test async.
     /// </summary>

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,30 +16,30 @@ public class InterestCategory
     /// <summary>
     /// Gets or sets the display order.
     /// </summary>
-    [JsonProperty("display_order")]
+    [MailChimpJsonProperty("display_order")]
     public int DisplayOrder { get; set; }
 
     /// <summary>
     /// Gets or sets the display type.
     /// </summary>
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string DisplayType { get; set; }
 
     /// <summary>
     /// Gets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the title.
     /// </summary>
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
 }

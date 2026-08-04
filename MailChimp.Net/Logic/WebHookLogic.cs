@@ -128,22 +128,21 @@ public class WebHookLogic : BaseLogic, IWebHookLogic
     /// <param name="listId">
     /// The list id.
     /// </param>
-    /// <param name="mergeField">
-    /// The merge field.
+    /// <param name="webhook">
+    /// The webhook.
     /// </param>
-    /// <param name="mergeId">
-    /// The merge id.
+    /// <param name="webhookId">
+    /// The webhook id.
     /// </param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null, CancellationToken cancellationToken = default)
+    public async Task<WebHook> UpdateAsync(string listId, WebHook webhook, string webhookId = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient(string.Format(BaseUrl + "/", listId));
-        var response = await client.PatchAsJsonAsync((mergeId ?? mergeField.MergeId).ToString(), mergeField, cancellationToken).ConfigureAwait(false);
+        var response = await client.PatchAsJsonAsync(webhookId ?? webhook.Id, webhook, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
 
-        var mergeResponse = await response.Content.ReadAsAsync<MergeField>().ConfigureAwait(false);
-        return mergeResponse;
+        return await response.Content.ReadAsAsync<WebHook>().ConfigureAwait(false);
     }
 }

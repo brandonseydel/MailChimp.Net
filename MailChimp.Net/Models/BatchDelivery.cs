@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -10,12 +10,12 @@ public class BatchDelivery
     /// <summary>
     /// The delay, in minutes, between batches.
     /// </summary>
-    [JsonProperty("batch_delay")]
+    [MailChimpJsonProperty("batch_delay")]
     public int Delay { get; set; }
 
     /// <summary>
     /// The number of batches for the campaign send.
     /// </summary>
-    [JsonProperty("batch_count")]
+    [MailChimpJsonProperty("batch_count")]
     public int Count { get; set; }
 }

@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -10,31 +10,31 @@ public class OrderAddress : Address
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
-    [JsonProperty("name")]
+    [MailChimpJsonProperty("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Gets or sets the latitude.
     /// </summary>
-    [JsonProperty("latitude")]
+    [MailChimpJsonProperty("latitude")]
     public decimal? Latitude { get; set; }
 
     /// <summary>
     /// Gets or sets the longitude.
     /// </summary>
-    [JsonProperty("longitude")]
+    [MailChimpJsonProperty("longitude")]
     public decimal? Longitude { get; set; }
 
     /// <summary>
     /// Gets or sets the phone number.
     /// </summary>
-    [JsonProperty("phone")]
+    [MailChimpJsonProperty("phone")]
     public string Phone { get; set; }
 
     /// <summary>
     /// Gets or sets the company name.
     /// </summary>
-    [JsonProperty("company")]
+    [MailChimpJsonProperty("company")]
     public string Company { get; set; }
 
 }

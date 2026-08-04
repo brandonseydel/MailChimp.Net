@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ConversationResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,8 +7,6 @@
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -28,6 +26,6 @@ public class ConversationResponse : BaseResponse
     /// <summary>
     /// Gets or sets the conversations.
     /// </summary>
-    [JsonProperty("conversations")]
+    [MailChimpJsonProperty("conversations")]
     public IEnumerable<Conversation> Conversations { get; set; }
 }

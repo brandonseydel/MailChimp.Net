@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using MailChimp.Net.Models;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Core;
 
 public class BatchWebHookResponse
 {
-    [JsonProperty("webhooks")]
+    [MailChimpJsonProperty("webhooks")]
     public IEnumerable<BatchWebHook> WebHooks { get; set; }
-    [JsonProperty("url")]
+    [MailChimpJsonProperty("url")]
     public string Url { get; set; }
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 }

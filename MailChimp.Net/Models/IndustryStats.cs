@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,42 +16,42 @@ public class IndustryStats
     /// <summary>
     /// Gets or sets the abuse rate.
     /// </summary>
-    [JsonProperty("abuse_rate")]
+    [MailChimpJsonProperty("abuse_rate")]
     public double AbuseRate { get; set; }
 
     /// <summary>
     /// Gets or sets the bounce rate.
     /// </summary>
-    [JsonProperty("bounce_rate")]
+    [MailChimpJsonProperty("bounce_rate")]
     public double BounceRate { get; set; }
 
     /// <summary>
     /// Gets or sets the click rate.
     /// </summary>
-    [JsonProperty("click_rate")]
+    [MailChimpJsonProperty("click_rate")]
     public double ClickRate { get; set; }
 
     /// <summary>
     /// Gets or sets the open rate.
     /// </summary>
-    [JsonProperty("open_rate")]
+    [MailChimpJsonProperty("open_rate")]
     public double OpenRate { get; set; }
 
     /// <summary>
     /// Gets or sets the result.
     /// </summary>
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Result { get; set; }
 
     /// <summary>
     /// Gets or sets the unopen rate.
     /// </summary>
-    [JsonProperty("unopen_rate")]
+    [MailChimpJsonProperty("unopen_rate")]
     public double UnopenRate { get; set; }
 
     /// <summary>
     /// Gets or sets the unsub rate.
     /// </summary>
-    [JsonProperty("unsub_rate")]
+    [MailChimpJsonProperty("unsub_rate")]
     public double UnsubRate { get; set; }
 }

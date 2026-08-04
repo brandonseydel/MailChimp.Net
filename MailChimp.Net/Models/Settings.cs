@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,96 +16,96 @@ public class Setting
     /// <summary>
     /// Gets or sets a value indicating whether authenticate.
     /// </summary>
-    [JsonProperty("authenticate")]
+    [MailChimpJsonProperty("authenticate")]
     public bool Authenticate { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether auto footer.
     /// </summary>
-    [JsonProperty("auto_footer")]
+    [MailChimpJsonProperty("auto_footer")]
     public bool AutoFooter { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether auto tweet.
     /// </summary>
-    [JsonProperty("auto_tweet")]
+    [MailChimpJsonProperty("auto_tweet")]
     public bool AutoTweet { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether drag and drop.
     /// </summary>
-    [JsonProperty("drag_and_drop")]
+    [MailChimpJsonProperty("drag_and_drop")]
     public bool DragAndDrop { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether fb comments.
     /// </summary>
-    [JsonProperty("fb_comments")]
+    [MailChimpJsonProperty("fb_comments")]
     public bool FbComments { get; set; }
 
     /// <summary>
     /// Gets or sets the folder id.
     /// </summary>
-    [JsonProperty("folder_id")]
+    [MailChimpJsonProperty("folder_id")]
     public string FolderId { get; set; }
 
     /// <summary>
     /// Gets or sets the from name.
     /// </summary>
-    [JsonProperty("from_name")]
+    [MailChimpJsonProperty("from_name")]
     public string FromName { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether inline css.
     /// </summary>
-    [JsonProperty("inline_css")]
+    [MailChimpJsonProperty("inline_css")]
     public bool InlineCss { get; set; }
 
     /// <summary>
     /// Gets or sets the reply to.
     /// </summary>
-    [JsonProperty("reply_to")]
+    [MailChimpJsonProperty("reply_to")]
     public string ReplyTo { get; set; }
 
     /// <summary>
     /// Gets or sets the preview text.
     /// </summary>
-    [JsonProperty("preview_text")]
+    [MailChimpJsonProperty("preview_text")]
     public string PreviewText { get; set; }
 
     /// <summary>
     /// Gets or sets the subject line.
     /// </summary>
-    [JsonProperty("subject_line")]
+    [MailChimpJsonProperty("subject_line")]
     public string SubjectLine { get; set; }
 
     /// <summary>
     /// Gets or sets the template id.
     /// </summary>
-    [JsonProperty("template_id")]
+    [MailChimpJsonProperty("template_id")]
     public int TemplateId { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether timewarp.
     /// </summary>
-    [JsonProperty("timewarp")]
+    [MailChimpJsonProperty("timewarp")]
     public bool Timewarp { get; set; }
 
     /// <summary>
     /// Gets or sets the title.
     /// </summary>
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
 
     /// <summary>
     /// Gets or sets the to name.
     /// </summary>
-    [JsonProperty("to_name")]
+    [MailChimpJsonProperty("to_name")]
     public string ToName { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether use conversation.
     /// </summary>
-    [JsonProperty("use_conversation")]
+    [MailChimpJsonProperty("use_conversation")]
     public bool UseConversation { get; set; }
 }

@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace MailChimp.Net.Interfaces;
 /// <summary>
 /// The MessageLogic interface.
 /// </summary>
+[Obsolete("Mailchimp Conversations Messages is deprecated in favor of Mailchimp Inbox. See https://mailchimp.com/help/about-inbox/")]
 public interface IMessageLogic
 {
     /// <summary>

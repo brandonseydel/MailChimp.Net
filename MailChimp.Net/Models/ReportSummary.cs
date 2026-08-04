@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,40 +16,40 @@ public class ReportSummary
     /// <summary>
     /// Gets or sets the click rate.
     /// </summary>
-    [JsonProperty("click_rate")]
+    [MailChimpJsonProperty("click_rate")]
     public double ClickRate { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks.
     /// </summary>
-    [JsonProperty("clicks")]
+    [MailChimpJsonProperty("clicks")]
     public int Clicks { get; set; }
 
     /// <summary>
     /// Gets or sets the open rate.
     /// </summary>
-    [JsonProperty("open_rate")]
+    [MailChimpJsonProperty("open_rate")]
     public double OpenRate { get; set; }
 
     /// <summary>
     /// Gets or sets the opens.
     /// </summary>
-    [JsonProperty("opens")]
+    [MailChimpJsonProperty("opens")]
     public int Opens { get; set; }
 
     /// <summary>
     /// Gets or sets the subscriber clicks.
     /// </summary>
-    [JsonProperty("subscriber_clicks")]
+    [MailChimpJsonProperty("subscriber_clicks")]
     public int SubscriberClicks { get; set; }
 
     /// <summary>
     /// Gets or sets the unique opens.
     /// </summary>
-    [JsonProperty("unique_opens")]
+    [MailChimpJsonProperty("unique_opens")]
     public int UniqueOpens { get; set; }       
 
-    [JsonProperty("ecommerce")]
+    [MailChimpJsonProperty("ecommerce")]
     public Ecommerce Ecommerce { get; set; }
 
 }

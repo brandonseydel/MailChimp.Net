@@ -5,8 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using MailChimp.Net.Core;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -17,31 +15,31 @@ public class Link
     /// <summary>
     /// Gets or sets the href.
     /// </summary>
-    [JsonProperty("href")]
+    [MailChimpJsonProperty("href")]
     public string Href { get; set; }
 
     /// <summary>
     /// Gets or sets the method.
     /// </summary>
-    [JsonProperty("method")]
-    [JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("method")]
+    [MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public Method Method { get; set; }
 
     /// <summary>
     /// Gets or sets the rel.
     /// </summary>
-    [JsonProperty("rel")]
+    [MailChimpJsonProperty("rel")]
     public string Rel { get; set; }
 
     /// <summary>
     /// Gets or sets the schema.
     /// </summary>
-    [JsonProperty("schema")]
+    [MailChimpJsonProperty("schema")]
     public string Schema { get; set; }
 
     /// <summary>
     /// Gets or sets the target schema.
     /// </summary>
-    [JsonProperty("targetSchema")]
+    [MailChimpJsonProperty("targetSchema")]
     public string TargetSchema { get; set; }
 }

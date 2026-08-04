@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -13,12 +13,12 @@ public class BatchSegmentMembers
     /// <summary>
     /// Members to add
     /// </summary>
-    [JsonProperty("members_to_add")]
+    [MailChimpJsonProperty("members_to_add")]
     public string[] MembersToAdd { get; set; }
 
     /// <summary>
     /// Members to remove
     /// </summary>
-    [JsonProperty("members_to_remove")]
+    [MailChimpJsonProperty("members_to_remove")]
     public string[] MembersToRemove { get; set; }
 }

@@ -1,37 +1,37 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class ListActivity
 {
 
-    [JsonProperty("day")]
+    [MailChimpJsonProperty("day")]
     public string Day { get; set; }
 
-    [JsonProperty("emails_sent")]
+    [MailChimpJsonProperty("emails_sent")]
     public int EmailsSent { get; set; }
 
-    [JsonProperty("unique_opens")]
+    [MailChimpJsonProperty("unique_opens")]
     public int UniqueOpens { get; set; }
 
-    [JsonProperty("recipient_clicks")]
+    [MailChimpJsonProperty("recipient_clicks")]
     public int RecipientClicks { get; set; }
 
-    [JsonProperty("hard_bounce")]
+    [MailChimpJsonProperty("hard_bounce")]
     public int HardBounce { get; set; }
 
-    [JsonProperty("soft_bounce")]
+    [MailChimpJsonProperty("soft_bounce")]
     public int SoftBounce { get; set; }
 
-    [JsonProperty("subs")]
+    [MailChimpJsonProperty("subs")]
     public int Subs { get; set; }
 
-    [JsonProperty("unsubs")]
+    [MailChimpJsonProperty("unsubs")]
     public int Unsubs { get; set; }
 
-    [JsonProperty("other_adds")]
+    [MailChimpJsonProperty("other_adds")]
     public int OtherAdds { get; set; }
 
-    [JsonProperty("other_removes")]
+    [MailChimpJsonProperty("other_removes")]
     public int OtherRemoves { get; set; }
 }

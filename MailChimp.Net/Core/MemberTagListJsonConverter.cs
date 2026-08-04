@@ -1,8 +1,6 @@
+#if !NET10_0_OR_GREATER
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MailChimp.Net.Models;
 using Newtonsoft.Json;
 
@@ -32,3 +30,4 @@ public class MemberTagListJsonConverter : JsonConverter
 
     public override bool CanRead => false;
 }
+#endif

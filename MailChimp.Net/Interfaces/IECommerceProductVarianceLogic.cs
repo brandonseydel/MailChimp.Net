@@ -60,4 +60,9 @@ public interface IECommerceProductVarianceLogic
     /// The <see cref="Task"/>.
     /// </returns>
     Task<Variant> UpdateAsync(string variantId, Variant variant, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Add or update a product variant via PUT.
+    /// </summary>
+    Task<Variant> AddOrUpdateAsync(string variantId, Variant variant, CancellationToken cancellationToken = default);
 }

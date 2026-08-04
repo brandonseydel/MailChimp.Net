@@ -3,33 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 public class Site
 {
-    [JsonProperty("foreign_id")]
+    [MailChimpJsonProperty("foreign_id")]
     public string ForeignId { get; set; }
 
-    [JsonProperty("store_id")]
+    [MailChimpJsonProperty("store_id")]
     public string StoreId { get; set; }
 
-    [JsonProperty("platform")]
+    [MailChimpJsonProperty("platform")]
     public string Platform { get; set; }
 
-    [JsonProperty("domain")]
+    [MailChimpJsonProperty("domain")]
     public string Domain { get; set; }
 
-    [JsonProperty("site_script")]
+    [MailChimpJsonProperty("site_script")]
     public SiteScript SiteScript { get; set; }
 
-    [JsonProperty("created_at")]
+    [MailChimpJsonProperty("created_at")]
     public DateTime CreatedAt { get; set; }
 
-    [JsonProperty("updated_at")]
+    [MailChimpJsonProperty("updated_at")]
     public DateTime UpdatedAt { get; set; }
 
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public List<Link> Links { get; set; }
 }

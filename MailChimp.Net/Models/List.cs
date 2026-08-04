@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
 using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
@@ -29,134 +28,134 @@ public class List
     /// <summary>
     /// Gets or sets the beamer address.
     /// </summary>
-    [JsonProperty("beamer_address")]
+    [MailChimpJsonProperty("beamer_address")]
     public string BeamerAddress { get; set; }
 
     /// <summary>
     /// Gets or sets the campaign defaults.
     /// </summary>
-    [JsonProperty("campaign_defaults")]
+    [MailChimpJsonProperty("campaign_defaults")]
     public CampaignDefaults CampaignDefaults { get; set; }
 
     /// <summary>
     /// Gets or sets the contact.
     /// </summary>
-    [JsonProperty("contact")]
+    [MailChimpJsonProperty("contact")]
     public Contact Contact { get; set; }
 
     /// <summary>
     /// Gets or sets the date created.
     /// </summary>
-    [JsonProperty("date_created")]
+    [MailChimpJsonProperty("date_created")]
     public DateTime DateCreated { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether email type option.
     /// </summary>
-    [JsonProperty("email_type_option")]
+    [MailChimpJsonProperty("email_type_option")]
     public bool EmailTypeOption { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; } 
 
     /// <summary>
     /// Gets or sets the web id.
     /// </summary>
-    [JsonProperty("web_id")]
+    [MailChimpJsonProperty("web_id")]
     public int WebId { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the list rating.
     /// </summary>
-    [JsonProperty("list_rating")]
+    [MailChimpJsonProperty("list_rating")]
     public int ListRating { get; set; }
 
     /// <summary>
     /// Gets or sets the modules.
     /// </summary>
-    [JsonProperty("modules")]
+    [MailChimpJsonProperty("modules")]
     public object[] Modules { get; set; }
 
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
-    [JsonProperty("name")]
+    [MailChimpJsonProperty("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Gets or sets the notify on subscribe.
     /// </summary>
-    [JsonProperty("notify_on_subscribe")]
+    [MailChimpJsonProperty("notify_on_subscribe")]
     public string NotifyOnSubscribe { get; set; }
 
     /// <summary>
     /// Gets or sets the notify on unsubscribe.
     /// </summary>
-    [JsonProperty("notify_on_unsubscribe")]
+    [MailChimpJsonProperty("notify_on_unsubscribe")]
     public string NotifyOnUnsubscribe { get; set; }
 
     /// <summary>
     /// Gets or sets the permission reminder.
     /// </summary>
-    [JsonProperty("permission_reminder")]
+    [MailChimpJsonProperty("permission_reminder")]
     public string PermissionReminder { get; set; }
 
     /// <summary>
     /// Gets or sets the stats.
     /// </summary>
-    [JsonProperty("stats")]
+    [MailChimpJsonProperty("stats")]
     public Stats Stats { get; set; }
 
     /// <summary>
     /// Gets or sets the subscribe url long.
     /// </summary>
-    [JsonProperty("subscribe_url_long")]
+    [MailChimpJsonProperty("subscribe_url_long")]
     public string SubscribeUrlLong { get; set; }
 
     /// <summary>
     /// Gets or sets the subscribe url short.
     /// </summary>
-    [JsonProperty("subscribe_url_short")]
+    [MailChimpJsonProperty("subscribe_url_short")]
     public string SubscribeUrlShort { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether use archive bar.
     /// </summary>
-    [JsonProperty("use_archive_bar")]
+    [MailChimpJsonProperty("use_archive_bar")]
     public bool UseArchiveBar { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether or not the list 
     /// has marketing permissions (eg. GDPR) enabled.
     /// </summary>
-    [JsonProperty("marketing_permissions")]
+    [MailChimpJsonProperty("marketing_permissions")]
     public bool MarketingPermissions { get; set; }
 
     /// <summary>
     /// Whether or not to require the subscriber to confirm subscription via email.
     /// </summary>
-    [JsonProperty("double_optin")]
+    [MailChimpJsonProperty("double_optin")]
     public bool DoubleOptin { get; set; }
 
     /// <summary>
     /// Whether or not this list has a welcome automation connected. Welcome Automations: welcomeSeries, singleWelcome, emailFollowup.
     /// </summary>
-    [JsonProperty("has_welcome")]
+    [MailChimpJsonProperty("has_welcome")]
     public bool HasWelcome { get; set; }
 
     /// <summary>
     /// Gets or sets the visibility.
     /// </summary>
-    [JsonProperty("visibility")]
-    [JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("visibility")]
+    [MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public Visibility Visibility { get; set; }
 }

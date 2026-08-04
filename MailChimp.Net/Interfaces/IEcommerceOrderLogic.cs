@@ -76,5 +76,10 @@ public interface IECommerceOrderLogic
     /// </returns>
     Task<Order> UpdateAsync(string orderId, Order order, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Add or update an order via PUT.
+    /// </summary>
+    Task<Order> AddOrUpdateAsync(string orderId, Order order, CancellationToken cancellationToken = default);
+
     string StoreId { get; set; }
 }

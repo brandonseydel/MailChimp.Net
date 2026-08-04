@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,24 +16,24 @@ public class CampaignDefaults
     /// <summary>
     /// Gets or sets the from email.
     /// </summary>
-    [JsonProperty("from_email")]
+    [MailChimpJsonProperty("from_email")]
     public string FromEmail { get; set; }
 
     /// <summary>
     /// Gets or sets the from name.
     /// </summary>
-    [JsonProperty("from_name")]
+    [MailChimpJsonProperty("from_name")]
     public string FromName { get; set; }
 
     /// <summary>
     /// Gets or sets the language.
     /// </summary>
-    [JsonProperty("language")]
+    [MailChimpJsonProperty("language")]
     public string Language { get; set; }
 
     /// <summary>
     /// Gets or sets the subject.
     /// </summary>
-    [JsonProperty("subject")]
+    [MailChimpJsonProperty("subject")]
     public string Subject { get; set; }
 }

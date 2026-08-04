@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CampaignFolder.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -10,8 +10,6 @@
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -32,7 +30,7 @@ public class CampaignFolderResponse : BaseResponse
     /// <summary>
     /// Gets or Sets an array of objects representing campaign folders.
     /// </summary>
-    [JsonProperty("folders")]
+    [MailChimpJsonProperty("folders")]
     public IEnumerable<Folder> Folders { get; set; }
 
 }

@@ -89,14 +89,14 @@ public interface IWebHookLogic
     /// <param name="listId">
     /// The list id.
     /// </param>
-    /// <param name="mergeField">
-    /// The merge field.
+    /// <param name="webhook">
+    /// The webhook.
     /// </param>
-    /// <param name="mergeId">
-    /// The merge id.
+    /// <param name="webhookId">
+    /// The webhook id.
     /// </param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task<MergeField> UpdateAsync(string listId, MergeField mergeField, int? mergeId = null, CancellationToken cancellationToken = default);
+    Task<WebHook> UpdateAsync(string listId, WebHook webhook, string webhookId = null, CancellationToken cancellationToken = default);
 }

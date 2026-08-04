@@ -104,5 +104,14 @@ internal class ECommerceProductVarianceLogic : BaseLogic, IECommerceProductVaria
         var variantResponse = await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
         return variantResponse;
     }
+
+    public async Task<Variant> AddOrUpdateAsync(string variantId, Variant variant, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient(BaseUrl + "/");
+        var response = await client.PutAsJsonAsync(variantId, variant, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<Variant>().ConfigureAwait(false);
+    }
+
     public string StoreId { get; set; }
 }

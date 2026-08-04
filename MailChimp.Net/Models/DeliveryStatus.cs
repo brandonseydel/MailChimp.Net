@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,18 +16,18 @@ public class DeliveryStatus
     /// <summary>
     /// Gets or sets a value indicating whether enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [MailChimpJsonProperty("enabled")]
     public bool Enabled { get; set; }
 
-    [JsonProperty("can_cancel")]
+    [MailChimpJsonProperty("can_cancel")]
     public bool CanCancel { get; set; }
 
-    [JsonProperty("status")]
+    [MailChimpJsonProperty("status")]
     public string Status { get; set; }
 
-    [JsonProperty("emails_sent")]
+    [MailChimpJsonProperty("emails_sent")]
     public int EmailsSent { get; set; }
 
-    [JsonProperty("emails_canceled")]
+    [MailChimpJsonProperty("emails_canceled")]
     public int EmailsCanceled { get; set; }
 }

@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class SocialCard
 {
-    [JsonProperty("image_url")]
+    [MailChimpJsonProperty("image_url")]
     public string ImageUrl { get; set; }
 
-    [JsonProperty("description")]
+    [MailChimpJsonProperty("description")]
     public string Description { get; set; }
 
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
 }

@@ -1,21 +1,21 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class EmailMemberActivity
 {
-    [JsonProperty("action")]
+    [MailChimpJsonProperty("action")]
     public string Action { get; set; }
 
-    [JsonProperty("timestamp")]
+    [MailChimpJsonProperty("timestamp")]
     public string Timestamp { get; set; }
 
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Type { get; set; }
 
-    [JsonProperty("url")]
+    [MailChimpJsonProperty("url")]
     public string Url { get; set; }
 
-    [JsonProperty("ip")]
+    [MailChimpJsonProperty("ip")]
     public string Ip { get; set; }
 }

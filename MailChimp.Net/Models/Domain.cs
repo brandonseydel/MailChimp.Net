@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,72 +16,72 @@ public class Domain
     /// <summary>
     /// Gets or sets the bounces.
     /// </summary>
-    [JsonProperty("bounces")]
+    [MailChimpJsonProperty("bounces")]
     public int Bounces { get; set; }
 
     /// <summary>
     /// Gets or sets the bounces pct.
     /// </summary>
-    [JsonProperty("bounces_pct")]
+    [MailChimpJsonProperty("bounces_pct")]
     public int BouncesPct { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks.
     /// </summary>
-    [JsonProperty("clicks")]
+    [MailChimpJsonProperty("clicks")]
     public int Clicks { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks pct.
     /// </summary>
-    [JsonProperty("clicks_pct")]
+    [MailChimpJsonProperty("clicks_pct")]
     public int ClicksPct { get; set; }
 
     /// <summary>
     /// Gets or sets the delivered.
     /// </summary>
-    [JsonProperty("delivered")]
+    [MailChimpJsonProperty("delivered")]
     public int Delivered { get; set; }
 
     /// <summary>
     /// Gets or sets the domain name.
     /// </summary>
-    [JsonProperty("domain")]
+    [MailChimpJsonProperty("domain")]
     public string DomainName { get; set; }
 
     /// <summary>
     /// Gets or sets the emails pct.
     /// </summary>
-    [JsonProperty("emails_pct")]
+    [MailChimpJsonProperty("emails_pct")]
     public int EmailsPct { get; set; }
 
     /// <summary>
     /// Gets or sets the emails sent.
     /// </summary>
-    [JsonProperty("emails_sent")]
+    [MailChimpJsonProperty("emails_sent")]
     public int EmailsSent { get; set; }
 
     /// <summary>
     /// Gets or sets the opens.
     /// </summary>
-    [JsonProperty("opens")]
+    [MailChimpJsonProperty("opens")]
     public int Opens { get; set; }
 
     /// <summary>
     /// Gets or sets the opens pct.
     /// </summary>
-    [JsonProperty("opens_pct")]
+    [MailChimpJsonProperty("opens_pct")]
     public int OpensPct { get; set; }
 
     /// <summary>
     /// Gets or sets the unsubs.
     /// </summary>
-    [JsonProperty("unsubs")]
+    [MailChimpJsonProperty("unsubs")]
     public int Unsubs { get; set; }
 
     /// <summary>
     /// Gets or sets the unsubs pct.
     /// </summary>
-    [JsonProperty("unsubs_pct")]
+    [MailChimpJsonProperty("unsubs_pct")]
     public int UnsubsPct { get; set; }
 }

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 
@@ -11,12 +11,12 @@ public class MemberSearchResult
         Links = new HashSet<Link>();
     }
 
-    [JsonProperty("exact_matches")]
+    [MailChimpJsonProperty("exact_matches")]
     public ExactMatch ExactMatch { get; set; }
 
-    [JsonProperty("full_search")]
+    [MailChimpJsonProperty("full_search")]
     public FullSearch FullSearch { get; set; }
 
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 }

@@ -4,11 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -19,55 +18,55 @@ public class Open
     /// <summary>
     /// Gets or sets the campaign id.
     /// </summary>
-    [JsonProperty("campaign_id")]
+    [MailChimpJsonProperty("campaign_id")]
     public string CampaignId { get; set; }
 
     /// <summary>
     /// Gets or sets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the email id.
     /// </summary>
-    [JsonProperty("email_id")]
+    [MailChimpJsonProperty("email_id")]
     public string EmailId { get; set; }
 
     /// <summary>
     /// Gets or sets the email address.
     /// </summary>
-    [JsonProperty("email_address")]
+    [MailChimpJsonProperty("email_address")]
     public string EmailAddress { get; set; }
 
     /// <summary>
     /// Gets or sets the merge fields.
     /// </summary>
-    [JsonProperty("merge_fields")]
+    [MailChimpJsonProperty("merge_fields")]
     public Dictionary<string, object> MergeFields { get; set; }
 
     /// <summary>
     /// Gets or sets the vip.
     /// </summary>
-    [JsonProperty("vip")]
+    [MailChimpJsonProperty("vip")]
     public bool VIP { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks.
     /// </summary>
-    [JsonProperty("opens_count")]
+    [MailChimpJsonProperty("opens_count")]
     public int OpensCount { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks.
     /// </summary>
-    [JsonProperty("opens")]
+    [MailChimpJsonProperty("opens")]
     public TimeStamp[] Opens  { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
 }

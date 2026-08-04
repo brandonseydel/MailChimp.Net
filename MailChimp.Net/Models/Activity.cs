@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,30 +16,30 @@ public class Activity
     /// <summary>
     /// Gets or sets the action.
     /// </summary>
-    [JsonProperty("action")]
+    [MailChimpJsonProperty("action")]
     public string Action { get; set; }
 
     /// <summary>
     /// If the action is a ‘bounce’, the type of bounce received: ‘hard’, ‘soft’. (WHEN ACTIVITY IS INSTANTIATED FROM EMAILACTIVITY)
     /// </summary>
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Type { get; set; }
 
     /// <summary>
     /// Gets or sets the campaign id.
     /// </summary>
-    [JsonProperty("campaign_id")]
+    [MailChimpJsonProperty("campaign_id")]
     public string CampaignId { get; set; }
 
     /// <summary>
     /// Gets or sets the timestamp.
     /// </summary>
-    [JsonProperty("timestamp")]
+    [MailChimpJsonProperty("timestamp")]
     public string Timestamp { get; set; }
 
     /// <summary>
     /// Gets or sets the title.
     /// </summary>
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
 }

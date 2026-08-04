@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SendChecklistResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,8 +7,6 @@
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -20,12 +18,12 @@ public class SendChecklistResponse : BaseResponse
     /// <summary>
     /// Gets or sets the check lists.
     /// </summary>
-    [JsonProperty("items")]
+    [MailChimpJsonProperty("items")]
     public IEnumerable<CheckList> CheckLists { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether is ready.
     /// </summary>
-    [JsonProperty("is_ready")]
+    [MailChimpJsonProperty("is_ready")]
     public bool IsReady { get; set; }
 }

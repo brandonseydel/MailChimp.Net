@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,36 +16,36 @@ public class History
     /// <summary>
     /// Gets or sets the existing.
     /// </summary>
-    [JsonProperty("existing")]
+    [MailChimpJsonProperty("existing")]
     public int Existing { get; set; }
 
     /// <summary>
     /// Gets or sets the imports.
     /// </summary>
-    [JsonProperty("imports")]
+    [MailChimpJsonProperty("imports")]
     public int Imports { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public Link[] Links { get; set; }
 
     /// <summary>
     /// Gets or sets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the month.
     /// </summary>
-    [JsonProperty("month")]
+    [MailChimpJsonProperty("month")]
     public string Month { get; set; }
 
     /// <summary>
     /// Gets or sets the optins.
     /// </summary>
-    [JsonProperty("optins")]
+    [MailChimpJsonProperty("optins")]
     public int Optins { get; set; }
 }

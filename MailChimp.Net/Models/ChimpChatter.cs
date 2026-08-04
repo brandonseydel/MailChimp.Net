@@ -1,7 +1,5 @@
 using System;
 using MailChimp.Net.Core;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -10,26 +8,26 @@ namespace MailChimp.Net.Models;
 public class ChimpChatter
 {
 
-    [JsonProperty("title")]
+    [MailChimpJsonProperty("title")]
     public string Title { get; set; }
 
-    [JsonProperty("message")]
+    [MailChimpJsonProperty("message")]
     public string Message { get; set; }
 
-    [JsonProperty("type")]
-		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("type")]
+		[MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public ChimpChatterType Type { get; set; }
 
-    [JsonProperty("update_time")]
+    [MailChimpJsonProperty("update_time")]
     public DateTime UpdateTime { get; set; }
 
-    [JsonProperty("url")]
+    [MailChimpJsonProperty("url")]
     public string Url { get; set; }
 
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
-    [JsonProperty("campaign_id")]
+    [MailChimpJsonProperty("campaign_id")]
     public string CampaignId { get; set; }
 
 }

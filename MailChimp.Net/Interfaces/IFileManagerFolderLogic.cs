@@ -23,4 +23,6 @@ public interface IFileManagerFolderLogic
     Task<FileManagerFolder> GetAsync(string folderId, BaseRequest request = null, CancellationToken cancellationToken = default);
     Task DeleteAsync(string folderId, CancellationToken cancellationToken = default);
     Task<FileManagerFolder> UpdateAsync(string name, string folderId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<FileManagerFile>> GetFilesAsync(string folderId, FileManagerRequest request = null, CancellationToken cancellationToken = default);
+    Task<FileManagerFileResponse> GetFilesResponseAsync(string folderId, FileManagerRequest request = null, CancellationToken cancellationToken = default);
 }

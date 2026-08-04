@@ -1,17 +1,17 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class SegmentCondition
 {
-    [JsonProperty("type")]
+    [MailChimpJsonProperty("type")]
     public string Type { get; set; }
-    [JsonProperty("operator")]
+    [MailChimpJsonProperty("operator")]
     public string Operator { get; set; }
-    [JsonProperty("extra")]
+    [MailChimpJsonProperty("extra")]
     public string Extra { get; set; }
-    [JsonProperty("field")]
+    [MailChimpJsonProperty("field")]
     public string Field { get; set; }
-    [JsonProperty("value")]
+    [MailChimpJsonProperty("value")]
     public string Value { get; set; }
 }

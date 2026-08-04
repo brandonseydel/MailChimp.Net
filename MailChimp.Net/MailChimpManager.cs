@@ -13,6 +13,8 @@ using MailChimp.Net.Logic;
 using Microsoft.Extensions.Options;
 #endif
 
+#pragma warning disable CS0618 // Conversations/Messages kept for backward compatibility
+
 namespace MailChimp.Net;
 
 /// <summary>
@@ -64,6 +66,7 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
         this.Templates = new TemplateLogic(MailChimpOptions);
         this.WebHooks = new WebHookLogic(MailChimpOptions);
         this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
+        InitializeAdditionalLogic();
     }
 
 #if NET_CORE
@@ -104,6 +107,7 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
         this.Templates = new TemplateLogic(MailChimpOptions);
         this.WebHooks = new WebHookLogic(MailChimpOptions);
         this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
+        InitializeAdditionalLogic();
     }
 
 #else
@@ -144,8 +148,24 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
         this.Templates = new TemplateLogic(MailChimpOptions);
         this.WebHooks = new WebHookLogic(MailChimpOptions);
         this.BatchWebHooks = new BatchWebHookLogic(MailChimpOptions);
+        InitializeAdditionalLogic();
     }
 #endif
+
+    private void InitializeAdditionalLogic()
+    {
+        this.CustomerJourneys = new CustomerJourneyLogic(MailChimpOptions);
+        this.LandingPages = new LandingPageLogic(MailChimpOptions);
+        this.VerifiedDomains = new VerifiedDomainLogic(MailChimpOptions);
+        this.Surveys = new ListSurveyLogic(MailChimpOptions);
+        this.Reporting = new ReportingLogic(MailChimpOptions);
+        this.FacebookAds = new FacebookAdLogic(MailChimpOptions);
+        this.SmsCampaigns = new SmsCampaignLogic(MailChimpOptions);
+        this.AccountExports = new AccountExportLogic(MailChimpOptions);
+        this.ListLocations = new ListLocationLogic(MailChimpOptions);
+        this.SignupForms = new SignupFormLogic(MailChimpOptions);
+        this.Audiences = new AudienceLogic(MailChimpOptions);
+    }
 
 
 
@@ -222,6 +242,7 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
     /// <summary>
     /// Gets the conversations.
     /// </summary>
+    [Obsolete("Mailchimp Conversations is deprecated in favor of Mailchimp Inbox. See https://mailchimp.com/help/about-inbox/")]
     public IConversationLogic Conversations { get; }
 
     /// <summary>
@@ -277,6 +298,7 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
     /// <summary>
     /// Gets or sets the messages.
     /// </summary>
+    [Obsolete("Mailchimp Conversations Messages is deprecated in favor of Mailchimp Inbox. See https://mailchimp.com/help/about-inbox/")]
     public IMessageLogic Messages { get; }
 
     /// <summary>
@@ -316,6 +338,18 @@ public class MailChimpManager : MailManagerBase, IMailChimpManager
 
 
     public IBatchWebHookLogic BatchWebHooks { get; }
+
+    public ICustomerJourneyLogic CustomerJourneys { get; private set; }
+    public ILandingPageLogic LandingPages { get; private set; }
+    public IVerifiedDomainLogic VerifiedDomains { get; private set; }
+    public IListSurveyLogic Surveys { get; private set; }
+    public IReportingLogic Reporting { get; private set; }
+    public IFacebookAdLogic FacebookAds { get; private set; }
+    public ISmsCampaignLogic SmsCampaigns { get; private set; }
+    public IAccountExportLogic AccountExports { get; private set; }
+    public IListLocationLogic ListLocations { get; private set; }
+    public ISignupFormLogic SignupForms { get; private set; }
+    public IAudienceLogic Audiences { get; private set; }
 
     public int Limit
     {

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BatchResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -8,8 +8,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Core;
 
 /// <summary>
@@ -17,6 +15,6 @@ namespace MailChimp.Net.Core;
 /// </summary>
 public class BatchResponse : BaseResponse
 {
-    [JsonProperty("batches")]
+    [MailChimpJsonProperty("batches")]
     public IEnumerable<Batch> Batches { get; set; }
 }

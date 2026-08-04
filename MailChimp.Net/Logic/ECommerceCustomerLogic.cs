@@ -131,5 +131,14 @@ internal class ECommerceCustomerLogic : BaseLogic, IECommerceCustomerLogic
         return customerResponse;
     }
 
+    public async Task<Customer> AddOrUpdateAsync(string customerId, Customer customer, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = string.Format(BaseUrl, StoreId);
+        using var client = CreateMailClient(requestUrl + "/");
+        var response = await client.PutAsJsonAsync(customerId, customer, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<Customer>().ConfigureAwait(false);
+    }
+
     public string StoreId { get; set; }
 }

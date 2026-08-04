@@ -31,6 +31,12 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
         ProductId = productId
     };
 
+    public IECommerceProductImageLogic Images(string productId) => new ECommerceProductImageLogic(_options)
+    {
+        StoreId = StoreId,
+        ProductId = productId
+    };
+
     /// <summary>
     /// Adds a product to the given store by id
     /// </summary>
@@ -127,6 +133,15 @@ internal class ECommerceProductLogic : BaseLogic, IECommerceProductLogic
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var productResponse = await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
         return productResponse;
+    }
+
+    public async Task<Product> AddOrUpdateAsync(string productId, Product product, CancellationToken cancellationToken = default)
+    {
+        var requestUrl = $"{string.Format(BaseUrl, StoreId)}/{productId}";
+        using var client = CreateMailClient(requestUrl);
+        var response = await client.PutAsJsonAsync(string.Empty, product, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<Product>().ConfigureAwait(false);
     }
 
     public string StoreId { get; set; }

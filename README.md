@@ -92,50 +92,56 @@ await this.mailChimpManager.Members.AddTagsAsync(listId, "abc@def.com", tags);
 To remove the tag, use "inactive" as the Status.
 
 ### Status
-Progress on full implementation
+Full Mailchimp Marketing API coverage (models, interfaces, and logic wired on `IMailChimpManager`).
 
-- API **100%**
+**Target frameworks:** `net45`, `net472`, `netstandard1.3`, `netstandard2.0`, `net10.0`
+
+| TFM | JSON serializer | Newtonsoft.Json | Microsoft.Extensions.* |
+|---|---|---|---|
+| `net45` | Newtonsoft.Json 13.0.4 | Yes | — |
+| `net472` | Newtonsoft.Json 13.0.4 | Yes | 10.0.10 |
+| `netstandard1.3` | Newtonsoft.Json 13.0.4 | Yes | 1.1.2 (last line supporting netstandard1.x) |
+| `netstandard2.0` | Newtonsoft.Json 13.0.4 | Yes | 10.0.10 |
+| `net10.0` | **System.Text.Json** | **None** | 10.0.10 |
+
+Models use library-local `[MailChimpJsonProperty]` / `[MailChimpJsonConverter]` attributes. Legacy TFMs map those through a Newtonsoft contract resolver; `net10.0` maps them through System.Text.Json type-info modifiers. API JSON shapes stay aligned across TFMs, and `net10.0` has no Newtonsoft dependency at compile time or runtime.
+
+- API / Ping **100%**
+- Account Exports **100%**
+- Audiences / Contacts (BETA) **100%**
 - Authorized Apps **100%**
-- Automations **100%**
+- Automation flows / Customer Journeys (trigger) **100%**
+- Classic Automations (+ create/archive, email update/delete) **100%**
 - Batch Operations **100%**
-- Campaigns **100%**
+- Batch Webhooks **100%**
+- Campaigns (+ search, pause/resume/create-resend) **100%**
 - Campaign Content **100%**
-- Campaing Feedback **100%**
+- Campaign Feedback **100%**
 - Campaign Folders **100%**
-- Campaing Send Checklist **100%**
-- Conversations **100%**
-- Conversations Messages **100%**
-- ECommerce Stores **100%**
-- File Manager Files **100%**
-- File Manager Folders **100%**
-- Lists **100%**
-- List Abuse Reports **100%**
-- List Activity **100%**
-- List Clients **100%**
-- List Growth History **100%**
-- List Interest Categories **100%**
-- List Members **100%**
-- List Segments **100%**
-- List Web Hooks **100%**
-- Template Folders **100%**
-- Templates **100%**
-- Template Default Content **100%**
-- Reports **100%**
-- Report Click Reports **100%**
-- Report Domain Performance **100%**
-- Report EepURL Reports **100%**
-- Report Email Activity **100%**
-- Report Location **100%**
-- Report Sent To **100%**
-- Report Sub-Reports **100%**
-- Report Unsubscribes **100%**
-- ECommerce Carts **100%**
-- ECommerce Customers **100%**
-- ECommerce Orders **100%**
-- ECommerce Order Lines **100%**
-- ECommerce Products **100%**
-- ECommerce Product Variants **100%**
-
+- Campaign Send Checklist **100%**
+- Connected Sites **100%**
+- Conversations **100%** *(obsolete — prefer Mailchimp Inbox)*
+- Conversations Messages **100%** *(obsolete — prefer Mailchimp Inbox)*
+- E-commerce Stores **100%**
+- E-commerce Carts / Customers / Orders / Order Lines **100%**
+- E-commerce Products / Variants / Images **100%**
+- E-commerce Promo Rules / Codes **100%**
+- E-commerce account-level Orders + PUT upserts **100%**
+- Facebook Ads **100%**
+- File Manager Files / Folders / Files-in-Folder **100%**
+- Landing Pages (+ content, publish/unpublish) **100%**
+- Lists / Audiences **100%**
+- List Abuse Reports / Activity / Clients / Growth History **100%**
+- List Interest Categories / Interests **100%**
+- List Locations **100%**
+- List Members (+ goals, activity feed, tags, events) **100%**
+- List Segments / Merge Fields / Signup Forms / Surveys / Webhooks **100%**
+- Reporting (landing pages, surveys, facebook ads) **100%**
+- Reports (campaign) + ecommerce product activity **100%**
+- Search Campaigns / Search Members **100%**
+- SMS Campaigns (+ content/actions) **100%**
+- Template Folders / Templates / Default Content **100%**
+- Verified Domains **100%**
 
 Total **100%**
 

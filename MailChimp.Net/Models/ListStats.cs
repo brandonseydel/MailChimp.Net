@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,24 +16,24 @@ public class ListStats
     /// <summary>
     /// Gets or sets the click rate.
     /// </summary>
-    [JsonProperty("click_rate")]
+    [MailChimpJsonProperty("click_rate")]
     public double ClickRate { get; set; }
 
     /// <summary>
     /// Gets or sets the open rate.
     /// </summary>
-    [JsonProperty("open_rate")]
+    [MailChimpJsonProperty("open_rate")]
     public double OpenRate { get; set; }
 
     /// <summary>
     /// Gets or sets the sub rate.
     /// </summary>
-    [JsonProperty("sub_rate")]
+    [MailChimpJsonProperty("sub_rate")]
     public double SubRate { get; set; }
 
     /// <summary>
     /// Gets or sets the unsub rate.
     /// </summary>
-    [JsonProperty("unsub_rate")]
+    [MailChimpJsonProperty("unsub_rate")]
     public double UnsubRate { get; set; }
 }

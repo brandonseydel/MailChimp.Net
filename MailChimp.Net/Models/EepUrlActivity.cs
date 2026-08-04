@@ -6,8 +6,7 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -18,36 +17,36 @@ public class EepUrlActivity
     /// <summary>
     /// Gets or sets the campaign id.
     /// </summary>
-    [JsonProperty("campaign_id")]
+    [MailChimpJsonProperty("campaign_id")]
     public string CampaignId { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks.
     /// </summary>
-    [JsonProperty("clicks")]
+    [MailChimpJsonProperty("clicks")]
     public IEnumerable<EepClick> Clicks { get; set; }
 
     /// <summary>
     /// Gets or sets the eep url.
     /// </summary>
-    [JsonProperty("eepurl")]
+    [MailChimpJsonProperty("eepurl")]
     public string EepUrl { get; set; }
 
     /// <summary>
     /// Gets or sets the referrers.
     /// </summary>
-    [JsonProperty("referrers")]
+    [MailChimpJsonProperty("referrers")]
     public IEnumerable<Referrer> Referrers { get; set; }
 
     /// <summary>
     /// Gets or sets the total items.
     /// </summary>
-    [JsonProperty("total_items")]
+    [MailChimpJsonProperty("total_items")]
     public string TotalItems { get; set; }
 
     /// <summary>
     /// Gets or sets the twitter.
     /// </summary>
-    [JsonProperty("twitter")]
+    [MailChimpJsonProperty("twitter")]
     public Twitter Twitter { get; set; }
 }

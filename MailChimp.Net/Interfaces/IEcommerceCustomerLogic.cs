@@ -20,5 +20,10 @@ public interface IECommerceCustomerLogic
 
     Task<Customer> UpdateAsync(string customerId, Customer customer, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Add or update a customer via PUT.
+    /// </summary>
+    Task<Customer> AddOrUpdateAsync(string customerId, Customer customer, CancellationToken cancellationToken = default);
+
     string StoreId { get; set; }
 }

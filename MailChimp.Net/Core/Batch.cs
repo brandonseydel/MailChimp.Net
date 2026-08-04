@@ -1,6 +1,4 @@
 using System;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Core;
 
 	public class Batch
@@ -21,10 +19,10 @@ namespace MailChimp.Net.Core;
 		/// The total number of operations to complete as part of this batch request. 
 		/// For GET requests requiring pagination, each page counts as a separate operation.
 		/// </summary>
-		[JsonProperty("total_operations")]
+		[MailChimpJsonProperty("total_operations")]
 		public int TotalOperations { get; set; }
 
-	    [System.ComponentModel.Browsable(false), Obsolete("Spelling corrected to FinishedOperations"), JsonIgnore]
+	    [System.ComponentModel.Browsable(false), Obsolete("Spelling corrected to FinishedOperations"), MailChimpJsonIgnore]
 	    public int FinishedOperpations
 	    {
 	        get => FinishedOperations;
@@ -34,30 +32,30 @@ namespace MailChimp.Net.Core;
 	    /// <summary>
 		/// The number of completed operations. This includes operations that returned an error.
 		/// </summary>
-		[JsonProperty("finished_operations")]
+		[MailChimpJsonProperty("finished_operations")]
 		public int FinishedOperations { get; set; }
 
 		/// <summary>
 		/// The number of completed operations that returned an error.
 		/// </summary>
-		[JsonProperty("errored_operations")]
+		[MailChimpJsonProperty("errored_operations")]
 		public int ErroredOperations { get; set; }
 
 		/// <summary>
 		/// The time and date when the server received the batch request.
 		/// </summary>
-		[JsonProperty("submitted_at")]
+		[MailChimpJsonProperty("submitted_at")]
 		public DateTime? SubmittedAt { get; set; }
 
 		/// <summary>
 		/// The time and date when all operations in the batch request completed.
 		/// </summary>
-		[JsonProperty("completed_at")]
+		[MailChimpJsonProperty("completed_at")]
 		public DateTime? CompletedAt { get; set; }
 
 		/// <summary>
 		/// The URL of the gzipped archive of the results of all the operations.
 		/// </summary>
-		[JsonProperty("response_body_url")]
+		[MailChimpJsonProperty("response_body_url")]
 		public string ResponseBodyUrl { get; set; }
 	}

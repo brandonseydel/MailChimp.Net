@@ -6,8 +6,6 @@
 
 using System.Collections.Generic;
 using MailChimp.Net.Core;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -24,20 +22,20 @@ public class SegmentOptions
     /// <summary>
     /// Gets or sets the conditions.
     /// </summary>
-    [JsonProperty("conditions")]
+    [MailChimpJsonProperty("conditions")]
     public IEnumerable<Condition> Conditions { get; set; }
 
     /// <summary>
     /// Gets or sets the match.
     /// </summary>
     /// <see cref="Models.Match"/>
-    [JsonProperty("match")]
-		[JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("match")]
+		[MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public Match Match { get; set; }
 
     /// <summary>
     /// Gets or sets the saved segment id.
     /// </summary>
-    [JsonProperty("saved_segment_id")]
+    [MailChimpJsonProperty("saved_segment_id")]
     public int SavedSegmentId { get; set; }
 }

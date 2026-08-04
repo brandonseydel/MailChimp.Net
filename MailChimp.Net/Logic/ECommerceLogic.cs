@@ -166,4 +166,20 @@ public class ECommerceLogic : BaseLogic, IECommerceLogic
         var storeResponse = await response.Content.ReadAsAsync<Store>().ConfigureAwait(false);
         return storeResponse;
     }
+
+    public async Task<IEnumerable<Order>> GetAccountOrdersAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
+        => (await GetAccountOrdersResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Orders;
+
+    public async Task<StoreOrderResponse> GetAccountOrdersResponseAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        request ??= new QueryableBaseRequest
+        {
+            Limit = _limit
+        };
+
+        using var client = CreateMailClient("ecommerce/orders");
+        var response = await client.GetAsync(request.ToQueryString(), cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<StoreOrderResponse>().ConfigureAwait(false);
+    }
 }

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AutomationSubscriberResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,8 +7,6 @@
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -28,18 +26,18 @@ public class AutomationSubscriberResponse
     /// <summary>
     /// Gets or sets the subscribers.
     /// </summary>
-    [JsonProperty("subscribers")]
+    [MailChimpJsonProperty("subscribers")]
     public IEnumerable<Subscriber> Subscribers { get; set; }
 
     /// <summary>
     /// Gets or sets the total items.
     /// </summary>
-    [JsonProperty("total_items")]
+    [MailChimpJsonProperty("total_items")]
     public int TotalItems { get; set; }
 
     /// <summary>
     /// Gets or sets the workflow id.
     /// </summary>
-    [JsonProperty("workflow_id")]
+    [MailChimpJsonProperty("workflow_id")]
     public string WorkflowId { get; set; }
 }

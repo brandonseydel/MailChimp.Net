@@ -3,7 +3,7 @@
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,6 +16,6 @@ public class Ping
     /// <summary>
     /// Gets the health status from Mail Chimp
     /// </summary>
-    [JsonProperty("health_status")]
+    [MailChimpJsonProperty("health_status")]
     public string HealthStatus { get; set; }
 }

@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+#if !NET10_0_OR_GREATER
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -122,3 +123,4 @@ public class StringEnumDescriptionConverter : JsonConverter
         writer.WriteValue(description ?? name);
     }
 }
+#endif

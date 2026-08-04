@@ -6,7 +6,6 @@
 
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
 using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
@@ -28,113 +27,113 @@ public class Report
     /// <summary>
     /// Gets or sets the abuse reports.
     /// </summary>
-    [JsonProperty("abuse_reports")]
+    [MailChimpJsonProperty("abuse_reports")]
     public int AbuseReports { get; set; }
 
     /// <summary>
     /// Gets or sets the bounces.
     /// </summary>
-    [JsonProperty("bounces")]
+    [MailChimpJsonProperty("bounces")]
     public Bounces Bounces { get; set; }
 
     /// <summary>
     /// Gets or sets the campaign title.
     /// </summary>
-    [JsonProperty("campaign_title")]
+    [MailChimpJsonProperty("campaign_title")]
     public string CampaignTitle { get; set; }
 
 
-    [JsonProperty("subject_line")]
+    [MailChimpJsonProperty("subject_line")]
     public string SubjectLine { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks.
     /// </summary>
-    [JsonProperty("clicks")]
+    [MailChimpJsonProperty("clicks")]
     public Clicks Clicks { get; set; }
 
     /// <summary>
     /// Gets or sets the delivery status.
     /// </summary>
-    [JsonProperty("delivery_status")]
+    [MailChimpJsonProperty("delivery_status")]
     public DeliveryStatus DeliveryStatus { get; set; }
 
     /// <summary>
     /// Gets or sets the emails sent.
     /// </summary>
-    [JsonProperty("emails_sent")]
+    [MailChimpJsonProperty("emails_sent")]
     public int EmailsSent { get; set; }
 
     /// <summary>
     /// Gets or sets the facebook likes.
     /// </summary>
-    [JsonProperty("facebook_likes")]
+    [MailChimpJsonProperty("facebook_likes")]
     public FacebookLikes FacebookLikes { get; set; }
 
     /// <summary>
     /// Gets or sets the forwards.
     /// </summary>
-    [JsonProperty("forwards")]
+    [MailChimpJsonProperty("forwards")]
     public Forwards Forwards { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the industry stats.
     /// </summary>
-    [JsonProperty("industry_stats")]
+    [MailChimpJsonProperty("industry_stats")]
     public IndustryStats IndustryStats { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the list stats.
     /// </summary>
-    [JsonProperty("list_stats")]
+    [MailChimpJsonProperty("list_stats")]
     public ListStats ListStats { get; set; }
 
     /// <summary>
     /// Gets or sets the opens.
     /// </summary>
-    [JsonProperty("opens")]
+    [MailChimpJsonProperty("opens")]
     public Opens Opens { get; set; }
 
     /// <summary>
     /// Gets or sets the send time.
     /// </summary>
-    [JsonProperty("send_time")]
+    [MailChimpJsonProperty("send_time")]
     public string SendTime { get; set; }
 
     /// <summary>
     /// Gets or sets the share report.
     /// </summary>
-    [JsonProperty("share_report")]
+    [MailChimpJsonProperty("share_report")]
     public ShareReport ShareReport { get; set; }
 
     /// <summary>
     /// Gets or sets the timeseries.
     /// </summary>
-    [JsonProperty("timeseries")]
+    [MailChimpJsonProperty("timeseries")]
     public IEnumerable<Timesery> Timeseries { get; set; }
 
     /// <summary>
     /// Gets or sets the type.
     /// </summary>
-    [JsonProperty("type")]
-    [JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("type")]
+    [MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public CampaignType Type { get; set; }
 
     /// <summary>
     /// Gets or sets the unsubscribed.
     /// </summary>
-    [JsonProperty("unsubscribed")]
+    [MailChimpJsonProperty("unsubscribed")]
     public int Unsubscribed { get; set; }
 }

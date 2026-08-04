@@ -5,8 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -17,30 +16,30 @@ public class Clicks
     /// <summary>
     /// Gets or sets the click rate.
     /// </summary>
-    [JsonProperty("click_rate")]
+    [MailChimpJsonProperty("click_rate")]
     public double ClickRate { get; set; }
 
     /// <summary>
     /// Gets or sets the clicks total.
     /// </summary>
-    [JsonProperty("clicks_total")]
+    [MailChimpJsonProperty("clicks_total")]
     public int ClicksTotal { get; set; }
 
     /// <summary>
     /// Gets or sets the last click.
     /// </summary>
-    [JsonProperty("last_click")]
+    [MailChimpJsonProperty("last_click")]
     public DateTime? LastClick { get; set; }
 
     /// <summary>
     /// Gets or sets the unique clicks.
     /// </summary>
-    [JsonProperty("unique_clicks")]
+    [MailChimpJsonProperty("unique_clicks")]
     public int UniqueClicks { get; set; }
 
     /// <summary>
     /// Gets or sets the unique subscriber clicks.
     /// </summary>
-    [JsonProperty("unique_subscriber_clicks")]
+    [MailChimpJsonProperty("unique_subscriber_clicks")]
     public int UniqueSubscriberClicks { get; set; }
 }

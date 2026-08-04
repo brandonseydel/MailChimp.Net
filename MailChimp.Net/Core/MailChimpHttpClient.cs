@@ -4,12 +4,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+#if !NET10_0_OR_GREATER
+using Newtonsoft.Json;
+#endif
 
 namespace MailChimp.Net.Core;
 
@@ -18,11 +20,6 @@ namespace MailChimp.Net.Core;
 /// </summary>
 public class MailChimpHttpClient : IDisposable
 {
-    private static readonly JsonSerializerSettings JsonSettings = new()
-    {
-        NullValueHandling = NullValueHandling.Ignore
-    };
-
     private readonly MailChimpOptions _options;
     private readonly HttpClient _httpClient;
     private readonly string _resource;
@@ -96,14 +93,18 @@ public class MailChimpHttpClient : IDisposable
     /// <param name="value">
     /// The value.
     /// </param>
-    /// <param name="settings"></param>
     /// <typeparam name="T">
     /// </typeparam>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
+#if NET10_0_OR_GREATER
+    public Task<HttpResponseMessage> PutAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken)
+        => SendAsync(HttpMethod.Put, requestUri, GetStringContent(value), cancellationToken);
+#else
     public Task<HttpResponseMessage> PutAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken, JsonSerializerSettings settings = null) 
         => SendAsync(HttpMethod.Put, requestUri, GetStringContent(value, settings), cancellationToken);
+#endif
 
     /// <summary>
     /// The patch as json async.
@@ -114,14 +115,18 @@ public class MailChimpHttpClient : IDisposable
     /// <param name="value">
     /// The value.
     /// </param>
-    /// <param name="settings"></param>
     /// <typeparam name="T">
     /// </typeparam>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
+#if NET10_0_OR_GREATER
+    public Task<HttpResponseMessage> PatchAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken)
+        => SendAsync(new HttpMethod("PATCH"), requestUri, GetStringContent(value), cancellationToken);
+#else
     public Task<HttpResponseMessage> PatchAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken, JsonSerializerSettings settings = null) 
         => SendAsync(new HttpMethod("PATCH"), requestUri, GetStringContent(value, settings), cancellationToken);
+#endif
 
     /// <summary>
     /// PostAsJsonAsync
@@ -137,11 +142,21 @@ public class MailChimpHttpClient : IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
+#if NET10_0_OR_GREATER
+    public Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken)
+        => SendAsync(HttpMethod.Post, requestUri, GetStringContent(value), cancellationToken);
+#else
     public Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value, CancellationToken cancellationToken, JsonSerializerSettings settings = null) 
         => SendAsync(HttpMethod.Post, requestUri, GetStringContent(value, settings), cancellationToken);
+#endif
 
-    private StringContent GetStringContent<T>(T value, JsonSerializerSettings settings) 
-        => new StringContent(JsonConvert.SerializeObject(value, settings ?? JsonSettings), Encoding.UTF8, "application/json");
+#if NET10_0_OR_GREATER
+    private static StringContent GetStringContent<T>(T value)
+        => new StringContent(MailChimpSerializer.Serialize(value), Encoding.UTF8, "application/json");
+#else
+    private static StringContent GetStringContent<T>(T value, JsonSerializerSettings settings)
+        => new StringContent(MailChimpSerializer.Serialize(value, settings), Encoding.UTF8, "application/json");
+#endif
 
     private Task<HttpResponseMessage> SendAsync(HttpMethod method, string requestUri, HttpContent contentOrNull, CancellationToken cancellationToken)
     {

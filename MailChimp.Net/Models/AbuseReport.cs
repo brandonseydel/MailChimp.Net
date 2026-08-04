@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,36 +16,36 @@ public class AbuseReport
     /// <summary>
     /// Gets or sets the campaign id.
     /// </summary>
-    [JsonProperty("campaign_id")]
+    [MailChimpJsonProperty("campaign_id")]
     public string CampaignId { get; set; }
 
     /// <summary>
     /// Gets or sets the date.
     /// </summary>
-    [JsonProperty("date")]
+    [MailChimpJsonProperty("date")]
     public string Date { get; set; }
 
     /// <summary>
     /// Gets or sets the email address.
     /// </summary>
-    [JsonProperty("email_address")]
+    [MailChimpJsonProperty("email_address")]
     public string EmailAddress { get; set; }
 
     /// <summary>
     /// Gets or sets the email id.
     /// </summary>
-    [JsonProperty("email_id")]
+    [MailChimpJsonProperty("email_id")]
     public string EmailId { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public int Id { get; set; }
 
     /// <summary>
     /// Gets or sets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 }

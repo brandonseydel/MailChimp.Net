@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
 using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
@@ -27,100 +26,100 @@ public class Store
     /// <summary>
     /// Gets or sets the address.
     /// </summary>
-    [JsonProperty("address")]
+    [MailChimpJsonProperty("address")]
     public StoreAddress Address { get; set; }
 
     /// <summary>
     /// Gets or sets the created at.
     /// </summary>
-    [JsonProperty("created_at")]
+    [MailChimpJsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
 
     /// <summary>
     /// Gets or sets the currency code.
     /// </summary>
-    [JsonProperty("currency_code")]
-    [JsonConverter(typeof(StringEnumDescriptionConverter))]
+    [MailChimpJsonProperty("currency_code")]
+    [MailChimpJsonConverter(MailChimpJsonConverterKind.StringEnumDescription)]
     public CurrencyCode CurrencyCode { get; set; }
 
     /// <summary>
     /// Gets or sets the platform.
     /// </summary>
-    [JsonProperty("platform")]
+    [MailChimpJsonProperty("platform")]
     public string Platform { get; set; }
 
 
     /// <summary>
     /// Gets or sets the syncing flag.
     /// </summary>
-    [JsonProperty("is_syncing")]
+    [MailChimpJsonProperty("is_syncing")]
     public bool IsSyncing { get; set; }
 
     /// <summary>
     /// Gets or sets the domain.
     /// </summary>
-    [JsonProperty("domain")]
+    [MailChimpJsonProperty("domain")]
     public string Domain { get; set; }
 
     /// <summary>
     /// Gets or sets the email address.
     /// </summary>
-    [JsonProperty("email_address")]
+    [MailChimpJsonProperty("email_address")]
     public string EmailAddress { get; set; }
 
     /// <summary>
     /// The unique identifier for the store.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// The unique identifier for the <a href="http://developer.mailchimp.com/documentation/mailchimp/reference/lists/">MailChimp List</a> associated with the store. The list_id for a specific store cannot change.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the money format.
     /// For example: $, £, etc.
     /// </summary>
-    [JsonProperty("money_format")]
+    [MailChimpJsonProperty("money_format")]
     public string MoneyFormat { get; set; }
 
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
-    [JsonProperty("name")]
+    [MailChimpJsonProperty("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// The store phone number.
     /// </summary>
-    [JsonProperty("phone")]
+    [MailChimpJsonProperty("phone")]
     public string Phone { get; set; }
 
     /// <summary>
     /// Gets or sets the primary locale.
     /// For example: en, de, etc.
     /// </summary>
-    [JsonProperty("primary_locale")]
+    [MailChimpJsonProperty("primary_locale")]
     public string PrimaryLocale { get; set; }
 
     /// <summary>
     /// The timezone for the store.
     /// </summary>
-    [JsonProperty("timezone")]
+    [MailChimpJsonProperty("timezone")]
     public string Timezone { get; set; }
 
     /// <summary>
     /// Gets or sets the updated at.
     /// </summary>
-    [JsonProperty("updated_at")]
+    [MailChimpJsonProperty("updated_at")]
     public DateTime? UpdatedAt { get; set; }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using MailChimp.Net.Core;
 using MailChimp.Net.Interfaces;
 using MailChimp.Net.Models;
-#pragma warning disable 1584,1711,1572,1581,1580
+#pragma warning disable 1584,1711,1572,1581,1580,0618
 
 namespace MailChimp.Net.Logic;
 

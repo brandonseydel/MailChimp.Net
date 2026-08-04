@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ClientResponse.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
@@ -7,8 +7,6 @@
 using System.Collections.Generic;
 
 using MailChimp.Net.Models;
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -29,24 +27,24 @@ public class ClientResponse
     /// <summary>
     /// Gets or sets the clients.
     /// </summary>
-    [JsonProperty("clients")]
+    [MailChimpJsonProperty("clients")]
     public IEnumerable<Client> Clients { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 
     /// <summary>
     /// Gets or sets the list id.
     /// </summary>
-    [JsonProperty("list_id")]
+    [MailChimpJsonProperty("list_id")]
     public string ListId { get; set; }
 
     /// <summary>
     /// Gets or sets the total items.
     /// </summary>
-    [JsonProperty("total_items")]
+    [MailChimpJsonProperty("total_items")]
     public int TotalItems { get; set; }
 }

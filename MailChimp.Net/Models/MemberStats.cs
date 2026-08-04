@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
 public class MemberStats
 {
-    [JsonProperty("avg_open_rate")]
+    [MailChimpJsonProperty("avg_open_rate")]
     public double AverageOpenRate { get; set; }
-    [JsonProperty("avg_click_rate")]
+    [MailChimpJsonProperty("avg_click_rate")]
     public double AverageClickRate { get; set; }
 }

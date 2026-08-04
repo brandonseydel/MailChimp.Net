@@ -106,6 +106,16 @@ public interface IMemberLogic
     Task<IEnumerable<Activity>> GetActivitiesAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Gets the goal events for a specific list member.
+    /// </summary>
+    Task<IEnumerable<Goal>> GetGoalsAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Gets the activity feed for a specific list member.
+    /// </summary>
+    Task<IEnumerable<MemberActivityFeedItem>> GetActivityFeedAsync(string listId, string emailAddressOrHash, BaseRequest request = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Gets the tags asynchronous.
     /// </summary>
     /// <param name="listId">The list identifier.</param>

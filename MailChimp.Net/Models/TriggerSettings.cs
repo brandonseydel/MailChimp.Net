@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,30 +16,30 @@ public class TriggerSettings
     /// <summary>
     /// Gets or sets the runtime.
     /// </summary>
-    [JsonProperty("runtime")]
+    [MailChimpJsonProperty("runtime")]
     public Runtime Runtime { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether send immediately.
     /// </summary>
-    [JsonProperty("send_immediately")]
+    [MailChimpJsonProperty("send_immediately")]
     public bool SendImmediately { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether trigger on import.
     /// </summary>
-    [JsonProperty("trigger_on_import")]
+    [MailChimpJsonProperty("trigger_on_import")]
     public bool TriggerOnImport { get; set; }
 
     /// <summary>
     /// Gets or sets the workflow emails count.
     /// </summary>
-    [JsonProperty("workflow_emails_count")]
+    [MailChimpJsonProperty("workflow_emails_count")]
     public int WorkflowEmailsCount { get; set; }
 
     /// <summary>
     /// Gets or sets the workflow type.
     /// </summary>
-    [JsonProperty("workflow_type")]
+    [MailChimpJsonProperty("workflow_type")]
     public string WorkflowType { get; set; }
 }

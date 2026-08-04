@@ -7,8 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 /// <summary>
@@ -19,24 +18,24 @@ public class EepClick
     /// <summary>
     /// Gets or sets the clicks.
     /// </summary>
-    [JsonProperty("clicks")]
+    [MailChimpJsonProperty("clicks")]
     public int Clicks { get; set; }
 
     /// <summary>
     /// Gets or sets the first click.
     /// </summary>
-    [JsonProperty("first_click")]
+    [MailChimpJsonProperty("first_click")]
     public DateTime? FirstClick { get; set; }
 
     /// <summary>
     /// Gets or sets the last click.
     /// </summary>
-    [JsonProperty("last_click")]
+    [MailChimpJsonProperty("last_click")]
     public DateTime? LastClick { get; set; }
 
     /// <summary>
     /// Gets or sets the locations.
     /// </summary>
-    [JsonProperty("locations")]
+    [MailChimpJsonProperty("locations")]
     public IEnumerable<EepLocation> Locations { get; set; }
 }

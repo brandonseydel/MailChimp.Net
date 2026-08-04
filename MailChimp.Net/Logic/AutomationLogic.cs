@@ -45,6 +45,21 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     /// Custom Mail Chimp Exception
     /// </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
+    public async Task<Automation> AddAsync(Automation automation, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient("automations");
+        var response = await client.PostAsJsonAsync(string.Empty, automation, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<Automation>().ConfigureAwait(false);
+    }
+
+    public async Task ArchiveAsync(string workflowId, CancellationToken cancellationToken = default)
+    {
+        using var client = CreateMailClient("automations/");
+        var response = await client.PostAsync($"{workflowId}/actions/archive", null, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
     public async Task<IEnumerable<Automation>> GetAllAsync(QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
         => (await GetResponseAsync(request, cancellationToken).ConfigureAwait(false))?.Automations;
 
@@ -158,7 +173,7 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     public async Task PauseAsync(string workflowId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync($"{workflowId}/actions/pause-all-emails", cancellationToken).ConfigureAwait(false);
+        var response = await client.PostAsync($"{workflowId}/actions/pause-all-emails", null, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 
@@ -182,7 +197,7 @@ internal class AutomationLogic : BaseLogic, IAutomationLogic
     public async Task StartAsync(string workflowId, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("automations/");
-        var response = await client.GetAsync($"{workflowId}/actions/start-all-emails", cancellationToken).ConfigureAwait(false);
+        var response = await client.PostAsync($"{workflowId}/actions/start-all-emails", null, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
 }

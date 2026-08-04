@@ -67,5 +67,11 @@ public interface IECommerceProductLogic
     /// </returns>
     Task<Product> UpdateAsync(string productId, Product product, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Create or update a product via PUT.
+    /// </summary>
+    Task<Product> AddOrUpdateAsync(string productId, Product product, CancellationToken cancellationToken = default);
+
     IECommerceProductVarianceLogic Variances(string productId);
+    IECommerceProductImageLogic Images(string productId);
 }

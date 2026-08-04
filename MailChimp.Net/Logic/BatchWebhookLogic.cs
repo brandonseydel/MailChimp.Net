@@ -21,6 +21,15 @@ public class BatchWebHookLogic : BaseLogic, IBatchWebHookLogic
     {
         using var client = this.CreateMailClient($"{BaseUrl}/");
         var response = await client.DeleteAsync(batchWebHookId, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+    }
+
+    public async Task<BatchWebHook> GetAsync(string batchWebHookId, CancellationToken cancellationToken = default)
+    {
+        using var client = this.CreateMailClient($"{BaseUrl}/");
+        var response = await client.GetAsync(batchWebHookId, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<BatchWebHook>().ConfigureAwait(false);
     }
 
     public async Task<BatchWebHook> UpdateAsync(string batchWebHookId, string url, CancellationToken cancellationToken = default)

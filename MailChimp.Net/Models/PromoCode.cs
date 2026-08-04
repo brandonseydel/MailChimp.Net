@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-
+using MailChimp.Net.Core;
 namespace MailChimp.Net.Models;
 
 public class PromoCode
 {
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public string Id { get; set; }
 
-    [JsonProperty("code")]
+    [MailChimpJsonProperty("code")]
     public string Code { get; set; }
 
-    [JsonProperty("redemption_url")]
+    [MailChimpJsonProperty("redemption_url")]
     public string RedemptionUrl { get; set; }
 
 }

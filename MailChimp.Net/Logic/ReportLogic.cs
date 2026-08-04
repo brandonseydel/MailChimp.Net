@@ -73,7 +73,7 @@ internal class ReportLogic : BaseLogic, IReportLogic
     public async Task<AbuseReport> GetAbuseReportAsync(string campaignId, string reportId, BaseRequest request = null, CancellationToken cancellationToken = default)
     {
         using var client = CreateMailClient("reports/");
-        var response = await client.GetAsync($"{campaignId}/abuse-reports/${reportId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        var response = await client.GetAsync($"{campaignId}/abuse-reports/{reportId}{request?.ToQueryString()}", cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
         var reportResponse = await response.Content.ReadAsAsync<AbuseReport>().ConfigureAwait(false);
         return reportResponse;
@@ -911,6 +911,22 @@ internal class ReportLogic : BaseLogic, IReportLogic
 
         var reportResponse = await GetUnsubscribesReportResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false);
         return reportResponse.TotalItems;
+    }
+
+    public async Task<IEnumerable<EcommerceProductActivity>> GetEcommerceProductActivityAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
+        => (await GetEcommerceProductActivityResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false))?.Products;
+
+    public async Task<EcommerceProductActivityResponse> GetEcommerceProductActivityResponseAsync(string campaignId, QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
+    {
+        request ??= new QueryableBaseRequest
+        {
+            Limit = _limit
+        };
+
+        using var client = CreateMailClient("reports/");
+        var response = await client.GetAsync($"{campaignId}/ecommerce-product-activity{request.ToQueryString()}", cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
+        return await response.Content.ReadAsAsync<EcommerceProductActivityResponse>().ConfigureAwait(false);
     }
 
     private async Task<UnsubscribeReportResponse> GetUnsubscribesReportResponseAsync(

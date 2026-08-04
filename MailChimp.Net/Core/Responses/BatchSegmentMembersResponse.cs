@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using MailChimp.Net.Models;
-using Newtonsoft.Json;
-
 namespace MailChimp.Net.Core;
 
 /// <summary>
@@ -21,27 +19,27 @@ public class BatchSegmentMembersResponse
     /// <summary>
     /// Members added
     /// </summary>
-    [JsonProperty("members_added")]
+    [MailChimpJsonProperty("members_added")]
     public Member[] MembersAdded { get; set; }
 
     /// <summary>
     /// Members removed
     /// </summary>
-    [JsonProperty("members_removed")]
+    [MailChimpJsonProperty("members_removed")]
     public Member[] MembersRemoved { get; set; }
 
-    [JsonProperty("total_added")]
+    [MailChimpJsonProperty("total_added")]
     public int TotalAdded { get; set; }
 
-    [JsonProperty("total_removed")]
+    [MailChimpJsonProperty("total_removed")]
     public int TotalRemoved { get; set; }
 
-    [JsonProperty("error_count")]
+    [MailChimpJsonProperty("error_count")]
     public int ErrorCount { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public IEnumerable<Link> Links { get; set; }
 }

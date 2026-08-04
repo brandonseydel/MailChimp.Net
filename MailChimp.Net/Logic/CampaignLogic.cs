@@ -342,17 +342,25 @@ internal class CampaignLogic : BaseLogic, ICampaignLogic
 
     public async Task ExecuteCampaignActionAsync(string campaignId, CampaignAction campaignAction, CancellationToken cancellationToken = default)
     {
-
-        var member = typeof(CampaignAction).GetRuntimeProperties().FirstOrDefault(x => x.Name == (campaignAction.ToString()));
+        var field = typeof(CampaignAction).GetRuntimeField(campaignAction.ToString());
         var action =
-            member.GetCustomAttributes(typeof(DescriptionAttribute), false)
+            field?.GetCustomAttributes(typeof(DescriptionAttribute), false)
                   .OfType<DescriptionAttribute>()
-                  .FirstOrDefault()?.Description ?? campaignAction.ToString().ToLower();
+                  .FirstOrDefault()?.Description ?? campaignAction.ToString().ToLowerInvariant();
 
         using var client = CreateMailClient("campaigns/");
-        var response = await client.PostAsync($"{campaignId}/actions/${action}", null, cancellationToken).ConfigureAwait(false);
+        var response = await client.PostAsync($"{campaignId}/actions/{action}", null, cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessMailChimpAsync().ConfigureAwait(false);
     }
+
+    public Task PauseAsync(string campaignId, CancellationToken cancellationToken = default)
+        => ExecuteCampaignActionAsync(campaignId, CampaignAction.Pause, cancellationToken);
+
+    public Task ResumeAsync(string campaignId, CancellationToken cancellationToken = default)
+        => ExecuteCampaignActionAsync(campaignId, CampaignAction.Resume, cancellationToken);
+
+    public Task CreateResendAsync(string campaignId, CancellationToken cancellationToken = default)
+        => ExecuteCampaignActionAsync(campaignId, CampaignAction.CreateResend, cancellationToken);
 
     public async Task<ReplicateResponse> ReplicateCampaignAsync(string campaignId, CancellationToken cancellationToken = default)
     {

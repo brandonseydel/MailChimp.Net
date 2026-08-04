@@ -1,10 +1,8 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CampaignTestRequest.cs" company="Brandon Seydel">
 //   N/A
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
-using Newtonsoft.Json;
 
 namespace MailChimp.Net.Core;
 
@@ -17,13 +15,13 @@ public class CampaignTestRequest
     /// <summary>
     /// Gets or sets the array of test email addresses
     /// </summary>
-    [JsonProperty("test_emails")]
+    [MailChimpJsonProperty("test_emails")]
     public string[] Emails { get; set; }
 
     /// <summary>
     /// Email type 'html' or 'plain_test'
     /// </summary>
-    [JsonProperty("send_type")]
+    [MailChimpJsonProperty("send_type")]
     public string EmailType { get; set; }
 
 }

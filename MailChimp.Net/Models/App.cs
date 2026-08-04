@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using MailChimp.Net.Core;
 
 namespace MailChimp.Net.Models;
 
@@ -16,30 +16,30 @@ public class App
     /// <summary>
     /// Gets or sets the description.
     /// </summary>
-    [JsonProperty("description")]
+    [MailChimpJsonProperty("description")]
     public string Description { get; set; }
 
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [JsonProperty("id")]
+    [MailChimpJsonProperty("id")]
     public object Id { get; set; }
 
     /// <summary>
     /// Gets or sets the links.
     /// </summary>
-    [JsonProperty("_links")]
+    [MailChimpJsonProperty("_links")]
     public Link[] Links { get; set; }
 
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
-    [JsonProperty("name")]
+    [MailChimpJsonProperty("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Gets or sets the users.
     /// </summary>
-    [JsonProperty("users")]
+    [MailChimpJsonProperty("users")]
     public string[] Users { get; set; }
 }
