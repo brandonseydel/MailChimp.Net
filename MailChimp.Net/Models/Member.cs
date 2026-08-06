@@ -52,6 +52,18 @@ namespace MailChimp.Net.Models;
     public string ContactId { get; set; }
 
     /// <summary>
+    /// Gets or sets the SMS phone number.
+    /// </summary>
+    [MailChimpJsonProperty("sms_phone_number")]
+    public string SmsPhoneNumber { get; set; }
+
+    /// <summary>
+    /// Gets or sets the SMS subscription status.
+    /// </summary>
+    [MailChimpJsonProperty("sms_subscription_status")]
+    public string SmsSubscriptionStatus { get; set; }
+
+    /// <summary>
     /// Gets or sets the email client.
     /// </summary>
     [MailChimpJsonProperty("email_client")]

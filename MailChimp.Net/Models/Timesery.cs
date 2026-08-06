@@ -36,4 +36,10 @@ public class Timesery
     /// </summary>
     [MailChimpJsonProperty("unique_opens")]
     public int UniqueOpens { get; set; }
+
+    /// <summary>
+    /// Gets or sets the proxy excluded unique opens.
+    /// </summary>
+    [MailChimpJsonProperty("proxy_excluded_unique_opens")]
+    public int ProxyExcludedUniqueOpens { get; set; }
 }

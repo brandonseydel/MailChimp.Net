@@ -52,13 +52,19 @@ public class Open
     public bool VIP { get; set; }
 
     /// <summary>
-    /// Gets or sets the clicks.
+    /// Gets or sets the opens count.
     /// </summary>
     [MailChimpJsonProperty("opens_count")]
     public int OpensCount { get; set; }
 
     /// <summary>
-    /// Gets or sets the clicks.
+    /// Gets or sets the proxy excluded opens count.
+    /// </summary>
+    [MailChimpJsonProperty("proxy_excluded_opens_count")]
+    public int ProxyExcludedOpenCount { get; set; }
+
+    /// <summary>
+    /// Gets or sets the opens.
     /// </summary>
     [MailChimpJsonProperty("opens")]
     public TimeStamp[] Opens  { get; set; }

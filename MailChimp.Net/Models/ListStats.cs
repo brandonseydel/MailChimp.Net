@@ -36,4 +36,10 @@ public class ListStats
     /// </summary>
     [MailChimpJsonProperty("unsub_rate")]
     public double UnsubRate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the proxy excluded open rate.
+    /// </summary>
+    [MailChimpJsonProperty("proxy_excluded_open_rate")]
+    public double ProxyExcludedOpenRate { get; set; }
 }

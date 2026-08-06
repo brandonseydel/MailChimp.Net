@@ -32,7 +32,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyOriginatorKeyFile>MailChimp.Key.snk</AssemblyOriginatorKeyFile>
         <PackageId>MailChimp.Net.V3</PackageId>
-        <Version>6.0.0</Version>
+        <Version>6.0.1</Version>
         <Authors>Brandon Seydel</Authors>
         <Company>DevSquad</Company>
         <Product>MailChimp.Net.V3</Product>
@@ -45,6 +45,7 @@
         <RepositoryType>Git</RepositoryType>
         <NeutralLanguage />
         <PackageReleaseNotes>
+            6.0.1: URL-encode query values (fixes SearchAsync with + emails); EmailActivityReportRequest.Since; proxy-excluded open stats; Member SMS fields and Note contact_id; optimize MarketingPermissions fetch.
             6.0.0: Full Marketing API coverage; add net10.0 TFM; dual JSON (Newtonsoft on legacy TFMs, System.Text.Json only on net10.0); shared MailChimpJson* attributes; dependency bumps; breaking: WebHook.UpdateAsync now takes WebHook instead of MergeField.
         </PackageReleaseNotes>
         <PackageIconUrl>http://logos-download.com/wp-content/uploads/2016/09/MailChimp_logo_icon_Freddie_Wink.png</PackageIconUrl>
@@ -52,8 +53,8 @@
         <PackageLicenseUrl></PackageLicenseUrl>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-        <AssemblyVersion>6.0.0</AssemblyVersion>
-        <FileVersion>6.0.0</FileVersion>
+        <AssemblyVersion>6.0.1</AssemblyVersion>
+        <FileVersion>6.0.1</FileVersion>
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>

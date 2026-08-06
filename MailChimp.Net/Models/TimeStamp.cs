@@ -21,4 +21,10 @@ public class TimeStamp
     [MailChimpJsonProperty("timestamp")]
     public DateTime Timestamp { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the open was a proxy open.
+    /// </summary>
+    [MailChimpJsonProperty("is_proxy_open")]
+    public bool IsProxyOpen { get; set; }
+
 }

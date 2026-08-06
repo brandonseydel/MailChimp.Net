@@ -5,6 +5,7 @@ public class MemberSearchRequest : BaseRequest
     /// <summary>
     /// The search query used to filter results.
     /// </summary>
+    [QueryString("query")]
     public string Query { get; set; }
     /// <summary>
     /// The unique id for the list.

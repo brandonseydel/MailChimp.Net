@@ -496,14 +496,14 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<IEnumerable<EmailActivity>> GetEmailActivitiesAsync(
         string campaignId,
-        QueryableBaseRequest request = null, CancellationToken cancellationToken = default) 
+        QueryableBaseRequest request = null, CancellationToken cancellationToken = default)
         => (await GetEmailActivitiesResponseAsync(campaignId, request, cancellationToken).ConfigureAwait(false))?.EmailActivities;
 
     /// <summary>
     /// The get email activities async.
     /// </summary>
     /// <param name="request">
-    /// The request.
+    /// The request. Pass <see cref="EmailActivityReportRequest"/> to filter with <c>since</c>.
     /// </param>
     /// <param name="campaignId">
     /// The campaign id.
@@ -523,10 +523,10 @@ internal class ReportLogic : BaseLogic, IReportLogic
     /// <exception cref="NotSupportedException"><paramref name="element" /> is not a constructor, method, property, event, type, or field. </exception>
     /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded. </exception>
     public async Task<EmailResponse> GetEmailActivitiesResponseAsync(
-        string campaignId, QueryableBaseRequest 
+        string campaignId, QueryableBaseRequest
         request = null, CancellationToken cancellationToken = default)
     {
-        request ??= new QueryableBaseRequest
+        request ??= new EmailActivityReportRequest
         {
             Limit = _limit
         };

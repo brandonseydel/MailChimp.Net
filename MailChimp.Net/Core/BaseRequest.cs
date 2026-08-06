@@ -119,7 +119,7 @@ public class BaseRequest
                         return;
                     }
 
-                    sb.Append($"{propertyName}={value}");
+                    sb.Append($"{propertyName}={Uri.EscapeDataString(value.ToString())}");
                     secondProperty = true;
                 });
 

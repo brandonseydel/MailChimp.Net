@@ -57,6 +57,12 @@ namespace MailChimp.Net.Models;
 		public string ListId { get; set; }
 
 		/// <summary>
+		/// Gets or sets the contact id.
+		/// </summary>
+		[MailChimpJsonProperty("contact_id")]
+		public string ContactId { get; set; }
+
+		/// <summary>
 		/// Gets or sets the updated at.
 		/// </summary>
 		[MailChimpJsonProperty("updated_at")]
@@ -95,5 +101,11 @@ namespace MailChimp.Net.Models;
 		/// </summary>
 		[MailChimpJsonProperty("created_by")]
 		public string CreatedBy { get; set; }
+
+		/// <summary>
+		/// Gets or sets the contact id.
+		/// </summary>
+		[MailChimpJsonProperty("contact_id")]
+		public string ContactId { get; set; }
 
 	}

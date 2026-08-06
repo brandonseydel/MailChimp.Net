@@ -36,4 +36,22 @@ public class Opens
     /// </summary>
     [MailChimpJsonProperty("unique_opens")]
     public int UniqueOpens { get; set; }
+
+    /// <summary>
+    /// Gets or sets the proxy excluded opens.
+    /// </summary>
+    [MailChimpJsonProperty("proxy_excluded_opens")]
+    public int ProxyExcludedOpens { get; set; }
+
+    /// <summary>
+    /// Gets or sets the proxy excluded unique opens.
+    /// </summary>
+    [MailChimpJsonProperty("proxy_excluded_unique_opens")]
+    public int ProxyExcludedUniqueOpens { get; set; }
+
+    /// <summary>
+    /// Gets or sets the proxy excluded open rate.
+    /// </summary>
+    [MailChimpJsonProperty("proxy_excluded_open_rate")]
+    public double ProxyExcludedOpenRate { get; set; }
 }
