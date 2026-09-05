@@ -19,7 +19,48 @@ namespace MailChimp.Net.Core;
 internal sealed class MemberTagListSystemTextJsonConverter : JsonConverter<List<MemberTag>>
 {
     public override List<MemberTag> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        => throw new NotImplementedException();
+    {
+        if (reader.TokenType == JsonTokenType.Null)
+        {
+            return null;
+        }
+
+        if (reader.TokenType != JsonTokenType.StartArray)
+        {
+            throw new JsonException($"Unexpected token {reader.TokenType} when reading member tags, expected an array.");
+        }
+
+        var tags = new List<MemberTag>();
+        while (reader.Read())
+        {
+            switch (reader.TokenType)
+            {
+                case JsonTokenType.EndArray:
+                    return tags;
+
+                case JsonTokenType.Null:
+                    break;
+
+                case JsonTokenType.String:
+                    tags.Add(new MemberTag { Name = reader.GetString() });
+                    break;
+
+                case JsonTokenType.StartObject:
+                    var tag = JsonSerializer.Deserialize<MemberTag>(ref reader, options);
+                    if (tag != null)
+                    {
+                        tags.Add(tag);
+                    }
+
+                    break;
+
+                default:
+                    throw new JsonException($"Unexpected token {reader.TokenType} when reading a member tag.");
+            }
+        }
+
+        throw new JsonException("Unexpected end of JSON when reading member tags.");
+    }
 
     public override void Write(Utf8JsonWriter writer, List<MemberTag> value, JsonSerializerOptions options)
     {
