@@ -82,6 +82,18 @@ public class SerializationTests
     }
 
     /// <summary>
+    /// An empty tag array deserializes to an empty list.
+    /// </summary>
+    [Fact]
+    public void MemberTagsShouldDeserializeFromEmptyArray()
+    {
+        var json = """{ "tags": [] }""";
+        var member = MailChimpSerializer.Deserialize<Member>(json);
+
+        Assert.Empty(member.Tags);
+    }
+
+    /// <summary>
     /// A null tag list stays null rather than throwing.
     /// </summary>
     [Fact]
